@@ -10,13 +10,14 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>WebClientMultiSessionServlet</servlet-name>
-		<url-pattern>/wc</url-pattern>
+		<url-pattern>/wc/*</url-pattern>
 	</servlet-mapping>
 	<servlet>
 		<description>
 		</description>
 		<display-name>deeplink</display-name>
 		<servlet-name>deeplink</servlet-name>
+		<url-pattern>/deeplink/*</url-pattern>
 		<servlet-class>deeplink.deeplink</servlet-class>
 	</servlet>
 	<servlet-mapping>

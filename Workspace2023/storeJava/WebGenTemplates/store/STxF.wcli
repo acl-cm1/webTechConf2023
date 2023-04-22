@@ -1,0 +1,4558 @@
+/(!Panel:!EnableAction:Refresh,AddChild,UpdateChild,RemoveChild)
+
+/(!If:/(!Req:_type)=json)
+  /(ContentType:application/json)
+  
+  /(OutTo:json.main:comments=js)
+    /(!------------- Start expansion of !WebShell-root.json -----------------)
+function(json) {
+
+/(!Panel:!Action:Refresh)
+	
+		if (dialogreturn && dialogreturn(/(PNLID))) {
+			// fall thru
+		} else {
+			/(!If:/(!WEBSESSID))
+     		window.websessid = /(WEBSESSID);
+   	 		/(!If)
+			keepsess = true;
+			if(window.websessid){
+				location.replace(window.wsaction + "?websessid=" + window.websessid);
+			} else if (location.href != window.wsaction) {
+				location.replace(location.href);
+			} else {
+				location.replace(window.wsaction);
+			}
+			return;
+		}
+	
+/(!Panel:!Action)
+
+/(!Panel:!Action:EnableKeyboardEvent)
+	
+	/(!Panel:!NameID)_keymap[/(!ActionArg)] = /(!ActionArg);
+	
+/(!Panel:!Action)
+
+/(!Panel:!Action:DisableKeyboardEvent)
+	
+	delete /(!Panel:!NameID)_keymap[/(!ActionArg)];
+	
+/(!Panel:!Action)
+
+	var pnlid = /(PNLID);
+
+	/(!-- Begin attach point 'JS')
+	
+
+		var tooltipMsg = "";
+		var enquiryMsg = "";
+		
+		/(ALERTS)
+			var tooltipType = /(AlertType);
+			if (tooltipType == "enquiry") {
+				enquiryMsg = enquiryMsg + bldMsgText(/(Embed:html)/(AlertMsg)/(Embed)) + "<br>";
+			}
+			else{
+				tooltipMsg = tooltipMsg + bldMsgText(/(Embed:html)/(AlertMsg)/(Embed)) + "<br>";
+			}
+		/(ALERTS)
+		
+		/(!Panel:!Action:Alert)
+			tooltipMsg = tooltipMsg + bldMsgText(/(Embed:html)/(!ActionArg)/(Embed)) + "<br>";
+		/(!Panel:!Action)
+	
+		/(!Panel:!Action:Enquiry)
+			enquiryMsg = enquiryMsg + bldMsgText(/(Embed:html)/(!ActionArg)/(Embed)) + "<br>";
+		/(!Panel:!Action)
+		
+		if (enquiryMsg) {
+			var enqresp = function(resp) {
+				dojo.xhrPost({
+					form: /(!Panel:!NameID)_form,
+					content: { _type: 'json', enqact: resp, pnlid: /(!Panel:!NameID)_pnlid, websessid: window.websessid },
+					load: function(data, ioArgs) {
+						data.main(data);
+					},
+					handleAs: 'json',
+					preventCache: true
+				});
+			};
+		}
+	
+	  	/(!WebObStatic_STxF_3151:!Action:SetState)
+	  		
+	  		
+	  		var bgcolor = wcli.color.setColor("");
+	  		
+	  			
+	  		
+	  	/(!WebObStatic_STxF_3151:!Action)
+	  	
+	  	/(!WebObStatic_STxF_3151:!Action:SetText)
+	  		if (document.getElementById("/(!WebObStatic_STxF_3151:!NameID)")){
+	  			document.getElementById("txt-/(!WebObStatic_STxF_3151:!NameID)").innerHTML = "/(!WebObStatic_STxF_3151:!Text:tight:htmlbr)";
+	  		}
+	  	/(!WebObStatic_STxF_3151:!Action)
+	  	
+	  
+	  	/(!WebObLabel_STxF_3153:!Action:SetState)
+	  	
+	  	if (document.getElementById("/(!WebObLabel_STxF_3153:!NameID)")){
+	  		/(!If:/(!IsDefined:FixedPositioning))
+	  			/(!If:/(!WebObLabel_STxF_3153:!Property:Visible)=No)
+	  		    	document.getElementById("/(!WebObLabel_STxF_3153:!NameID)").style.display ="none";
+	      		/(!Else)
+	      			document.getElementById("/(!WebObLabel_STxF_3153:!NameID)").style.display ="block";
+	  			/(!If)
+	  			if( (sessionStorage.getItem(document.getElementById("/(!WebObLabel_STxF_3153:!NameID)").getAttribute("fncName")+"_isPopUp"))				
+	  				|| (document.getElementById("/(!WebObLabel_STxF_3153:!NameID)").getAttribute("fixbottom") === "No" && document.getElementById("/(!WebObLabel_STxF_3153:!NameID)").getAttribute("fixleft") === "No" && document.getElementById("/(!WebObLabel_STxF_3153:!NameID)").getAttribute("fixright") === "No" &&document.getElementById("/(!WebObLabel_STxF_3153:!NameID)").getAttribute("fixtop") === "No"))
+	  				wcli.util.XBrowser.setCSSText(document.getElementById("/(!WebObLabel_STxF_3153:!NameID)"), "         position: absolute;     left: 16px;     top: 12px;      z-index: 3;     width: 60px;   height: 20px;      /(!If:/(!WebObLabel_STxF_3153:!Property:Visible)=No)     display: none; /(!If)");
+	  		/(!Else)
+	  		wcli.util.XBrowser.setCSSText(document.getElementById("/(!WebObLabel_STxF_3153:!NameID)"), "         position: absolute;     left: 16px;     top: 12px;      z-index: 3;     width: 60px;   height: 20px;      /(!If:/(!WebObLabel_STxF_3153:!Property:Visible)=No)     display: none; /(!If)");
+	  		/(!If)
+	  	}
+	  	document.getElementById("/(!WebObLabel_STxF_3153:!NameID)").style.textAlign = "Left";
+	  	document.getElementById("/(!WebObLabel_STxF_3153:!NameID)").innerHTML = "/(!WebObLabel_STxF_3153:!Text:htmlbr)";
+	  	var bgcolor = wcli.color.setColor("");
+	  	
+	  		
+	  	
+	  	
+	  			wcli.form.Font.applyPlexFont(document.getElementById("/(!WebObLabel_STxF_3153:!NameID)"), "Regular 8  MS Sans Serif ");
+	  	
+	  	
+	  	/(!WebObLabel_STxF_3153:!Action)
+	  
+	  	/(!WebObLabel_STxF_3153:!Action:SetText)
+	  		if (document.getElementById("/(!WebObLabel_STxF_3153:!NameID)")){
+	  			document.getElementById("/(!WebObLabel_STxF_3153:!NameID)").innerHTML = "/(!WebObLabel_STxF_3153:!Text:htmlbr)";
+	  		}
+	  	/(!WebObLabel_STxF_3153:!Action)
+	  
+	    /(!ProdID3154:!Action:SetTooltip)       
+	    	wcli.util.XBrowser.setTooltip("/(!ProdID3154:!NameID)",/(!ActionArg));
+	    /(!ProdID3154:!Action)
+	    
+	    /(!ProdID3154:!Action:SetValue)
+	    	var formatvalue = wcli.form.getFormatValue("Char", "%ss10", 0, true, /(!ProdID3154), "Edit");
+	      	var mode = "Edit";
+	      
+	  
+	      
+	      	wcli.util.XBrowser.setValueEdit("/(!ProdID3154:!NameID)", mode, formatvalue, "Char", /(!ProdID3154), 0);
+	  	var editbox = wcli.util.XBrowser.querySelector("/(!ProdID3154:!NameID)");
+	  	editbox.maxLength = "10";
+	      
+	  	
+	    /(!ProdID3154:!Action)
+	  
+	    /(!ProdID3154:!Action:SetState)
+	      var w = dijit.byId("/(!ProdID3154:!NameID)");
+	      var editbox = wcli.util.XBrowser.querySelector("/(!ProdID3154:!NameID)");
+	      if (w) {
+	      	w.domNode.style.cssText = "         position: absolute;     left: 100px;     top: 12px;      z-index: 3;     width: 100px;   height: 20px;      /(!If:/(!ProdID3154:!Property:Visible)=No)     display: none; /(!If)";
+	      	w.textbox.style.cssText = "         position: absolute;     left: 100px;     top: 12px;      z-index: 3;     width: 100px;   height: 20px;      /(!If:/(!ProdID3154:!Property:Visible)=No)     display: none; /(!If)";
+	      	w.state = "";
+	      	w._setStateClass();
+	      	/(!If:/(!IsDefined:FieldErrorMode))
+	  			if (w.state == "Error" && tooltipMsg) {
+	  				w.displayMessage(tooltipMsg);
+	  				tooltipMsg = null;
+	  			}
+	  		/(!If)
+	      }
+	      if (editbox){
+	    		
+	  		
+	  		wcli.util.XBrowser.setCSSText(editbox, "         position: absolute;     left: 100px;     top: 12px;      z-index: 3;     width: 100px;   height: 20px;      /(!If:/(!ProdID3154:!Property:Visible)=No)     display: none; /(!If)");
+	  		
+	  		
+	  		
+	  	}
+	  	
+	  	
+	  	if(editbox){
+	  		var formatvalue = wcli.form.getFormatValue("Char", "%ss10", 0, true, /(!ProdID3154), "Edit");
+	  		editbox.value = formatvalue;
+	  	}
+	  	
+	  	
+	  	if(editbox){
+	  		wcli.form.Font.applyPlexFont(editbox, "Regular 8  MS Sans Serif ");
+	  	}
+	  	
+	  	
+	      
+	  	var dialogIsOpen;
+	  	if(editbox){
+	  		if (editbox.tagName=="DIV") {
+	  			var editsrc = wcli.util.XBrowser.newEdit("/(!ProdID3154:!NameID)","ProdID");
+	  			var edit = wcli.form.HintTextBox.prototype.markupFactory({
+	  				name: "/(!ProdID3154:!NameID)",
+	  				maxLength: "10",
+	  				style: "         position: absolute;     left: 100px;     top: 12px;      z-index: 3;     width: 100px;   height: 20px;      /(!If:/(!ProdID3154:!Property:Visible)=No)     display: none; /(!If)",
+	  				hintText: "",
+	  				dataType: "Char",
+	  				editMask: "%ss10",
+	  				uppercase: "true",
+	  				/(!If:/(!IsDefined:FixedPositioning))
+	  				
+					  fixBottom: "No",
+					  fixLeft: "Yes",
+					  fixRight: "No",
+					  fixTop: "Yes",
+					  panelWidth: "605",
+					  panelHeight: "159",
+					  
+					  ctrlWidth: "100", 
+					  ctrlHeight: "20",
+					  fncName: "/(!Panel:!NameID)",
+					  
+					  top: "12",
+					  
+					   
+					  
+					  
+					  
+	  				/(!If)
+	  				
+	  				constraints: {places:0,fractional:true}}, editsrc);
+	  					
+	  			edit.value = /(!ProdID3154);
+	  			
+	  			var formatvalue = wcli.form.getFormatValue("Char", "%ss10", 0, true, /(!ProdID3154), "Edit");
+	  			
+	  			if((dojo.isIE11 || dojo.isSafari) && (formatvalue.toString().length > 10)){
+	  				 edit.textbox.maxLength = edit.editMask.length;
+	  				 edit.textbox.value = formatvalue;
+	  			}
+	  			else{
+	  				 if(formatvalue != ""){
+	  					 edit.textbox.value = formatvalue;
+	  					 edit.textbox.maxLength = "10";
+	  				  }
+	  			}
+	  					
+	  			dojo.connect(edit, "onDblClick", function(evt) {
+	  				if(wcli.util.XBrowser.checkBorder(evt)){
+	  						return;
+	  				}
+	  				if (dijit.byId("/(!ProdID3154:!NameID)")){
+	  						dijit.byId("/(!ProdID3154:!NameID)")._onBlur();
+	  				}
+	  				
+	  				if (!window./(!Panel:!NameID)_submitter)
+					  	return;
+					  var doEventOp = function() {
+					  	if (window./(!Panel:!NameID)_submitter.onsubmit)
+					  		window./(!Panel:!NameID)_submitter.onsubmit();
+					  	dojo.xhrPost({
+					  		form: /(!Panel:!NameID)_form,
+					  		content: { _type: 'json', ctlact: '/(!ProdID3154:!NameID):Double Click', pnlid: /(!Panel:!NameID)_pnlid, focus: '/(!ProdID3154:!NameID)', websessid: window.websessid },
+					  		load: function(data, ioArgs) {
+					  		 //Code starts to manage session timeout in ajax requests.
+					  			var headerstring = ioArgs.xhr.getResponseHeader('Content-Type');
+					  			var headers = headerstring.split(';');
+					  			if (headers && (typeof data != 'object')) {
+					  				if (headers[0].toLowerCase() != 'text/json' && headers[0].toLowerCase() != 'application/json')
+					  					window.location.href = ioArgs.url;
+					  			}
+					  	           //Code ends to manage session timeout in ajax requests.    	
+					  			data.main(data);
+					  		},
+					  		preventCache: true,
+					  		handleAs: 'json'	
+					  	});
+					  };
+					  if (window.editGridWait) {
+					  	dojo.connect(window.editGridWait, 'onEditGridApplied', doEventOp);
+					  } else {
+					  	doEventOp();
+					  }
+	  				
+	  			});
+	  					
+	  			
+	  					
+	  			
+	  					
+	  			
+	  			if (dijit.byId("/(!ProdID3154:!NameID)")) {
+				  	(function() {
+				  		var ctl = dijit.byId("/(!ProdID3154:!NameID)");
+				  		var tb = ctl["textbox"];
+				  		
+				  		if (ctl.editEventsCalled) {
+				  			return;
+				  		}
+				  		ctl.editEventsCalled = true;
+				  
+				  		
+				  		var modified = dojo.hitch(ctl, function(e) {
+				  			if(e.keyCode == dojo.keys.TAB){
+				  		  	 	window.modifiedBlockFocus = true;
+				  				return;
+				  		    }
+				  		    window.modifiedBlockFocus = false;
+				  			this._changed = true;
+				  			ctl.value = ctl.textbox.value; 
+				  			
+				  		});
+				  		var modifiedIE = function(e) {
+				  			if (e.keyCode == dojo.keys.DELETE ||
+				  					e.keyCode == dojo.keys.BACKSPACE ||
+				  					e.keyCode >= 48 && e.keyCode <= 90 ||
+				  					e.keyCode >= 96 && e.keyCode <= 107 ||
+				  					e.keyCode >= 109 && e.keyCode <= 111
+				  					) {
+				  				return modified(e);
+				  			}
+				  		};
+				  		var updated = dojo.hitch(ctl, function(e) {
+				  			if (this._changed && !window.dialogIsOpen) {
+				  				
+				  					
+				  					if (!window./(!Panel:!NameID)_submitter)
+									  	return;
+									  var doEventOp = function() {
+									  	if (window./(!Panel:!NameID)_submitter.onsubmit)
+									  		window./(!Panel:!NameID)_submitter.onsubmit();
+									  	dojo.xhrPost({
+									  		form: /(!Panel:!NameID)_form,
+									  		content: { _type: 'json', ctlact: '/(!ProdID3154:!NameID):Updated', pnlid: /(!Panel:!NameID)_pnlid, focus: '/(!ProdID3154:!NameID)', websessid: window.websessid },
+									  		load: function(data, ioArgs) {
+									  		 //Code starts to manage session timeout in ajax requests.
+									  			var headerstring = ioArgs.xhr.getResponseHeader('Content-Type');
+									  			var headers = headerstring.split(';');
+									  			if (headers && (typeof data != 'object')) {
+									  				if (headers[0].toLowerCase() != 'text/json' && headers[0].toLowerCase() != 'application/json')
+									  					window.location.href = ioArgs.url;
+									  			}
+									  	           //Code ends to manage session timeout in ajax requests.    	
+									  			data.main(data);
+									  		},
+									  		preventCache: true,
+									  		handleAs: 'json'	
+									  	});
+									  };
+									  if (window.editGridWait) {
+									  	dojo.connect(window.editGridWait, 'onEditGridApplied', doEventOp);
+									  } else {
+									  	doEventOp();
+									  }
+				  					
+				  				
+				  				this._changed = false;
+				  			}
+				  		});
+				  		dojo.connect(ctl, "_onChange", ctl, updated);
+				  		if (dojo.isIE) {
+				  			dojo.connect(tb, "onpaste", ctl, modifiedIE);
+				  			dojo.connect(tb, "onkeyup", ctl, modifiedIE);
+				  		}
+				  		else {
+				  			dojo.connect(tb, "oninput", ctl, modified);
+				  		}
+				  		
+				  	})();
+				  }
+	  			
+	  		 }/(!If:/(!IsDefined:FixedPositioning))
+	  		 else{			
+	  				if(edit && edit.id != "/(!ProdID3154:!NameID)")
+	  					edit = null;
+	  		 }
+	  		 /(!If)	     	  	      	
+	  	}
+	  	
+	  
+	  				
+	  		
+	  	    
+	  	    
+	  	    
+	  		
+	  		
+	  				
+	      
+	          
+	      
+	      
+	                      
+	  		wcli.util.XBrowser.setCSSText(document.getElementById("/(!ProdID3154:!NameID)"), "         position: absolute;     left: 100px;     top: 12px;      z-index: 3;     width: 100px;   height: 20px;      /(!If:/(!ProdID3154:!Property:Visible)=No)     display: none; /(!If)line-height:20px; overflow: hidden; /(!If:/(!IsDefined:LabelAligned))/(!Else)margin-top:2px;/(!If)");
+	  	
+	  	
+	  	
+	  		
+	  			wcli.util.XBrowser.setIMEMode("/(!ProdID3154:!NameID)",-1);
+	  		
+	  	
+	  		
+	  	if (protectedEditBorder == true && dojo.isIE11) {			
+	  		wcli.util.XBrowser.setBGColor("5                     ","/(!ProdID3154:!NameID)", 100, 20);
+	  	}	
+	  	
+	  	/(!If:/(!IsDefined:FixedPositioning))
+	  		
+	  	var ableToResize = true;
+		  /(!If:/(!IsDefined:MinimumPanelRes))
+		  	ableToResize = wcli.util.XBrowser.isAbleToResize(/(MinimumPanelRes));
+		  /(!If)
+		  
+		  
+		  
+		  
+		  
+		  
+	  	
+	  		if(editbox && w && ableToResize === true){
+	  			wcli.util.XBrowser.addFixedPositionAttributes(w, 
+	  	
+		  
+		  {top: "12",ctrlWidth: "100", ctrlHeight: "20", fixBottom: "No",fixLeft: "Yes",fixRight: "No",fixTop: "Yes",panelWidth: "605",panelHeight: "159",fncName: "/(!Panel:!NameID)"}
+		  
+		  
+	  	);
+	  			wcli.util.XBrowser.addFixedPositionAttributes(editbox, 
+	  	
+		  
+		  {top: "12",ctrlWidth: "100", ctrlHeight: "20", fixBottom: "No",fixLeft: "Yes",fixRight: "No",fixTop: "Yes",panelWidth: "605",panelHeight: "159",fncName: "/(!Panel:!NameID)"}
+		  
+		  
+	  	);
+	  			wcli.util.XBrowser.addFixedPositionAttributes(document.getElementById("/(!ProdID3154:!NameID)"), 
+	  	
+		  
+		  {top: "12",ctrlWidth: "100", ctrlHeight: "20", fixBottom: "No",fixLeft: "Yes",fixRight: "No",fixTop: "Yes",panelWidth: "605",panelHeight: "159",fncName: "/(!Panel:!NameID)"}
+		  
+		  
+	  	);			
+	  		}
+	  	/(!If)
+	  
+	  	
+	  	
+	  	
+	  		
+	      	wcli.util.XBrowser.setBGColor("5                     ","/(!ProdID3154:!NameID)");
+	  		
+	  		
+	  		
+	  			
+	  		
+	  		/(!If:/(!IsDefined:FixedPositioning))
+	  		if(ableToResize === true){
+	  			if(edit){
+	  				wcli.util.XBrowser.resizeDiv(edit.domNode,edit,false);			
+	  			} else {
+	  				wcli.util.XBrowser.resizeDiv(w.domNode,w,false);
+	  			}
+	  		}		
+	  		setTimeout(function(){
+	  			if (typeof /(!ProdID3154:!NameID)_DefaultResizeEdit === "undefined" && ableToResize === true){
+	  		    	/(!ProdID3154:!NameID)_DefaultResizeEdit = dojo.connect(window, "onresize", function(){	    		
+	  					var dijitObj = dijit.byId("/(!ProdID3154:!NameID)");
+	  					if(dijitObj && dijitObj.domNode){
+	  						wcli.util.XBrowser.resizeDiv(dijitObj.domNode,dijitObj,true);
+	  					}
+	  				});
+	  			}
+	      	}, 300);      
+	  		
+	  	/(!If)
+	  	
+	  	
+	  	/(!If:/(!IsDefined:HintValue))	
+	  		if(/(!ProdID3154:!NameID)HintValue){
+	  			if(dijit.byId("/(!ProdID3154:!NameID)")){
+	  				dijit.byId("/(!ProdID3154:!NameID)").domNode.setAttribute('title', /(!ProdID3154:!NameID)HintValue);
+	  			}
+	  			else if(document.getElementById("/(!ProdID3154:!NameID)")){
+	  				document.getElementById("/(!ProdID3154:!NameID)").setAttribute('title', /(!ProdID3154:!NameID)HintValue);
+	  			}
+	  		}	
+	  	/(!If)
+	  
+	  			
+	  		if ((editbox && editbox.tagName == "INPUT") || true==true) {
+	  			if (wcli.util.XBrowser.querySelector("/(!ProdID3154:!NameID)")){ 
+	  				wcli.form.Font.applyPlexFont(wcli.util.XBrowser.querySelector("/(!ProdID3154:!NameID)"), "Regular 8  MS Sans Serif ");
+	  			}
+	  		} else if (editbox.tagName == "DIV") {
+	  			wcli.form.Font.applyPlexFont(editbox, "Regular 8  MS Sans Serif ");
+	  		}				
+	  		
+	  	
+	  	
+	    /(!ProdID3154:!Action)
+	    
+	  
+	  	/(!WebObLabel_STxF_3156:!Action:SetState)
+	  	
+	  	if (document.getElementById("/(!WebObLabel_STxF_3156:!NameID)")){
+	  		/(!If:/(!IsDefined:FixedPositioning))
+	  			/(!If:/(!WebObLabel_STxF_3156:!Property:Visible)=No)
+	  		    	document.getElementById("/(!WebObLabel_STxF_3156:!NameID)").style.display ="none";
+	      		/(!Else)
+	      			document.getElementById("/(!WebObLabel_STxF_3156:!NameID)").style.display ="block";
+	  			/(!If)
+	  			if( (sessionStorage.getItem(document.getElementById("/(!WebObLabel_STxF_3156:!NameID)").getAttribute("fncName")+"_isPopUp"))				
+	  				|| (document.getElementById("/(!WebObLabel_STxF_3156:!NameID)").getAttribute("fixbottom") === "No" && document.getElementById("/(!WebObLabel_STxF_3156:!NameID)").getAttribute("fixleft") === "No" && document.getElementById("/(!WebObLabel_STxF_3156:!NameID)").getAttribute("fixright") === "No" &&document.getElementById("/(!WebObLabel_STxF_3156:!NameID)").getAttribute("fixtop") === "No"))
+	  				wcli.util.XBrowser.setCSSText(document.getElementById("/(!WebObLabel_STxF_3156:!NameID)"), "         position: absolute;     left: 16px;     top: 36px;      z-index: 3;     width: 64px;   height: 20px;      /(!If:/(!WebObLabel_STxF_3156:!Property:Visible)=No)     display: none; /(!If)");
+	  		/(!Else)
+	  		wcli.util.XBrowser.setCSSText(document.getElementById("/(!WebObLabel_STxF_3156:!NameID)"), "         position: absolute;     left: 16px;     top: 36px;      z-index: 3;     width: 64px;   height: 20px;      /(!If:/(!WebObLabel_STxF_3156:!Property:Visible)=No)     display: none; /(!If)");
+	  		/(!If)
+	  	}
+	  	document.getElementById("/(!WebObLabel_STxF_3156:!NameID)").style.textAlign = "Left";
+	  	document.getElementById("/(!WebObLabel_STxF_3156:!NameID)").innerHTML = "/(!WebObLabel_STxF_3156:!Text:htmlbr)";
+	  	var bgcolor = wcli.color.setColor("");
+	  	
+	  		
+	  	
+	  	
+	  			wcli.form.Font.applyPlexFont(document.getElementById("/(!WebObLabel_STxF_3156:!NameID)"), "Regular 8  MS Sans Serif ");
+	  	
+	  	
+	  	/(!WebObLabel_STxF_3156:!Action)
+	  
+	  	/(!WebObLabel_STxF_3156:!Action:SetText)
+	  		if (document.getElementById("/(!WebObLabel_STxF_3156:!NameID)")){
+	  			document.getElementById("/(!WebObLabel_STxF_3156:!NameID)").innerHTML = "/(!WebObLabel_STxF_3156:!Text:htmlbr)";
+	  		}
+	  	/(!WebObLabel_STxF_3156:!Action)
+	  
+	    /(!CustID3157:!Action:SetTooltip)       
+	    	wcli.util.XBrowser.setTooltip("/(!CustID3157:!NameID)",/(!ActionArg));
+	    /(!CustID3157:!Action)
+	    
+	    /(!CustID3157:!Action:SetValue)
+	    	var formatvalue = wcli.form.getFormatValue("Char", "%ss10", 0, true, /(!CustID3157), "Edit");
+	      	var mode = "Edit";
+	      
+	  
+	      
+	      	wcli.util.XBrowser.setValueEdit("/(!CustID3157:!NameID)", mode, formatvalue, "Char", /(!CustID3157), 0);
+	  	var editbox = wcli.util.XBrowser.querySelector("/(!CustID3157:!NameID)");
+	  	editbox.maxLength = "10";
+	      
+	  	
+	    /(!CustID3157:!Action)
+	  
+	    /(!CustID3157:!Action:SetState)
+	      var w = dijit.byId("/(!CustID3157:!NameID)");
+	      var editbox = wcli.util.XBrowser.querySelector("/(!CustID3157:!NameID)");
+	      if (w) {
+	      	w.domNode.style.cssText = "         position: absolute;     left: 100px;     top: 36px;      z-index: 3;     width: 100px;   height: 20px;      /(!If:/(!CustID3157:!Property:Visible)=No)     display: none; /(!If)";
+	      	w.textbox.style.cssText = "         position: absolute;     left: 100px;     top: 36px;      z-index: 3;     width: 100px;   height: 20px;      /(!If:/(!CustID3157:!Property:Visible)=No)     display: none; /(!If)";
+	      	w.state = "";
+	      	w._setStateClass();
+	      	/(!If:/(!IsDefined:FieldErrorMode))
+	  			if (w.state == "Error" && tooltipMsg) {
+	  				w.displayMessage(tooltipMsg);
+	  				tooltipMsg = null;
+	  			}
+	  		/(!If)
+	      }
+	      if (editbox){
+	    		
+	  		
+	  		wcli.util.XBrowser.setCSSText(editbox, "         position: absolute;     left: 100px;     top: 36px;      z-index: 3;     width: 100px;   height: 20px;      /(!If:/(!CustID3157:!Property:Visible)=No)     display: none; /(!If)");
+	  		
+	  		
+	  		
+	  	}
+	  	
+	  	
+	  	if(editbox){
+	  		var formatvalue = wcli.form.getFormatValue("Char", "%ss10", 0, true, /(!CustID3157), "Edit");
+	  		editbox.value = formatvalue;
+	  	}
+	  	
+	  	
+	  	if(editbox){
+	  		wcli.form.Font.applyPlexFont(editbox, "Regular 8  MS Sans Serif ");
+	  	}
+	  	
+	  	
+	      
+	  	var dialogIsOpen;
+	  	if(editbox){
+	  		if (editbox.tagName=="DIV") {
+	  			var editsrc = wcli.util.XBrowser.newEdit("/(!CustID3157:!NameID)","CustID");
+	  			var edit = wcli.form.HintTextBox.prototype.markupFactory({
+	  				name: "/(!CustID3157:!NameID)",
+	  				maxLength: "10",
+	  				style: "         position: absolute;     left: 100px;     top: 36px;      z-index: 3;     width: 100px;   height: 20px;      /(!If:/(!CustID3157:!Property:Visible)=No)     display: none; /(!If)",
+	  				hintText: "",
+	  				dataType: "Char",
+	  				editMask: "%ss10",
+	  				uppercase: "true",
+	  				/(!If:/(!IsDefined:FixedPositioning))
+	  				
+					  fixBottom: "No",
+					  fixLeft: "Yes",
+					  fixRight: "No",
+					  fixTop: "Yes",
+					  panelWidth: "605",
+					  panelHeight: "159",
+					  
+					  ctrlWidth: "100", 
+					  ctrlHeight: "20",
+					  fncName: "/(!Panel:!NameID)",
+					  
+					  top: "36",
+					  
+					   
+					  
+					  
+					  
+	  				/(!If)
+	  				
+	  				constraints: {places:0,fractional:true}}, editsrc);
+	  					
+	  			edit.value = /(!CustID3157);
+	  			
+	  			var formatvalue = wcli.form.getFormatValue("Char", "%ss10", 0, true, /(!CustID3157), "Edit");
+	  			
+	  			if((dojo.isIE11 || dojo.isSafari) && (formatvalue.toString().length > 10)){
+	  				 edit.textbox.maxLength = edit.editMask.length;
+	  				 edit.textbox.value = formatvalue;
+	  			}
+	  			else{
+	  				 if(formatvalue != ""){
+	  					 edit.textbox.value = formatvalue;
+	  					 edit.textbox.maxLength = "10";
+	  				  }
+	  			}
+	  					
+	  			dojo.connect(edit, "onDblClick", function(evt) {
+	  				if(wcli.util.XBrowser.checkBorder(evt)){
+	  						return;
+	  				}
+	  				if (dijit.byId("/(!CustID3157:!NameID)")){
+	  						dijit.byId("/(!CustID3157:!NameID)")._onBlur();
+	  				}
+	  				
+	  				if (!window./(!Panel:!NameID)_submitter)
+					  	return;
+					  var doEventOp = function() {
+					  	if (window./(!Panel:!NameID)_submitter.onsubmit)
+					  		window./(!Panel:!NameID)_submitter.onsubmit();
+					  	dojo.xhrPost({
+					  		form: /(!Panel:!NameID)_form,
+					  		content: { _type: 'json', ctlact: '/(!CustID3157:!NameID):Double Click', pnlid: /(!Panel:!NameID)_pnlid, focus: '/(!CustID3157:!NameID)', websessid: window.websessid },
+					  		load: function(data, ioArgs) {
+					  		 //Code starts to manage session timeout in ajax requests.
+					  			var headerstring = ioArgs.xhr.getResponseHeader('Content-Type');
+					  			var headers = headerstring.split(';');
+					  			if (headers && (typeof data != 'object')) {
+					  				if (headers[0].toLowerCase() != 'text/json' && headers[0].toLowerCase() != 'application/json')
+					  					window.location.href = ioArgs.url;
+					  			}
+					  	           //Code ends to manage session timeout in ajax requests.    	
+					  			data.main(data);
+					  		},
+					  		preventCache: true,
+					  		handleAs: 'json'	
+					  	});
+					  };
+					  if (window.editGridWait) {
+					  	dojo.connect(window.editGridWait, 'onEditGridApplied', doEventOp);
+					  } else {
+					  	doEventOp();
+					  }
+	  				
+	  			});
+	  					
+	  			
+	  					
+	  			
+	  					
+	  			
+	  			if (dijit.byId("/(!CustID3157:!NameID)")) {
+				  	(function() {
+				  		var ctl = dijit.byId("/(!CustID3157:!NameID)");
+				  		var tb = ctl["textbox"];
+				  		
+				  		if (ctl.editEventsCalled) {
+				  			return;
+				  		}
+				  		ctl.editEventsCalled = true;
+				  
+				  		
+				  		var modified = dojo.hitch(ctl, function(e) {
+				  			if(e.keyCode == dojo.keys.TAB){
+				  		  	 	window.modifiedBlockFocus = true;
+				  				return;
+				  		    }
+				  		    window.modifiedBlockFocus = false;
+				  			this._changed = true;
+				  			ctl.value = ctl.textbox.value; 
+				  			
+				  		});
+				  		var modifiedIE = function(e) {
+				  			if (e.keyCode == dojo.keys.DELETE ||
+				  					e.keyCode == dojo.keys.BACKSPACE ||
+				  					e.keyCode >= 48 && e.keyCode <= 90 ||
+				  					e.keyCode >= 96 && e.keyCode <= 107 ||
+				  					e.keyCode >= 109 && e.keyCode <= 111
+				  					) {
+				  				return modified(e);
+				  			}
+				  		};
+				  		var updated = dojo.hitch(ctl, function(e) {
+				  			if (this._changed && !window.dialogIsOpen) {
+				  				
+				  					
+				  					if (!window./(!Panel:!NameID)_submitter)
+									  	return;
+									  var doEventOp = function() {
+									  	if (window./(!Panel:!NameID)_submitter.onsubmit)
+									  		window./(!Panel:!NameID)_submitter.onsubmit();
+									  	dojo.xhrPost({
+									  		form: /(!Panel:!NameID)_form,
+									  		content: { _type: 'json', ctlact: '/(!CustID3157:!NameID):Updated', pnlid: /(!Panel:!NameID)_pnlid, focus: '/(!CustID3157:!NameID)', websessid: window.websessid },
+									  		load: function(data, ioArgs) {
+									  		 //Code starts to manage session timeout in ajax requests.
+									  			var headerstring = ioArgs.xhr.getResponseHeader('Content-Type');
+									  			var headers = headerstring.split(';');
+									  			if (headers && (typeof data != 'object')) {
+									  				if (headers[0].toLowerCase() != 'text/json' && headers[0].toLowerCase() != 'application/json')
+									  					window.location.href = ioArgs.url;
+									  			}
+									  	           //Code ends to manage session timeout in ajax requests.    	
+									  			data.main(data);
+									  		},
+									  		preventCache: true,
+									  		handleAs: 'json'	
+									  	});
+									  };
+									  if (window.editGridWait) {
+									  	dojo.connect(window.editGridWait, 'onEditGridApplied', doEventOp);
+									  } else {
+									  	doEventOp();
+									  }
+				  					
+				  				
+				  				this._changed = false;
+				  			}
+				  		});
+				  		dojo.connect(ctl, "_onChange", ctl, updated);
+				  		if (dojo.isIE) {
+				  			dojo.connect(tb, "onpaste", ctl, modifiedIE);
+				  			dojo.connect(tb, "onkeyup", ctl, modifiedIE);
+				  		}
+				  		else {
+				  			dojo.connect(tb, "oninput", ctl, modified);
+				  		}
+				  		
+				  	})();
+				  }
+	  			
+	  		 }/(!If:/(!IsDefined:FixedPositioning))
+	  		 else{			
+	  				if(edit && edit.id != "/(!CustID3157:!NameID)")
+	  					edit = null;
+	  		 }
+	  		 /(!If)	     	  	      	
+	  	}
+	  	
+	  
+	  				
+	  		
+	  	    
+	  	    
+	  	    
+	  		
+	  		
+	  				
+	      
+	          
+	      
+	      
+	                      
+	  		wcli.util.XBrowser.setCSSText(document.getElementById("/(!CustID3157:!NameID)"), "         position: absolute;     left: 100px;     top: 36px;      z-index: 3;     width: 100px;   height: 20px;      /(!If:/(!CustID3157:!Property:Visible)=No)     display: none; /(!If)line-height:20px; overflow: hidden; /(!If:/(!IsDefined:LabelAligned))/(!Else)margin-top:2px;/(!If)");
+	  	
+	  	
+	  	
+	  		
+	  			wcli.util.XBrowser.setIMEMode("/(!CustID3157:!NameID)",-1);
+	  		
+	  	
+	  		
+	  	if (protectedEditBorder == true && dojo.isIE11) {			
+	  		wcli.util.XBrowser.setBGColor("5                     ","/(!CustID3157:!NameID)", 100, 20);
+	  	}	
+	  	
+	  	/(!If:/(!IsDefined:FixedPositioning))
+	  		
+	  	var ableToResize = true;
+		  /(!If:/(!IsDefined:MinimumPanelRes))
+		  	ableToResize = wcli.util.XBrowser.isAbleToResize(/(MinimumPanelRes));
+		  /(!If)
+		  
+		  
+		  
+		  
+		  
+		  
+	  	
+	  		if(editbox && w && ableToResize === true){
+	  			wcli.util.XBrowser.addFixedPositionAttributes(w, 
+	  	
+		  
+		  {top: "36",ctrlWidth: "100", ctrlHeight: "20", fixBottom: "No",fixLeft: "Yes",fixRight: "No",fixTop: "Yes",panelWidth: "605",panelHeight: "159",fncName: "/(!Panel:!NameID)"}
+		  
+		  
+	  	);
+	  			wcli.util.XBrowser.addFixedPositionAttributes(editbox, 
+	  	
+		  
+		  {top: "36",ctrlWidth: "100", ctrlHeight: "20", fixBottom: "No",fixLeft: "Yes",fixRight: "No",fixTop: "Yes",panelWidth: "605",panelHeight: "159",fncName: "/(!Panel:!NameID)"}
+		  
+		  
+	  	);
+	  			wcli.util.XBrowser.addFixedPositionAttributes(document.getElementById("/(!CustID3157:!NameID)"), 
+	  	
+		  
+		  {top: "36",ctrlWidth: "100", ctrlHeight: "20", fixBottom: "No",fixLeft: "Yes",fixRight: "No",fixTop: "Yes",panelWidth: "605",panelHeight: "159",fncName: "/(!Panel:!NameID)"}
+		  
+		  
+	  	);			
+	  		}
+	  	/(!If)
+	  
+	  	
+	  	
+	  	
+	  		
+	      	wcli.util.XBrowser.setBGColor("5                     ","/(!CustID3157:!NameID)");
+	  		
+	  		
+	  		
+	  			
+	  		
+	  		/(!If:/(!IsDefined:FixedPositioning))
+	  		if(ableToResize === true){
+	  			if(edit){
+	  				wcli.util.XBrowser.resizeDiv(edit.domNode,edit,false);			
+	  			} else {
+	  				wcli.util.XBrowser.resizeDiv(w.domNode,w,false);
+	  			}
+	  		}		
+	  		setTimeout(function(){
+	  			if (typeof /(!CustID3157:!NameID)_DefaultResizeEdit === "undefined" && ableToResize === true){
+	  		    	/(!CustID3157:!NameID)_DefaultResizeEdit = dojo.connect(window, "onresize", function(){	    		
+	  					var dijitObj = dijit.byId("/(!CustID3157:!NameID)");
+	  					if(dijitObj && dijitObj.domNode){
+	  						wcli.util.XBrowser.resizeDiv(dijitObj.domNode,dijitObj,true);
+	  					}
+	  				});
+	  			}
+	      	}, 300);      
+	  		
+	  	/(!If)
+	  	
+	  	
+	  	/(!If:/(!IsDefined:HintValue))	
+	  		if(/(!CustID3157:!NameID)HintValue){
+	  			if(dijit.byId("/(!CustID3157:!NameID)")){
+	  				dijit.byId("/(!CustID3157:!NameID)").domNode.setAttribute('title', /(!CustID3157:!NameID)HintValue);
+	  			}
+	  			else if(document.getElementById("/(!CustID3157:!NameID)")){
+	  				document.getElementById("/(!CustID3157:!NameID)").setAttribute('title', /(!CustID3157:!NameID)HintValue);
+	  			}
+	  		}	
+	  	/(!If)
+	  
+	  			
+	  		if ((editbox && editbox.tagName == "INPUT") || true==true) {
+	  			if (wcli.util.XBrowser.querySelector("/(!CustID3157:!NameID)")){ 
+	  				wcli.form.Font.applyPlexFont(wcli.util.XBrowser.querySelector("/(!CustID3157:!NameID)"), "Regular 8  MS Sans Serif ");
+	  			}
+	  		} else if (editbox.tagName == "DIV") {
+	  			wcli.form.Font.applyPlexFont(editbox, "Regular 8  MS Sans Serif ");
+	  		}				
+	  		
+	  	
+	  	
+	    /(!CustID3157:!Action)
+	    
+	  
+	  	/(!WebObLabel_STxF_3159:!Action:SetState)
+	  	
+	  	if (document.getElementById("/(!WebObLabel_STxF_3159:!NameID)")){
+	  		/(!If:/(!IsDefined:FixedPositioning))
+	  			/(!If:/(!WebObLabel_STxF_3159:!Property:Visible)=No)
+	  		    	document.getElementById("/(!WebObLabel_STxF_3159:!NameID)").style.display ="none";
+	      		/(!Else)
+	      			document.getElementById("/(!WebObLabel_STxF_3159:!NameID)").style.display ="block";
+	  			/(!If)
+	  			if( (sessionStorage.getItem(document.getElementById("/(!WebObLabel_STxF_3159:!NameID)").getAttribute("fncName")+"_isPopUp"))				
+	  				|| (document.getElementById("/(!WebObLabel_STxF_3159:!NameID)").getAttribute("fixbottom") === "No" && document.getElementById("/(!WebObLabel_STxF_3159:!NameID)").getAttribute("fixleft") === "No" && document.getElementById("/(!WebObLabel_STxF_3159:!NameID)").getAttribute("fixright") === "No" &&document.getElementById("/(!WebObLabel_STxF_3159:!NameID)").getAttribute("fixtop") === "No"))
+	  				wcli.util.XBrowser.setCSSText(document.getElementById("/(!WebObLabel_STxF_3159:!NameID)"), "         position: absolute;     left: 16px;     top: 60px;      z-index: 3;     width: 52px;   height: 20px;      /(!If:/(!WebObLabel_STxF_3159:!Property:Visible)=No)     display: none; /(!If)");
+	  		/(!Else)
+	  		wcli.util.XBrowser.setCSSText(document.getElementById("/(!WebObLabel_STxF_3159:!NameID)"), "         position: absolute;     left: 16px;     top: 60px;      z-index: 3;     width: 52px;   height: 20px;      /(!If:/(!WebObLabel_STxF_3159:!Property:Visible)=No)     display: none; /(!If)");
+	  		/(!If)
+	  	}
+	  	document.getElementById("/(!WebObLabel_STxF_3159:!NameID)").style.textAlign = "Left";
+	  	document.getElementById("/(!WebObLabel_STxF_3159:!NameID)").innerHTML = "/(!WebObLabel_STxF_3159:!Text:htmlbr)";
+	  	var bgcolor = wcli.color.setColor("");
+	  	
+	  		
+	  	
+	  	
+	  			wcli.form.Font.applyPlexFont(document.getElementById("/(!WebObLabel_STxF_3159:!NameID)"), "Regular 8  MS Sans Serif ");
+	  	
+	  	
+	  	/(!WebObLabel_STxF_3159:!Action)
+	  
+	  	/(!WebObLabel_STxF_3159:!Action:SetText)
+	  		if (document.getElementById("/(!WebObLabel_STxF_3159:!NameID)")){
+	  			document.getElementById("/(!WebObLabel_STxF_3159:!NameID)").innerHTML = "/(!WebObLabel_STxF_3159:!Text:htmlbr)";
+	  		}
+	  	/(!WebObLabel_STxF_3159:!Action)
+	  
+	    /(!OrderQty3160:!Action:SetTooltip)       
+	    	wcli.util.XBrowser.setTooltip("/(!OrderQty3160:!NameID)",/(!ActionArg));
+	    /(!OrderQty3160:!Action)
+	    
+	    /(!OrderQty3160:!Action:SetValue)
+	    	var formatvalue = wcli.form.getFormatValue("Integer", "###0", 0, true, /(!OrderQty3160), "Edit");
+	      	var mode = "Edit";
+	      
+	  
+	      
+	      	wcli.util.XBrowser.setValueEdit("/(!OrderQty3160:!NameID)", mode, formatvalue, "Integer", /(!OrderQty3160), 0);
+	  	var editbox = wcli.util.XBrowser.querySelector("/(!OrderQty3160:!NameID)");
+	  	editbox.maxLength = "4";
+	      
+	  	
+	    /(!OrderQty3160:!Action)
+	  
+	    /(!OrderQty3160:!Action:SetState)
+	      var w = dijit.byId("/(!OrderQty3160:!NameID)");
+	      var editbox = wcli.util.XBrowser.querySelector("/(!OrderQty3160:!NameID)");
+	      if (w) {
+	      	w.domNode.style.cssText = "         position: absolute;     left: 100px;     top: 60px;      z-index: 3;     width: 48px;   height: 20px;      /(!If:/(!OrderQty3160:!Property:Visible)=No)     display: none; /(!If)";
+	      	w.textbox.style.cssText = "         position: absolute;     left: 100px;     top: 60px;      z-index: 3;     width: 48px;   height: 20px;      /(!If:/(!OrderQty3160:!Property:Visible)=No)     display: none; /(!If)";
+	      	w.state = "";
+	      	w._setStateClass();
+	      	/(!If:/(!IsDefined:FieldErrorMode))
+	  			if (w.state == "Error" && tooltipMsg) {
+	  				w.displayMessage(tooltipMsg);
+	  				tooltipMsg = null;
+	  			}
+	  		/(!If)
+	      }
+	      if (editbox){
+	    		
+	  		
+	  		wcli.util.XBrowser.setCSSText(editbox, "         position: absolute;     left: 100px;     top: 60px;      z-index: 3;     width: 48px;   height: 20px;      /(!If:/(!OrderQty3160:!Property:Visible)=No)     display: none; /(!If)");
+	  		
+	  		
+	  		
+	  	}
+	  	
+	  	
+	  	if(editbox){
+	  		var formatvalue = wcli.form.getFormatValue("Integer", "###0", 0, true, /(!OrderQty3160), "Edit");
+	  		editbox.value = formatvalue;
+	  	}
+	  	
+	  	
+	  	if(editbox){
+	  		wcli.form.Font.applyPlexFont(editbox, "Regular 8  MS Sans Serif ");
+	  	}
+	  	
+	  	
+	      
+	  	var dialogIsOpen;
+	  	if(editbox){
+	  		if (editbox.tagName=="DIV") {
+	  			var editsrc = wcli.util.XBrowser.newEdit("/(!OrderQty3160:!NameID)","OrderQty");
+	  			var edit = wcli.form.HintTextBox.prototype.markupFactory({
+	  				name: "/(!OrderQty3160:!NameID)",
+	  				maxLength: "4",
+	  				style: "         position: absolute;     left: 100px;     top: 60px;      z-index: 3;     width: 48px;   height: 20px;      /(!If:/(!OrderQty3160:!Property:Visible)=No)     display: none; /(!If)",
+	  				hintText: "",
+	  				dataType: "Integer",
+	  				editMask: "###0",
+	  				uppercase: "false",
+	  				/(!If:/(!IsDefined:FixedPositioning))
+	  				
+					  fixBottom: "No",
+					  fixLeft: "Yes",
+					  fixRight: "No",
+					  fixTop: "Yes",
+					  panelWidth: "605",
+					  panelHeight: "159",
+					  
+					  ctrlWidth: "48", 
+					  ctrlHeight: "20",
+					  fncName: "/(!Panel:!NameID)",
+					  
+					  top: "60",
+					  
+					   
+					  
+					  
+					  
+	  				/(!If)
+	  				
+	  				constraints: {places:0,fractional:true}}, editsrc);
+	  					
+	  			edit.value = /(!OrderQty3160);
+	  			
+	  			var formatvalue = wcli.form.getFormatValue("Integer", "###0", 0, true, /(!OrderQty3160), "Edit");
+	  			
+	  			if((dojo.isIE11 || dojo.isSafari) && (formatvalue.toString().length > 4)){
+	  				 edit.textbox.maxLength = edit.editMask.length;
+	  				 edit.textbox.value = formatvalue;
+	  			}
+	  			else{
+	  				 if(formatvalue != ""){
+	  					 edit.textbox.value = formatvalue;
+	  					 edit.textbox.maxLength = "4";
+	  				  }
+	  			}
+	  					
+	  			dojo.connect(edit, "onDblClick", function(evt) {
+	  				if(wcli.util.XBrowser.checkBorder(evt)){
+	  						return;
+	  				}
+	  				if (dijit.byId("/(!OrderQty3160:!NameID)")){
+	  						dijit.byId("/(!OrderQty3160:!NameID)")._onBlur();
+	  				}
+	  				
+	  				if (!window./(!Panel:!NameID)_submitter)
+					  	return;
+					  var doEventOp = function() {
+					  	if (window./(!Panel:!NameID)_submitter.onsubmit)
+					  		window./(!Panel:!NameID)_submitter.onsubmit();
+					  	dojo.xhrPost({
+					  		form: /(!Panel:!NameID)_form,
+					  		content: { _type: 'json', ctlact: '/(!OrderQty3160:!NameID):Double Click', pnlid: /(!Panel:!NameID)_pnlid, focus: '/(!OrderQty3160:!NameID)', websessid: window.websessid },
+					  		load: function(data, ioArgs) {
+					  		 //Code starts to manage session timeout in ajax requests.
+					  			var headerstring = ioArgs.xhr.getResponseHeader('Content-Type');
+					  			var headers = headerstring.split(';');
+					  			if (headers && (typeof data != 'object')) {
+					  				if (headers[0].toLowerCase() != 'text/json' && headers[0].toLowerCase() != 'application/json')
+					  					window.location.href = ioArgs.url;
+					  			}
+					  	           //Code ends to manage session timeout in ajax requests.    	
+					  			data.main(data);
+					  		},
+					  		preventCache: true,
+					  		handleAs: 'json'	
+					  	});
+					  };
+					  if (window.editGridWait) {
+					  	dojo.connect(window.editGridWait, 'onEditGridApplied', doEventOp);
+					  } else {
+					  	doEventOp();
+					  }
+	  				
+	  			});
+	  					
+	  			
+	  					
+	  			
+	  					
+	  			
+	  			if (dijit.byId("/(!OrderQty3160:!NameID)")) {
+				  	(function() {
+				  		var ctl = dijit.byId("/(!OrderQty3160:!NameID)");
+				  		var tb = ctl["textbox"];
+				  		
+				  		if (ctl.editEventsCalled) {
+				  			return;
+				  		}
+				  		ctl.editEventsCalled = true;
+				  
+				  		
+				  		var modified = dojo.hitch(ctl, function(e) {
+				  			if(e.keyCode == dojo.keys.TAB){
+				  		  	 	window.modifiedBlockFocus = true;
+				  				return;
+				  		    }
+				  		    window.modifiedBlockFocus = false;
+				  			this._changed = true;
+				  			ctl.value = ctl.textbox.value; 
+				  			
+				  		});
+				  		var modifiedIE = function(e) {
+				  			if (e.keyCode == dojo.keys.DELETE ||
+				  					e.keyCode == dojo.keys.BACKSPACE ||
+				  					e.keyCode >= 48 && e.keyCode <= 90 ||
+				  					e.keyCode >= 96 && e.keyCode <= 107 ||
+				  					e.keyCode >= 109 && e.keyCode <= 111
+				  					) {
+				  				return modified(e);
+				  			}
+				  		};
+				  		var updated = dojo.hitch(ctl, function(e) {
+				  			if (this._changed && !window.dialogIsOpen) {
+				  				
+				  				this._changed = false;
+				  			}
+				  		});
+				  		dojo.connect(ctl, "_onChange", ctl, updated);
+				  		if (dojo.isIE) {
+				  			dojo.connect(tb, "onpaste", ctl, modifiedIE);
+				  			dojo.connect(tb, "onkeyup", ctl, modifiedIE);
+				  		}
+				  		else {
+				  			dojo.connect(tb, "oninput", ctl, modified);
+				  		}
+				  		
+				  	})();
+				  }
+	  			
+	  		 }/(!If:/(!IsDefined:FixedPositioning))
+	  		 else{			
+	  				if(edit && edit.id != "/(!OrderQty3160:!NameID)")
+	  					edit = null;
+	  		 }
+	  		 /(!If)	     	  	      	
+	  	}
+	  	
+	  
+	  				
+	  		
+	  	    
+	  	    
+	  	    
+	  		
+	  		
+	  				
+	      
+	          
+	      
+	      
+	                      
+	  		wcli.util.XBrowser.setCSSText(document.getElementById("/(!OrderQty3160:!NameID)"), "         position: absolute;     left: 100px;     top: 60px;      z-index: 3;     width: 48px;   height: 20px;      /(!If:/(!OrderQty3160:!Property:Visible)=No)     display: none; /(!If)line-height:20px; overflow: hidden; /(!If:/(!IsDefined:LabelAligned))/(!Else)margin-top:2px;/(!If)");
+	  	
+	  	
+	  	
+	  		
+	  			wcli.util.XBrowser.setIMEMode("/(!OrderQty3160:!NameID)",-1);
+	  		
+	  	
+	  		
+	  	if (protectedEditBorder == true && dojo.isIE11) {			
+	  		wcli.util.XBrowser.setBGColor("5                     ","/(!OrderQty3160:!NameID)", 48, 20);
+	  	}	
+	  	
+	  	/(!If:/(!IsDefined:FixedPositioning))
+	  		
+	  	var ableToResize = true;
+		  /(!If:/(!IsDefined:MinimumPanelRes))
+		  	ableToResize = wcli.util.XBrowser.isAbleToResize(/(MinimumPanelRes));
+		  /(!If)
+		  
+		  
+		  
+		  
+		  
+		  
+	  	
+	  		if(editbox && w && ableToResize === true){
+	  			wcli.util.XBrowser.addFixedPositionAttributes(w, 
+	  	
+		  
+		  {top: "60",ctrlWidth: "48", ctrlHeight: "20", fixBottom: "No",fixLeft: "Yes",fixRight: "No",fixTop: "Yes",panelWidth: "605",panelHeight: "159",fncName: "/(!Panel:!NameID)"}
+		  
+		  
+	  	);
+	  			wcli.util.XBrowser.addFixedPositionAttributes(editbox, 
+	  	
+		  
+		  {top: "60",ctrlWidth: "48", ctrlHeight: "20", fixBottom: "No",fixLeft: "Yes",fixRight: "No",fixTop: "Yes",panelWidth: "605",panelHeight: "159",fncName: "/(!Panel:!NameID)"}
+		  
+		  
+	  	);
+	  			wcli.util.XBrowser.addFixedPositionAttributes(document.getElementById("/(!OrderQty3160:!NameID)"), 
+	  	
+		  
+		  {top: "60",ctrlWidth: "48", ctrlHeight: "20", fixBottom: "No",fixLeft: "Yes",fixRight: "No",fixTop: "Yes",panelWidth: "605",panelHeight: "159",fncName: "/(!Panel:!NameID)"}
+		  
+		  
+	  	);			
+	  		}
+	  	/(!If)
+	  
+	  	
+	  	
+	  	
+	  		
+	      	wcli.util.XBrowser.setBGColor("5                     ","/(!OrderQty3160:!NameID)");
+	  		
+	  		
+	  		
+	  			
+	  		
+	  		/(!If:/(!IsDefined:FixedPositioning))
+	  		if(ableToResize === true){
+	  			if(edit){
+	  				wcli.util.XBrowser.resizeDiv(edit.domNode,edit,false);			
+	  			} else {
+	  				wcli.util.XBrowser.resizeDiv(w.domNode,w,false);
+	  			}
+	  		}		
+	  		setTimeout(function(){
+	  			if (typeof /(!OrderQty3160:!NameID)_DefaultResizeEdit === "undefined" && ableToResize === true){
+	  		    	/(!OrderQty3160:!NameID)_DefaultResizeEdit = dojo.connect(window, "onresize", function(){	    		
+	  					var dijitObj = dijit.byId("/(!OrderQty3160:!NameID)");
+	  					if(dijitObj && dijitObj.domNode){
+	  						wcli.util.XBrowser.resizeDiv(dijitObj.domNode,dijitObj,true);
+	  					}
+	  				});
+	  			}
+	      	}, 300);      
+	  		
+	  	/(!If)
+	  	
+	  	
+	  	/(!If:/(!IsDefined:HintValue))	
+	  		if(/(!OrderQty3160:!NameID)HintValue){
+	  			if(dijit.byId("/(!OrderQty3160:!NameID)")){
+	  				dijit.byId("/(!OrderQty3160:!NameID)").domNode.setAttribute('title', /(!OrderQty3160:!NameID)HintValue);
+	  			}
+	  			else if(document.getElementById("/(!OrderQty3160:!NameID)")){
+	  				document.getElementById("/(!OrderQty3160:!NameID)").setAttribute('title', /(!OrderQty3160:!NameID)HintValue);
+	  			}
+	  		}	
+	  	/(!If)
+	  
+	  			
+	  		if ((editbox && editbox.tagName == "INPUT") || true==true) {
+	  			if (wcli.util.XBrowser.querySelector("/(!OrderQty3160:!NameID)")){ 
+	  				wcli.form.Font.applyPlexFont(wcli.util.XBrowser.querySelector("/(!OrderQty3160:!NameID)"), "Regular 8  MS Sans Serif ");
+	  			}
+	  		} else if (editbox.tagName == "DIV") {
+	  			wcli.form.Font.applyPlexFont(editbox, "Regular 8  MS Sans Serif ");
+	  		}				
+	  		
+	  	
+	  	
+	    /(!OrderQty3160:!Action)
+	    
+	  
+	    /(!ProdName3166:!Action:SetTooltip)       
+	    	wcli.util.XBrowser.setTooltip("/(!ProdName3166:!NameID)",/(!ActionArg));
+	    /(!ProdName3166:!Action)
+	    
+	    /(!ProdName3166:!Action:SetValue)
+	    	var formatvalue = wcli.form.getFormatValue("Char", "%ss40", 0, true, /(!ProdName3166), "Edit");
+	      	var mode = "Edit";
+	      
+	  
+	      
+	      	wcli.util.XBrowser.setValueEdit("/(!ProdName3166:!NameID)", mode, formatvalue, "Char", /(!ProdName3166), 0);
+	  	var editbox = wcli.util.XBrowser.querySelector("/(!ProdName3166:!NameID)");
+	  	editbox.maxLength = "40";
+	      
+	  	
+	    /(!ProdName3166:!Action)
+	  
+	    /(!ProdName3166:!Action:SetState)
+	      var w = dijit.byId("/(!ProdName3166:!NameID)");
+	      var editbox = wcli.util.XBrowser.querySelector("/(!ProdName3166:!NameID)");
+	      if (w) {
+	      	w.domNode.style.cssText = "         position: absolute;     left: 204px;     top: 12px;      z-index: 3;     width: 372px;   height: 20px;      /(!If:/(!ProdName3166:!Property:Visible)=No)     display: none; /(!If)";
+	      	w.textbox.style.cssText = "         position: absolute;     left: 204px;     top: 12px;      z-index: 3;     width: 372px;   height: 20px;      /(!If:/(!ProdName3166:!Property:Visible)=No)     display: none; /(!If)";
+	      	w.state = "";
+	      	w._setStateClass();
+	      	/(!If:/(!IsDefined:FieldErrorMode))
+	  			if (w.state == "Error" && tooltipMsg) {
+	  				w.displayMessage(tooltipMsg);
+	  				tooltipMsg = null;
+	  			}
+	  		/(!If)
+	      }
+	      if (editbox){
+	    		
+	  		
+	  		wcli.util.XBrowser.setCSSText(editbox, "         position: absolute;     left: 204px;     top: 12px;      z-index: 3;     width: 372px;   height: 20px;      /(!If:/(!ProdName3166:!Property:Visible)=No)     display: none; /(!If)");
+	  		
+	  		
+	  		
+	  	}
+	  	
+	  	
+	  	if(editbox){
+	  		var formatvalue = wcli.form.getFormatValue("Char", "%ss40", 0, true, /(!ProdName3166), "Edit");
+	  		editbox.value = formatvalue;
+	  	}
+	  	
+	  	
+	  	if(editbox){
+	  		wcli.form.Font.applyPlexFont(editbox, "Regular 8  MS Sans Serif ");
+	  	}
+	  	
+	  	
+	      
+	  	var dialogIsOpen;
+	  	if(editbox){
+	  		if (editbox.tagName=="DIV") {
+	  			var editsrc = wcli.util.XBrowser.newEdit("/(!ProdName3166:!NameID)","ProdName");
+	  			var edit = wcli.form.HintTextBox.prototype.markupFactory({
+	  				name: "/(!ProdName3166:!NameID)",
+	  				maxLength: "40",
+	  				style: "         position: absolute;     left: 204px;     top: 12px;      z-index: 3;     width: 372px;   height: 20px;      /(!If:/(!ProdName3166:!Property:Visible)=No)     display: none; /(!If)",
+	  				hintText: "",
+	  				dataType: "Char",
+	  				editMask: "%ss40",
+	  				uppercase: "false",
+	  				/(!If:/(!IsDefined:FixedPositioning))
+	  				
+					  fixBottom: "No",
+					  fixLeft: "Yes",
+					  fixRight: "No",
+					  fixTop: "Yes",
+					  panelWidth: "605",
+					  panelHeight: "159",
+					  
+					  ctrlWidth: "372", 
+					  ctrlHeight: "20",
+					  fncName: "/(!Panel:!NameID)",
+					  
+					  top: "12",
+					  
+					   
+					  
+					  
+					  
+	  				/(!If)
+	  				
+	  				constraints: {places:0,fractional:true}}, editsrc);
+	  					
+	  			edit.value = /(!ProdName3166);
+	  			
+	  			var formatvalue = wcli.form.getFormatValue("Char", "%ss40", 0, true, /(!ProdName3166), "Edit");
+	  			
+	  			if((dojo.isIE11 || dojo.isSafari) && (formatvalue.toString().length > 40)){
+	  				 edit.textbox.maxLength = edit.editMask.length;
+	  				 edit.textbox.value = formatvalue;
+	  			}
+	  			else{
+	  				 if(formatvalue != ""){
+	  					 edit.textbox.value = formatvalue;
+	  					 edit.textbox.maxLength = "40";
+	  				  }
+	  			}
+	  					
+	  			dojo.connect(edit, "onDblClick", function(evt) {
+	  				if(wcli.util.XBrowser.checkBorder(evt)){
+	  						return;
+	  				}
+	  				if (dijit.byId("/(!ProdName3166:!NameID)")){
+	  						dijit.byId("/(!ProdName3166:!NameID)")._onBlur();
+	  				}
+	  				
+	  				if (!window./(!Panel:!NameID)_submitter)
+					  	return;
+					  var doEventOp = function() {
+					  	if (window./(!Panel:!NameID)_submitter.onsubmit)
+					  		window./(!Panel:!NameID)_submitter.onsubmit();
+					  	dojo.xhrPost({
+					  		form: /(!Panel:!NameID)_form,
+					  		content: { _type: 'json', ctlact: '/(!ProdName3166:!NameID):Double Click', pnlid: /(!Panel:!NameID)_pnlid, focus: '/(!ProdName3166:!NameID)', websessid: window.websessid },
+					  		load: function(data, ioArgs) {
+					  		 //Code starts to manage session timeout in ajax requests.
+					  			var headerstring = ioArgs.xhr.getResponseHeader('Content-Type');
+					  			var headers = headerstring.split(';');
+					  			if (headers && (typeof data != 'object')) {
+					  				if (headers[0].toLowerCase() != 'text/json' && headers[0].toLowerCase() != 'application/json')
+					  					window.location.href = ioArgs.url;
+					  			}
+					  	           //Code ends to manage session timeout in ajax requests.    	
+					  			data.main(data);
+					  		},
+					  		preventCache: true,
+					  		handleAs: 'json'	
+					  	});
+					  };
+					  if (window.editGridWait) {
+					  	dojo.connect(window.editGridWait, 'onEditGridApplied', doEventOp);
+					  } else {
+					  	doEventOp();
+					  }
+	  				
+	  			});
+	  					
+	  			
+	  					
+	  			
+	  					
+	  			
+	  			if (dijit.byId("/(!ProdName3166:!NameID)")) {
+				  	(function() {
+				  		var ctl = dijit.byId("/(!ProdName3166:!NameID)");
+				  		var tb = ctl["textbox"];
+				  		
+				  		if (ctl.editEventsCalled) {
+				  			return;
+				  		}
+				  		ctl.editEventsCalled = true;
+				  
+				  		
+				  		var modified = dojo.hitch(ctl, function(e) {
+				  			if(e.keyCode == dojo.keys.TAB){
+				  		  	 	window.modifiedBlockFocus = true;
+				  				return;
+				  		    }
+				  		    window.modifiedBlockFocus = false;
+				  			this._changed = true;
+				  			ctl.value = ctl.textbox.value; 
+				  			
+				  		});
+				  		var modifiedIE = function(e) {
+				  			if (e.keyCode == dojo.keys.DELETE ||
+				  					e.keyCode == dojo.keys.BACKSPACE ||
+				  					e.keyCode >= 48 && e.keyCode <= 90 ||
+				  					e.keyCode >= 96 && e.keyCode <= 107 ||
+				  					e.keyCode >= 109 && e.keyCode <= 111
+				  					) {
+				  				return modified(e);
+				  			}
+				  		};
+				  		var updated = dojo.hitch(ctl, function(e) {
+				  			if (this._changed && !window.dialogIsOpen) {
+				  				
+				  				this._changed = false;
+				  			}
+				  		});
+				  		dojo.connect(ctl, "_onChange", ctl, updated);
+				  		if (dojo.isIE) {
+				  			dojo.connect(tb, "onpaste", ctl, modifiedIE);
+				  			dojo.connect(tb, "onkeyup", ctl, modifiedIE);
+				  		}
+				  		else {
+				  			dojo.connect(tb, "oninput", ctl, modified);
+				  		}
+				  		
+				  	})();
+				  }
+	  			
+	  		 }/(!If:/(!IsDefined:FixedPositioning))
+	  		 else{			
+	  				if(edit && edit.id != "/(!ProdName3166:!NameID)")
+	  					edit = null;
+	  		 }
+	  		 /(!If)	     	  	      	
+	  	}
+	  	
+	  
+	  				
+	  		
+	  	    
+	  	    
+	  	    
+	  		
+	  		
+	  				
+	      
+	          
+	      
+	      
+	                      
+	  		wcli.util.XBrowser.setCSSText(document.getElementById("/(!ProdName3166:!NameID)"), "         position: absolute;     left: 204px;     top: 12px;      z-index: 3;     width: 372px;   height: 20px;      /(!If:/(!ProdName3166:!Property:Visible)=No)     display: none; /(!If)line-height:20px; overflow: hidden; /(!If:/(!IsDefined:LabelAligned))/(!Else)margin-top:2px;/(!If)");
+	  	
+	  	
+	  	
+	  		
+	  			wcli.util.XBrowser.setIMEMode("/(!ProdName3166:!NameID)",-1);
+	  		
+	  	
+	  		
+	  	if (protectedEditBorder == true && dojo.isIE11) {			
+	  		wcli.util.XBrowser.setBGColor("5                     ","/(!ProdName3166:!NameID)", 372, 20);
+	  	}	
+	  	
+	  	/(!If:/(!IsDefined:FixedPositioning))
+	  		
+	  	var ableToResize = true;
+		  /(!If:/(!IsDefined:MinimumPanelRes))
+		  	ableToResize = wcli.util.XBrowser.isAbleToResize(/(MinimumPanelRes));
+		  /(!If)
+		  
+		  
+		  
+		  
+		  
+		  
+	  	
+	  		if(editbox && w && ableToResize === true){
+	  			wcli.util.XBrowser.addFixedPositionAttributes(w, 
+	  	
+		  
+		  {top: "12",ctrlWidth: "372", ctrlHeight: "20", fixBottom: "No",fixLeft: "Yes",fixRight: "No",fixTop: "Yes",panelWidth: "605",panelHeight: "159",fncName: "/(!Panel:!NameID)"}
+		  
+		  
+	  	);
+	  			wcli.util.XBrowser.addFixedPositionAttributes(editbox, 
+	  	
+		  
+		  {top: "12",ctrlWidth: "372", ctrlHeight: "20", fixBottom: "No",fixLeft: "Yes",fixRight: "No",fixTop: "Yes",panelWidth: "605",panelHeight: "159",fncName: "/(!Panel:!NameID)"}
+		  
+		  
+	  	);
+	  			wcli.util.XBrowser.addFixedPositionAttributes(document.getElementById("/(!ProdName3166:!NameID)"), 
+	  	
+		  
+		  {top: "12",ctrlWidth: "372", ctrlHeight: "20", fixBottom: "No",fixLeft: "Yes",fixRight: "No",fixTop: "Yes",panelWidth: "605",panelHeight: "159",fncName: "/(!Panel:!NameID)"}
+		  
+		  
+	  	);			
+	  		}
+	  	/(!If)
+	  
+	  	
+	  	
+	  	
+	  		
+	      	wcli.util.XBrowser.setBGColor("5                     ","/(!ProdName3166:!NameID)");
+	  		
+	  		
+	  		
+	  			
+	  		
+	  		/(!If:/(!IsDefined:FixedPositioning))
+	  		if(ableToResize === true){
+	  			if(edit){
+	  				wcli.util.XBrowser.resizeDiv(edit.domNode,edit,false);			
+	  			} else {
+	  				wcli.util.XBrowser.resizeDiv(w.domNode,w,false);
+	  			}
+	  		}		
+	  		setTimeout(function(){
+	  			if (typeof /(!ProdName3166:!NameID)_DefaultResizeEdit === "undefined" && ableToResize === true){
+	  		    	/(!ProdName3166:!NameID)_DefaultResizeEdit = dojo.connect(window, "onresize", function(){	    		
+	  					var dijitObj = dijit.byId("/(!ProdName3166:!NameID)");
+	  					if(dijitObj && dijitObj.domNode){
+	  						wcli.util.XBrowser.resizeDiv(dijitObj.domNode,dijitObj,true);
+	  					}
+	  				});
+	  			}
+	      	}, 300);      
+	  		
+	  	/(!If)
+	  	
+	  	
+	  	/(!If:/(!IsDefined:HintValue))	
+	  		if(/(!ProdName3166:!NameID)HintValue){
+	  			if(dijit.byId("/(!ProdName3166:!NameID)")){
+	  				dijit.byId("/(!ProdName3166:!NameID)").domNode.setAttribute('title', /(!ProdName3166:!NameID)HintValue);
+	  			}
+	  			else if(document.getElementById("/(!ProdName3166:!NameID)")){
+	  				document.getElementById("/(!ProdName3166:!NameID)").setAttribute('title', /(!ProdName3166:!NameID)HintValue);
+	  			}
+	  		}	
+	  	/(!If)
+	  
+	  			
+	  		if ((editbox && editbox.tagName == "INPUT") || true==true) {
+	  			if (wcli.util.XBrowser.querySelector("/(!ProdName3166:!NameID)")){ 
+	  				wcli.form.Font.applyPlexFont(wcli.util.XBrowser.querySelector("/(!ProdName3166:!NameID)"), "Regular 8  MS Sans Serif ");
+	  			}
+	  		} else if (editbox.tagName == "DIV") {
+	  			wcli.form.Font.applyPlexFont(editbox, "Regular 8  MS Sans Serif ");
+	  		}				
+	  		
+	  	
+	  	
+	    /(!ProdName3166:!Action)
+	    
+	  
+	    /(!CustName3169:!Action:SetTooltip)       
+	    	wcli.util.XBrowser.setTooltip("/(!CustName3169:!NameID)",/(!ActionArg));
+	    /(!CustName3169:!Action)
+	    
+	    /(!CustName3169:!Action:SetValue)
+	    	var formatvalue = wcli.form.getFormatValue("Char", "%ss40", 0, true, /(!CustName3169), "Edit");
+	      	var mode = "Edit";
+	      
+	  
+	      
+	      	wcli.util.XBrowser.setValueEdit("/(!CustName3169:!NameID)", mode, formatvalue, "Char", /(!CustName3169), 0);
+	  	var editbox = wcli.util.XBrowser.querySelector("/(!CustName3169:!NameID)");
+	  	editbox.maxLength = "40";
+	      
+	  	
+	    /(!CustName3169:!Action)
+	  
+	    /(!CustName3169:!Action:SetState)
+	      var w = dijit.byId("/(!CustName3169:!NameID)");
+	      var editbox = wcli.util.XBrowser.querySelector("/(!CustName3169:!NameID)");
+	      if (w) {
+	      	w.domNode.style.cssText = "         position: absolute;     left: 204px;     top: 36px;      z-index: 3;     width: 372px;   height: 20px;      /(!If:/(!CustName3169:!Property:Visible)=No)     display: none; /(!If)";
+	      	w.textbox.style.cssText = "         position: absolute;     left: 204px;     top: 36px;      z-index: 3;     width: 372px;   height: 20px;      /(!If:/(!CustName3169:!Property:Visible)=No)     display: none; /(!If)";
+	      	w.state = "";
+	      	w._setStateClass();
+	      	/(!If:/(!IsDefined:FieldErrorMode))
+	  			if (w.state == "Error" && tooltipMsg) {
+	  				w.displayMessage(tooltipMsg);
+	  				tooltipMsg = null;
+	  			}
+	  		/(!If)
+	      }
+	      if (editbox){
+	    		
+	  		
+	  		wcli.util.XBrowser.setCSSText(editbox, "         position: absolute;     left: 204px;     top: 36px;      z-index: 3;     width: 372px;   height: 20px;      /(!If:/(!CustName3169:!Property:Visible)=No)     display: none; /(!If)");
+	  		
+	  		
+	  		
+	  	}
+	  	
+	  	
+	  	if(editbox){
+	  		var formatvalue = wcli.form.getFormatValue("Char", "%ss40", 0, true, /(!CustName3169), "Edit");
+	  		editbox.value = formatvalue;
+	  	}
+	  	
+	  	
+	  	if(editbox){
+	  		wcli.form.Font.applyPlexFont(editbox, "Regular 8  MS Sans Serif ");
+	  	}
+	  	
+	  	
+	      
+	  	var dialogIsOpen;
+	  	if(editbox){
+	  		if (editbox.tagName=="DIV") {
+	  			var editsrc = wcli.util.XBrowser.newEdit("/(!CustName3169:!NameID)","CustName");
+	  			var edit = wcli.form.HintTextBox.prototype.markupFactory({
+	  				name: "/(!CustName3169:!NameID)",
+	  				maxLength: "40",
+	  				style: "         position: absolute;     left: 204px;     top: 36px;      z-index: 3;     width: 372px;   height: 20px;      /(!If:/(!CustName3169:!Property:Visible)=No)     display: none; /(!If)",
+	  				hintText: "",
+	  				dataType: "Char",
+	  				editMask: "%ss40",
+	  				uppercase: "false",
+	  				/(!If:/(!IsDefined:FixedPositioning))
+	  				
+					  fixBottom: "No",
+					  fixLeft: "Yes",
+					  fixRight: "No",
+					  fixTop: "Yes",
+					  panelWidth: "605",
+					  panelHeight: "159",
+					  
+					  ctrlWidth: "372", 
+					  ctrlHeight: "20",
+					  fncName: "/(!Panel:!NameID)",
+					  
+					  top: "36",
+					  
+					   
+					  
+					  
+					  
+	  				/(!If)
+	  				
+	  				constraints: {places:0,fractional:true}}, editsrc);
+	  					
+	  			edit.value = /(!CustName3169);
+	  			
+	  			var formatvalue = wcli.form.getFormatValue("Char", "%ss40", 0, true, /(!CustName3169), "Edit");
+	  			
+	  			if((dojo.isIE11 || dojo.isSafari) && (formatvalue.toString().length > 40)){
+	  				 edit.textbox.maxLength = edit.editMask.length;
+	  				 edit.textbox.value = formatvalue;
+	  			}
+	  			else{
+	  				 if(formatvalue != ""){
+	  					 edit.textbox.value = formatvalue;
+	  					 edit.textbox.maxLength = "40";
+	  				  }
+	  			}
+	  					
+	  			dojo.connect(edit, "onDblClick", function(evt) {
+	  				if(wcli.util.XBrowser.checkBorder(evt)){
+	  						return;
+	  				}
+	  				if (dijit.byId("/(!CustName3169:!NameID)")){
+	  						dijit.byId("/(!CustName3169:!NameID)")._onBlur();
+	  				}
+	  				
+	  				if (!window./(!Panel:!NameID)_submitter)
+					  	return;
+					  var doEventOp = function() {
+					  	if (window./(!Panel:!NameID)_submitter.onsubmit)
+					  		window./(!Panel:!NameID)_submitter.onsubmit();
+					  	dojo.xhrPost({
+					  		form: /(!Panel:!NameID)_form,
+					  		content: { _type: 'json', ctlact: '/(!CustName3169:!NameID):Double Click', pnlid: /(!Panel:!NameID)_pnlid, focus: '/(!CustName3169:!NameID)', websessid: window.websessid },
+					  		load: function(data, ioArgs) {
+					  		 //Code starts to manage session timeout in ajax requests.
+					  			var headerstring = ioArgs.xhr.getResponseHeader('Content-Type');
+					  			var headers = headerstring.split(';');
+					  			if (headers && (typeof data != 'object')) {
+					  				if (headers[0].toLowerCase() != 'text/json' && headers[0].toLowerCase() != 'application/json')
+					  					window.location.href = ioArgs.url;
+					  			}
+					  	           //Code ends to manage session timeout in ajax requests.    	
+					  			data.main(data);
+					  		},
+					  		preventCache: true,
+					  		handleAs: 'json'	
+					  	});
+					  };
+					  if (window.editGridWait) {
+					  	dojo.connect(window.editGridWait, 'onEditGridApplied', doEventOp);
+					  } else {
+					  	doEventOp();
+					  }
+	  				
+	  			});
+	  					
+	  			
+	  					
+	  			
+	  					
+	  			
+	  			if (dijit.byId("/(!CustName3169:!NameID)")) {
+				  	(function() {
+				  		var ctl = dijit.byId("/(!CustName3169:!NameID)");
+				  		var tb = ctl["textbox"];
+				  		
+				  		if (ctl.editEventsCalled) {
+				  			return;
+				  		}
+				  		ctl.editEventsCalled = true;
+				  
+				  		
+				  		var modified = dojo.hitch(ctl, function(e) {
+				  			if(e.keyCode == dojo.keys.TAB){
+				  		  	 	window.modifiedBlockFocus = true;
+				  				return;
+				  		    }
+				  		    window.modifiedBlockFocus = false;
+				  			this._changed = true;
+				  			ctl.value = ctl.textbox.value; 
+				  			
+				  		});
+				  		var modifiedIE = function(e) {
+				  			if (e.keyCode == dojo.keys.DELETE ||
+				  					e.keyCode == dojo.keys.BACKSPACE ||
+				  					e.keyCode >= 48 && e.keyCode <= 90 ||
+				  					e.keyCode >= 96 && e.keyCode <= 107 ||
+				  					e.keyCode >= 109 && e.keyCode <= 111
+				  					) {
+				  				return modified(e);
+				  			}
+				  		};
+				  		var updated = dojo.hitch(ctl, function(e) {
+				  			if (this._changed && !window.dialogIsOpen) {
+				  				
+				  				this._changed = false;
+				  			}
+				  		});
+				  		dojo.connect(ctl, "_onChange", ctl, updated);
+				  		if (dojo.isIE) {
+				  			dojo.connect(tb, "onpaste", ctl, modifiedIE);
+				  			dojo.connect(tb, "onkeyup", ctl, modifiedIE);
+				  		}
+				  		else {
+				  			dojo.connect(tb, "oninput", ctl, modified);
+				  		}
+				  		
+				  	})();
+				  }
+	  			
+	  		 }/(!If:/(!IsDefined:FixedPositioning))
+	  		 else{			
+	  				if(edit && edit.id != "/(!CustName3169:!NameID)")
+	  					edit = null;
+	  		 }
+	  		 /(!If)	     	  	      	
+	  	}
+	  	
+	  
+	  				
+	  		
+	  	    
+	  	    
+	  	    
+	  		
+	  		
+	  				
+	      
+	          
+	      
+	      
+	                      
+	  		wcli.util.XBrowser.setCSSText(document.getElementById("/(!CustName3169:!NameID)"), "         position: absolute;     left: 204px;     top: 36px;      z-index: 3;     width: 372px;   height: 20px;      /(!If:/(!CustName3169:!Property:Visible)=No)     display: none; /(!If)line-height:20px; overflow: hidden; /(!If:/(!IsDefined:LabelAligned))/(!Else)margin-top:2px;/(!If)");
+	  	
+	  	
+	  	
+	  		
+	  			wcli.util.XBrowser.setIMEMode("/(!CustName3169:!NameID)",-1);
+	  		
+	  	
+	  		
+	  	if (protectedEditBorder == true && dojo.isIE11) {			
+	  		wcli.util.XBrowser.setBGColor("5                     ","/(!CustName3169:!NameID)", 372, 20);
+	  	}	
+	  	
+	  	/(!If:/(!IsDefined:FixedPositioning))
+	  		
+	  	var ableToResize = true;
+		  /(!If:/(!IsDefined:MinimumPanelRes))
+		  	ableToResize = wcli.util.XBrowser.isAbleToResize(/(MinimumPanelRes));
+		  /(!If)
+		  
+		  
+		  
+		  
+		  
+		  
+	  	
+	  		if(editbox && w && ableToResize === true){
+	  			wcli.util.XBrowser.addFixedPositionAttributes(w, 
+	  	
+		  
+		  {top: "36",ctrlWidth: "372", ctrlHeight: "20", fixBottom: "No",fixLeft: "Yes",fixRight: "No",fixTop: "Yes",panelWidth: "605",panelHeight: "159",fncName: "/(!Panel:!NameID)"}
+		  
+		  
+	  	);
+	  			wcli.util.XBrowser.addFixedPositionAttributes(editbox, 
+	  	
+		  
+		  {top: "36",ctrlWidth: "372", ctrlHeight: "20", fixBottom: "No",fixLeft: "Yes",fixRight: "No",fixTop: "Yes",panelWidth: "605",panelHeight: "159",fncName: "/(!Panel:!NameID)"}
+		  
+		  
+	  	);
+	  			wcli.util.XBrowser.addFixedPositionAttributes(document.getElementById("/(!CustName3169:!NameID)"), 
+	  	
+		  
+		  {top: "36",ctrlWidth: "372", ctrlHeight: "20", fixBottom: "No",fixLeft: "Yes",fixRight: "No",fixTop: "Yes",panelWidth: "605",panelHeight: "159",fncName: "/(!Panel:!NameID)"}
+		  
+		  
+	  	);			
+	  		}
+	  	/(!If)
+	  
+	  	
+	  	
+	  	
+	  		
+	      	wcli.util.XBrowser.setBGColor("5                     ","/(!CustName3169:!NameID)");
+	  		
+	  		
+	  		
+	  			
+	  		
+	  		/(!If:/(!IsDefined:FixedPositioning))
+	  		if(ableToResize === true){
+	  			if(edit){
+	  				wcli.util.XBrowser.resizeDiv(edit.domNode,edit,false);			
+	  			} else {
+	  				wcli.util.XBrowser.resizeDiv(w.domNode,w,false);
+	  			}
+	  		}		
+	  		setTimeout(function(){
+	  			if (typeof /(!CustName3169:!NameID)_DefaultResizeEdit === "undefined" && ableToResize === true){
+	  		    	/(!CustName3169:!NameID)_DefaultResizeEdit = dojo.connect(window, "onresize", function(){	    		
+	  					var dijitObj = dijit.byId("/(!CustName3169:!NameID)");
+	  					if(dijitObj && dijitObj.domNode){
+	  						wcli.util.XBrowser.resizeDiv(dijitObj.domNode,dijitObj,true);
+	  					}
+	  				});
+	  			}
+	      	}, 300);      
+	  		
+	  	/(!If)
+	  	
+	  	
+	  	/(!If:/(!IsDefined:HintValue))	
+	  		if(/(!CustName3169:!NameID)HintValue){
+	  			if(dijit.byId("/(!CustName3169:!NameID)")){
+	  				dijit.byId("/(!CustName3169:!NameID)").domNode.setAttribute('title', /(!CustName3169:!NameID)HintValue);
+	  			}
+	  			else if(document.getElementById("/(!CustName3169:!NameID)")){
+	  				document.getElementById("/(!CustName3169:!NameID)").setAttribute('title', /(!CustName3169:!NameID)HintValue);
+	  			}
+	  		}	
+	  	/(!If)
+	  
+	  			
+	  		if ((editbox && editbox.tagName == "INPUT") || true==true) {
+	  			if (wcli.util.XBrowser.querySelector("/(!CustName3169:!NameID)")){ 
+	  				wcli.form.Font.applyPlexFont(wcli.util.XBrowser.querySelector("/(!CustName3169:!NameID)"), "Regular 8  MS Sans Serif ");
+	  			}
+	  		} else if (editbox.tagName == "DIV") {
+	  			wcli.form.Font.applyPlexFont(editbox, "Regular 8  MS Sans Serif ");
+	  		}				
+	  		
+	  	
+	  	
+	    /(!CustName3169:!Action)
+	    
+	  
+	    /(!WebObPushbutton_STxF_3171:!Action:SetState)
+	  	 if (dijit.byId("/(!WebObPushbutton_STxF_3171:!NameID)")){
+	  		dojo.query("div", dijit.byId("/(!WebObPushbutton_STxF_3171:!NameID)").containerNode)[0].innerHTML = /(Embed:html)/(!WebObPushbutton_STxF_3171:!Text:htmlaccel:htmlbr)/(Embed);
+	  	 	dijit.byId("/(!WebObPushbutton_STxF_3171:!NameID)").setDisabled(false);
+	  	 	/(!If:/(!IsDefined:FixedPositioning))
+	  		 	/(!If:/(!WebObPushbutton_STxF_3171:!Property:Visible)=No)
+	  			    dijit.byId("/(!WebObPushbutton_STxF_3171:!NameID)").domNode.style.display ="none";
+	  	    	/(!Else)
+	  	    		dijit.byId("/(!WebObPushbutton_STxF_3171:!NameID)").domNode.style.display ="block";
+	  			/(!If)
+	  			if( (sessionStorage.getItem(document.getElementById("/(!WebObPushbutton_STxF_3171:!NameID)").getAttribute("fncName")+"_isPopUp"))				
+	  				|| (document.getElementById("/(!WebObPushbutton_STxF_3171:!NameID)").getAttribute("fixbottom") === "No" && document.getElementById("/(!WebObPushbutton_STxF_3171:!NameID)").getAttribute("fixleft") === "No" && document.getElementById("/(!WebObPushbutton_STxF_3171:!NameID)").getAttribute("fixright") === "No" &&document.getElementById("/(!WebObPushbutton_STxF_3171:!NameID)").getAttribute("fixtop") === "No"))
+	  				wcli.util.XBrowser.setCSSText(document.getElementById("/(!WebObPushbutton_STxF_3171:!NameID)"), "         position: absolute;     left: 12px;     top: 88px;      z-index: 3;     width: 56px;   height: 24px;      /(!If:/(!WebObPushbutton_STxF_3171:!Property:Visible)=No)     display: none; /(!If)");
+	  		/(!Else)
+	  			dijit.byId("/(!WebObPushbutton_STxF_3171:!NameID)").domNode.style.cssText = "         position: absolute;     left: 12px;     top: 88px;      z-index: 3;     width: 56px;   height: 24px;      /(!If:/(!WebObPushbutton_STxF_3171:!Property:Visible)=No)     display: none; /(!If)";
+	  		/(!If)	
+	  	 	
+	    	}
+	    	
+	  		var txtcolor = wcli.color.setColor("18");
+	  		if (document.getElementById("/(!WebObPushbutton_STxF_3171:!NameID)")){
+	  			document.getElementById("/(!WebObPushbutton_STxF_3171:!NameID)").style.color = txtcolor;
+	  		}
+	  	
+	    /(!WebObPushbutton_STxF_3171:!Action)
+	    
+	    /(!WebObPushbutton_STxF_3171:!Action:SetFocus)
+	    	 if (dijit.byId("/(!WebObPushbutton_STxF_3171:!NameID)"))
+	    	 	dijit.byId("/(!WebObPushbutton_STxF_3171:!NameID)").focus();
+	    /(!WebObPushbutton_STxF_3171:!Action)
+	    
+	  	/(!WebObPushbutton_STxF_3171:!Action:SetText)
+	  		if (dijit.byId("/(!WebObPushbutton_STxF_3171:!NameID)")){
+	  			dojo.query("div", dijit.byId("/(!WebObPushbutton_STxF_3171:!NameID)").containerNode)[0].innerHTML = "/(!WebObPushbutton_STxF_3171:!Text:htmlaccel:htmlbr)";
+	  		}
+	  	/(!WebObPushbutton_STxF_3171:!Action)
+	  
+	  	/(!WebObPushbutton_STxF_3171:!Action:SetTooltip)
+	  		var msg = /(!ActionArg);
+	  		document.getElementById("/(!WebObPushbutton_STxF_3171:!NameID)").title = msg.text;
+	  	/(!WebObPushbutton_STxF_3171:!Action)
+	  
+	/(!-- End attach point 'JS')
+	
+
+	/(!-- Begin attach point 'JSPost')
+	
+
+	   /(!ProdID3154:!Action:SetFocus)
+	      if (dijit.byId("/(!ProdID3154:!NameID)"))
+	  	    dijit.byId("/(!ProdID3154:!NameID)").focus();
+	   /(!ProdID3154:!Action)
+	  
+	   /(!CustID3157:!Action:SetFocus)
+	      if (dijit.byId("/(!CustID3157:!NameID)"))
+	  	    dijit.byId("/(!CustID3157:!NameID)").focus();
+	   /(!CustID3157:!Action)
+	  
+	   /(!OrderQty3160:!Action:SetFocus)
+	      if (dijit.byId("/(!OrderQty3160:!NameID)"))
+	  	    dijit.byId("/(!OrderQty3160:!NameID)").focus();
+	   /(!OrderQty3160:!Action)
+	  
+	   /(!ProdName3166:!Action:SetFocus)
+	      if (dijit.byId("/(!ProdName3166:!NameID)"))
+	  	    dijit.byId("/(!ProdName3166:!NameID)").focus();
+	   /(!ProdName3166:!Action)
+	  
+	   /(!CustName3169:!Action:SetFocus)
+	      if (dijit.byId("/(!CustName3169:!NameID)"))
+	  	    dijit.byId("/(!CustName3169:!NameID)").focus();
+	   /(!CustName3169:!Action)
+	  
+		var showEnquiry = function() {
+		if (enquiryMsg) {
+			var dlg;
+			var doclose = function(){
+				if (dijit.byId(dlgid)){
+					dijit.byId(dlgid).hide(); 
+					dojo.body().removeChild(dijit.byId(dlgid).domNode);
+					dialogIsOpen=false;
+				}else{ 
+					dlg.hide();
+					dojo.body().removeChild(dlg.domNode);
+					dialogIsOpen=false;
+				}
+			};
+			var div = wcli.buildEnquiryDialog(enquiryMsg, function(val) { enqresp(val); doclose(); } );
+			dlg = new dijit.Dialog({ title: /(!Panel:!Title) || "Panel" }, div);
+			dlgid = dlg.id;
+			dlg.startup();
+			dlg._lastFocusItem = dijit.byId("EnquiryYesBtn").domNode;
+			dlg.show(600);
+			dialogIsOpen=true;
+			dijit.byId("EnquiryYesBtn").focus();
+			setTimeout(function(){
+				if(dojo.isIE){
+					dlg.domNode.childNodes[1].childNodes[1].focus();
+				}
+				else{
+					dlg.domNode.childNodes[3].childNodes[1].focus();
+				}
+			}
+			,700);
+			dlg.closeButtonNode.onclick = function() { 
+					if (/(!Panel:!NameID)_form.onsubmit)
+						/(!Panel:!NameID)_form.onsubmit();
+					dojo.xhrPost({
+						form: /(!Panel:!NameID)_form,
+						content: { _type: 'json', enqact:3, pnlid: /(!Panel:!NameID)_pnlid, websessid: window.websessid },
+						load: function(data, ioArgs) {
+						data.main(data);
+					},
+				preventCache: true,
+				handleAs: 'json'	
+				});
+				dijit.byId(dlgid).hide();
+				dojo.body().removeChild(dijit.byId(dlgid).domNode);
+				dialogIsOpen=false;
+			};
+		 }
+		};
+		if (tooltipMsg) {
+			var dlg;
+			var div = wcli.buildDialog(tooltipMsg, function() { dlg.hide(); dojo.body().removeChild(dlg.domNode); dialogIsOpen=false; showEnquiry();} );
+			dlg = new dijit.Dialog({ title: /(!Panel:!Title) || "Panel" }, div);
+			dlg.startup();
+			dlg.show(600);
+			dialogIsOpen=true;
+			setTimeout(function(){
+				if(dojo.isIE){
+					dlg.domNode.childNodes[1].childNodes[1].focus();
+				}
+				else{
+					dlg.domNode.childNodes[3].childNodes[1].focus();
+				}
+			}
+			,700);
+			dlg.closeButtonNode.onclick = function() { 
+				dlg.hide();
+				dojo.body().removeChild(dlg.domNode);
+				dialogIsOpen=false;
+				showEnquiry();
+			};
+		} else {
+	       showEnquiry();
+	   }
+	
+	/(!-- End attach point 'JSPost')
+	
+
+	/(!------------- Start expansion of !MDIActions.js -----------------)
+	dojo.require("wcli.layout.MDIController");
+	
+	/(!Panel:!EnableAction:MDIIconArrange,MDICascade,MDICloseAll,MDITileHorizontally,MDITileVertically)
+	
+	/(!Panel:!Action:MDIIconArrange)
+		wcli.layout.MDIController.MDIIconArrange();
+	/(!Panel:!Action)
+	
+	/(!Panel:!Action:MDICascade)
+		wcli.layout.MDIController.MDICascade();
+	/(!Panel:!Action)
+	
+	/(!Panel:!Action:MDICloseAll)
+		wcli.layout.MDIController.MDICloseAll();
+	/(!Panel:!Action)
+	
+	/(!Panel:!Action:MDITileHorizontally)
+		wcli.layout.MDIController.MDITileHorizontally();
+	/(!Panel:!Action)
+	
+	/(!Panel:!Action:MDITileVertically)
+		wcli.layout.MDIController.MDITileVertically();
+	/(!Panel:!Action)
+	/(!------------- End expansion of !MDIActions.js ------------------)
+	
+
+	/(!If:/(!IsDefined:FocusModeB))
+	/(!Else)
+	 if (window.modifiedBlockFocus) {
+	     return;
+	 }
+	 setTimeout( function() {
+            if (window.dialogIsOpen) {
+                return;
+            }
+	    /(!If:/(!Req:_child))
+		    /* don't set focus if this page is a hidden child panel */
+		    var cp = document.getElementById(/(!Req:_child));
+			if (cp && cp.style.display != "none")
+		/(!If)
+		
+		{
+			if (window.modifiedBlockFocus) {
+			    return;
+			}
+
+			window.settingFocus = true;
+	    	/(!FOCUS)
+	    		if (dijit._curFocus && window.focusElement && dijit._curFocus == window.focusElement){
+	    			window.focusElement = null;
+	    		} else if (dijit.byId("/(!NameID)")) {
+	        		dijit.byId("/(!NameID)").focus();
+	        		wcli.form.selectField(dijit.byId("/(!NameID)"));
+	      		} else if (document.getElementById("/(!NameID)") && document.getElementById("/(!NameID)").focus &&
+		  				document.getElementById("/(!NameID)").disabled == false) {
+		    		document.getElementById("/(!NameID)").focus();
+		    	} else {
+		    		wcli.grid.setFocusByColumnId("/(!NameID)");
+		    	}
+			/(!FOCUS)
+			window.settingFocus = false;
+			if(window.notifyInitialized){
+				window.notifyInitialized();	
+				window.notifyInitialized = null;
+			}
+		}
+	        window.modifiedBlockFocus = false;
+	},50);
+	/(!If)
+
+}/(!------------- End expansion of !WebShell-root.json ------------------)
+
+  /(OutTo)
+  
+/(!Else)
+  /(ContentType:text/html)
+  
+  /(OutTo:html:comments=none)
+    /(!------------- Start expansion of !WebShell-root.html -----------------)
+/(!If:/(!Req:_child))/(!Else)<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+  /(!If:/(!IEVersion)=10)
+	  <meta http-equiv='X-UA-Compatible' content='IE=8' />
+  /(!Else)
+	  <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+  /(!If)
+
+  /(!If:/(!Panel:!Title)=)
+    <title>Panel</title>
+  /(!Else)
+    <title>/(!Panel:!Title)</title>
+  /(!If)
+
+  
+  <style type="text/css">
+    /(Embed:plain:cdata)
+      @import "/(!WsResLib:com.adcaustin.webclient)/js/dijit/themes//(WCTHEME)//(WCTHEME).css";
+      @import "/(!WsResLib:com.adcaustin.webclient)/js/dojox/grid/_grid//(WCTHEME)Grid.css";
+      @import "/(!WsResLib:com.adcaustin.webclient)/js/dojo/resources/dojo.css";
+      @import "/(!WsResLib:com.adcaustin.webclient)/js/wcli/wcli.css";
+      /(!-- Begin attach point 'CSSInit')
+
+
+/(!-- End attach point 'CSSInit')
+
+
+    /(Embed)
+  </style>
+  <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico">
+  /(!-- Begin attach point 'HeadArea')
+
+
+/(!-- End attach point 'HeadArea')
+
+
+
+  <script type="text/javascript" src="/(!WsResLib:com.adcaustin.webclient)/js/eventShim.js"></script>
+  <script type="text/javascript" src="/(!WsResLib:com.adcaustin.webclient)/js/dojo/dojo.js"
+      djConfig="/(!-- Begin attach point 'djConfig')
+
+
+/(!-- End attach point 'djConfig')
+
+parseOnLoad: true"></script>
+  <script type="text/javascript">
+    /(Embed:js:cdata)
+     dojo.require("wcli.util.XBrowser");
+     wcli.util.XBrowser.fixKeys();
+          var messageOptions = {};
+    /(!If:/(!IsDefined:EnquiryYesText))
+			messageOptions.txt_yes = /(EnquiryYesText);
+	/(!If)
+	/(!If:/(!IsDefined:EnquiryNoText))
+    		messageOptions.txt_no = /(EnquiryNoText);
+	/(!If)
+	/(!If:/(!IsDefined:EnquiryCancelText))
+    		messageOptions.txt_cancel = /(EnquiryCancelText);
+	/(!If)
+	/(!If:/(!IsDefined:DialogOkText))
+    		messageOptions.txt_ok = /(DialogOkText);
+	/(!If)
+	/(!If:/(!IsDefined:FixedPositioning))
+          window.fixedPositioningEnabled = true;          
+    /(!If)
+	 var /(!Panel:!NameID)_pnlid = /(PNLID);
+     window.curShellPnl = /(PNLID);
+     /(!If:/(!WEBSESSID))
+     window.websessid = /(WEBSESSID);
+   	 /(!If)
+   	 window.wsaction=/(WSACTION);
+     var keyStatus = { CTRL: false, ALT: false, SHIFT: false };
+     var invKeys = {};
+     for (var k in dojo.keys) {
+         invKeys[dojo.keys[k]] = k;
+     }
+     function getKeyString(evt) {
+         var special = invKeys[evt.keyCode];
+         var alpha = String.fromCharCode(evt.keyCode);
+         return special || alpha;
+     }
+     function encKey(evt) {
+         var res = "";
+         if (keyStatus["SHIFT"])
+             res = res + "SHIFT+";
+      	 if (keyStatus["CTRL"])
+          	 res = res + "CTRL+";
+      	 if (keyStatus["ALT"])
+          	 res = res + "ALT+";
+      	 res = res + getKeyString(evt);
+      	 if (res == "PAGE_DOWN") {
+      		 res = "PAGE DOWN";
+      	 }
+      	 if (res == "PAGE_UP") {
+      		 res = "PAGE UP";
+      	 }
+    	 keyStatus["SHIFT"] = false;
+    	 keyStatus["CTRL"] = false;
+    	 keyStatus["ALT"] = false;
+         return res;
+     }
+
+	 /(!Panel:!EnableAction:RegisterKeyEvent,EnableKeyboardEvent,DisableKeyboardEvent)
+
+	 var /(!Panel:!NameID)_keymap = {};
+	    /(!Panel:!Action:RegisterKeyEvent)
+	 		/(!Panel:!NameID)_keymap[/(!ActionArg)] = /(!ActionArg);
+	    /(!Panel:!Action)
+	 var dokey = function(/(!Panel:!NameID)_keymap, pnlprefix, evt, currPnlid, panelNameId) {
+	    window._savedFocus = dijit._curFocus;
+	    if(evt.target.nodeName != "#document") {
+		    var evtTgtRole = evt.target.getAttribute('role') ;
+			if (evtTgtRole && evtTgtRole == 'menuitem') {
+				if (menuKeyPress(evt)) {
+					return;
+				}
+			}
+	    }
+	   	var enc = encKey(evt);
+		if (evt.keyCode == dojo.keys.ENTER && evt.target.tagName != "TEXTAREA" && evt.target.tagName != "BUTTON") {
+			if (mainform.defaultButtonHandlers && mainform.defaultButtonHandlers.length > 0) {
+				/*Call the function */
+				var dftBtnLen = mainform.defaultButtonHandlers.length;
+				for(var t=0; t<dftBtnLen; t++){
+					mainform.defaultButtonHandlers[t](evt);
+				}
+			}
+		 	if(evt.dftHandled){
+				return;
+			}
+			evt.preventDefault();	// prevent form submit
+		 	evt.stopPropagation();
+		}
+		if (evt.keyCode == dojo.keys.BACKSPACE && evt.target.tagName != "INPUT" && evt.target.tagName != "TEXTAREA") {
+			evt.preventDefault();
+		}
+		var altKeyOnly = evt.altKey && !evt.ctrlKey && !evt.shiftKey;
+		if(enc == "ESCAPE"){
+			enc = "ESC";
+		}
+  		if (/(!Panel:!NameID)_keymap[enc]) {
+  			if (!currPnlid) {
+  				currPnlid = /(!Panel:!NameID)_pnlid ;
+  			}
+  	  		evt.preventDefault();
+  	  		var focus = dijit._curFocus && dijit._curFocus.id;
+  	  		if (dijit._curFocus) {
+	  			var widget = dijit.byId(dijit._curFocus.id);
+	  			if (widget) {
+	  				var parentWidget = dijit.getEnclosingWidget(widget.domNode.parentNode);
+	  				if (parentWidget == null){
+	  					widget = dijit.byId(evt.target.id);
+	  					if(widget != undefined){
+	  						parentWidget = dijit.getEnclosingWidget(widget.domNode.parentNode);
+	  					}
+	  				}
+	  				if (parentWidget == null){
+	  					parentWidget = dijit.getEnclosingWidget(evt.target);
+	  				}
+	  				if (parentWidget.grid) {
+	  					focus = parentWidget.grid.id;
+	  				}
+	  			}
+	  			var eGrid = wcli.grid.findParentGrid(dijit._curFocus);
+	  	  		if (eGrid && eGrid.useEntryGrid) {
+	  	  			eGrid.setValueEntryInput(evt);
+	  	  		   	eGrid.selection.updateValue();
+	  	  		}
+	  		}
+  	  		if(focus == '' && evt.target.className =='dojoxGrid-input'){ 
+	  			var widget = dijit.getEnclosingWidget(dijit._curFocus);
+	  			if (widget && widget.grid && widget.grid.edit && widget.grid.edit.info && widget.grid.edit.info.cell && widget.grid.edit.info.cell.field){
+	  				focus = widget.grid.edit.info.cell.field;
+	  			}
+	  			widget.grid.edit.info.cell.editor.focus();
+	  		}
+			if (dijit._curFocus && !dijit._curFocus.blurCallback) {
+  	  		    dijit._curFocus.blur();
+  	  		}
+			var dokeyOp = function(enc) {
+				//if (mainform.keyIsPending) {
+				//	if (!mainform.keyQueue) {
+				//		mainform.keyQueue = [];
+				//	}
+				//	mainform.keyQueue.push(enc);
+				//	return;
+				//}
+				//mainform.keyIsPending = true;
+				if (window.submitter.onsubmit)
+					window.submitter.onsubmit();
+  				dojo.xhrPost({
+  					form: mainform,
+  					content: { _type: 'json', keyact: pnlprefix + enc, focus: focus, pnlid: currPnlid, websessid: window.websessid },
+  					load: function(data, ioArgs) {
+						//mainform.keyIsPending = false;
+  						data.main(data);
+						if(mainform.afterKeyEvent){
+ 							mainform.afterKeyEvent();
+ 							mainform.afterKeyEvent = null;
+ 						}
+  						if (mainform.keyQueue && mainform.keyQueue.length) {
+  							var nextKey = mainform.keyQueue.shift();
+  							dokeyOp(nextKey);
+  						}
+  					},
+  					handleAs: 'json',
+  					preventCache: true
+  				});
+			};
+			if (dijit._curFocus && dijit._curFocus.blurCallback){
+				dijit._curFocus.blurCallback(null, function() {
+					dokeyOp(enc);
+				});
+			} else {
+				dokeyOp(enc);
+				evt.stopPropagation();
+			}
+			var contentPane = document.getElementById(panelNameId);
+			if (contentPane) {
+				contentPane.setAttribute('tabindex', '0');
+				contentPane.focus();
+			}
+  		} else {
+			if (altKeyOnly) {
+				var altKey = String.fromCharCode(evt.keyCode).toLowerCase();
+				var btns = document.getElementsByTagName("BUTTON");
+				for(var b=0; b < btns.length; b++) {
+					var btn = btns[b];
+					var bkey = btn.getAttribute('plexaccesskey') ;
+					if (bkey==altKey) {
+						var node = btn.parentNode;
+						if (!btn.disabled) {
+							while (node != null) {
+								if (node == evt.currentTarget) {
+									btn.click();
+									evt.preventDefault();
+									evt.stopPropagation();
+									return;
+								}
+								node = node.parentNode;
+							}
+						}
+					}
+				}
+				if (evt.currentTarget.classList && evt.currentTarget.classList.contains("detailDialog")) {
+					evt.preventDefault();
+					evt.stopPropagation();
+					return;
+				}
+			}
+		}
+	 }
+	 tooltipMsg = null;
+	 enquiryMsg = null;
+	 dojo.addOnLoad( function() {
+    			  	dojo.connect(dojo.doc, "onkeydown", function(evt) {
+        			  	var code = getKeyString(evt);
+        			  	if (code in keyStatus) {
+            			  	keyStatus[code] = true;
+        			  	}
+        			  	else if (evt.keyCode != dojo.keys.ENTER)
+    			  			dokey(/(!Panel:!NameID)_keymap, "", evt);
+    				});
+    			  	dojo.connect(dojo.doc, "onkeypress", function(evt) {
+    			  		if (evt.keyCode == dojo.keys.ENTER)
+    			  			dokey(/(!Panel:!NameID)_keymap, "", evt);
+    				});
+    				dojo.connect(dojo.doc, "onkeyup", function(evt) {
+        				var code = getKeyString(evt);
+        				if (code in keyStatus) {
+            				keyStatus[code] = false;
+        				}
+    				});
+     });
+	  var keepsess = false;
+	 	 function /(!Panel:!NameID)_unload() {
+	 		 /(!Panel:!NameID)_form = document.getElementById("_/(!Panel:!NameID)_form");
+	 	   if (!keepsess) {
+	 		   if(dojo.isChrome && navigator.sendBeacon){
+	 			   var url = mainform.action;
+	 			   var data = "_endsess=" + "&websessid=" +  window.websessid;
+	 			   navigator.sendBeacon(url, data);
+	 		   } else {
+	 		 dojo.xhrPost({
+	 		 	form: /(!Panel:!NameID)_form,
+	 			content: { _endsess: "" ,websessid: window.websessid},
+	 			load: function(type, data, evt) {
+	 			},
+	 			preventCache: true,
+	 			sync: true
+	 	     });
+	 		}
+	 	   }
+	 }
+	 if (dojo.isIE) {
+	 	window.attachEvent('onbeforeunload', /(!Panel:!NameID)_unload);
+	 }
+	 dojo.connect(dojo, "_loadInit", function() {
+		 /(!Panel:!NameID)_form = mainform = document.getElementById("_/(!Panel:!NameID)_form");
+	 	dialogreturn = null;
+	 });
+	 window./(!Panel:!NameID)_submitter = window.submitter = {};
+	 dojo.addOnLoad(function() {
+		dojo.addClass(dojo.body(), "loadShow");
+		window.dialogreturn = null;
+		/(!Panel:!NameID)_form = mainform = document.getElementById("_/(!Panel:!NameID)_form");
+		mainform.defaultButtonHandlers = [];
+
+		/(!If:/(!IsDefined:InstantScreenLoader))
+		 var screenpreloader = dijit.byId('screenpreloader');
+		 document.body.style.overflow = 'visible';
+		 screenpreloader.domNode.style.display = 'none';
+		/(!If)
+	 });
+    /(Embed)
+  </script>
+
+  <body onbeforeunload="/(!Panel:!NameID)_unload();" ondragstart="return false;" ondrop="return false;" class="/(WCTHEME) /(!-- Begin attach point 'CSSBodyClass')
+
+
+/(!-- End attach point 'CSSBodyClass')
+
+">
+
+	<div id="BLANKET">
+	</div>
+	/(!If:/(!IsDefined:InstantScreenLoader))
+	<div id="screenpreloader" style="background-color:#fff; z-index:99;width: 100%; height: 100%; position: fixed;" dojoType="dijit.layout.ContentPane">
+	    <div id="preloaderstatus" class="loadingSpinner" dojoType="dijit.layout.ContentPane">&nbsp;</div>
+	</div>
+	 /(!If)
+	/(!-- Begin attach point 'LoadScreen')
+
+
+     <div id="IOSpinner" class="loadingSpinner" style="display: none;">
+     </div>
+
+/(!-- End attach point 'LoadScreen')
+
+
+/(!If)
+	/(!-- Begin attach point 'LinkArea')
+	
+
+	  	<link href="/(!WsResLib:com.adcaustin.webclient)/js/wcli/form/Label.css" rel="stylesheet" type="text/css" />
+	  
+	  	<link href="/(!WsResLib:com.adcaustin.webclient)/js/wcli/form/ReadOnlyTextbox.css" rel="stylesheet" type="text/css" />
+	  	
+	  
+	/(!-- End attach point 'LinkArea')
+	
+
+    /(!-- Begin attach point 'DataArea')
+    
+
+    /(!-- End attach point 'DataArea')
+    
+
+
+/(!If:/(!Req:_child))
+  <script type="text/javascript">
+	dojo.addOnLoad(function() {
+		/(!Panel:!NameID)_form = mainform;
+		/(!Panel:!NameID)_pnlid = /(PNLID);
+		window./(!Panel:!NameID)_submitter = window.submitter;
+	});
+  </script>
+/(!Else)
+    <form method="get" action="/(WSACTION)" id="_/(!Panel:!NameID)_form">
+      <input type="hidden" name="WSYD_SIGN" value="/(!Req:WSYD_SIGN)"/>
+      <input type="hidden" name="WSYD_EVENT" value="/(!Req:WSYD_EVENT)"/>
+      <input type="hidden" name="WSYD_SID" value="/(!Req:WSYD_SID)"/>
+      <input type="hidden" name="WSLNKREF" value="/(!Req:WSLNKREF)"/>
+      <input type="hidden" name="WSCURPRS" value="/(!Req:WSCURPRS)"/>
+/(!If)
+
+  <script type="text/javascript">
+    /(Embed:js:cdata)
+      dojo.require("wcli.data.FormToObject");
+      dojo.require("wcli.util.XBrowser");
+      dojo.require("wcli.layout.Frame");
+      dojo.require("wcli.form.HintTextBox");
+	  /(!-- Begin attach point 'JSInit')
+	  
+
+	  	dojo.require("dijit.layout.ContentPane");
+	  	dojo.require("dijit.layout.LayoutContainer");
+	  	dojo.require("dijit.Tooltip");
+	  	dojo.require("wcli.form.Dialog");
+	  	
+	  	var newLineRegex = new RegExp('\n','g');
+	  	bldMsgText = function(msgText) {
+	  		return msgText.replace(newLineRegex, '<br>');
+	  	}
+	  	var dialogIsOpen;
+	  	dojo.addOnLoad(function() {
+	  		dijit._MasterTooltip.prototype.duration = 450;
+	  		dijit._masterTT = new dijit._MasterTooltip();
+	  		dojo.connect(document.body, "onmousedown", function(evt) {
+	  			if(dijit._masterTT && dijit._masterTT.aroundNode != null){
+	  				dijit._masterTT.hide(dijit._masterTT.aroundNode);
+	  			}
+	   			dijit.popup.closeAll(evt);
+	  		});
+	  		
+	  		dojo.connect(document.body, "onkeydown", function(evt) {
+	  			if (evt.keyCode == dojo.keys.ENTER){
+	  				var focusNode = dijit.getFocus().node;
+	  				if(dojo.isIE && focusNode.className == "dijitDialogTitleBar"){
+	  					var widget = dijit.getEnclosingWidget(focusNode.parentNode);
+	  				}
+	  				else{
+	  					var widget = dijit.getEnclosingWidget(focusNode);
+	  				}
+	  				if((widget && widget.containerNode) && widget.containerNode.childNodes[1].innerText.indexOf("OK") != -1){
+	  						dijit.byId(widget.containerNode.childNodes[1].id).onClick(evt);	
+	  				}	
+	  			}
+	  		});
+	  
+	  		if (!window.shownTooltips) {
+	  			var tooltipMsg = "";		
+	  			var tooltipType = null;
+	  			/(ALERTS)
+	  				tooltipMsg = tooltipMsg + bldMsgText(/(Embed:html)/(AlertMsg)/(Embed)) + "<br/>"; tooltipType = /(AlertType);
+	  			/(ALERTS)
+	  		
+	  			if (tooltipMsg) {
+	  				if (tooltipType == "status" && dijit.byId("Grid")) {
+	  					window.tooltipIsOpen = true;
+	  					dijit.byId("model-Grid").tooltipMsg(tooltipMsg, dijit.byId("Grid"));
+	  				} 
+	  			
+	  				else if(tooltipType == "dialog" || tooltipType == "status" || tooltipType == "log")  {
+	  					var dlg;
+	  					var div = wcli.buildDialog(tooltipMsg, function() { dlg.hide(); dojo.body().removeChild(dlg.domNode);} );
+	  					dlg = new dijit.Dialog({ title: /(!Panel:!Title) || "Panel" }, div);
+	  					dlg.startup();
+	  					dlg.show();
+	  				}
+	  			
+	  				else {
+	  					var dlg;
+	  					var doclose = function(){
+	  						if (dijit.byId(dlgid)){
+	  							dijit.byId(dlgid).hide(); 
+	  							dojo.body().removeChild(dijit.byId(dlgid).domNode);
+	  						}else{ 
+	  							dlg.hide();
+	  							dojo.body().removeChild(dlg.domNode);
+	  						}
+	  					};
+	  					var enqresp = function(resp) {
+	  						dojo.xhrPost({
+	  							form: /(!Panel:!NameID)_form,
+	  							content: { _type: 'json', enqact: resp, pnlid: /(!Panel:!NameID)_pnlid, websessid: window.websessid },
+	  							load: function(data, ioArgs) {
+	  								data.main(data);
+	  							},
+	  							handleAs: 'json',
+	  							preventCache: true
+	  						});
+	  					};
+	  					var div = wcli.buildEnquiryDialog(enquiryMsg, function(val) { enqresp(val); doclose(); } );
+	  					dlg = new dijit.Dialog({ title: /(!Panel:!Title) || "Panel" }, div);
+	  					dlgid = dlg.id;
+	  					dlg.startup();
+	  					dlg._lastFocusItem = dijit.byId("EnquiryYesBtn").domNode;
+	  					dlg.show();
+	  					dialogIsOpen=true;
+	  					dijit.byId("EnquiryYesBtn").focus();
+	  					dlg.closeButtonNode.onclick = function() { 
+	  						if (/(!Panel:!NameID)_form.onsubmit)
+	  							/(!Panel:!NameID)_form.onsubmit();
+	  							dojo.xhrPost({
+	  								form: /(!Panel:!NameID)_form,
+	  								content: { _type: 'json', enqact:3, pnlid: /(!Panel:!NameID)_pnlid, websessid: window.websessid },
+	  								load: function(data, ioArgs) {
+	  									data.main(data);
+	  								},
+	  							preventCache: true,
+	  							handleAs: 'json'	
+	  						});
+	  						dijit.byId(dlgid).hide();
+	  						dojo.body().removeChild(dijit.byId(dlgid).domNode);
+	  					    dialogIsOpen=false;
+	  					};
+	  				}
+	  				window.shownTooltips = true;
+	  			}
+	  		}
+	  	});
+	  	
+	  	/(!Panel:!EnableAction:Alert,Enquiry)
+	  	if (dojo.byId("IOSpinner")) {
+	  	       var spin = dojo.byId("IOSpinner");
+	  	  		if (!spin.spinConnected) {
+	  		        dojo.connect(dojo, "_ioWatch", function(dfd) {
+	  		        	if (window.inLostFocus){
+	  		        		return;
+	  		        	}
+	  		        	// only display spinnner if delay longer than 100ms (prevents display on modified event)
+	  		        	var spinUp = false;
+	  		        	var ioDelayCleared = false;
+	  		        	var ioDelay = setTimeout(function() {
+	  		        		if (ioDelayCleared) {
+	  		        			return;
+	  		        		}
+	  		        		spin.style.display = "block";
+	  		        		spinUp = true;
+	  		        	}, 200);
+	  		        	
+	  		        	var callback = function() {
+	  		            	if (!spinUp) {
+	  			            	clearTimeout(ioDelay);
+	  			            	ioDelayCleared = true;
+	  			            } else {
+	  		                	dojo.byId("IOSpinner").style.display = "none";
+	  		                }
+	  		            };
+	  		            
+	  		            dojo.connect(dfd, "callback", callback);
+	  		            dojo.connect(dfd, "errback", callback);
+	  		    	});
+	  		    	spin.spinConnected = true;
+	  	    	}
+	  	}
+	  	 
+	  	 
+	  	 
+	  	
+	  	
+	  
+	    	dojo.require("wcli.color.RGBColor");
+	    	dojo.require("wcli.form.Font");
+	    
+	      
+	    
+	    	dojo.require("wcli.color.RGBColor");
+	        dojo.require("wcli.form.Font");
+	    
+	    	
+	    	  
+	  	    
+	  	      
+	  	  
+	    	
+	    
+	    	dojo.require("wcli.form.Font");
+	    
+	    	
+	    	  
+	  	    
+	  	      
+	  	  
+	    	
+	    	
+	    	/(!If:/(!IsDefined:HintValue))
+	    		/(!ProdID3154:!NameID)HintValue = "";
+	    	/(!If)	
+	    	/(!If:/(!IsDefined:ProtectedEditBorder))protectedEditBorder = true;/(!Else)protectedEditBorder = false;/(!If)
+	    	/(!If:/(!IsDefined:AllowTextSelect))TextSelect = true;/(!Else)TextSelect = false;/(!If)
+	    
+	    	
+	    	  
+	  	    
+	  	      
+	  	  
+	    	
+	    
+	    	
+	    	  
+	  	    
+	  	      
+	  	  
+	    	
+	    	
+	    	/(!If:/(!IsDefined:HintValue))
+	    		/(!CustID3157:!NameID)HintValue = "";
+	    	/(!If)	
+	    	/(!If:/(!IsDefined:ProtectedEditBorder))protectedEditBorder = true;/(!Else)protectedEditBorder = false;/(!If)
+	    	/(!If:/(!IsDefined:AllowTextSelect))TextSelect = true;/(!Else)TextSelect = false;/(!If)
+	    
+	    	
+	    	  
+	  	    
+	  	      
+	  	  
+	    	
+	    
+	    	
+	    	  
+	  	    
+	  	      
+	  	  
+	    	
+	    	
+	    	/(!If:/(!IsDefined:HintValue))
+	    		/(!OrderQty3160:!NameID)HintValue = "";
+	    	/(!If)	
+	    	/(!If:/(!IsDefined:ProtectedEditBorder))protectedEditBorder = true;/(!Else)protectedEditBorder = false;/(!If)
+	    	/(!If:/(!IsDefined:AllowTextSelect))TextSelect = true;/(!Else)TextSelect = false;/(!If)
+	    
+	    	
+	    	  
+	  	    
+	  	      
+	  	  
+	    	
+	    	
+	    	/(!If:/(!IsDefined:HintValue))
+	    		/(!ProdName3166:!NameID)HintValue = "";
+	    	/(!If)	
+	    	/(!If:/(!IsDefined:ProtectedEditBorder))protectedEditBorder = true;/(!Else)protectedEditBorder = false;/(!If)
+	    	/(!If:/(!IsDefined:AllowTextSelect))TextSelect = true;/(!Else)TextSelect = false;/(!If)
+	    
+	    	
+	    	  
+	  	    
+	  	      
+	  	  
+	    	
+	    	
+	    	/(!If:/(!IsDefined:HintValue))
+	    		/(!CustName3169:!NameID)HintValue = "";
+	    	/(!If)	
+	    	/(!If:/(!IsDefined:ProtectedEditBorder))protectedEditBorder = true;/(!Else)protectedEditBorder = false;/(!If)
+	    	/(!If:/(!IsDefined:AllowTextSelect))TextSelect = true;/(!Else)TextSelect = false;/(!If)
+	    
+	        dojo.require("dijit.form.Button");
+	    	dojo.require("wcli.color.RGBColor");
+	    	
+	        dojo.addOnLoad(function() {
+	    	     var buttons = document.getElementsByTagName("BUTTON");
+	    	     for(var x=0; x<buttons.length; x++){
+	    	        if(buttons[x].innerHTML.indexOf("</u>") != -1 || buttons[x].innerHTML.indexOf("</U>") != -1){
+	    	        	var uPos = buttons[x].innerHTML.indexOf("</u>")
+	    	        	if(dojo.isIE){
+	    	        		var uPos = buttons[x].innerHTML.indexOf("</U>");
+	    	        	}
+	    	        	var keyPos = uPos - 1;
+	    	        	var key = buttons[x].innerHTML.charAt(keyPos).toLowerCase();
+	    	        	buttons[x].setAttribute("plexaccesskey",key);
+	    	        }
+	    	    }
+	    	 
+	    	
+	    	});
+	    
+	    	
+	    	  
+	  	    
+	  	      
+	  	  
+	    	
+	    	/(!If:/(!IsDefined:FixedPositioning))
+	    	dojo.addOnLoad(function() {
+	    		
+	    	var ableToResize = true;
+	  	  /(!If:/(!IsDefined:MinimumPanelRes))
+	  	  	ableToResize = wcli.util.XBrowser.isAbleToResize(/(MinimumPanelRes));
+	  	  /(!If)
+	  	  
+	  	  
+	  	  	//Use this code when the control is: WebPushbutton, WebGridExport, WebCheckbox
+	  	  	if(document.getElementById("/(!WebObPushbutton_STxF_3171:!NameID)") && ableToResize === true){
+	  	  		wcli.util.XBrowser.resizeCtrl(document.getElementById("/(!WebObPushbutton_STxF_3171:!NameID)"));
+	  	  	}
+	  	  
+	  	  
+	  	  
+	  	  
+	  	  
+	    	
+	    		setTimeout(function(){
+	    			if (typeof /(!WebObPushbutton_STxF_3171:!NameID)_OnLoadResizeButton === "undefined" && ableToResize === true){
+	    		    	/(!WebObPushbutton_STxF_3171:!NameID)_OnLoadResizeButton = dojo.connect(window, "onresize", function(){
+	    					if(document.getElementById("/(!WebObPushbutton_STxF_3171:!NameID)")){				
+	    						wcli.util.XBrowser.resizeCtrl(document.getElementById("/(!WebObPushbutton_STxF_3171:!NameID)"), null, true);
+	    					}
+	    				});
+	    			}
+	        	}, 300);  		
+	    	});
+	    	/(!If)
+	    
+	  /(!-- End attach point 'JSInit')
+	  
+
+	  wcli.userDateFormat = [/(!If:/(!IsDefined:DatePattern))/(DatePattern)/(!If)];
+	  wcli.userBlankNullDates = [/(!If:/(!IsDefined:BlankNullDates))/(BlankNullDates)/(!If)];
+	  wcli.userTimeFormat = [/(!If:/(!IsDefined:TimePattern))/(TimePattern)/(!If)];
+	  wcli.userBlankNullTimes = [/(!If:/(!IsDefined:BlankNullTimes))/(BlankNullTimes)/(!If)];
+
+	  /(!If:/(!Req:_child))
+	  	var _loadingPane = /(!Req:_child)[0];
+	  /(!If)
+	  dojo.addOnLoad(function() {
+	    /(!-- Begin attach point 'JSOnLoad')
+	    
+
+	      	var bgcolor = wcli.color.setColor("");
+	      	
+	      		
+	      	
+	      	
+	      		if (wcli.util.XBrowser.querySelector("/(!WebObStatic_STxF_3151:!NameID)")){ 
+	      			wcli.form.Font.applyPlexFont(wcli.util.XBrowser.querySelector("/(!WebObStatic_STxF_3151:!NameID)"), "Regular 8  MS Sans Serif ");
+	      		}
+	      	
+	      	/(!If:/(!IsDefined:FixedPositioning))
+	      		
+	      	var ableToResize = true;
+	    	  /(!If:/(!IsDefined:MinimumPanelRes))
+	    	  	ableToResize = wcli.util.XBrowser.isAbleToResize(/(MinimumPanelRes));
+	    	  /(!If)
+	    	  
+	    	  
+	    	  
+	    	  
+	    	  	//Use this code when the control is: WebLabel, WebList, WebMultilineEdit (JSOnLoad, SetState), WebStatic, WebTextbox
+	    	  	if(document.getElementById("/(!WebObStatic_STxF_3151:!NameID)") && ableToResize === true){
+	    	  		wcli.util.XBrowser.resizeDiv(document.getElementById("/(!WebObStatic_STxF_3151:!NameID)"));
+	    	  	}
+	    	  
+	    	  
+	    	  
+	      	
+	      		setTimeout(function(){
+	      			if (typeof /(!WebObStatic_STxF_3151:!NameID)_OnLoadResizeStatic === "undefined" && ableToResize === true){
+	      		    	/(!WebObStatic_STxF_3151:!NameID)_OnLoadResizeStatic = dojo.connect(window, "onresize", function(){
+	      					if(document.getElementById("/(!WebObStatic_STxF_3151:!NameID)")){
+	      						wcli.util.XBrowser.resizeDiv(document.getElementById("/(!WebObStatic_STxF_3151:!NameID)"),null,true);
+	      					}
+	      				});
+	      			}
+	          	}, 300);  		
+	      	/(!If)
+	      
+	      	var bgcolor = wcli.color.setColor("");
+	      	
+	      	
+	      	
+	      	
+	      			wcli.form.Font.applyPlexFont(document.getElementById("/(!WebObLabel_STxF_3153:!NameID)"), "Regular 8  MS Sans Serif ");
+	      	
+	      	/(!If:/(!IsDefined:FixedPositioning))
+	      		
+	      	var ableToResize = true;
+	    	  /(!If:/(!IsDefined:MinimumPanelRes))
+	    	  	ableToResize = wcli.util.XBrowser.isAbleToResize(/(MinimumPanelRes));
+	    	  /(!If)
+	    	  
+	    	  
+	    	  
+	    	  
+	    	  	//Use this code when the control is: WebLabel, WebList, WebMultilineEdit (JSOnLoad, SetState), WebStatic, WebTextbox
+	    	  	if(document.getElementById("/(!WebObLabel_STxF_3153:!NameID)") && ableToResize === true){
+	    	  		wcli.util.XBrowser.resizeDiv(document.getElementById("/(!WebObLabel_STxF_3153:!NameID)"));
+	    	  	}
+	    	  
+	    	  
+	    	  
+	      	
+	      		setTimeout(function(){
+	      			if (typeof /(!WebObLabel_STxF_3153:!NameID)_OnLoadResizeLabel === "undefined" && ableToResize === true){
+	      		    	/(!WebObLabel_STxF_3153:!NameID)_OnLoadResizeLabel = dojo.connect(window, "onresize", function(){
+	      					if(document.getElementById("/(!WebObLabel_STxF_3153:!NameID)")){
+	      						wcli.util.XBrowser.resizeDiv(document.getElementById("/(!WebObLabel_STxF_3153:!NameID)"),null,true);
+	      					}
+	      				});
+	      			}
+	          	}, 300);      
+	      		
+	      	/(!If)
+	      	
+	      
+	          var dijitEdit = dijit.byId("/(!ProdID3154:!NameID)");
+	          var mode = "Edit";
+	          var formatvalue = wcli.form.getFormatValue("Char", "%ss10", 0, true, /(!ProdID3154), "Edit");
+	          
+	          	if (protectedEditBorder == true && mode == "Read Only" && dojo.isIE11){
+	          		wcli.util.XBrowser.setBGColor("5                     ","/(!ProdID3154:!NameID)", 100, 20);
+	          	}else{ 
+	          		wcli.util.XBrowser.setBGColor("5                     ","/(!ProdID3154:!NameID)"); 
+	          	}
+	      	
+	      	
+	      	
+	      	
+	      	
+	      	
+	      	
+	      	/(!If:/(!IsDefined:RightAlignmentMargin))
+	      			
+	      				document.getElementById("/(!ProdID3154:!NameID)").style.paddingRight=/(RightAlignmentMargin)+"px";
+	      				document.getElementById("/(!ProdID3154:!NameID)").style.boxSizing = "border-box";
+	      			
+	      		/(!If)
+	      	
+	      	
+	      	
+	      	
+	      		if (wcli.util.XBrowser.querySelector("/(!ProdID3154:!NameID)")){ 
+	      			wcli.form.Font.applyPlexFont(wcli.util.XBrowser.querySelector("/(!ProdID3154:!NameID)"), "Regular 8  MS Sans Serif ");
+	      		}
+	      	
+	      	wcli.util.XBrowser.setBorder("/(!ProdID3154:!NameID)","Indented");
+	      	
+	      	if (dijit.byId("/(!ProdID3154:!NameID)")) {
+	    	  	(function() {
+	    	  		var ctl = dijit.byId("/(!ProdID3154:!NameID)");
+	    	  		var tb = ctl["textbox"];
+	    	  		
+	    	  		if (ctl.editEventsCalled) {
+	    	  			return;
+	    	  		}
+	    	  		ctl.editEventsCalled = true;
+	    	  
+	    	  		
+	    	  		var modified = dojo.hitch(ctl, function(e) {
+	    	  			if(e.keyCode == dojo.keys.TAB){
+	    	  		  	 	window.modifiedBlockFocus = true;
+	    	  				return;
+	    	  		    }
+	    	  		    window.modifiedBlockFocus = false;
+	    	  			this._changed = true;
+	    	  			ctl.value = ctl.textbox.value; 
+	    	  			
+	    	  		});
+	    	  		var modifiedIE = function(e) {
+	    	  			if (e.keyCode == dojo.keys.DELETE ||
+	    	  					e.keyCode == dojo.keys.BACKSPACE ||
+	    	  					e.keyCode >= 48 && e.keyCode <= 90 ||
+	    	  					e.keyCode >= 96 && e.keyCode <= 107 ||
+	    	  					e.keyCode >= 109 && e.keyCode <= 111
+	    	  					) {
+	    	  				return modified(e);
+	    	  			}
+	    	  		};
+	    	  		var updated = dojo.hitch(ctl, function(e) {
+	    	  			if (this._changed && !window.dialogIsOpen) {
+	    	  				
+	    	  					
+	    	  					if (!window./(!Panel:!NameID)_submitter)
+	    						  	return;
+	    						  var doEventOp = function() {
+	    						  	if (window./(!Panel:!NameID)_submitter.onsubmit)
+	    						  		window./(!Panel:!NameID)_submitter.onsubmit();
+	    						  	dojo.xhrPost({
+	    						  		form: /(!Panel:!NameID)_form,
+	    						  		content: { _type: 'json', ctlact: '/(!ProdID3154:!NameID):Updated', pnlid: /(!Panel:!NameID)_pnlid, focus: '/(!ProdID3154:!NameID)', websessid: window.websessid },
+	    						  		load: function(data, ioArgs) {
+	    						  		 //Code starts to manage session timeout in ajax requests.
+	    						  			var headerstring = ioArgs.xhr.getResponseHeader('Content-Type');
+	    						  			var headers = headerstring.split(';');
+	    						  			if (headers && (typeof data != 'object')) {
+	    						  				if (headers[0].toLowerCase() != 'text/json' && headers[0].toLowerCase() != 'application/json')
+	    						  					window.location.href = ioArgs.url;
+	    						  			}
+	    						  	           //Code ends to manage session timeout in ajax requests.    	
+	    						  			data.main(data);
+	    						  		},
+	    						  		preventCache: true,
+	    						  		handleAs: 'json'	
+	    						  	});
+	    						  };
+	    						  if (window.editGridWait) {
+	    						  	dojo.connect(window.editGridWait, 'onEditGridApplied', doEventOp);
+	    						  } else {
+	    						  	doEventOp();
+	    						  }
+	    	  					
+	    	  				
+	    	  				this._changed = false;
+	    	  			}
+	    	  		});
+	    	  		dojo.connect(ctl, "_onChange", ctl, updated);
+	    	  		if (dojo.isIE) {
+	    	  			dojo.connect(tb, "onpaste", ctl, modifiedIE);
+	    	  			dojo.connect(tb, "onkeyup", ctl, modifiedIE);
+	    	  		}
+	    	  		else {
+	    	  			dojo.connect(tb, "oninput", ctl, modified);
+	    	  		}
+	    	  		
+	    	  	})();
+	    	  }
+	      	
+	      	
+	      	
+	      		/(!If:/(!IsDefined:FixedPositioning))
+	      			
+	      		var ableToResize = true;
+	    		  /(!If:/(!IsDefined:MinimumPanelRes))
+	    		  	ableToResize = wcli.util.XBrowser.isAbleToResize(/(MinimumPanelRes));
+	    		  /(!If)
+	    		  
+	    		  
+	    		  
+	    		  
+	    		  
+	    		  
+	      		
+	      			if(ableToResize  === true){
+	      				wcli.util.XBrowser.addFixedPositionAttributes(dijit.byId("/(!ProdID3154:!NameID)").textbox, 
+	      		
+	    		  
+	    		  {top: "12",ctrlWidth: "100", ctrlHeight: "20", fixBottom: "No",fixLeft: "Yes",fixRight: "No",fixTop: "Yes",panelWidth: "605",panelHeight: "159",fncName: "/(!Panel:!NameID)"}
+	    		  
+	    		  
+	      		);
+	      				wcli.util.XBrowser.fixedPositionEdit("/(!ProdID3154:!NameID)", mode);
+	      			}
+	      		/(!If)
+	      		wcli.util.XBrowser.setValueEdit("/(!ProdID3154:!NameID)", mode, formatvalue, "Char", /(!ProdID3154));
+	      		var editbox = wcli.util.XBrowser.querySelector("/(!ProdID3154:!NameID)");
+	      		editbox.maxLength = "10";
+	      	
+	      	
+	      	/(!If:/(!IsDefined:HintValue))
+	      		var currentControlID = "/(!ProdID3154:!NameID)";
+	      		var currentHintValue = "";
+	      		/(!-- Begin attach point 'ProdID3154.HintValue')
+	      	
+
+	      	/(!-- End attach point 'ProdID3154.HintValue')
+	      	
+
+	      		/(!ProdID3154:!NameID)HintValue = currentHintValue;
+	      	/(!If)	
+	      
+	      	var bgcolor = wcli.color.setColor("");
+	      	
+	      	
+	      	
+	      	
+	      			wcli.form.Font.applyPlexFont(document.getElementById("/(!WebObLabel_STxF_3156:!NameID)"), "Regular 8  MS Sans Serif ");
+	      	
+	      	/(!If:/(!IsDefined:FixedPositioning))
+	      		
+	      	var ableToResize = true;
+	    	  /(!If:/(!IsDefined:MinimumPanelRes))
+	    	  	ableToResize = wcli.util.XBrowser.isAbleToResize(/(MinimumPanelRes));
+	    	  /(!If)
+	    	  
+	    	  
+	    	  
+	    	  
+	    	  	//Use this code when the control is: WebLabel, WebList, WebMultilineEdit (JSOnLoad, SetState), WebStatic, WebTextbox
+	    	  	if(document.getElementById("/(!WebObLabel_STxF_3156:!NameID)") && ableToResize === true){
+	    	  		wcli.util.XBrowser.resizeDiv(document.getElementById("/(!WebObLabel_STxF_3156:!NameID)"));
+	    	  	}
+	    	  
+	    	  
+	    	  
+	      	
+	      		setTimeout(function(){
+	      			if (typeof /(!WebObLabel_STxF_3156:!NameID)_OnLoadResizeLabel === "undefined" && ableToResize === true){
+	      		    	/(!WebObLabel_STxF_3156:!NameID)_OnLoadResizeLabel = dojo.connect(window, "onresize", function(){
+	      					if(document.getElementById("/(!WebObLabel_STxF_3156:!NameID)")){
+	      						wcli.util.XBrowser.resizeDiv(document.getElementById("/(!WebObLabel_STxF_3156:!NameID)"),null,true);
+	      					}
+	      				});
+	      			}
+	          	}, 300);      
+	      		
+	      	/(!If)
+	      	
+	      
+	          var dijitEdit = dijit.byId("/(!CustID3157:!NameID)");
+	          var mode = "Edit";
+	          var formatvalue = wcli.form.getFormatValue("Char", "%ss10", 0, true, /(!CustID3157), "Edit");
+	          
+	          	if (protectedEditBorder == true && mode == "Read Only" && dojo.isIE11){
+	          		wcli.util.XBrowser.setBGColor("5                     ","/(!CustID3157:!NameID)", 100, 20);
+	          	}else{ 
+	          		wcli.util.XBrowser.setBGColor("5                     ","/(!CustID3157:!NameID)"); 
+	          	}
+	      	
+	      	
+	      	
+	      	
+	      	
+	      	
+	      	
+	      	/(!If:/(!IsDefined:RightAlignmentMargin))
+	      			
+	      				document.getElementById("/(!CustID3157:!NameID)").style.paddingRight=/(RightAlignmentMargin)+"px";
+	      				document.getElementById("/(!CustID3157:!NameID)").style.boxSizing = "border-box";
+	      			
+	      		/(!If)
+	      	
+	      	
+	      	
+	      	
+	      		if (wcli.util.XBrowser.querySelector("/(!CustID3157:!NameID)")){ 
+	      			wcli.form.Font.applyPlexFont(wcli.util.XBrowser.querySelector("/(!CustID3157:!NameID)"), "Regular 8  MS Sans Serif ");
+	      		}
+	      	
+	      	wcli.util.XBrowser.setBorder("/(!CustID3157:!NameID)","Indented");
+	      	
+	      	if (dijit.byId("/(!CustID3157:!NameID)")) {
+	    	  	(function() {
+	    	  		var ctl = dijit.byId("/(!CustID3157:!NameID)");
+	    	  		var tb = ctl["textbox"];
+	    	  		
+	    	  		if (ctl.editEventsCalled) {
+	    	  			return;
+	    	  		}
+	    	  		ctl.editEventsCalled = true;
+	    	  
+	    	  		
+	    	  		var modified = dojo.hitch(ctl, function(e) {
+	    	  			if(e.keyCode == dojo.keys.TAB){
+	    	  		  	 	window.modifiedBlockFocus = true;
+	    	  				return;
+	    	  		    }
+	    	  		    window.modifiedBlockFocus = false;
+	    	  			this._changed = true;
+	    	  			ctl.value = ctl.textbox.value; 
+	    	  			
+	    	  		});
+	    	  		var modifiedIE = function(e) {
+	    	  			if (e.keyCode == dojo.keys.DELETE ||
+	    	  					e.keyCode == dojo.keys.BACKSPACE ||
+	    	  					e.keyCode >= 48 && e.keyCode <= 90 ||
+	    	  					e.keyCode >= 96 && e.keyCode <= 107 ||
+	    	  					e.keyCode >= 109 && e.keyCode <= 111
+	    	  					) {
+	    	  				return modified(e);
+	    	  			}
+	    	  		};
+	    	  		var updated = dojo.hitch(ctl, function(e) {
+	    	  			if (this._changed && !window.dialogIsOpen) {
+	    	  				
+	    	  					
+	    	  					if (!window./(!Panel:!NameID)_submitter)
+	    						  	return;
+	    						  var doEventOp = function() {
+	    						  	if (window./(!Panel:!NameID)_submitter.onsubmit)
+	    						  		window./(!Panel:!NameID)_submitter.onsubmit();
+	    						  	dojo.xhrPost({
+	    						  		form: /(!Panel:!NameID)_form,
+	    						  		content: { _type: 'json', ctlact: '/(!CustID3157:!NameID):Updated', pnlid: /(!Panel:!NameID)_pnlid, focus: '/(!CustID3157:!NameID)', websessid: window.websessid },
+	    						  		load: function(data, ioArgs) {
+	    						  		 //Code starts to manage session timeout in ajax requests.
+	    						  			var headerstring = ioArgs.xhr.getResponseHeader('Content-Type');
+	    						  			var headers = headerstring.split(';');
+	    						  			if (headers && (typeof data != 'object')) {
+	    						  				if (headers[0].toLowerCase() != 'text/json' && headers[0].toLowerCase() != 'application/json')
+	    						  					window.location.href = ioArgs.url;
+	    						  			}
+	    						  	           //Code ends to manage session timeout in ajax requests.    	
+	    						  			data.main(data);
+	    						  		},
+	    						  		preventCache: true,
+	    						  		handleAs: 'json'	
+	    						  	});
+	    						  };
+	    						  if (window.editGridWait) {
+	    						  	dojo.connect(window.editGridWait, 'onEditGridApplied', doEventOp);
+	    						  } else {
+	    						  	doEventOp();
+	    						  }
+	    	  					
+	    	  				
+	    	  				this._changed = false;
+	    	  			}
+	    	  		});
+	    	  		dojo.connect(ctl, "_onChange", ctl, updated);
+	    	  		if (dojo.isIE) {
+	    	  			dojo.connect(tb, "onpaste", ctl, modifiedIE);
+	    	  			dojo.connect(tb, "onkeyup", ctl, modifiedIE);
+	    	  		}
+	    	  		else {
+	    	  			dojo.connect(tb, "oninput", ctl, modified);
+	    	  		}
+	    	  		
+	    	  	})();
+	    	  }
+	      	
+	      	
+	      	
+	      		/(!If:/(!IsDefined:FixedPositioning))
+	      			
+	      		var ableToResize = true;
+	    		  /(!If:/(!IsDefined:MinimumPanelRes))
+	    		  	ableToResize = wcli.util.XBrowser.isAbleToResize(/(MinimumPanelRes));
+	    		  /(!If)
+	    		  
+	    		  
+	    		  
+	    		  
+	    		  
+	    		  
+	      		
+	      			if(ableToResize  === true){
+	      				wcli.util.XBrowser.addFixedPositionAttributes(dijit.byId("/(!CustID3157:!NameID)").textbox, 
+	      		
+	    		  
+	    		  {top: "36",ctrlWidth: "100", ctrlHeight: "20", fixBottom: "No",fixLeft: "Yes",fixRight: "No",fixTop: "Yes",panelWidth: "605",panelHeight: "159",fncName: "/(!Panel:!NameID)"}
+	    		  
+	    		  
+	      		);
+	      				wcli.util.XBrowser.fixedPositionEdit("/(!CustID3157:!NameID)", mode);
+	      			}
+	      		/(!If)
+	      		wcli.util.XBrowser.setValueEdit("/(!CustID3157:!NameID)", mode, formatvalue, "Char", /(!CustID3157));
+	      		var editbox = wcli.util.XBrowser.querySelector("/(!CustID3157:!NameID)");
+	      		editbox.maxLength = "10";
+	      	
+	      	
+	      	/(!If:/(!IsDefined:HintValue))
+	      		var currentControlID = "/(!CustID3157:!NameID)";
+	      		var currentHintValue = "";
+	      		/(!-- Begin attach point 'CustID3157.HintValue')
+	      	
+
+	      	/(!-- End attach point 'CustID3157.HintValue')
+	      	
+
+	      		/(!CustID3157:!NameID)HintValue = currentHintValue;
+	      	/(!If)	
+	      
+	      	var bgcolor = wcli.color.setColor("");
+	      	
+	      	
+	      	
+	      	
+	      			wcli.form.Font.applyPlexFont(document.getElementById("/(!WebObLabel_STxF_3159:!NameID)"), "Regular 8  MS Sans Serif ");
+	      	
+	      	/(!If:/(!IsDefined:FixedPositioning))
+	      		
+	      	var ableToResize = true;
+	    	  /(!If:/(!IsDefined:MinimumPanelRes))
+	    	  	ableToResize = wcli.util.XBrowser.isAbleToResize(/(MinimumPanelRes));
+	    	  /(!If)
+	    	  
+	    	  
+	    	  
+	    	  
+	    	  	//Use this code when the control is: WebLabel, WebList, WebMultilineEdit (JSOnLoad, SetState), WebStatic, WebTextbox
+	    	  	if(document.getElementById("/(!WebObLabel_STxF_3159:!NameID)") && ableToResize === true){
+	    	  		wcli.util.XBrowser.resizeDiv(document.getElementById("/(!WebObLabel_STxF_3159:!NameID)"));
+	    	  	}
+	    	  
+	    	  
+	    	  
+	      	
+	      		setTimeout(function(){
+	      			if (typeof /(!WebObLabel_STxF_3159:!NameID)_OnLoadResizeLabel === "undefined" && ableToResize === true){
+	      		    	/(!WebObLabel_STxF_3159:!NameID)_OnLoadResizeLabel = dojo.connect(window, "onresize", function(){
+	      					if(document.getElementById("/(!WebObLabel_STxF_3159:!NameID)")){
+	      						wcli.util.XBrowser.resizeDiv(document.getElementById("/(!WebObLabel_STxF_3159:!NameID)"),null,true);
+	      					}
+	      				});
+	      			}
+	          	}, 300);      
+	      		
+	      	/(!If)
+	      	
+	      
+	          var dijitEdit = dijit.byId("/(!OrderQty3160:!NameID)");
+	          var mode = "Edit";
+	          var formatvalue = wcli.form.getFormatValue("Integer", "###0", 0, true, /(!OrderQty3160), "Edit");
+	          
+	          	if (protectedEditBorder == true && mode == "Read Only" && dojo.isIE11){
+	          		wcli.util.XBrowser.setBGColor("5                     ","/(!OrderQty3160:!NameID)", 48, 20);
+	          	}else{ 
+	          		wcli.util.XBrowser.setBGColor("5                     ","/(!OrderQty3160:!NameID)"); 
+	          	}
+	      	
+	      	
+	      	
+	      	
+	      	
+	      	
+	      	
+	      	/(!If:/(!IsDefined:RightAlignmentMargin))
+	      			
+	      				document.getElementById("/(!OrderQty3160:!NameID)").style.paddingRight=/(RightAlignmentMargin)+"px";
+	      				document.getElementById("/(!OrderQty3160:!NameID)").style.boxSizing = "border-box";
+	      			
+	      		/(!If)
+	      	
+	      	
+	      	
+	      	
+	      		if (wcli.util.XBrowser.querySelector("/(!OrderQty3160:!NameID)")){ 
+	      			wcli.form.Font.applyPlexFont(wcli.util.XBrowser.querySelector("/(!OrderQty3160:!NameID)"), "Regular 8  MS Sans Serif ");
+	      		}
+	      	
+	      	wcli.util.XBrowser.setBorder("/(!OrderQty3160:!NameID)","Indented");
+	      	
+	      	if (dijit.byId("/(!OrderQty3160:!NameID)")) {
+	    	  	(function() {
+	    	  		var ctl = dijit.byId("/(!OrderQty3160:!NameID)");
+	    	  		var tb = ctl["textbox"];
+	    	  		
+	    	  		if (ctl.editEventsCalled) {
+	    	  			return;
+	    	  		}
+	    	  		ctl.editEventsCalled = true;
+	    	  
+	    	  		
+	    	  		var modified = dojo.hitch(ctl, function(e) {
+	    	  			if(e.keyCode == dojo.keys.TAB){
+	    	  		  	 	window.modifiedBlockFocus = true;
+	    	  				return;
+	    	  		    }
+	    	  		    window.modifiedBlockFocus = false;
+	    	  			this._changed = true;
+	    	  			ctl.value = ctl.textbox.value; 
+	    	  			
+	    	  		});
+	    	  		var modifiedIE = function(e) {
+	    	  			if (e.keyCode == dojo.keys.DELETE ||
+	    	  					e.keyCode == dojo.keys.BACKSPACE ||
+	    	  					e.keyCode >= 48 && e.keyCode <= 90 ||
+	    	  					e.keyCode >= 96 && e.keyCode <= 107 ||
+	    	  					e.keyCode >= 109 && e.keyCode <= 111
+	    	  					) {
+	    	  				return modified(e);
+	    	  			}
+	    	  		};
+	    	  		var updated = dojo.hitch(ctl, function(e) {
+	    	  			if (this._changed && !window.dialogIsOpen) {
+	    	  				
+	    	  				this._changed = false;
+	    	  			}
+	    	  		});
+	    	  		dojo.connect(ctl, "_onChange", ctl, updated);
+	    	  		if (dojo.isIE) {
+	    	  			dojo.connect(tb, "onpaste", ctl, modifiedIE);
+	    	  			dojo.connect(tb, "onkeyup", ctl, modifiedIE);
+	    	  		}
+	    	  		else {
+	    	  			dojo.connect(tb, "oninput", ctl, modified);
+	    	  		}
+	    	  		
+	    	  	})();
+	    	  }
+	      	
+	      	
+	      	
+	      		/(!If:/(!IsDefined:FixedPositioning))
+	      			
+	      		var ableToResize = true;
+	    		  /(!If:/(!IsDefined:MinimumPanelRes))
+	    		  	ableToResize = wcli.util.XBrowser.isAbleToResize(/(MinimumPanelRes));
+	    		  /(!If)
+	    		  
+	    		  
+	    		  
+	    		  
+	    		  
+	    		  
+	      		
+	      			if(ableToResize  === true){
+	      				wcli.util.XBrowser.addFixedPositionAttributes(dijit.byId("/(!OrderQty3160:!NameID)").textbox, 
+	      		
+	    		  
+	    		  {top: "60",ctrlWidth: "48", ctrlHeight: "20", fixBottom: "No",fixLeft: "Yes",fixRight: "No",fixTop: "Yes",panelWidth: "605",panelHeight: "159",fncName: "/(!Panel:!NameID)"}
+	    		  
+	    		  
+	      		);
+	      				wcli.util.XBrowser.fixedPositionEdit("/(!OrderQty3160:!NameID)", mode);
+	      			}
+	      		/(!If)
+	      		wcli.util.XBrowser.setValueEdit("/(!OrderQty3160:!NameID)", mode, formatvalue, "Integer", /(!OrderQty3160));
+	      		var editbox = wcli.util.XBrowser.querySelector("/(!OrderQty3160:!NameID)");
+	      		editbox.maxLength = "4";
+	      	
+	      	
+	      	/(!If:/(!IsDefined:HintValue))
+	      		var currentControlID = "/(!OrderQty3160:!NameID)";
+	      		var currentHintValue = "";
+	      		/(!-- Begin attach point 'OrderQty3160.HintValue')
+	      	
+
+	      	/(!-- End attach point 'OrderQty3160.HintValue')
+	      	
+
+	      		/(!OrderQty3160:!NameID)HintValue = currentHintValue;
+	      	/(!If)	
+	      
+	          var dijitEdit = dijit.byId("/(!ProdName3166:!NameID)");
+	          var mode = "Edit";
+	          var formatvalue = wcli.form.getFormatValue("Char", "%ss40", 0, true, /(!ProdName3166), "Edit");
+	          
+	          	if (protectedEditBorder == true && mode == "Read Only" && dojo.isIE11){
+	          		wcli.util.XBrowser.setBGColor("5                     ","/(!ProdName3166:!NameID)", 372, 20);
+	          	}else{ 
+	          		wcli.util.XBrowser.setBGColor("5                     ","/(!ProdName3166:!NameID)"); 
+	          	}
+	      	
+	      	
+	      	
+	      	
+	      	
+	      	
+	      	
+	      	/(!If:/(!IsDefined:RightAlignmentMargin))
+	      			
+	      				document.getElementById("/(!ProdName3166:!NameID)").style.paddingRight=/(RightAlignmentMargin)+"px";
+	      				document.getElementById("/(!ProdName3166:!NameID)").style.boxSizing = "border-box";
+	      			
+	      		/(!If)
+	      	
+	      	
+	      	
+	      	
+	      		if (wcli.util.XBrowser.querySelector("/(!ProdName3166:!NameID)")){ 
+	      			wcli.form.Font.applyPlexFont(wcli.util.XBrowser.querySelector("/(!ProdName3166:!NameID)"), "Regular 8  MS Sans Serif ");
+	      		}
+	      	
+	      	wcli.util.XBrowser.setBorder("/(!ProdName3166:!NameID)","Indented");
+	      	
+	      	if (dijit.byId("/(!ProdName3166:!NameID)")) {
+	    	  	(function() {
+	    	  		var ctl = dijit.byId("/(!ProdName3166:!NameID)");
+	    	  		var tb = ctl["textbox"];
+	    	  		
+	    	  		if (ctl.editEventsCalled) {
+	    	  			return;
+	    	  		}
+	    	  		ctl.editEventsCalled = true;
+	    	  
+	    	  		
+	    	  		var modified = dojo.hitch(ctl, function(e) {
+	    	  			if(e.keyCode == dojo.keys.TAB){
+	    	  		  	 	window.modifiedBlockFocus = true;
+	    	  				return;
+	    	  		    }
+	    	  		    window.modifiedBlockFocus = false;
+	    	  			this._changed = true;
+	    	  			ctl.value = ctl.textbox.value; 
+	    	  			
+	    	  		});
+	    	  		var modifiedIE = function(e) {
+	    	  			if (e.keyCode == dojo.keys.DELETE ||
+	    	  					e.keyCode == dojo.keys.BACKSPACE ||
+	    	  					e.keyCode >= 48 && e.keyCode <= 90 ||
+	    	  					e.keyCode >= 96 && e.keyCode <= 107 ||
+	    	  					e.keyCode >= 109 && e.keyCode <= 111
+	    	  					) {
+	    	  				return modified(e);
+	    	  			}
+	    	  		};
+	    	  		var updated = dojo.hitch(ctl, function(e) {
+	    	  			if (this._changed && !window.dialogIsOpen) {
+	    	  				
+	    	  				this._changed = false;
+	    	  			}
+	    	  		});
+	    	  		dojo.connect(ctl, "_onChange", ctl, updated);
+	    	  		if (dojo.isIE) {
+	    	  			dojo.connect(tb, "onpaste", ctl, modifiedIE);
+	    	  			dojo.connect(tb, "onkeyup", ctl, modifiedIE);
+	    	  		}
+	    	  		else {
+	    	  			dojo.connect(tb, "oninput", ctl, modified);
+	    	  		}
+	    	  		
+	    	  	})();
+	    	  }
+	      	
+	      	
+	      	
+	      		/(!If:/(!IsDefined:FixedPositioning))
+	      			
+	      		var ableToResize = true;
+	    		  /(!If:/(!IsDefined:MinimumPanelRes))
+	    		  	ableToResize = wcli.util.XBrowser.isAbleToResize(/(MinimumPanelRes));
+	    		  /(!If)
+	    		  
+	    		  
+	    		  
+	    		  
+	    		  
+	    		  
+	      		
+	      			if(ableToResize  === true){
+	      				wcli.util.XBrowser.addFixedPositionAttributes(dijit.byId("/(!ProdName3166:!NameID)").textbox, 
+	      		
+	    		  
+	    		  {top: "12",ctrlWidth: "372", ctrlHeight: "20", fixBottom: "No",fixLeft: "Yes",fixRight: "No",fixTop: "Yes",panelWidth: "605",panelHeight: "159",fncName: "/(!Panel:!NameID)"}
+	    		  
+	    		  
+	      		);
+	      				wcli.util.XBrowser.fixedPositionEdit("/(!ProdName3166:!NameID)", mode);
+	      			}
+	      		/(!If)
+	      		wcli.util.XBrowser.setValueEdit("/(!ProdName3166:!NameID)", mode, formatvalue, "Char", /(!ProdName3166));
+	      		var editbox = wcli.util.XBrowser.querySelector("/(!ProdName3166:!NameID)");
+	      		editbox.maxLength = "40";
+	      	
+	      	
+	      	/(!If:/(!IsDefined:HintValue))
+	      		var currentControlID = "/(!ProdName3166:!NameID)";
+	      		var currentHintValue = "";
+	      		/(!-- Begin attach point 'ProdName3166.HintValue')
+	      	
+
+	      	/(!-- End attach point 'ProdName3166.HintValue')
+	      	
+
+	      		/(!ProdName3166:!NameID)HintValue = currentHintValue;
+	      	/(!If)	
+	      
+	          var dijitEdit = dijit.byId("/(!CustName3169:!NameID)");
+	          var mode = "Edit";
+	          var formatvalue = wcli.form.getFormatValue("Char", "%ss40", 0, true, /(!CustName3169), "Edit");
+	          
+	          	if (protectedEditBorder == true && mode == "Read Only" && dojo.isIE11){
+	          		wcli.util.XBrowser.setBGColor("5                     ","/(!CustName3169:!NameID)", 372, 20);
+	          	}else{ 
+	          		wcli.util.XBrowser.setBGColor("5                     ","/(!CustName3169:!NameID)"); 
+	          	}
+	      	
+	      	
+	      	
+	      	
+	      	
+	      	
+	      	
+	      	/(!If:/(!IsDefined:RightAlignmentMargin))
+	      			
+	      				document.getElementById("/(!CustName3169:!NameID)").style.paddingRight=/(RightAlignmentMargin)+"px";
+	      				document.getElementById("/(!CustName3169:!NameID)").style.boxSizing = "border-box";
+	      			
+	      		/(!If)
+	      	
+	      	
+	      	
+	      	
+	      		if (wcli.util.XBrowser.querySelector("/(!CustName3169:!NameID)")){ 
+	      			wcli.form.Font.applyPlexFont(wcli.util.XBrowser.querySelector("/(!CustName3169:!NameID)"), "Regular 8  MS Sans Serif ");
+	      		}
+	      	
+	      	wcli.util.XBrowser.setBorder("/(!CustName3169:!NameID)","Indented");
+	      	
+	      	if (dijit.byId("/(!CustName3169:!NameID)")) {
+	    	  	(function() {
+	    	  		var ctl = dijit.byId("/(!CustName3169:!NameID)");
+	    	  		var tb = ctl["textbox"];
+	    	  		
+	    	  		if (ctl.editEventsCalled) {
+	    	  			return;
+	    	  		}
+	    	  		ctl.editEventsCalled = true;
+	    	  
+	    	  		
+	    	  		var modified = dojo.hitch(ctl, function(e) {
+	    	  			if(e.keyCode == dojo.keys.TAB){
+	    	  		  	 	window.modifiedBlockFocus = true;
+	    	  				return;
+	    	  		    }
+	    	  		    window.modifiedBlockFocus = false;
+	    	  			this._changed = true;
+	    	  			ctl.value = ctl.textbox.value; 
+	    	  			
+	    	  		});
+	    	  		var modifiedIE = function(e) {
+	    	  			if (e.keyCode == dojo.keys.DELETE ||
+	    	  					e.keyCode == dojo.keys.BACKSPACE ||
+	    	  					e.keyCode >= 48 && e.keyCode <= 90 ||
+	    	  					e.keyCode >= 96 && e.keyCode <= 107 ||
+	    	  					e.keyCode >= 109 && e.keyCode <= 111
+	    	  					) {
+	    	  				return modified(e);
+	    	  			}
+	    	  		};
+	    	  		var updated = dojo.hitch(ctl, function(e) {
+	    	  			if (this._changed && !window.dialogIsOpen) {
+	    	  				
+	    	  				this._changed = false;
+	    	  			}
+	    	  		});
+	    	  		dojo.connect(ctl, "_onChange", ctl, updated);
+	    	  		if (dojo.isIE) {
+	    	  			dojo.connect(tb, "onpaste", ctl, modifiedIE);
+	    	  			dojo.connect(tb, "onkeyup", ctl, modifiedIE);
+	    	  		}
+	    	  		else {
+	    	  			dojo.connect(tb, "oninput", ctl, modified);
+	    	  		}
+	    	  		
+	    	  	})();
+	    	  }
+	      	
+	      	
+	      	
+	      		/(!If:/(!IsDefined:FixedPositioning))
+	      			
+	      		var ableToResize = true;
+	    		  /(!If:/(!IsDefined:MinimumPanelRes))
+	    		  	ableToResize = wcli.util.XBrowser.isAbleToResize(/(MinimumPanelRes));
+	    		  /(!If)
+	    		  
+	    		  
+	    		  
+	    		  
+	    		  
+	    		  
+	      		
+	      			if(ableToResize  === true){
+	      				wcli.util.XBrowser.addFixedPositionAttributes(dijit.byId("/(!CustName3169:!NameID)").textbox, 
+	      		
+	    		  
+	    		  {top: "36",ctrlWidth: "372", ctrlHeight: "20", fixBottom: "No",fixLeft: "Yes",fixRight: "No",fixTop: "Yes",panelWidth: "605",panelHeight: "159",fncName: "/(!Panel:!NameID)"}
+	    		  
+	    		  
+	      		);
+	      				wcli.util.XBrowser.fixedPositionEdit("/(!CustName3169:!NameID)", mode);
+	      			}
+	      		/(!If)
+	      		wcli.util.XBrowser.setValueEdit("/(!CustName3169:!NameID)", mode, formatvalue, "Char", /(!CustName3169));
+	      		var editbox = wcli.util.XBrowser.querySelector("/(!CustName3169:!NameID)");
+	      		editbox.maxLength = "40";
+	      	
+	      	
+	      	/(!If:/(!IsDefined:HintValue))
+	      		var currentControlID = "/(!CustName3169:!NameID)";
+	      		var currentHintValue = "";
+	      		/(!-- Begin attach point 'CustName3169.HintValue')
+	      	
+
+	      	/(!-- End attach point 'CustName3169.HintValue')
+	      	
+
+	      		/(!CustName3169:!NameID)HintValue = currentHintValue;
+	      	/(!If)	
+	      
+	      	
+	      		var txtcolor = wcli.color.setColor("18");
+	      		if (document.getElementById("/(!WebObPushbutton_STxF_3171:!NameID)")){
+	      			document.getElementById("/(!WebObPushbutton_STxF_3171:!NameID)").style.color = txtcolor;
+	      		}
+	      	
+	      	
+	      	/(!If:/(!IsDefined:FixedPositioning))
+	      	wcli.util.XBrowser.addFixedPositionAttributes(document.getElementById("/(!WebObPushbutton_STxF_3171:!NameID)"), 
+	      	
+	    	  
+	    	  {top: "88",ctrlWidth: "56", ctrlHeight: "24", fixBottom: "No",fixLeft: "Yes",fixRight: "No",fixTop: "Yes",panelWidth: "605",panelHeight: "159",fncName: "/(!Panel:!NameID)"}
+	    	  
+	    	  
+	      	);
+	      	/(!If)	
+	      
+	    /(!-- End attach point 'JSOnLoad')
+	    
+
+		/(!If:/(!Req:_child))/(!Else)document.title = /(!Panel:!Title) || "Panel" ;/(!If)
+	    /(!------------- Start expansion of !MDIActions.js -----------------)
+	    dojo.require("wcli.layout.MDIController");
+	    
+	    /(!Panel:!EnableAction:MDIIconArrange,MDICascade,MDICloseAll,MDITileHorizontally,MDITileVertically)
+	    
+	    /(!Panel:!Action:MDIIconArrange)
+	    	wcli.layout.MDIController.MDIIconArrange();
+	    /(!Panel:!Action)
+	    
+	    /(!Panel:!Action:MDICascade)
+	    	wcli.layout.MDIController.MDICascade();
+	    /(!Panel:!Action)
+	    
+	    /(!Panel:!Action:MDICloseAll)
+	    	wcli.layout.MDIController.MDICloseAll();
+	    /(!Panel:!Action)
+	    
+	    /(!Panel:!Action:MDITileHorizontally)
+	    	wcli.layout.MDIController.MDITileHorizontally();
+	    /(!Panel:!Action)
+	    
+	    /(!Panel:!Action:MDITileVertically)
+	    	wcli.layout.MDIController.MDITileVertically();
+	    /(!Panel:!Action)
+	    /(!------------- End expansion of !MDIActions.js ------------------)
+	    
+
+	    /(!If:/(!Req:_child))
+	    {
+		   	/(!Panel:!EnableAction:RegisterKeyEvent,SetCaption,DisableKeyboardEvent,EnableKeyboardEvent)
+
+			var /(!Panel:!NameID)_childkeymap = {};
+		   	/(!Panel:!Action:RegisterKeyEvent)
+		 		/(!Panel:!NameID)_childkeymap[/(!ActionArg)] = /(!ActionArg);
+		   		window./(!Panel:!NameID)_childkeymap = /(!Panel:!NameID)_childkeymap;
+		    /(!Panel:!Action)
+
+		    /(!Panel:!Action:SetCaption)
+		    document.title = /(!Panel:!Title) || "Panel" ;
+		    /(!Panel:!Action)
+
+		    var p = dijit.byId("/(!Panel:!NameID)").domNode;
+		    if (!p.keysConnected) {
+			    dojo.connect(p, "onkeydown", function(evt) {
+				  	var code = getKeyString(evt);
+				  	if (code in keyStatus) {
+	    			  	keyStatus[code] = true;
+				  	}
+				  	else if (dojo.isIE || evt.keyCode != dojo.keys.ENTER)
+				  		dokey(/(!Panel:!NameID)_childkeymap, evt.currentTarget.id + ":", evt, /(!Panel:!NameID)_pnlid ,
+		  				'/(!Panel:!NameID)');
+				});
+				if (!dojo.isIE) {
+				  	dojo.connect(p, "onkeypress", function(evt) {
+				  		if (evt.keyCode == dojo.keys.ENTER)
+				  			dokey(/(!Panel:!NameID)_childkeymap, evt.currentTarget.id + ":", evt, /(!Panel:!NameID)_pnlid ,
+			  				'/(!Panel:!NameID)');
+					});
+				}
+				dojo.connect(p, "onkeyup", function(evt) {
+					var code = getKeyString(evt);
+					if (code in keyStatus) {
+	    				keyStatus[code] = false;
+					}
+				});
+				p.keysConnected = true;
+		    }
+	    }
+	    /(!If)
+
+	    /(!If:/(!Req:_child))
+		    /* don't set focus if this page is a hidden child panel */
+		    var cp = document.getElementById(/(!Req:_child));
+			if (cp && cp.style.display != "none")
+		/(!If)
+		{
+	    	/(!FOCUS)
+	      		if (dijit.byId("/(!NameID)")) {
+	      			var bodyScrollTop = dojo.body().scrollTop;
+	        		dijit.byId("/(!NameID)").focus();
+	        		dojo.body().scrollTop = bodyScrollTop;
+	        		if (wcli.form != undefined) {
+		        		if (wcli.form.selectField) {
+		        			wcli.form.selectField(dijit.byId("/(!NameID)"));
+		        		}
+	        		}
+	      		} else if (document.getElementById("/(!NameID)") && document.getElementById("/(!NameID)").focus &&
+		  				document.getElementById("/(!NameID)").disabled == false)
+		    		document.getElementById("/(!NameID)").focus();
+			/(!FOCUS)
+		}
+	  });
+	/(Embed)
+  </script>
+
+    /(!-- Begin attach point 'FormArea')
+    
+
+    /(!-- End attach point 'FormArea')
+    
+
+    /(!-- Begin attach point 'MainArea')
+    
+
+    	<div class="WebMessages_Div1" style="width:100%; height:100%;">
+    	    /(!-- Begin attach point 'MenuBarArea')
+    	    
+
+    	    /(!-- End attach point 'MenuBarArea')
+    	    
+
+    		/(!-- Begin attach point 'ToolbarArea')
+    		
+
+    		/(!-- End attach point 'ToolbarArea')
+    		
+
+    		<div class="WebMessages_Div2" style="position: relative; width:100%; height:100%;">
+    			/(!-- Begin attach point 'MainArea')
+    			
+
+    			  
+    			  
+    			  
+    			  
+    			  /(!WebObStatic_STxF_3151:!EnableAction:SetState,SetText)
+    			  
+    			  
+    			  
+    			  
+    			    <div class="  plexframe" id="/(!WebObStatic_STxF_3151:!NameID)" style="         position: absolute;     left: 12px;     top: 8px;      z-index: 1;     width: 568px;   height: 76px;      /(!If:/(!WebObStatic_STxF_3151:!Property:Visible)=No)     display: none; /(!If) text-align:Left;
+    			   z-index:1;border:thin inset;
+    			   "
+    			    /(!If:/(!IsDefined:FixedPositioning))
+    			    
+    			    
+    			    
+    			    fncName="/(!Panel:!NameID)" fixBottom="No" fixLeft="Yes" fixRight="No" fixTop="Yes" panelWidth=605 panelHeight=159 ctrlWidth=568 ctrlHeight=76 top=8
+    			    
+    			    
+    			    
+    			    /(!If)>	
+    			    </div>
+    			  
+    			  
+    			  
+    			  
+    			  
+    			  
+    			  
+    			
+    			  
+    			  
+    			  
+    			  
+    			  
+    			  
+    			  
+    			  
+    			  /(!WebObLabel_STxF_3153:!EnableAction:SetState,SetText)
+    			  
+    			  <span id="/(!WebObLabel_STxF_3153:!NameID)" class="/(!If:/(!IsDefined:LabelAligned))LabelAligned/(!Else)label/(!If)  " tabindex="-1" style="         position: absolute;     left: 16px;     top: 12px;      z-index: 3;     width: 60px;   height: 20px;      /(!If:/(!WebObLabel_STxF_3153:!Property:Visible)=No)     display: none; /(!If)text-align:Left;" 
+    			  /(!If:/(!IsDefined:FixedPositioning))
+    			  
+    			  
+    			  
+    			  fncName="/(!Panel:!NameID)" fixBottom="No" fixLeft="Yes" fixRight="No" fixTop="Yes" panelWidth=605 panelHeight=159 ctrlWidth=60 ctrlHeight=20 top=12
+    			  
+    			  
+    			  
+    			  /(!If)>
+    			    /(!WebObLabel_STxF_3153:!Text:htmlbr)
+    			  </span>
+    			  
+    			  
+    			  
+    			
+    			  
+    			  
+    			  
+    			  
+    			  
+    			  
+    			  
+    			  
+    			  
+    			  
+    			  
+    			    <div style="         position: absolute;     left: 100px;     top: 12px;      z-index: 3;     width: 100px;   height: 20px;      /(!If:/(!ProdID3154:!Property:Visible)=No)     display: none; /(!If)
+    			  
+    			  "
+    			  	 class=" "
+    			    	 type="text" name="/(!ProdID3154:!NameID)" id="/(!ProdID3154:!NameID)" maxLength="10" 
+    			    	 constraints="{places:0,fractional:true}"
+    			    	 dojoType="wcli.form.HintTextBox" hintText="" implName="ProdID" editMask="%ss10"
+    			    	 dataType="Char" 
+    			    	 value="/(!ProdID3154)" uppercase="true" 
+    			  	 
+    			  	 /(!If:/(!IsDefined:FixedPositioning))
+    			  	 
+    				   
+    				   
+    				   fncName="/(!Panel:!NameID)" fixBottom="No" fixLeft="Yes" fixRight="No" fixTop="Yes" panelWidth=605 panelHeight=159 ctrlWidth=100 ctrlHeight=20 top=12
+    				   
+    				   
+    				   
+    			  	 /(!If)>
+    			    	 
+    			    	 <script type="dojo/connect" event="onDblClick" args="evt">
+    			    	 	if(wcli.util.XBrowser.checkBorder(evt)){
+    			    	 		return;
+    			    	 	}
+    			    	 	
+    			    	 	
+    			    	 		
+    			    	 		if (!window./(!Panel:!NameID)_submitter)
+    			  	 		  	return;
+    			  	 		  var doEventOp = function() {
+    			  	 		  	if (window./(!Panel:!NameID)_submitter.onsubmit)
+    			  	 		  		window./(!Panel:!NameID)_submitter.onsubmit();
+    			  	 		  	dojo.xhrPost({
+    			  	 		  		form: /(!Panel:!NameID)_form,
+    			  	 		  		content: { _type: 'json', ctlact: '/(!ProdID3154:!NameID):Double Click', pnlid: /(!Panel:!NameID)_pnlid, focus: '/(!ProdID3154:!NameID)', websessid: window.websessid },
+    			  	 		  		load: function(data, ioArgs) {
+    			  	 		  		 //Code starts to manage session timeout in ajax requests.
+    			  	 		  			var headerstring = ioArgs.xhr.getResponseHeader('Content-Type');
+    			  	 		  			var headers = headerstring.split(';');
+    			  	 		  			if (headers && (typeof data != 'object')) {
+    			  	 		  				if (headers[0].toLowerCase() != 'text/json' && headers[0].toLowerCase() != 'application/json')
+    			  	 		  					window.location.href = ioArgs.url;
+    			  	 		  			}
+    			  	 		  	           //Code ends to manage session timeout in ajax requests.    	
+    			  	 		  			data.main(data);
+    			  	 		  		},
+    			  	 		  		preventCache: true,
+    			  	 		  		handleAs: 'json'	
+    			  	 		  	});
+    			  	 		  };
+    			  	 		  if (window.editGridWait) {
+    			  	 		  	dojo.connect(window.editGridWait, 'onEditGridApplied', doEventOp);
+    			  	 		  } else {
+    			  	 		  	doEventOp();
+    			  	 		  }
+    			    	 			 			
+    			    	 	
+    			    	 </script>
+    			    	 
+    			  	 
+    			  
+    			    	 
+    			    	 
+    			    	 
+    			    	 
+    			    	 
+    			    	 
+    			    	 /(!-- Begin attach point 'ProdID3154.Prompt')
+    			    	 
+
+    			    	 /(!-- End attach point 'ProdID3154.Prompt')
+    			    	 
+
+    			    	 
+    			    	 /(!-- Begin attach point 'ProdID3154.PopUpPrompt')
+    			    	 
+
+    			    	 /(!-- End attach point 'ProdID3154.PopUpPrompt')
+    			    	 
+
+    			    </div>
+    			    
+    			  
+    			  
+    			  /(!ProdID3154:!EnableAction:SetTooltip,SetValue,SetState,SetFocus)
+    			  
+    			  
+    			  
+    			
+    			  
+    			  
+    			  
+    			  
+    			  
+    			  
+    			  
+    			  
+    			  /(!WebObLabel_STxF_3156:!EnableAction:SetState,SetText)
+    			  
+    			  <span id="/(!WebObLabel_STxF_3156:!NameID)" class="/(!If:/(!IsDefined:LabelAligned))LabelAligned/(!Else)label/(!If)  " tabindex="-1" style="         position: absolute;     left: 16px;     top: 36px;      z-index: 3;     width: 64px;   height: 20px;      /(!If:/(!WebObLabel_STxF_3156:!Property:Visible)=No)     display: none; /(!If)text-align:Left;" 
+    			  /(!If:/(!IsDefined:FixedPositioning))
+    			  
+    			  
+    			  
+    			  fncName="/(!Panel:!NameID)" fixBottom="No" fixLeft="Yes" fixRight="No" fixTop="Yes" panelWidth=605 panelHeight=159 ctrlWidth=64 ctrlHeight=20 top=36
+    			  
+    			  
+    			  
+    			  /(!If)>
+    			    /(!WebObLabel_STxF_3156:!Text:htmlbr)
+    			  </span>
+    			  
+    			  
+    			  
+    			
+    			  
+    			  
+    			  
+    			  
+    			  
+    			  
+    			  
+    			  
+    			  
+    			  
+    			  
+    			    <div style="         position: absolute;     left: 100px;     top: 36px;      z-index: 3;     width: 100px;   height: 20px;      /(!If:/(!CustID3157:!Property:Visible)=No)     display: none; /(!If)
+    			  
+    			  "
+    			  	 class=" "
+    			    	 type="text" name="/(!CustID3157:!NameID)" id="/(!CustID3157:!NameID)" maxLength="10" 
+    			    	 constraints="{places:0,fractional:true}"
+    			    	 dojoType="wcli.form.HintTextBox" hintText="" implName="CustID" editMask="%ss10"
+    			    	 dataType="Char" 
+    			    	 value="/(!CustID3157)" uppercase="true" 
+    			  	 
+    			  	 /(!If:/(!IsDefined:FixedPositioning))
+    			  	 
+    				   
+    				   
+    				   fncName="/(!Panel:!NameID)" fixBottom="No" fixLeft="Yes" fixRight="No" fixTop="Yes" panelWidth=605 panelHeight=159 ctrlWidth=100 ctrlHeight=20 top=36
+    				   
+    				   
+    				   
+    			  	 /(!If)>
+    			    	 
+    			    	 <script type="dojo/connect" event="onDblClick" args="evt">
+    			    	 	if(wcli.util.XBrowser.checkBorder(evt)){
+    			    	 		return;
+    			    	 	}
+    			    	 	
+    			    	 	
+    			    	 		
+    			    	 		if (!window./(!Panel:!NameID)_submitter)
+    			  	 		  	return;
+    			  	 		  var doEventOp = function() {
+    			  	 		  	if (window./(!Panel:!NameID)_submitter.onsubmit)
+    			  	 		  		window./(!Panel:!NameID)_submitter.onsubmit();
+    			  	 		  	dojo.xhrPost({
+    			  	 		  		form: /(!Panel:!NameID)_form,
+    			  	 		  		content: { _type: 'json', ctlact: '/(!CustID3157:!NameID):Double Click', pnlid: /(!Panel:!NameID)_pnlid, focus: '/(!CustID3157:!NameID)', websessid: window.websessid },
+    			  	 		  		load: function(data, ioArgs) {
+    			  	 		  		 //Code starts to manage session timeout in ajax requests.
+    			  	 		  			var headerstring = ioArgs.xhr.getResponseHeader('Content-Type');
+    			  	 		  			var headers = headerstring.split(';');
+    			  	 		  			if (headers && (typeof data != 'object')) {
+    			  	 		  				if (headers[0].toLowerCase() != 'text/json' && headers[0].toLowerCase() != 'application/json')
+    			  	 		  					window.location.href = ioArgs.url;
+    			  	 		  			}
+    			  	 		  	           //Code ends to manage session timeout in ajax requests.    	
+    			  	 		  			data.main(data);
+    			  	 		  		},
+    			  	 		  		preventCache: true,
+    			  	 		  		handleAs: 'json'	
+    			  	 		  	});
+    			  	 		  };
+    			  	 		  if (window.editGridWait) {
+    			  	 		  	dojo.connect(window.editGridWait, 'onEditGridApplied', doEventOp);
+    			  	 		  } else {
+    			  	 		  	doEventOp();
+    			  	 		  }
+    			    	 			 			
+    			    	 	
+    			    	 </script>
+    			    	 
+    			  	 
+    			  
+    			    	 
+    			    	 
+    			    	 
+    			    	 
+    			    	 
+    			    	 
+    			    	 /(!-- Begin attach point 'CustID3157.Prompt')
+    			    	 
+
+    			    	 /(!-- End attach point 'CustID3157.Prompt')
+    			    	 
+
+    			    	 
+    			    	 /(!-- Begin attach point 'CustID3157.PopUpPrompt')
+    			    	 
+
+    			    	 /(!-- End attach point 'CustID3157.PopUpPrompt')
+    			    	 
+
+    			    </div>
+    			    
+    			  
+    			  
+    			  /(!CustID3157:!EnableAction:SetTooltip,SetValue,SetState,SetFocus)
+    			  
+    			  
+    			  
+    			
+    			  
+    			  
+    			  
+    			  
+    			  
+    			  
+    			  
+    			  
+    			  /(!WebObLabel_STxF_3159:!EnableAction:SetState,SetText)
+    			  
+    			  <span id="/(!WebObLabel_STxF_3159:!NameID)" class="/(!If:/(!IsDefined:LabelAligned))LabelAligned/(!Else)label/(!If)  " tabindex="-1" style="         position: absolute;     left: 16px;     top: 60px;      z-index: 3;     width: 52px;   height: 20px;      /(!If:/(!WebObLabel_STxF_3159:!Property:Visible)=No)     display: none; /(!If)text-align:Left;" 
+    			  /(!If:/(!IsDefined:FixedPositioning))
+    			  
+    			  
+    			  
+    			  fncName="/(!Panel:!NameID)" fixBottom="No" fixLeft="Yes" fixRight="No" fixTop="Yes" panelWidth=605 panelHeight=159 ctrlWidth=52 ctrlHeight=20 top=60
+    			  
+    			  
+    			  
+    			  /(!If)>
+    			    /(!WebObLabel_STxF_3159:!Text:htmlbr)
+    			  </span>
+    			  
+    			  
+    			  
+    			
+    			  
+    			  
+    			  
+    			  
+    			  
+    			  
+    			  
+    			  
+    			  
+    			  
+    			  
+    			    <div style="         position: absolute;     left: 100px;     top: 60px;      z-index: 3;     width: 48px;   height: 20px;      /(!If:/(!OrderQty3160:!Property:Visible)=No)     display: none; /(!If)
+    			  
+    			  "
+    			  	 class=" "
+    			    	 type="text" name="/(!OrderQty3160:!NameID)" id="/(!OrderQty3160:!NameID)" maxLength="4" 
+    			    	 constraints="{places:0,fractional:true}"
+    			    	 dojoType="wcli.form.HintTextBox" hintText="" implName="OrderQty" editMask="###0"
+    			    	 dataType="Integer" 
+    			    	 value="/(!OrderQty3160)" uppercase="false" 
+    			  	 
+    			  	 /(!If:/(!IsDefined:FixedPositioning))
+    			  	 
+    				   
+    				   
+    				   fncName="/(!Panel:!NameID)" fixBottom="No" fixLeft="Yes" fixRight="No" fixTop="Yes" panelWidth=605 panelHeight=159 ctrlWidth=48 ctrlHeight=20 top=60
+    				   
+    				   
+    				   
+    			  	 /(!If)>
+    			    	 
+    			    	 <script type="dojo/connect" event="onDblClick" args="evt">
+    			    	 	if(wcli.util.XBrowser.checkBorder(evt)){
+    			    	 		return;
+    			    	 	}
+    			    	 	
+    			    	 	
+    			    	 		
+    			    	 		if (!window./(!Panel:!NameID)_submitter)
+    			  	 		  	return;
+    			  	 		  var doEventOp = function() {
+    			  	 		  	if (window./(!Panel:!NameID)_submitter.onsubmit)
+    			  	 		  		window./(!Panel:!NameID)_submitter.onsubmit();
+    			  	 		  	dojo.xhrPost({
+    			  	 		  		form: /(!Panel:!NameID)_form,
+    			  	 		  		content: { _type: 'json', ctlact: '/(!OrderQty3160:!NameID):Double Click', pnlid: /(!Panel:!NameID)_pnlid, focus: '/(!OrderQty3160:!NameID)', websessid: window.websessid },
+    			  	 		  		load: function(data, ioArgs) {
+    			  	 		  		 //Code starts to manage session timeout in ajax requests.
+    			  	 		  			var headerstring = ioArgs.xhr.getResponseHeader('Content-Type');
+    			  	 		  			var headers = headerstring.split(';');
+    			  	 		  			if (headers && (typeof data != 'object')) {
+    			  	 		  				if (headers[0].toLowerCase() != 'text/json' && headers[0].toLowerCase() != 'application/json')
+    			  	 		  					window.location.href = ioArgs.url;
+    			  	 		  			}
+    			  	 		  	           //Code ends to manage session timeout in ajax requests.    	
+    			  	 		  			data.main(data);
+    			  	 		  		},
+    			  	 		  		preventCache: true,
+    			  	 		  		handleAs: 'json'	
+    			  	 		  	});
+    			  	 		  };
+    			  	 		  if (window.editGridWait) {
+    			  	 		  	dojo.connect(window.editGridWait, 'onEditGridApplied', doEventOp);
+    			  	 		  } else {
+    			  	 		  	doEventOp();
+    			  	 		  }
+    			    	 			 			
+    			    	 	
+    			    	 </script>
+    			    	 
+    			  	 
+    			  
+    			    	 
+    			    	 
+    			    	 
+    			    	 
+    			    	 
+    			    	 
+    			    	 /(!-- Begin attach point 'OrderQty3160.Prompt')
+    			    	 
+
+    			    	 /(!-- End attach point 'OrderQty3160.Prompt')
+    			    	 
+
+    			    	 
+    			    	 /(!-- Begin attach point 'OrderQty3160.PopUpPrompt')
+    			    	 
+
+    			    	 /(!-- End attach point 'OrderQty3160.PopUpPrompt')
+    			    	 
+
+    			    </div>
+    			    
+    			  
+    			  
+    			  /(!OrderQty3160:!EnableAction:SetTooltip,SetValue,SetState,SetFocus)
+    			  
+    			  
+    			  
+    			
+    			  
+    			  
+    			  
+    			  
+    			  
+    			  
+    			  
+    			  
+    			  
+    			  
+    			  
+    			    <div style="         position: absolute;     left: 204px;     top: 12px;      z-index: 3;     width: 372px;   height: 20px;      /(!If:/(!ProdName3166:!Property:Visible)=No)     display: none; /(!If)
+    			  
+    			  "
+    			  	 class=" "
+    			    	 type="text" name="/(!ProdName3166:!NameID)" id="/(!ProdName3166:!NameID)" maxLength="40" 
+    			    	 constraints="{places:0,fractional:true}"
+    			    	 dojoType="wcli.form.HintTextBox" hintText="" implName="ProdName" editMask="%ss40"
+    			    	 dataType="Char" 
+    			    	 value="/(!ProdName3166)" uppercase="false" 
+    			  	 
+    			  	 /(!If:/(!IsDefined:FixedPositioning))
+    			  	 
+    				   
+    				   
+    				   fncName="/(!Panel:!NameID)" fixBottom="No" fixLeft="Yes" fixRight="No" fixTop="Yes" panelWidth=605 panelHeight=159 ctrlWidth=372 ctrlHeight=20 top=12
+    				   
+    				   
+    				   
+    			  	 /(!If)>
+    			    	 
+    			    	 <script type="dojo/connect" event="onDblClick" args="evt">
+    			    	 	if(wcli.util.XBrowser.checkBorder(evt)){
+    			    	 		return;
+    			    	 	}
+    			    	 	
+    			    	 	
+    			    	 		
+    			    	 		if (!window./(!Panel:!NameID)_submitter)
+    			  	 		  	return;
+    			  	 		  var doEventOp = function() {
+    			  	 		  	if (window./(!Panel:!NameID)_submitter.onsubmit)
+    			  	 		  		window./(!Panel:!NameID)_submitter.onsubmit();
+    			  	 		  	dojo.xhrPost({
+    			  	 		  		form: /(!Panel:!NameID)_form,
+    			  	 		  		content: { _type: 'json', ctlact: '/(!ProdName3166:!NameID):Double Click', pnlid: /(!Panel:!NameID)_pnlid, focus: '/(!ProdName3166:!NameID)', websessid: window.websessid },
+    			  	 		  		load: function(data, ioArgs) {
+    			  	 		  		 //Code starts to manage session timeout in ajax requests.
+    			  	 		  			var headerstring = ioArgs.xhr.getResponseHeader('Content-Type');
+    			  	 		  			var headers = headerstring.split(';');
+    			  	 		  			if (headers && (typeof data != 'object')) {
+    			  	 		  				if (headers[0].toLowerCase() != 'text/json' && headers[0].toLowerCase() != 'application/json')
+    			  	 		  					window.location.href = ioArgs.url;
+    			  	 		  			}
+    			  	 		  	           //Code ends to manage session timeout in ajax requests.    	
+    			  	 		  			data.main(data);
+    			  	 		  		},
+    			  	 		  		preventCache: true,
+    			  	 		  		handleAs: 'json'	
+    			  	 		  	});
+    			  	 		  };
+    			  	 		  if (window.editGridWait) {
+    			  	 		  	dojo.connect(window.editGridWait, 'onEditGridApplied', doEventOp);
+    			  	 		  } else {
+    			  	 		  	doEventOp();
+    			  	 		  }
+    			    	 			 			
+    			    	 	
+    			    	 </script>
+    			    	 
+    			  	 
+    			  
+    			    	 
+    			    	 
+    			    	 
+    			    	 
+    			    	 
+    			    	 
+    			    	 /(!-- Begin attach point 'ProdName3166.Prompt')
+    			    	 
+
+    			    	 /(!-- End attach point 'ProdName3166.Prompt')
+    			    	 
+
+    			    	 
+    			    	 /(!-- Begin attach point 'ProdName3166.PopUpPrompt')
+    			    	 
+
+    			    	 /(!-- End attach point 'ProdName3166.PopUpPrompt')
+    			    	 
+
+    			    </div>
+    			    
+    			  
+    			  
+    			  /(!ProdName3166:!EnableAction:SetTooltip,SetValue,SetState,SetFocus)
+    			  
+    			  
+    			  
+    			
+    			  
+    			  
+    			  
+    			  
+    			  
+    			  
+    			  
+    			  
+    			  
+    			  
+    			  
+    			    <div style="         position: absolute;     left: 204px;     top: 36px;      z-index: 3;     width: 372px;   height: 20px;      /(!If:/(!CustName3169:!Property:Visible)=No)     display: none; /(!If)
+    			  
+    			  "
+    			  	 class=" "
+    			    	 type="text" name="/(!CustName3169:!NameID)" id="/(!CustName3169:!NameID)" maxLength="40" 
+    			    	 constraints="{places:0,fractional:true}"
+    			    	 dojoType="wcli.form.HintTextBox" hintText="" implName="CustName" editMask="%ss40"
+    			    	 dataType="Char" 
+    			    	 value="/(!CustName3169)" uppercase="false" 
+    			  	 
+    			  	 /(!If:/(!IsDefined:FixedPositioning))
+    			  	 
+    				   
+    				   
+    				   fncName="/(!Panel:!NameID)" fixBottom="No" fixLeft="Yes" fixRight="No" fixTop="Yes" panelWidth=605 panelHeight=159 ctrlWidth=372 ctrlHeight=20 top=36
+    				   
+    				   
+    				   
+    			  	 /(!If)>
+    			    	 
+    			    	 <script type="dojo/connect" event="onDblClick" args="evt">
+    			    	 	if(wcli.util.XBrowser.checkBorder(evt)){
+    			    	 		return;
+    			    	 	}
+    			    	 	
+    			    	 	
+    			    	 		
+    			    	 		if (!window./(!Panel:!NameID)_submitter)
+    			  	 		  	return;
+    			  	 		  var doEventOp = function() {
+    			  	 		  	if (window./(!Panel:!NameID)_submitter.onsubmit)
+    			  	 		  		window./(!Panel:!NameID)_submitter.onsubmit();
+    			  	 		  	dojo.xhrPost({
+    			  	 		  		form: /(!Panel:!NameID)_form,
+    			  	 		  		content: { _type: 'json', ctlact: '/(!CustName3169:!NameID):Double Click', pnlid: /(!Panel:!NameID)_pnlid, focus: '/(!CustName3169:!NameID)', websessid: window.websessid },
+    			  	 		  		load: function(data, ioArgs) {
+    			  	 		  		 //Code starts to manage session timeout in ajax requests.
+    			  	 		  			var headerstring = ioArgs.xhr.getResponseHeader('Content-Type');
+    			  	 		  			var headers = headerstring.split(';');
+    			  	 		  			if (headers && (typeof data != 'object')) {
+    			  	 		  				if (headers[0].toLowerCase() != 'text/json' && headers[0].toLowerCase() != 'application/json')
+    			  	 		  					window.location.href = ioArgs.url;
+    			  	 		  			}
+    			  	 		  	           //Code ends to manage session timeout in ajax requests.    	
+    			  	 		  			data.main(data);
+    			  	 		  		},
+    			  	 		  		preventCache: true,
+    			  	 		  		handleAs: 'json'	
+    			  	 		  	});
+    			  	 		  };
+    			  	 		  if (window.editGridWait) {
+    			  	 		  	dojo.connect(window.editGridWait, 'onEditGridApplied', doEventOp);
+    			  	 		  } else {
+    			  	 		  	doEventOp();
+    			  	 		  }
+    			    	 			 			
+    			    	 	
+    			    	 </script>
+    			    	 
+    			  	 
+    			  
+    			    	 
+    			    	 
+    			    	 
+    			    	 
+    			    	 
+    			    	 
+    			    	 /(!-- Begin attach point 'CustName3169.Prompt')
+    			    	 
+
+    			    	 /(!-- End attach point 'CustName3169.Prompt')
+    			    	 
+
+    			    	 
+    			    	 /(!-- Begin attach point 'CustName3169.PopUpPrompt')
+    			    	 
+
+    			    	 /(!-- End attach point 'CustName3169.PopUpPrompt')
+    			    	 
+
+    			    </div>
+    			    
+    			  
+    			  
+    			  /(!CustName3169:!EnableAction:SetTooltip,SetValue,SetState,SetFocus)
+    			  
+    			  
+    			  
+    			
+    			  
+    			  
+    			  
+    			  
+    			  
+    			  
+    			  <button dojoType="dijit.form.Button" class="WebObPushbutton_STxF_3171  " type="button" id="/(!WebObPushbutton_STxF_3171:!NameID)" title="" style="         position: absolute;     left: 12px;     top: 88px;      z-index: 3;     width: 56px;   height: 24px;      /(!If:/(!WebObPushbutton_STxF_3171:!Property:Visible)=No)     display: none; /(!If)"
+    			  /(!If:/(!IsDefined:FixedPositioning))
+    			  
+    			  
+    			  
+    			  fncName="/(!Panel:!NameID)" fixBottom="No" fixLeft="Yes" fixRight="No" fixTop="Yes" panelWidth=605 panelHeight=159 ctrlWidth=56 ctrlHeight=24 top=88
+    			  
+    			  
+    			  
+    			  /(!If)>
+    			  	
+    			  	
+    				  
+    				  
+    				  
+    				  
+    				  
+    				  
+    				  
+    				  	
+    				  	
+    					  
+    					  
+    					  
+    					  
+    					  
+    					  
+    					  
+    					  	
+    					  	
+    						  
+    						  
+    						  
+    						  
+    						  
+    						  
+    						  
+    						  
+    						  
+    						  
+    						  
+    						  	
+    						  	<div><u>A</u>pply</div>
+    							  
+    						  	
+    						  
+    						  
+    						  
+    						  
+    						  
+    						  
+    						  	
+    						  	
+    						  	
+    						  	
+    						  	
+    						  
+    					  	
+    					  
+    					  
+    					  
+    					  
+    					  
+    					  
+    					  
+    					  
+    				  	
+    				  
+    				  
+    				  
+    				  
+    				  
+    				  
+    				  
+    				  
+    			  	
+    			  	
+    			  	<script type="dojo/method" event="onClick">
+    			  		
+    			  		if (!window./(!Panel:!NameID)_submitter)
+    					  	return;
+    					  var doEventOp = function() {
+    					  	if (window./(!Panel:!NameID)_submitter.onsubmit)
+    					  		window./(!Panel:!NameID)_submitter.onsubmit();
+    					  	dojo.xhrPost({
+    					  		form: /(!Panel:!NameID)_form,
+    					  		content: { _type: 'json', ctlact: '/(!WebObPushbutton_STxF_3171:!NameID):Pressed', pnlid: /(!Panel:!NameID)_pnlid, focus: window.curFocus, btnfocus: dijit._curFocus.id, websessid: window.websessid },
+    					  		load: function(data, ioArgs) {
+    					  		 //Code starts to manage session timeout in ajax requests.
+    					  			var headerstring = ioArgs.xhr.getResponseHeader('Content-Type');
+    					  			var headers = headerstring.split(';');
+    					  			if (headers && (typeof data != 'object')) {
+    					  				if (headers[0].toLowerCase() != 'text/json' && headers[0].toLowerCase() != 'application/json')
+    					  					window.location.href = ioArgs.url;
+    					  			}
+    					  	           //Code ends to manage session timeout in ajax requests.    	
+    					  			data.main(data);
+    					  		},
+    					  		preventCache: true,
+    					  		handleAs: 'json'	
+    					  	});
+    					  };
+    					  if (window.editGridWait) {
+    					  	dojo.connect(window.editGridWait, 'onEditGridApplied', doEventOp);
+    					  } else {
+    					  	doEventOp();
+    					  }
+    			  		
+    			  	</script>
+    			  </button>
+    			  
+    			  /(!WebObPushbutton_STxF_3171:!EnableAction:SetState,SetFocus,SetText,SetTooltip)
+    			  
+    			
+    			/(!-- End attach point 'MainArea')
+    			
+
+    		</div>
+    	</div>
+    
+    /(!-- End attach point 'MainArea')
+    
+
+
+
+
+/(!If:/(!Req:_child))
+/(!Else)
+    </form>
+ </body>
+
+</html>
+
+/(!If)/(!------------- End expansion of !WebShell-root.html ------------------)
+
+  /(OutTo)
+  
+/(!If)

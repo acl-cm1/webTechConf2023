@@ -1,0 +1,964 @@
+/(!------------------ Start expansion of WebPushbutton for WebObPushbutton_StoreMenu_3151 ------------------)
+/(!MainArea:id=WebObPushbutton_StoreMenu_3151:default)
+  /(!JSInit:once)
+      dojo.require("dijit.form.Button");
+  	dojo.require("wcli.color.RGBColor");
+  	
+      dojo.addOnLoad(function() {
+  	     var buttons = document.getElementsByTagName("BUTTON");
+  	     for(var x=0; x<buttons.length; x++){
+  	        if(buttons[x].innerHTML.indexOf("</u>") != -1 || buttons[x].innerHTML.indexOf("</U>") != -1){
+  	        	var uPos = buttons[x].innerHTML.indexOf("</u>")
+  	        	if(dojo.isIE){
+  	        		var uPos = buttons[x].innerHTML.indexOf("</U>");
+  	        	}
+  	        	var keyPos = uPos - 1;
+  	        	var key = buttons[x].innerHTML.charAt(keyPos).toLowerCase();
+  	        	buttons[x].setAttribute("plexaccesskey",key);
+  	        }
+  	    }
+  	 
+  	
+  	});
+  /(!JSInit)
+  
+  /(!JSInit)
+  	/(!------------- Start expansion of !ContextMenu -----------------)
+  	  
+	    
+	      
+	  /(!------------- End expansion of !ContextMenu ------------------)
+  	
+  	/(!If:/(!IsDefined:FixedPositioning))
+  	dojo.addOnLoad(function() {
+  		/(!------------- Start expansion of !AbleToResize -----------------)
+  	var ableToResize = true;
+	  /(!If:/(!IsDefined:MinimumPanelRes))
+	  	ableToResize = wcli.util.XBrowser.isAbleToResize(/(MinimumPanelRes));
+	  /(!If)
+	  
+	  
+	  	//Use this code when the control is: WebPushbutton, WebGridExport, WebCheckbox
+	  	if(document.getElementById("/(!WebObPushbutton_StoreMenu_3151:!NameID)") && ableToResize === true){
+	  		wcli.util.XBrowser.resizeCtrl(document.getElementById("/(!WebObPushbutton_StoreMenu_3151:!NameID)"));
+	  	}
+	  
+	  
+	  
+	  
+	  /(!------------- End expansion of !AbleToResize ------------------)
+  	
+  		setTimeout(function(){
+  			if (typeof /(!WebObPushbutton_StoreMenu_3151:!NameID)_OnLoadResizeButton === "undefined" && ableToResize === true){
+  		    	/(!WebObPushbutton_StoreMenu_3151:!NameID)_OnLoadResizeButton = dojo.connect(window, "onresize", function(){
+  					if(document.getElementById("/(!WebObPushbutton_StoreMenu_3151:!NameID)")){				
+  						wcli.util.XBrowser.resizeCtrl(document.getElementById("/(!WebObPushbutton_StoreMenu_3151:!NameID)"), null, true);
+  					}
+  				});
+  			}
+      	}, 300);  		
+  	});
+  	/(!If)
+  /(!JSInit)
+  
+  /(!JSOnLoad)
+  	
+  		var txtcolor = wcli.color.setColor("18");
+  		if (document.getElementById("/(!WebObPushbutton_StoreMenu_3151:!NameID)")){
+  			document.getElementById("/(!WebObPushbutton_StoreMenu_3151:!NameID)").style.color = txtcolor;
+  		}
+  	
+  	
+  	/(!If:/(!IsDefined:FixedPositioning))
+  	wcli.util.XBrowser.addFixedPositionAttributes(document.getElementById("/(!WebObPushbutton_StoreMenu_3151:!NameID)"), /(!------------- Start expansion of !FixPosition -----------------)
+  	
+	  
+	  {top: "20",ctrlWidth: "264", ctrlHeight: "72", fixBottom: "No",fixLeft: "Yes",fixRight: "No",fixTop: "Yes",panelWidth: "400",panelHeight: "407",fncName: "/(!Panel:!NameID)"}
+	  
+	  /(!------------- End expansion of !FixPosition ------------------)
+  	);
+  	/(!If)	
+  /(!JSOnLoad)
+  
+  <button dojoType="dijit.form.Button" class="WebObPushbutton_StoreMenu_3151  " type="button" id="/(!WebObPushbutton_StoreMenu_3151:!NameID)" title="" style="         position: absolute;     left: 48px;     top: 20px;      z-index: 3;     width: 264px;   height: 72px;      /(!If:/(!WebObPushbutton_StoreMenu_3151:!Property:Visible)=No)     display: none; /(!If)"
+  /(!If:/(!IsDefined:FixedPositioning))/(!------------- Start expansion of !FixPosition -----------------)
+  
+  
+  
+  fncName="/(!Panel:!NameID)" fixBottom="No" fixLeft="Yes" fixRight="No" fixTop="Yes" panelWidth=400 panelHeight=407 ctrlWidth=264 ctrlHeight=72 top=20
+  
+  
+  /(!------------- End expansion of !FixPosition ------------------)
+  /(!If)>
+  	/(!------------- Start expansion of !AlignButtonTextAndImage -----------------)
+  	
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  	/(!------------- Start expansion of !ButtonTextAlignCenter -----------------)
+	  	
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  	/(!------------- Start expansion of !ButtonImageSameLineAsText -----------------)
+		  	
+			  
+			  
+			  
+			  
+			  
+			  
+			  
+			  
+			  
+			  
+			  
+			  	/(!------------- Start expansion of !ButtonImageRightOfText -----------------)
+			  	<div>Products</div>
+				  /(!------------- End expansion of !ButtonImageRightOfText ------------------)
+			  	
+			  
+			  
+			  
+			  
+			  
+			  
+			  	
+			  	
+			  	
+			  	
+			  	
+			  /(!------------- End expansion of !ButtonImageSameLineAsText ------------------)
+		  	
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  /(!------------- End expansion of !ButtonTextAlignCenter ------------------)
+	  	
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  /(!------------- End expansion of !AlignButtonTextAndImage ------------------)
+  	
+  	
+  	<script type="dojo/method" event="onClick">
+  		/(!------------- Start expansion of !AJAXDoEventButton -----------------)
+  		if (!window./(!Panel:!NameID)_submitter)
+		  	return;
+		  var doEventOp = function() {
+		  	if (window./(!Panel:!NameID)_submitter.onsubmit)
+		  		window./(!Panel:!NameID)_submitter.onsubmit();
+		  	dojo.xhrPost({
+		  		form: /(!Panel:!NameID)_form,
+		  		content: { _type: 'json', ctlact: '/(!WebObPushbutton_StoreMenu_3151:!NameID):Pressed', pnlid: /(!Panel:!NameID)_pnlid, focus: window.curFocus, btnfocus: dijit._curFocus.id, websessid: window.websessid },
+		  		load: function(data, ioArgs) {
+		  		 //Code starts to manage session timeout in ajax requests.
+		  			var headerstring = ioArgs.xhr.getResponseHeader('Content-Type');
+		  			var headers = headerstring.split(';');
+		  			if (headers && (typeof data != 'object')) {
+		  				if (headers[0].toLowerCase() != 'text/json' && headers[0].toLowerCase() != 'application/json')
+		  					window.location.href = ioArgs.url;
+		  			}
+		  	           //Code ends to manage session timeout in ajax requests.    	
+		  			data.main(data);
+		  		},
+		  		preventCache: true,
+		  		handleAs: 'json'	
+		  	});
+		  };
+		  if (window.editGridWait) {
+		  	dojo.connect(window.editGridWait, 'onEditGridApplied', doEventOp);
+		  } else {
+		  	doEventOp();
+		  }/(!------------- End expansion of !AJAXDoEventButton ------------------)
+  		
+  	</script>
+  </button>
+  
+  /(!WebObPushbutton_StoreMenu_3151:!EnableAction:SetState,SetFocus,SetText,SetTooltip)
+  /(!JS)
+    /(!WebObPushbutton_StoreMenu_3151:!Action:SetState)
+  	 if (dijit.byId("/(!WebObPushbutton_StoreMenu_3151:!NameID)")){
+  		dojo.query("div", dijit.byId("/(!WebObPushbutton_StoreMenu_3151:!NameID)").containerNode)[0].innerHTML = /(Embed:html)/(!WebObPushbutton_StoreMenu_3151:!Text:htmlaccel:htmlbr)/(Embed);
+  	 	dijit.byId("/(!WebObPushbutton_StoreMenu_3151:!NameID)").setDisabled(false);
+  	 	/(!If:/(!IsDefined:FixedPositioning))
+  		 	/(!If:/(!WebObPushbutton_StoreMenu_3151:!Property:Visible)=No)
+  			    dijit.byId("/(!WebObPushbutton_StoreMenu_3151:!NameID)").domNode.style.display ="none";
+  	    	/(!Else)
+  	    		dijit.byId("/(!WebObPushbutton_StoreMenu_3151:!NameID)").domNode.style.display ="block";
+  			/(!If)
+  			if( (sessionStorage.getItem(document.getElementById("/(!WebObPushbutton_StoreMenu_3151:!NameID)").getAttribute("fncName")+"_isPopUp"))				
+  				|| (document.getElementById("/(!WebObPushbutton_StoreMenu_3151:!NameID)").getAttribute("fixbottom") === "No" && document.getElementById("/(!WebObPushbutton_StoreMenu_3151:!NameID)").getAttribute("fixleft") === "No" && document.getElementById("/(!WebObPushbutton_StoreMenu_3151:!NameID)").getAttribute("fixright") === "No" &&document.getElementById("/(!WebObPushbutton_StoreMenu_3151:!NameID)").getAttribute("fixtop") === "No"))
+  				wcli.util.XBrowser.setCSSText(document.getElementById("/(!WebObPushbutton_StoreMenu_3151:!NameID)"), "         position: absolute;     left: 48px;     top: 20px;      z-index: 3;     width: 264px;   height: 72px;      /(!If:/(!WebObPushbutton_StoreMenu_3151:!Property:Visible)=No)     display: none; /(!If)");
+  		/(!Else)
+  			dijit.byId("/(!WebObPushbutton_StoreMenu_3151:!NameID)").domNode.style.cssText = "         position: absolute;     left: 48px;     top: 20px;      z-index: 3;     width: 264px;   height: 72px;      /(!If:/(!WebObPushbutton_StoreMenu_3151:!Property:Visible)=No)     display: none; /(!If)";
+  		/(!If)	
+  	 	
+    	}
+    	
+  		var txtcolor = wcli.color.setColor("18");
+  		if (document.getElementById("/(!WebObPushbutton_StoreMenu_3151:!NameID)")){
+  			document.getElementById("/(!WebObPushbutton_StoreMenu_3151:!NameID)").style.color = txtcolor;
+  		}
+  	
+    /(!WebObPushbutton_StoreMenu_3151:!Action)
+    
+    /(!WebObPushbutton_StoreMenu_3151:!Action:SetFocus)
+    	 if (dijit.byId("/(!WebObPushbutton_StoreMenu_3151:!NameID)"))
+    	 	dijit.byId("/(!WebObPushbutton_StoreMenu_3151:!NameID)").focus();
+    /(!WebObPushbutton_StoreMenu_3151:!Action)
+    
+  	/(!WebObPushbutton_StoreMenu_3151:!Action:SetText)
+  		if (dijit.byId("/(!WebObPushbutton_StoreMenu_3151:!NameID)")){
+  			dojo.query("div", dijit.byId("/(!WebObPushbutton_StoreMenu_3151:!NameID)").containerNode)[0].innerHTML = "/(!WebObPushbutton_StoreMenu_3151:!Text:htmlaccel:htmlbr)";
+  		}
+  	/(!WebObPushbutton_StoreMenu_3151:!Action)
+  
+  	/(!WebObPushbutton_StoreMenu_3151:!Action:SetTooltip)
+  		var msg = /(!ActionArg);
+  		document.getElementById("/(!WebObPushbutton_StoreMenu_3151:!NameID)").title = msg.text;
+  	/(!WebObPushbutton_StoreMenu_3151:!Action)
+  /(!JS)
+/(!MainArea)
+
+/(!------------------ End expansion of WebPushbutton for WebObPushbutton_StoreMenu_3151 ------------------)
+
+/(!------------------ Start expansion of WebPushbutton for WebObPushbutton_StoreMenu_3153 ------------------)
+/(!MainArea:id=WebObPushbutton_StoreMenu_3153:default)
+  /(!JSInit:once)
+      dojo.require("dijit.form.Button");
+  	dojo.require("wcli.color.RGBColor");
+  	
+      dojo.addOnLoad(function() {
+  	     var buttons = document.getElementsByTagName("BUTTON");
+  	     for(var x=0; x<buttons.length; x++){
+  	        if(buttons[x].innerHTML.indexOf("</u>") != -1 || buttons[x].innerHTML.indexOf("</U>") != -1){
+  	        	var uPos = buttons[x].innerHTML.indexOf("</u>")
+  	        	if(dojo.isIE){
+  	        		var uPos = buttons[x].innerHTML.indexOf("</U>");
+  	        	}
+  	        	var keyPos = uPos - 1;
+  	        	var key = buttons[x].innerHTML.charAt(keyPos).toLowerCase();
+  	        	buttons[x].setAttribute("plexaccesskey",key);
+  	        }
+  	    }
+  	 
+  	
+  	});
+  /(!JSInit)
+  
+  /(!JSInit)
+  	/(!------------- Start expansion of !ContextMenu -----------------)
+  	  
+	    
+	      
+	  /(!------------- End expansion of !ContextMenu ------------------)
+  	
+  	/(!If:/(!IsDefined:FixedPositioning))
+  	dojo.addOnLoad(function() {
+  		/(!------------- Start expansion of !AbleToResize -----------------)
+  	var ableToResize = true;
+	  /(!If:/(!IsDefined:MinimumPanelRes))
+	  	ableToResize = wcli.util.XBrowser.isAbleToResize(/(MinimumPanelRes));
+	  /(!If)
+	  
+	  
+	  	//Use this code when the control is: WebPushbutton, WebGridExport, WebCheckbox
+	  	if(document.getElementById("/(!WebObPushbutton_StoreMenu_3153:!NameID)") && ableToResize === true){
+	  		wcli.util.XBrowser.resizeCtrl(document.getElementById("/(!WebObPushbutton_StoreMenu_3153:!NameID)"));
+	  	}
+	  
+	  
+	  
+	  
+	  /(!------------- End expansion of !AbleToResize ------------------)
+  	
+  		setTimeout(function(){
+  			if (typeof /(!WebObPushbutton_StoreMenu_3153:!NameID)_OnLoadResizeButton === "undefined" && ableToResize === true){
+  		    	/(!WebObPushbutton_StoreMenu_3153:!NameID)_OnLoadResizeButton = dojo.connect(window, "onresize", function(){
+  					if(document.getElementById("/(!WebObPushbutton_StoreMenu_3153:!NameID)")){				
+  						wcli.util.XBrowser.resizeCtrl(document.getElementById("/(!WebObPushbutton_StoreMenu_3153:!NameID)"), null, true);
+  					}
+  				});
+  			}
+      	}, 300);  		
+  	});
+  	/(!If)
+  /(!JSInit)
+  
+  /(!JSOnLoad)
+  	
+  		var txtcolor = wcli.color.setColor("18");
+  		if (document.getElementById("/(!WebObPushbutton_StoreMenu_3153:!NameID)")){
+  			document.getElementById("/(!WebObPushbutton_StoreMenu_3153:!NameID)").style.color = txtcolor;
+  		}
+  	
+  	
+  	/(!If:/(!IsDefined:FixedPositioning))
+  	wcli.util.XBrowser.addFixedPositionAttributes(document.getElementById("/(!WebObPushbutton_StoreMenu_3153:!NameID)"), /(!------------- Start expansion of !FixPosition -----------------)
+  	
+	  
+	  {top: "100",ctrlWidth: "264", ctrlHeight: "72", fixBottom: "No",fixLeft: "Yes",fixRight: "No",fixTop: "Yes",panelWidth: "400",panelHeight: "407",fncName: "/(!Panel:!NameID)"}
+	  
+	  /(!------------- End expansion of !FixPosition ------------------)
+  	);
+  	/(!If)	
+  /(!JSOnLoad)
+  
+  <button dojoType="dijit.form.Button" class="WebObPushbutton_StoreMenu_3153  " type="button" id="/(!WebObPushbutton_StoreMenu_3153:!NameID)" title="" style="         position: absolute;     left: 48px;     top: 100px;      z-index: 3;     width: 264px;   height: 72px;      /(!If:/(!WebObPushbutton_StoreMenu_3153:!Property:Visible)=No)     display: none; /(!If)"
+  /(!If:/(!IsDefined:FixedPositioning))/(!------------- Start expansion of !FixPosition -----------------)
+  
+  
+  
+  fncName="/(!Panel:!NameID)" fixBottom="No" fixLeft="Yes" fixRight="No" fixTop="Yes" panelWidth=400 panelHeight=407 ctrlWidth=264 ctrlHeight=72 top=100
+  
+  
+  /(!------------- End expansion of !FixPosition ------------------)
+  /(!If)>
+  	/(!------------- Start expansion of !AlignButtonTextAndImage -----------------)
+  	
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  	/(!------------- Start expansion of !ButtonTextAlignCenter -----------------)
+	  	
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  	/(!------------- Start expansion of !ButtonImageSameLineAsText -----------------)
+		  	
+			  
+			  
+			  
+			  
+			  
+			  
+			  
+			  
+			  
+			  
+			  
+			  	/(!------------- Start expansion of !ButtonImageRightOfText -----------------)
+			  	<div>Customers</div>
+				  /(!------------- End expansion of !ButtonImageRightOfText ------------------)
+			  	
+			  
+			  
+			  
+			  
+			  
+			  
+			  	
+			  	
+			  	
+			  	
+			  	
+			  /(!------------- End expansion of !ButtonImageSameLineAsText ------------------)
+		  	
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  /(!------------- End expansion of !ButtonTextAlignCenter ------------------)
+	  	
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  /(!------------- End expansion of !AlignButtonTextAndImage ------------------)
+  	
+  	
+  	<script type="dojo/method" event="onClick">
+  		/(!------------- Start expansion of !AJAXDoEventButton -----------------)
+  		if (!window./(!Panel:!NameID)_submitter)
+		  	return;
+		  var doEventOp = function() {
+		  	if (window./(!Panel:!NameID)_submitter.onsubmit)
+		  		window./(!Panel:!NameID)_submitter.onsubmit();
+		  	dojo.xhrPost({
+		  		form: /(!Panel:!NameID)_form,
+		  		content: { _type: 'json', ctlact: '/(!WebObPushbutton_StoreMenu_3153:!NameID):Pressed', pnlid: /(!Panel:!NameID)_pnlid, focus: window.curFocus, btnfocus: dijit._curFocus.id, websessid: window.websessid },
+		  		load: function(data, ioArgs) {
+		  		 //Code starts to manage session timeout in ajax requests.
+		  			var headerstring = ioArgs.xhr.getResponseHeader('Content-Type');
+		  			var headers = headerstring.split(';');
+		  			if (headers && (typeof data != 'object')) {
+		  				if (headers[0].toLowerCase() != 'text/json' && headers[0].toLowerCase() != 'application/json')
+		  					window.location.href = ioArgs.url;
+		  			}
+		  	           //Code ends to manage session timeout in ajax requests.    	
+		  			data.main(data);
+		  		},
+		  		preventCache: true,
+		  		handleAs: 'json'	
+		  	});
+		  };
+		  if (window.editGridWait) {
+		  	dojo.connect(window.editGridWait, 'onEditGridApplied', doEventOp);
+		  } else {
+		  	doEventOp();
+		  }/(!------------- End expansion of !AJAXDoEventButton ------------------)
+  		
+  	</script>
+  </button>
+  
+  /(!WebObPushbutton_StoreMenu_3153:!EnableAction:SetState,SetFocus,SetText,SetTooltip)
+  /(!JS)
+    /(!WebObPushbutton_StoreMenu_3153:!Action:SetState)
+  	 if (dijit.byId("/(!WebObPushbutton_StoreMenu_3153:!NameID)")){
+  		dojo.query("div", dijit.byId("/(!WebObPushbutton_StoreMenu_3153:!NameID)").containerNode)[0].innerHTML = /(Embed:html)/(!WebObPushbutton_StoreMenu_3153:!Text:htmlaccel:htmlbr)/(Embed);
+  	 	dijit.byId("/(!WebObPushbutton_StoreMenu_3153:!NameID)").setDisabled(false);
+  	 	/(!If:/(!IsDefined:FixedPositioning))
+  		 	/(!If:/(!WebObPushbutton_StoreMenu_3153:!Property:Visible)=No)
+  			    dijit.byId("/(!WebObPushbutton_StoreMenu_3153:!NameID)").domNode.style.display ="none";
+  	    	/(!Else)
+  	    		dijit.byId("/(!WebObPushbutton_StoreMenu_3153:!NameID)").domNode.style.display ="block";
+  			/(!If)
+  			if( (sessionStorage.getItem(document.getElementById("/(!WebObPushbutton_StoreMenu_3153:!NameID)").getAttribute("fncName")+"_isPopUp"))				
+  				|| (document.getElementById("/(!WebObPushbutton_StoreMenu_3153:!NameID)").getAttribute("fixbottom") === "No" && document.getElementById("/(!WebObPushbutton_StoreMenu_3153:!NameID)").getAttribute("fixleft") === "No" && document.getElementById("/(!WebObPushbutton_StoreMenu_3153:!NameID)").getAttribute("fixright") === "No" &&document.getElementById("/(!WebObPushbutton_StoreMenu_3153:!NameID)").getAttribute("fixtop") === "No"))
+  				wcli.util.XBrowser.setCSSText(document.getElementById("/(!WebObPushbutton_StoreMenu_3153:!NameID)"), "         position: absolute;     left: 48px;     top: 100px;      z-index: 3;     width: 264px;   height: 72px;      /(!If:/(!WebObPushbutton_StoreMenu_3153:!Property:Visible)=No)     display: none; /(!If)");
+  		/(!Else)
+  			dijit.byId("/(!WebObPushbutton_StoreMenu_3153:!NameID)").domNode.style.cssText = "         position: absolute;     left: 48px;     top: 100px;      z-index: 3;     width: 264px;   height: 72px;      /(!If:/(!WebObPushbutton_StoreMenu_3153:!Property:Visible)=No)     display: none; /(!If)";
+  		/(!If)	
+  	 	
+    	}
+    	
+  		var txtcolor = wcli.color.setColor("18");
+  		if (document.getElementById("/(!WebObPushbutton_StoreMenu_3153:!NameID)")){
+  			document.getElementById("/(!WebObPushbutton_StoreMenu_3153:!NameID)").style.color = txtcolor;
+  		}
+  	
+    /(!WebObPushbutton_StoreMenu_3153:!Action)
+    
+    /(!WebObPushbutton_StoreMenu_3153:!Action:SetFocus)
+    	 if (dijit.byId("/(!WebObPushbutton_StoreMenu_3153:!NameID)"))
+    	 	dijit.byId("/(!WebObPushbutton_StoreMenu_3153:!NameID)").focus();
+    /(!WebObPushbutton_StoreMenu_3153:!Action)
+    
+  	/(!WebObPushbutton_StoreMenu_3153:!Action:SetText)
+  		if (dijit.byId("/(!WebObPushbutton_StoreMenu_3153:!NameID)")){
+  			dojo.query("div", dijit.byId("/(!WebObPushbutton_StoreMenu_3153:!NameID)").containerNode)[0].innerHTML = "/(!WebObPushbutton_StoreMenu_3153:!Text:htmlaccel:htmlbr)";
+  		}
+  	/(!WebObPushbutton_StoreMenu_3153:!Action)
+  
+  	/(!WebObPushbutton_StoreMenu_3153:!Action:SetTooltip)
+  		var msg = /(!ActionArg);
+  		document.getElementById("/(!WebObPushbutton_StoreMenu_3153:!NameID)").title = msg.text;
+  	/(!WebObPushbutton_StoreMenu_3153:!Action)
+  /(!JS)
+/(!MainArea)
+
+/(!------------------ End expansion of WebPushbutton for WebObPushbutton_StoreMenu_3153 ------------------)
+
+/(!------------------ Start expansion of WebPushbutton for WebObPushbutton_StoreMenu_3154 ------------------)
+/(!MainArea:id=WebObPushbutton_StoreMenu_3154:default)
+  /(!JSInit:once)
+      dojo.require("dijit.form.Button");
+  	dojo.require("wcli.color.RGBColor");
+  	
+      dojo.addOnLoad(function() {
+  	     var buttons = document.getElementsByTagName("BUTTON");
+  	     for(var x=0; x<buttons.length; x++){
+  	        if(buttons[x].innerHTML.indexOf("</u>") != -1 || buttons[x].innerHTML.indexOf("</U>") != -1){
+  	        	var uPos = buttons[x].innerHTML.indexOf("</u>")
+  	        	if(dojo.isIE){
+  	        		var uPos = buttons[x].innerHTML.indexOf("</U>");
+  	        	}
+  	        	var keyPos = uPos - 1;
+  	        	var key = buttons[x].innerHTML.charAt(keyPos).toLowerCase();
+  	        	buttons[x].setAttribute("plexaccesskey",key);
+  	        }
+  	    }
+  	 
+  	
+  	});
+  /(!JSInit)
+  
+  /(!JSInit)
+  	/(!------------- Start expansion of !ContextMenu -----------------)
+  	  
+	    
+	      
+	  /(!------------- End expansion of !ContextMenu ------------------)
+  	
+  	/(!If:/(!IsDefined:FixedPositioning))
+  	dojo.addOnLoad(function() {
+  		/(!------------- Start expansion of !AbleToResize -----------------)
+  	var ableToResize = true;
+	  /(!If:/(!IsDefined:MinimumPanelRes))
+	  	ableToResize = wcli.util.XBrowser.isAbleToResize(/(MinimumPanelRes));
+	  /(!If)
+	  
+	  
+	  	//Use this code when the control is: WebPushbutton, WebGridExport, WebCheckbox
+	  	if(document.getElementById("/(!WebObPushbutton_StoreMenu_3154:!NameID)") && ableToResize === true){
+	  		wcli.util.XBrowser.resizeCtrl(document.getElementById("/(!WebObPushbutton_StoreMenu_3154:!NameID)"));
+	  	}
+	  
+	  
+	  
+	  
+	  /(!------------- End expansion of !AbleToResize ------------------)
+  	
+  		setTimeout(function(){
+  			if (typeof /(!WebObPushbutton_StoreMenu_3154:!NameID)_OnLoadResizeButton === "undefined" && ableToResize === true){
+  		    	/(!WebObPushbutton_StoreMenu_3154:!NameID)_OnLoadResizeButton = dojo.connect(window, "onresize", function(){
+  					if(document.getElementById("/(!WebObPushbutton_StoreMenu_3154:!NameID)")){				
+  						wcli.util.XBrowser.resizeCtrl(document.getElementById("/(!WebObPushbutton_StoreMenu_3154:!NameID)"), null, true);
+  					}
+  				});
+  			}
+      	}, 300);  		
+  	});
+  	/(!If)
+  /(!JSInit)
+  
+  /(!JSOnLoad)
+  	
+  		var txtcolor = wcli.color.setColor("18");
+  		if (document.getElementById("/(!WebObPushbutton_StoreMenu_3154:!NameID)")){
+  			document.getElementById("/(!WebObPushbutton_StoreMenu_3154:!NameID)").style.color = txtcolor;
+  		}
+  	
+  	
+  	/(!If:/(!IsDefined:FixedPositioning))
+  	wcli.util.XBrowser.addFixedPositionAttributes(document.getElementById("/(!WebObPushbutton_StoreMenu_3154:!NameID)"), /(!------------- Start expansion of !FixPosition -----------------)
+  	
+	  
+	  {top: "180",ctrlWidth: "264", ctrlHeight: "72", fixBottom: "No",fixLeft: "Yes",fixRight: "No",fixTop: "Yes",panelWidth: "400",panelHeight: "407",fncName: "/(!Panel:!NameID)"}
+	  
+	  /(!------------- End expansion of !FixPosition ------------------)
+  	);
+  	/(!If)	
+  /(!JSOnLoad)
+  
+  <button dojoType="dijit.form.Button" class="WebObPushbutton_StoreMenu_3154  " type="button" id="/(!WebObPushbutton_StoreMenu_3154:!NameID)" title="" style="         position: absolute;     left: 48px;     top: 180px;      z-index: 3;     width: 264px;   height: 72px;      /(!If:/(!WebObPushbutton_StoreMenu_3154:!Property:Visible)=No)     display: none; /(!If)"
+  /(!If:/(!IsDefined:FixedPositioning))/(!------------- Start expansion of !FixPosition -----------------)
+  
+  
+  
+  fncName="/(!Panel:!NameID)" fixBottom="No" fixLeft="Yes" fixRight="No" fixTop="Yes" panelWidth=400 panelHeight=407 ctrlWidth=264 ctrlHeight=72 top=180
+  
+  
+  /(!------------- End expansion of !FixPosition ------------------)
+  /(!If)>
+  	/(!------------- Start expansion of !AlignButtonTextAndImage -----------------)
+  	
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  	/(!------------- Start expansion of !ButtonTextAlignCenter -----------------)
+	  	
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  	/(!------------- Start expansion of !ButtonImageSameLineAsText -----------------)
+		  	
+			  
+			  
+			  
+			  
+			  
+			  
+			  
+			  
+			  
+			  
+			  
+			  	/(!------------- Start expansion of !ButtonImageRightOfText -----------------)
+			  	<div>Orders</div>
+				  /(!------------- End expansion of !ButtonImageRightOfText ------------------)
+			  	
+			  
+			  
+			  
+			  
+			  
+			  
+			  	
+			  	
+			  	
+			  	
+			  	
+			  /(!------------- End expansion of !ButtonImageSameLineAsText ------------------)
+		  	
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  /(!------------- End expansion of !ButtonTextAlignCenter ------------------)
+	  	
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  /(!------------- End expansion of !AlignButtonTextAndImage ------------------)
+  	
+  	
+  	<script type="dojo/method" event="onClick">
+  		/(!------------- Start expansion of !AJAXDoEventButton -----------------)
+  		if (!window./(!Panel:!NameID)_submitter)
+		  	return;
+		  var doEventOp = function() {
+		  	if (window./(!Panel:!NameID)_submitter.onsubmit)
+		  		window./(!Panel:!NameID)_submitter.onsubmit();
+		  	dojo.xhrPost({
+		  		form: /(!Panel:!NameID)_form,
+		  		content: { _type: 'json', ctlact: '/(!WebObPushbutton_StoreMenu_3154:!NameID):Pressed', pnlid: /(!Panel:!NameID)_pnlid, focus: window.curFocus, btnfocus: dijit._curFocus.id, websessid: window.websessid },
+		  		load: function(data, ioArgs) {
+		  		 //Code starts to manage session timeout in ajax requests.
+		  			var headerstring = ioArgs.xhr.getResponseHeader('Content-Type');
+		  			var headers = headerstring.split(';');
+		  			if (headers && (typeof data != 'object')) {
+		  				if (headers[0].toLowerCase() != 'text/json' && headers[0].toLowerCase() != 'application/json')
+		  					window.location.href = ioArgs.url;
+		  			}
+		  	           //Code ends to manage session timeout in ajax requests.    	
+		  			data.main(data);
+		  		},
+		  		preventCache: true,
+		  		handleAs: 'json'	
+		  	});
+		  };
+		  if (window.editGridWait) {
+		  	dojo.connect(window.editGridWait, 'onEditGridApplied', doEventOp);
+		  } else {
+		  	doEventOp();
+		  }/(!------------- End expansion of !AJAXDoEventButton ------------------)
+  		
+  	</script>
+  </button>
+  
+  /(!WebObPushbutton_StoreMenu_3154:!EnableAction:SetState,SetFocus,SetText,SetTooltip)
+  /(!JS)
+    /(!WebObPushbutton_StoreMenu_3154:!Action:SetState)
+  	 if (dijit.byId("/(!WebObPushbutton_StoreMenu_3154:!NameID)")){
+  		dojo.query("div", dijit.byId("/(!WebObPushbutton_StoreMenu_3154:!NameID)").containerNode)[0].innerHTML = /(Embed:html)/(!WebObPushbutton_StoreMenu_3154:!Text:htmlaccel:htmlbr)/(Embed);
+  	 	dijit.byId("/(!WebObPushbutton_StoreMenu_3154:!NameID)").setDisabled(false);
+  	 	/(!If:/(!IsDefined:FixedPositioning))
+  		 	/(!If:/(!WebObPushbutton_StoreMenu_3154:!Property:Visible)=No)
+  			    dijit.byId("/(!WebObPushbutton_StoreMenu_3154:!NameID)").domNode.style.display ="none";
+  	    	/(!Else)
+  	    		dijit.byId("/(!WebObPushbutton_StoreMenu_3154:!NameID)").domNode.style.display ="block";
+  			/(!If)
+  			if( (sessionStorage.getItem(document.getElementById("/(!WebObPushbutton_StoreMenu_3154:!NameID)").getAttribute("fncName")+"_isPopUp"))				
+  				|| (document.getElementById("/(!WebObPushbutton_StoreMenu_3154:!NameID)").getAttribute("fixbottom") === "No" && document.getElementById("/(!WebObPushbutton_StoreMenu_3154:!NameID)").getAttribute("fixleft") === "No" && document.getElementById("/(!WebObPushbutton_StoreMenu_3154:!NameID)").getAttribute("fixright") === "No" &&document.getElementById("/(!WebObPushbutton_StoreMenu_3154:!NameID)").getAttribute("fixtop") === "No"))
+  				wcli.util.XBrowser.setCSSText(document.getElementById("/(!WebObPushbutton_StoreMenu_3154:!NameID)"), "         position: absolute;     left: 48px;     top: 180px;      z-index: 3;     width: 264px;   height: 72px;      /(!If:/(!WebObPushbutton_StoreMenu_3154:!Property:Visible)=No)     display: none; /(!If)");
+  		/(!Else)
+  			dijit.byId("/(!WebObPushbutton_StoreMenu_3154:!NameID)").domNode.style.cssText = "         position: absolute;     left: 48px;     top: 180px;      z-index: 3;     width: 264px;   height: 72px;      /(!If:/(!WebObPushbutton_StoreMenu_3154:!Property:Visible)=No)     display: none; /(!If)";
+  		/(!If)	
+  	 	
+    	}
+    	
+  		var txtcolor = wcli.color.setColor("18");
+  		if (document.getElementById("/(!WebObPushbutton_StoreMenu_3154:!NameID)")){
+  			document.getElementById("/(!WebObPushbutton_StoreMenu_3154:!NameID)").style.color = txtcolor;
+  		}
+  	
+    /(!WebObPushbutton_StoreMenu_3154:!Action)
+    
+    /(!WebObPushbutton_StoreMenu_3154:!Action:SetFocus)
+    	 if (dijit.byId("/(!WebObPushbutton_StoreMenu_3154:!NameID)"))
+    	 	dijit.byId("/(!WebObPushbutton_StoreMenu_3154:!NameID)").focus();
+    /(!WebObPushbutton_StoreMenu_3154:!Action)
+    
+  	/(!WebObPushbutton_StoreMenu_3154:!Action:SetText)
+  		if (dijit.byId("/(!WebObPushbutton_StoreMenu_3154:!NameID)")){
+  			dojo.query("div", dijit.byId("/(!WebObPushbutton_StoreMenu_3154:!NameID)").containerNode)[0].innerHTML = "/(!WebObPushbutton_StoreMenu_3154:!Text:htmlaccel:htmlbr)";
+  		}
+  	/(!WebObPushbutton_StoreMenu_3154:!Action)
+  
+  	/(!WebObPushbutton_StoreMenu_3154:!Action:SetTooltip)
+  		var msg = /(!ActionArg);
+  		document.getElementById("/(!WebObPushbutton_StoreMenu_3154:!NameID)").title = msg.text;
+  	/(!WebObPushbutton_StoreMenu_3154:!Action)
+  /(!JS)
+/(!MainArea)
+
+/(!------------------ End expansion of WebPushbutton for WebObPushbutton_StoreMenu_3154 ------------------)
+
+/(!------------------ Start expansion of WebPushbutton for WebObPushbutton_StoreMenu_3155 ------------------)
+/(!MainArea:id=WebObPushbutton_StoreMenu_3155:default)
+  /(!JSInit:once)
+      dojo.require("dijit.form.Button");
+  	dojo.require("wcli.color.RGBColor");
+  	
+      dojo.addOnLoad(function() {
+  	     var buttons = document.getElementsByTagName("BUTTON");
+  	     for(var x=0; x<buttons.length; x++){
+  	        if(buttons[x].innerHTML.indexOf("</u>") != -1 || buttons[x].innerHTML.indexOf("</U>") != -1){
+  	        	var uPos = buttons[x].innerHTML.indexOf("</u>")
+  	        	if(dojo.isIE){
+  	        		var uPos = buttons[x].innerHTML.indexOf("</U>");
+  	        	}
+  	        	var keyPos = uPos - 1;
+  	        	var key = buttons[x].innerHTML.charAt(keyPos).toLowerCase();
+  	        	buttons[x].setAttribute("plexaccesskey",key);
+  	        }
+  	    }
+  	 
+  	
+  	});
+  /(!JSInit)
+  
+  /(!JSInit)
+  	/(!------------- Start expansion of !ContextMenu -----------------)
+  	  
+	    
+	      
+	  /(!------------- End expansion of !ContextMenu ------------------)
+  	
+  	/(!If:/(!IsDefined:FixedPositioning))
+  	dojo.addOnLoad(function() {
+  		/(!------------- Start expansion of !AbleToResize -----------------)
+  	var ableToResize = true;
+	  /(!If:/(!IsDefined:MinimumPanelRes))
+	  	ableToResize = wcli.util.XBrowser.isAbleToResize(/(MinimumPanelRes));
+	  /(!If)
+	  
+	  
+	  	//Use this code when the control is: WebPushbutton, WebGridExport, WebCheckbox
+	  	if(document.getElementById("/(!WebObPushbutton_StoreMenu_3155:!NameID)") && ableToResize === true){
+	  		wcli.util.XBrowser.resizeCtrl(document.getElementById("/(!WebObPushbutton_StoreMenu_3155:!NameID)"));
+	  	}
+	  
+	  
+	  
+	  
+	  /(!------------- End expansion of !AbleToResize ------------------)
+  	
+  		setTimeout(function(){
+  			if (typeof /(!WebObPushbutton_StoreMenu_3155:!NameID)_OnLoadResizeButton === "undefined" && ableToResize === true){
+  		    	/(!WebObPushbutton_StoreMenu_3155:!NameID)_OnLoadResizeButton = dojo.connect(window, "onresize", function(){
+  					if(document.getElementById("/(!WebObPushbutton_StoreMenu_3155:!NameID)")){				
+  						wcli.util.XBrowser.resizeCtrl(document.getElementById("/(!WebObPushbutton_StoreMenu_3155:!NameID)"), null, true);
+  					}
+  				});
+  			}
+      	}, 300);  		
+  	});
+  	/(!If)
+  /(!JSInit)
+  
+  /(!JSOnLoad)
+  	
+  		var txtcolor = wcli.color.setColor("18");
+  		if (document.getElementById("/(!WebObPushbutton_StoreMenu_3155:!NameID)")){
+  			document.getElementById("/(!WebObPushbutton_StoreMenu_3155:!NameID)").style.color = txtcolor;
+  		}
+  	
+  	
+  	/(!If:/(!IsDefined:FixedPositioning))
+  	wcli.util.XBrowser.addFixedPositionAttributes(document.getElementById("/(!WebObPushbutton_StoreMenu_3155:!NameID)"), /(!------------- Start expansion of !FixPosition -----------------)
+  	
+	  
+	  {top: "260",ctrlWidth: "264", ctrlHeight: "72", fixBottom: "No",fixLeft: "Yes",fixRight: "No",fixTop: "Yes",panelWidth: "400",panelHeight: "407",fncName: "/(!Panel:!NameID)"}
+	  
+	  /(!------------- End expansion of !FixPosition ------------------)
+  	);
+  	/(!If)	
+  /(!JSOnLoad)
+  
+  <button dojoType="dijit.form.Button" class="WebObPushbutton_StoreMenu_3155  " type="button" id="/(!WebObPushbutton_StoreMenu_3155:!NameID)" title="" style="         position: absolute;     left: 48px;     top: 260px;      z-index: 3;     width: 264px;   height: 72px;      /(!If:/(!WebObPushbutton_StoreMenu_3155:!Property:Visible)=No)     display: none; /(!If)"
+  /(!If:/(!IsDefined:FixedPositioning))/(!------------- Start expansion of !FixPosition -----------------)
+  
+  
+  
+  fncName="/(!Panel:!NameID)" fixBottom="No" fixLeft="Yes" fixRight="No" fixTop="Yes" panelWidth=400 panelHeight=407 ctrlWidth=264 ctrlHeight=72 top=260
+  
+  
+  /(!------------- End expansion of !FixPosition ------------------)
+  /(!If)>
+  	/(!------------- Start expansion of !AlignButtonTextAndImage -----------------)
+  	
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  	/(!------------- Start expansion of !ButtonTextAlignCenter -----------------)
+	  	
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  	/(!------------- Start expansion of !ButtonImageSameLineAsText -----------------)
+		  	
+			  
+			  
+			  
+			  
+			  
+			  
+			  
+			  
+			  
+			  
+			  
+			  	/(!------------- Start expansion of !ButtonImageRightOfText -----------------)
+			  	<div>Create Orders</div>
+				  /(!------------- End expansion of !ButtonImageRightOfText ------------------)
+			  	
+			  
+			  
+			  
+			  
+			  
+			  
+			  	
+			  	
+			  	
+			  	
+			  	
+			  /(!------------- End expansion of !ButtonImageSameLineAsText ------------------)
+		  	
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  /(!------------- End expansion of !ButtonTextAlignCenter ------------------)
+	  	
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  /(!------------- End expansion of !AlignButtonTextAndImage ------------------)
+  	
+  	
+  	<script type="dojo/method" event="onClick">
+  		/(!------------- Start expansion of !AJAXDoEventButton -----------------)
+  		if (!window./(!Panel:!NameID)_submitter)
+		  	return;
+		  var doEventOp = function() {
+		  	if (window./(!Panel:!NameID)_submitter.onsubmit)
+		  		window./(!Panel:!NameID)_submitter.onsubmit();
+		  	dojo.xhrPost({
+		  		form: /(!Panel:!NameID)_form,
+		  		content: { _type: 'json', ctlact: '/(!WebObPushbutton_StoreMenu_3155:!NameID):Pressed', pnlid: /(!Panel:!NameID)_pnlid, focus: window.curFocus, btnfocus: dijit._curFocus.id, websessid: window.websessid },
+		  		load: function(data, ioArgs) {
+		  		 //Code starts to manage session timeout in ajax requests.
+		  			var headerstring = ioArgs.xhr.getResponseHeader('Content-Type');
+		  			var headers = headerstring.split(';');
+		  			if (headers && (typeof data != 'object')) {
+		  				if (headers[0].toLowerCase() != 'text/json' && headers[0].toLowerCase() != 'application/json')
+		  					window.location.href = ioArgs.url;
+		  			}
+		  	           //Code ends to manage session timeout in ajax requests.    	
+		  			data.main(data);
+		  		},
+		  		preventCache: true,
+		  		handleAs: 'json'	
+		  	});
+		  };
+		  if (window.editGridWait) {
+		  	dojo.connect(window.editGridWait, 'onEditGridApplied', doEventOp);
+		  } else {
+		  	doEventOp();
+		  }/(!------------- End expansion of !AJAXDoEventButton ------------------)
+  		
+  	</script>
+  </button>
+  
+  /(!WebObPushbutton_StoreMenu_3155:!EnableAction:SetState,SetFocus,SetText,SetTooltip)
+  /(!JS)
+    /(!WebObPushbutton_StoreMenu_3155:!Action:SetState)
+  	 if (dijit.byId("/(!WebObPushbutton_StoreMenu_3155:!NameID)")){
+  		dojo.query("div", dijit.byId("/(!WebObPushbutton_StoreMenu_3155:!NameID)").containerNode)[0].innerHTML = /(Embed:html)/(!WebObPushbutton_StoreMenu_3155:!Text:htmlaccel:htmlbr)/(Embed);
+  	 	dijit.byId("/(!WebObPushbutton_StoreMenu_3155:!NameID)").setDisabled(false);
+  	 	/(!If:/(!IsDefined:FixedPositioning))
+  		 	/(!If:/(!WebObPushbutton_StoreMenu_3155:!Property:Visible)=No)
+  			    dijit.byId("/(!WebObPushbutton_StoreMenu_3155:!NameID)").domNode.style.display ="none";
+  	    	/(!Else)
+  	    		dijit.byId("/(!WebObPushbutton_StoreMenu_3155:!NameID)").domNode.style.display ="block";
+  			/(!If)
+  			if( (sessionStorage.getItem(document.getElementById("/(!WebObPushbutton_StoreMenu_3155:!NameID)").getAttribute("fncName")+"_isPopUp"))				
+  				|| (document.getElementById("/(!WebObPushbutton_StoreMenu_3155:!NameID)").getAttribute("fixbottom") === "No" && document.getElementById("/(!WebObPushbutton_StoreMenu_3155:!NameID)").getAttribute("fixleft") === "No" && document.getElementById("/(!WebObPushbutton_StoreMenu_3155:!NameID)").getAttribute("fixright") === "No" &&document.getElementById("/(!WebObPushbutton_StoreMenu_3155:!NameID)").getAttribute("fixtop") === "No"))
+  				wcli.util.XBrowser.setCSSText(document.getElementById("/(!WebObPushbutton_StoreMenu_3155:!NameID)"), "         position: absolute;     left: 48px;     top: 260px;      z-index: 3;     width: 264px;   height: 72px;      /(!If:/(!WebObPushbutton_StoreMenu_3155:!Property:Visible)=No)     display: none; /(!If)");
+  		/(!Else)
+  			dijit.byId("/(!WebObPushbutton_StoreMenu_3155:!NameID)").domNode.style.cssText = "         position: absolute;     left: 48px;     top: 260px;      z-index: 3;     width: 264px;   height: 72px;      /(!If:/(!WebObPushbutton_StoreMenu_3155:!Property:Visible)=No)     display: none; /(!If)";
+  		/(!If)	
+  	 	
+    	}
+    	
+  		var txtcolor = wcli.color.setColor("18");
+  		if (document.getElementById("/(!WebObPushbutton_StoreMenu_3155:!NameID)")){
+  			document.getElementById("/(!WebObPushbutton_StoreMenu_3155:!NameID)").style.color = txtcolor;
+  		}
+  	
+    /(!WebObPushbutton_StoreMenu_3155:!Action)
+    
+    /(!WebObPushbutton_StoreMenu_3155:!Action:SetFocus)
+    	 if (dijit.byId("/(!WebObPushbutton_StoreMenu_3155:!NameID)"))
+    	 	dijit.byId("/(!WebObPushbutton_StoreMenu_3155:!NameID)").focus();
+    /(!WebObPushbutton_StoreMenu_3155:!Action)
+    
+  	/(!WebObPushbutton_StoreMenu_3155:!Action:SetText)
+  		if (dijit.byId("/(!WebObPushbutton_StoreMenu_3155:!NameID)")){
+  			dojo.query("div", dijit.byId("/(!WebObPushbutton_StoreMenu_3155:!NameID)").containerNode)[0].innerHTML = "/(!WebObPushbutton_StoreMenu_3155:!Text:htmlaccel:htmlbr)";
+  		}
+  	/(!WebObPushbutton_StoreMenu_3155:!Action)
+  
+  	/(!WebObPushbutton_StoreMenu_3155:!Action:SetTooltip)
+  		var msg = /(!ActionArg);
+  		document.getElementById("/(!WebObPushbutton_StoreMenu_3155:!NameID)").title = msg.text;
+  	/(!WebObPushbutton_StoreMenu_3155:!Action)
+  /(!JS)
+/(!MainArea)
+
+/(!------------------ End expansion of WebPushbutton for WebObPushbutton_StoreMenu_3155 ------------------)
+

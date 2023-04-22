@@ -1,4 +1,4 @@
-# GRP_MODEL=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\Plex\GroupModels\Store
+# GRP_MODEL=
 
 String.104=The order was created successfully.
 String.103=Create Order

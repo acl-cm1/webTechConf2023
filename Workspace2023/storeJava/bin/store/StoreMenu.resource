@@ -1,4 +1,4 @@
-# GRP_MODEL=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\Plex\GroupModels\Store
+# GRP_MODEL=
 
 String.103={0}
 String.102={0}

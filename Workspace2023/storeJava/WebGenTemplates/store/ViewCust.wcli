@@ -1,0 +1,2021 @@
+/(!Panel:!EnableAction:Refresh,AddChild,UpdateChild,RemoveChild)
+
+/(!If:/(!Req:_type)=json)
+  /(ContentType:application/json)
+  
+  /(OutTo:json.main:comments=js)
+    /(!------------- Start expansion of !WebShell-root.json -----------------)
+function(json) {
+
+/(!Panel:!Action:Refresh)
+	
+		if (dialogreturn && dialogreturn(/(PNLID))) {
+			// fall thru
+		} else {
+			/(!If:/(!WEBSESSID))
+     		window.websessid = /(WEBSESSID);
+   	 		/(!If)
+			keepsess = true;
+			if(window.websessid){
+				location.replace(window.wsaction + "?websessid=" + window.websessid);
+			} else if (location.href != window.wsaction) {
+				location.replace(location.href);
+			} else {
+				location.replace(window.wsaction);
+			}
+			return;
+		}
+	
+/(!Panel:!Action)
+
+/(!Panel:!Action:EnableKeyboardEvent)
+	
+	/(!Panel:!NameID)_keymap[/(!ActionArg)] = /(!ActionArg);
+	
+/(!Panel:!Action)
+
+/(!Panel:!Action:DisableKeyboardEvent)
+	
+	delete /(!Panel:!NameID)_keymap[/(!ActionArg)];
+	
+/(!Panel:!Action)
+
+	var pnlid = /(PNLID);
+
+	/(!-- Begin attach point 'JS')
+	
+
+		var tooltipMsg = "";
+		var enquiryMsg = "";
+		
+		/(ALERTS)
+			var tooltipType = /(AlertType);
+			if (tooltipType == "enquiry") {
+				enquiryMsg = enquiryMsg + bldMsgText(/(Embed:html)/(AlertMsg)/(Embed)) + "<br>";
+			}
+			else{
+				tooltipMsg = tooltipMsg + bldMsgText(/(Embed:html)/(AlertMsg)/(Embed)) + "<br>";
+			}
+		/(ALERTS)
+		
+		/(!Panel:!Action:Alert)
+			tooltipMsg = tooltipMsg + bldMsgText(/(Embed:html)/(!ActionArg)/(Embed)) + "<br>";
+		/(!Panel:!Action)
+	
+		/(!Panel:!Action:Enquiry)
+			enquiryMsg = enquiryMsg + bldMsgText(/(Embed:html)/(!ActionArg)/(Embed)) + "<br>";
+		/(!Panel:!Action)
+		
+		if (enquiryMsg) {
+			var enqresp = function(resp) {
+				dojo.xhrPost({
+					form: /(!Panel:!NameID)_form,
+					content: { _type: 'json', enqact: resp, pnlid: /(!Panel:!NameID)_pnlid, websessid: window.websessid },
+					load: function(data, ioArgs) {
+						data.main(data);
+					},
+					handleAs: 'json',
+					preventCache: true
+				});
+			};
+		}
+	
+	  	/(!WebObLabel_ViewCust_3153:!Action:SetState)
+	  	
+	  	if (document.getElementById("/(!WebObLabel_ViewCust_3153:!NameID)")){
+	  		/(!If:/(!IsDefined:FixedPositioning))
+	  			/(!If:/(!WebObLabel_ViewCust_3153:!Property:Visible)=No)
+	  		    	document.getElementById("/(!WebObLabel_ViewCust_3153:!NameID)").style.display ="none";
+	      		/(!Else)
+	      			document.getElementById("/(!WebObLabel_ViewCust_3153:!NameID)").style.display ="block";
+	  			/(!If)
+	  			if( (sessionStorage.getItem(document.getElementById("/(!WebObLabel_ViewCust_3153:!NameID)").getAttribute("fncName")+"_isPopUp"))				
+	  				|| (document.getElementById("/(!WebObLabel_ViewCust_3153:!NameID)").getAttribute("fixbottom") === "No" && document.getElementById("/(!WebObLabel_ViewCust_3153:!NameID)").getAttribute("fixleft") === "No" && document.getElementById("/(!WebObLabel_ViewCust_3153:!NameID)").getAttribute("fixright") === "No" &&document.getElementById("/(!WebObLabel_ViewCust_3153:!NameID)").getAttribute("fixtop") === "No"))
+	  				wcli.util.XBrowser.setCSSText(document.getElementById("/(!WebObLabel_ViewCust_3153:!NameID)"), "         position: absolute;     left: 12px;     top: 8px;      z-index: 3;     width: 64px;   height: 20px;      /(!If:/(!WebObLabel_ViewCust_3153:!Property:Visible)=No)     display: none; /(!If)");
+	  		/(!Else)
+	  		wcli.util.XBrowser.setCSSText(document.getElementById("/(!WebObLabel_ViewCust_3153:!NameID)"), "         position: absolute;     left: 12px;     top: 8px;      z-index: 3;     width: 64px;   height: 20px;      /(!If:/(!WebObLabel_ViewCust_3153:!Property:Visible)=No)     display: none; /(!If)");
+	  		/(!If)
+	  	}
+	  	document.getElementById("/(!WebObLabel_ViewCust_3153:!NameID)").style.textAlign = "Left";
+	  	document.getElementById("/(!WebObLabel_ViewCust_3153:!NameID)").innerHTML = "/(!WebObLabel_ViewCust_3153:!Text:htmlbr)";
+	  	var bgcolor = wcli.color.setColor("");
+	  	
+	  		
+	  	
+	  	
+	  			wcli.form.Font.applyPlexFont(document.getElementById("/(!WebObLabel_ViewCust_3153:!NameID)"), "Regular 8  MS Sans Serif ");
+	  	
+	  	
+	  	/(!WebObLabel_ViewCust_3153:!Action)
+	  
+	  	/(!WebObLabel_ViewCust_3153:!Action:SetText)
+	  		if (document.getElementById("/(!WebObLabel_ViewCust_3153:!NameID)")){
+	  			document.getElementById("/(!WebObLabel_ViewCust_3153:!NameID)").innerHTML = "/(!WebObLabel_ViewCust_3153:!Text:htmlbr)";
+	  		}
+	  	/(!WebObLabel_ViewCust_3153:!Action)
+	  
+	    /(!CustID3154:!Action:SetTooltip)       
+	    	wcli.util.XBrowser.setTooltip("/(!CustID3154:!NameID)",/(!ActionArg));
+	    /(!CustID3154:!Action)
+	    
+	    /(!CustID3154:!Action:SetValue)
+	    	var formatvalue = wcli.form.getFormatValue("Char", "%ss10", 0, true, /(!CustID3154), "Read Only");
+	      	var mode = "Read Only";
+	       
+	      	wcli.util.XBrowser.setValueEdit("/(!CustID3154:!NameID)", mode, formatvalue);
+	      
+	  
+	      
+	  	
+	    /(!CustID3154:!Action)
+	  
+	    /(!CustID3154:!Action:SetState)
+	      var w = dijit.byId("/(!CustID3154:!NameID)");
+	      var editbox = wcli.util.XBrowser.querySelector("/(!CustID3154:!NameID)");
+	      if (w) {
+	      	w.domNode.style.cssText = "         position: absolute;     left: 96px;     top: 8px;      z-index: 3;     width: 100px;   height: 20px;      /(!If:/(!CustID3154:!Property:Visible)=No)     display: none; /(!If)";
+	      	w.textbox.style.cssText = "         position: absolute;     left: 96px;     top: 8px;      z-index: 3;     width: 100px;   height: 20px;      /(!If:/(!CustID3154:!Property:Visible)=No)     display: none; /(!If)";
+	      	w.state = "";
+	      	w._setStateClass();
+	      	/(!If:/(!IsDefined:FieldErrorMode))
+	  			if (w.state == "Error" && tooltipMsg) {
+	  				w.displayMessage(tooltipMsg);
+	  				tooltipMsg = null;
+	  			}
+	  		/(!If)
+	      }
+	      if (editbox){
+	    		
+	  		
+	  		
+	  		if (protectedEditBorder == false) {
+	  			wcli.util.XBrowser.setCSSText(editbox, "         position: absolute;     left: 96px;     top: 8px;      z-index: 3;     width: 100px;   height: 20px;      /(!If:/(!CustID3154:!Property:Visible)=No)     display: none; /(!If)line-height:20px; overflow: hidden;margin-top: 2px;");
+	  		}
+	  		
+	  		
+	  	}
+	  	
+	  	
+	  	if(editbox){
+	  		var formatvalue = wcli.form.getFormatValue("Char", "%ss10", 0, true, /(!CustID3154), "Read Only");
+	  		editbox.value = formatvalue;
+	  	}
+	  	
+	  	
+	  	if(editbox){
+	  		wcli.form.Font.applyPlexFont(editbox, "Regular 8  MS Sans Serif ");
+	  	}
+	  	
+	  	
+	      
+	          
+	      
+	      if (editbox){	
+	      	var formatvalue = wcli.form.getFormatValue("Char", "%ss10", 0, true, /(!CustID3154), "Read Only");
+	      	if (editbox.tagName == "INPUT") {
+	      		var newspan = wcli.util.XBrowser.newDiv("/(!CustID3154:!NameID)","%ss10","0","Char");
+	  	      		
+	  	      	/(!If:/(!IsDefined:ProtectedDoubleClick))/(!Else)dojo.connect(newspan, "ondblclick", function()
+	  	      	{	
+	  	      		
+	  	      	if (!window./(!Panel:!NameID)_submitter)
+		      	  	return;
+		      	  var doEventOp = function() {
+		      	  	if (window./(!Panel:!NameID)_submitter.onsubmit)
+		      	  		window./(!Panel:!NameID)_submitter.onsubmit();
+		      	  	dojo.xhrPost({
+		      	  		form: /(!Panel:!NameID)_form,
+		      	  		content: { _type: 'json', ctlact: '/(!CustID3154:!NameID):Double Click', pnlid: /(!Panel:!NameID)_pnlid, focus: '/(!CustID3154:!NameID)', websessid: window.websessid },
+		      	  		load: function(data, ioArgs) {
+		      	  		 //Code starts to manage session timeout in ajax requests.
+		      	  			var headerstring = ioArgs.xhr.getResponseHeader('Content-Type');
+		      	  			var headers = headerstring.split(';');
+		      	  			if (headers && (typeof data != 'object')) {
+		      	  				if (headers[0].toLowerCase() != 'text/json' && headers[0].toLowerCase() != 'application/json')
+		      	  					window.location.href = ioArgs.url;
+		      	  			}
+		      	  	           //Code ends to manage session timeout in ajax requests.    	
+		      	  			data.main(data);
+		      	  		},
+		      	  		preventCache: true,
+		      	  		handleAs: 'json'	
+		      	  	});
+		      	  };
+		      	  if (window.editGridWait) {
+		      	  	dojo.connect(window.editGridWait, 'onEditGridApplied', doEventOp);
+		      	  } else {
+		      	  	doEventOp();
+		      	  }
+	  	      	
+	  	      	});
+	  			/(!If)
+	  	  	      					
+	  			wcli.util.XBrowser.setTextContent(newspan, /(!If:/(!CustID3154)=)"      "/(!Else)formatvalue/(!If));
+	  	      													
+	      	}
+	      	if(editbox.tagName == "DIV"){
+	  	      	wcli.util.XBrowser.setTextContent(editbox.firstElementChild, /(!If:/(!CustID3154)=)"      "/(!Else)formatvalue/(!If));
+	      	}
+	      }	
+	  		
+	  		
+	  		if(editbox){
+	  			wcli.form.Font.applyPlexFont(editbox, "Regular 8  MS Sans Serif ");
+	  		}
+	  		
+	  		
+	  	    
+	  		document.getElementById("/(!CustID3154:!NameID)").classList.add("protectedTextBox")
+	      
+	      
+	                      
+	  		wcli.util.XBrowser.setCSSText(document.getElementById("/(!CustID3154:!NameID)"), "         position: absolute;     left: 96px;     top: 8px;      z-index: 3;     width: 100px;   height: 20px;      /(!If:/(!CustID3154:!Property:Visible)=No)     display: none; /(!If)line-height:20px; overflow: hidden; /(!If:/(!IsDefined:LabelAligned))/(!Else)margin-top:2px;/(!If)");
+	  	
+	  	
+	  	
+	  		
+	  	if (protectedEditBorder == true && dojo.isIE11) {			
+	  		wcli.util.XBrowser.setBGColor("5                     ","/(!CustID3154:!NameID)", 100, 20);
+	  	}	
+	  	
+	  	/(!If:/(!IsDefined:FixedPositioning))
+	  		
+	  	var ableToResize = true;
+		  /(!If:/(!IsDefined:MinimumPanelRes))
+		  	ableToResize = wcli.util.XBrowser.isAbleToResize(/(MinimumPanelRes));
+		  /(!If)
+		  
+		  
+		  
+		  
+		  
+		  
+	  	
+	  		if(editbox && w && ableToResize === true){
+	  			wcli.util.XBrowser.addFixedPositionAttributes(w, 
+	  	
+		  
+		  {top: "8",ctrlWidth: "100", ctrlHeight: "20", fixBottom: "No",fixLeft: "Yes",fixRight: "No",fixTop: "Yes",panelWidth: "508",panelHeight: "300",fncName: "/(!Panel:!NameID)"}
+		  
+		  
+	  	);
+	  			wcli.util.XBrowser.addFixedPositionAttributes(editbox, 
+	  	
+		  
+		  {top: "8",ctrlWidth: "100", ctrlHeight: "20", fixBottom: "No",fixLeft: "Yes",fixRight: "No",fixTop: "Yes",panelWidth: "508",panelHeight: "300",fncName: "/(!Panel:!NameID)"}
+		  
+		  
+	  	);
+	  			wcli.util.XBrowser.addFixedPositionAttributes(document.getElementById("/(!CustID3154:!NameID)"), 
+	  	
+		  
+		  {top: "8",ctrlWidth: "100", ctrlHeight: "20", fixBottom: "No",fixLeft: "Yes",fixRight: "No",fixTop: "Yes",panelWidth: "508",panelHeight: "300",fncName: "/(!Panel:!NameID)"}
+		  
+		  
+	  	);			
+	  		}
+	  	/(!If)
+	  
+	  	
+	  		
+	      	/(!If:/(!IsDefined:ProtectedEditBorder))
+	      		wcli.util.XBrowser.setBGColor("5                     ","/(!CustID3154:!NameID)");
+	  	    /(!Else)
+	  	    	wcli.util.XBrowser.setBGColor("5                     ","/(!CustID3154:!NameID)", 100, 20);
+	  		/(!If)
+	  		
+	  		
+	  		
+	  		
+	  		/(!If:/(!IsDefined:FixedPositioning))
+	  		if(ableToResize === true){
+	  			wcli.util.XBrowser.resizeDiv(editbox, w,false);
+	  		}
+	  		setTimeout(function(){
+	              if (typeof /(!CustID3154:!NameID)_ProtectResizeEdit === "undefined" && ableToResize === true){
+	                  /(!CustID3154:!NameID)_ProtectResizeEdit = dojo.connect(window, "onresize", function(){                
+	                      var wT = dijit.byId("/(!CustID3154:!NameID)");
+	                      var editboxT = wcli.util.XBrowser.querySelector("/(!CustID3154:!NameID)");
+	                      if(editboxT && wT){
+	                          wcli.util.XBrowser.resizeDiv(editboxT,wT,true);
+	                      }else if(editboxT){
+	                          wcli.util.XBrowser.resizeDiv(document.getElementById("/(!CustID3154:!NameID)"),null,true);
+	                      }
+	                  });
+	              }
+	          }, 300);      
+	  		
+	  		/(!If)
+	  	
+	  	
+	  	
+	  	
+	  	/(!If:/(!IsDefined:HintValue))	
+	  		if(/(!CustID3154:!NameID)HintValue){
+	  			if(dijit.byId("/(!CustID3154:!NameID)")){
+	  				dijit.byId("/(!CustID3154:!NameID)").domNode.setAttribute('title', /(!CustID3154:!NameID)HintValue);
+	  			}
+	  			else if(document.getElementById("/(!CustID3154:!NameID)")){
+	  				document.getElementById("/(!CustID3154:!NameID)").setAttribute('title', /(!CustID3154:!NameID)HintValue);
+	  			}
+	  		}	
+	  	/(!If)
+	  
+	  			
+	  		if ((editbox && editbox.tagName == "INPUT") || true==false) {
+	  			if (wcli.util.XBrowser.querySelector("/(!CustID3154:!NameID)")){ 
+	  				wcli.form.Font.applyPlexFont(wcli.util.XBrowser.querySelector("/(!CustID3154:!NameID)"), "Regular 8  MS Sans Serif ");
+	  			}
+	  		} else if (editbox.tagName == "DIV") {
+	  			wcli.form.Font.applyPlexFont(editbox, "Regular 8  MS Sans Serif ");
+	  		}				
+	  		
+	  	
+	  	
+	    /(!CustID3154:!Action)
+	    
+	  
+	  	/(!WebObLabel_ViewCust_3156:!Action:SetState)
+	  	
+	  	if (document.getElementById("/(!WebObLabel_ViewCust_3156:!NameID)")){
+	  		/(!If:/(!IsDefined:FixedPositioning))
+	  			/(!If:/(!WebObLabel_ViewCust_3156:!Property:Visible)=No)
+	  		    	document.getElementById("/(!WebObLabel_ViewCust_3156:!NameID)").style.display ="none";
+	      		/(!Else)
+	      			document.getElementById("/(!WebObLabel_ViewCust_3156:!NameID)").style.display ="block";
+	  			/(!If)
+	  			if( (sessionStorage.getItem(document.getElementById("/(!WebObLabel_ViewCust_3156:!NameID)").getAttribute("fncName")+"_isPopUp"))				
+	  				|| (document.getElementById("/(!WebObLabel_ViewCust_3156:!NameID)").getAttribute("fixbottom") === "No" && document.getElementById("/(!WebObLabel_ViewCust_3156:!NameID)").getAttribute("fixleft") === "No" && document.getElementById("/(!WebObLabel_ViewCust_3156:!NameID)").getAttribute("fixright") === "No" &&document.getElementById("/(!WebObLabel_ViewCust_3156:!NameID)").getAttribute("fixtop") === "No"))
+	  				wcli.util.XBrowser.setCSSText(document.getElementById("/(!WebObLabel_ViewCust_3156:!NameID)"), "         position: absolute;     left: 12px;     top: 32px;      z-index: 3;     width: 84px;   height: 20px;      /(!If:/(!WebObLabel_ViewCust_3156:!Property:Visible)=No)     display: none; /(!If)");
+	  		/(!Else)
+	  		wcli.util.XBrowser.setCSSText(document.getElementById("/(!WebObLabel_ViewCust_3156:!NameID)"), "         position: absolute;     left: 12px;     top: 32px;      z-index: 3;     width: 84px;   height: 20px;      /(!If:/(!WebObLabel_ViewCust_3156:!Property:Visible)=No)     display: none; /(!If)");
+	  		/(!If)
+	  	}
+	  	document.getElementById("/(!WebObLabel_ViewCust_3156:!NameID)").style.textAlign = "Left";
+	  	document.getElementById("/(!WebObLabel_ViewCust_3156:!NameID)").innerHTML = "/(!WebObLabel_ViewCust_3156:!Text:htmlbr)";
+	  	var bgcolor = wcli.color.setColor("");
+	  	
+	  		
+	  	
+	  	
+	  			wcli.form.Font.applyPlexFont(document.getElementById("/(!WebObLabel_ViewCust_3156:!NameID)"), "Regular 8  MS Sans Serif ");
+	  	
+	  	
+	  	/(!WebObLabel_ViewCust_3156:!Action)
+	  
+	  	/(!WebObLabel_ViewCust_3156:!Action:SetText)
+	  		if (document.getElementById("/(!WebObLabel_ViewCust_3156:!NameID)")){
+	  			document.getElementById("/(!WebObLabel_ViewCust_3156:!NameID)").innerHTML = "/(!WebObLabel_ViewCust_3156:!Text:htmlbr)";
+	  		}
+	  	/(!WebObLabel_ViewCust_3156:!Action)
+	  
+	    /(!CustName3157:!Action:SetTooltip)       
+	    	wcli.util.XBrowser.setTooltip("/(!CustName3157:!NameID)",/(!ActionArg));
+	    /(!CustName3157:!Action)
+	    
+	    /(!CustName3157:!Action:SetValue)
+	    	var formatvalue = wcli.form.getFormatValue("Char", "%ss40", 0, true, /(!CustName3157), "Read Only");
+	      	var mode = "Read Only";
+	       
+	      	wcli.util.XBrowser.setValueEdit("/(!CustName3157:!NameID)", mode, formatvalue);
+	      
+	  
+	      
+	  	
+	    /(!CustName3157:!Action)
+	  
+	    /(!CustName3157:!Action:SetState)
+	      var w = dijit.byId("/(!CustName3157:!NameID)");
+	      var editbox = wcli.util.XBrowser.querySelector("/(!CustName3157:!NameID)");
+	      if (w) {
+	      	w.domNode.style.cssText = "         position: absolute;     left: 96px;     top: 32px;      z-index: 3;     width: 372px;   height: 20px;      /(!If:/(!CustName3157:!Property:Visible)=No)     display: none; /(!If)";
+	      	w.textbox.style.cssText = "         position: absolute;     left: 96px;     top: 32px;      z-index: 3;     width: 372px;   height: 20px;      /(!If:/(!CustName3157:!Property:Visible)=No)     display: none; /(!If)";
+	      	w.state = "";
+	      	w._setStateClass();
+	      	/(!If:/(!IsDefined:FieldErrorMode))
+	  			if (w.state == "Error" && tooltipMsg) {
+	  				w.displayMessage(tooltipMsg);
+	  				tooltipMsg = null;
+	  			}
+	  		/(!If)
+	      }
+	      if (editbox){
+	    		
+	  		
+	  		
+	  		if (protectedEditBorder == false) {
+	  			wcli.util.XBrowser.setCSSText(editbox, "         position: absolute;     left: 96px;     top: 32px;      z-index: 3;     width: 372px;   height: 20px;      /(!If:/(!CustName3157:!Property:Visible)=No)     display: none; /(!If)line-height:20px; overflow: hidden;margin-top: 2px;");
+	  		}
+	  		
+	  		
+	  	}
+	  	
+	  	
+	  	if(editbox){
+	  		var formatvalue = wcli.form.getFormatValue("Char", "%ss40", 0, true, /(!CustName3157), "Read Only");
+	  		editbox.value = formatvalue;
+	  	}
+	  	
+	  	
+	  	if(editbox){
+	  		wcli.form.Font.applyPlexFont(editbox, "Regular 8  MS Sans Serif ");
+	  	}
+	  	
+	  	
+	      
+	          
+	      
+	      if (editbox){	
+	      	var formatvalue = wcli.form.getFormatValue("Char", "%ss40", 0, true, /(!CustName3157), "Read Only");
+	      	if (editbox.tagName == "INPUT") {
+	      		var newspan = wcli.util.XBrowser.newDiv("/(!CustName3157:!NameID)","%ss40","0","Char");
+	  	      		
+	  	      	/(!If:/(!IsDefined:ProtectedDoubleClick))/(!Else)dojo.connect(newspan, "ondblclick", function()
+	  	      	{	
+	  	      		
+	  	      	if (!window./(!Panel:!NameID)_submitter)
+		      	  	return;
+		      	  var doEventOp = function() {
+		      	  	if (window./(!Panel:!NameID)_submitter.onsubmit)
+		      	  		window./(!Panel:!NameID)_submitter.onsubmit();
+		      	  	dojo.xhrPost({
+		      	  		form: /(!Panel:!NameID)_form,
+		      	  		content: { _type: 'json', ctlact: '/(!CustName3157:!NameID):Double Click', pnlid: /(!Panel:!NameID)_pnlid, focus: '/(!CustName3157:!NameID)', websessid: window.websessid },
+		      	  		load: function(data, ioArgs) {
+		      	  		 //Code starts to manage session timeout in ajax requests.
+		      	  			var headerstring = ioArgs.xhr.getResponseHeader('Content-Type');
+		      	  			var headers = headerstring.split(';');
+		      	  			if (headers && (typeof data != 'object')) {
+		      	  				if (headers[0].toLowerCase() != 'text/json' && headers[0].toLowerCase() != 'application/json')
+		      	  					window.location.href = ioArgs.url;
+		      	  			}
+		      	  	           //Code ends to manage session timeout in ajax requests.    	
+		      	  			data.main(data);
+		      	  		},
+		      	  		preventCache: true,
+		      	  		handleAs: 'json'	
+		      	  	});
+		      	  };
+		      	  if (window.editGridWait) {
+		      	  	dojo.connect(window.editGridWait, 'onEditGridApplied', doEventOp);
+		      	  } else {
+		      	  	doEventOp();
+		      	  }
+	  	      	
+	  	      	});
+	  			/(!If)
+	  	  	      					
+	  			wcli.util.XBrowser.setTextContent(newspan, /(!If:/(!CustName3157)=)"      "/(!Else)formatvalue/(!If));
+	  	      													
+	      	}
+	      	if(editbox.tagName == "DIV"){
+	  	      	wcli.util.XBrowser.setTextContent(editbox.firstElementChild, /(!If:/(!CustName3157)=)"      "/(!Else)formatvalue/(!If));
+	      	}
+	      }	
+	  		
+	  		
+	  		if(editbox){
+	  			wcli.form.Font.applyPlexFont(editbox, "Regular 8  MS Sans Serif ");
+	  		}
+	  		
+	  		
+	  	    
+	  		document.getElementById("/(!CustName3157:!NameID)").classList.add("protectedTextBox")
+	      
+	      
+	                      
+	  		wcli.util.XBrowser.setCSSText(document.getElementById("/(!CustName3157:!NameID)"), "         position: absolute;     left: 96px;     top: 32px;      z-index: 3;     width: 372px;   height: 20px;      /(!If:/(!CustName3157:!Property:Visible)=No)     display: none; /(!If)line-height:20px; overflow: hidden; /(!If:/(!IsDefined:LabelAligned))/(!Else)margin-top:2px;/(!If)");
+	  	
+	  	
+	  	
+	  		
+	  	if (protectedEditBorder == true && dojo.isIE11) {			
+	  		wcli.util.XBrowser.setBGColor("5                     ","/(!CustName3157:!NameID)", 372, 20);
+	  	}	
+	  	
+	  	/(!If:/(!IsDefined:FixedPositioning))
+	  		
+	  	var ableToResize = true;
+		  /(!If:/(!IsDefined:MinimumPanelRes))
+		  	ableToResize = wcli.util.XBrowser.isAbleToResize(/(MinimumPanelRes));
+		  /(!If)
+		  
+		  
+		  
+		  
+		  
+		  
+	  	
+	  		if(editbox && w && ableToResize === true){
+	  			wcli.util.XBrowser.addFixedPositionAttributes(w, 
+	  	
+		  
+		  {top: "32",ctrlWidth: "372", ctrlHeight: "20", fixBottom: "No",fixLeft: "Yes",fixRight: "No",fixTop: "Yes",panelWidth: "508",panelHeight: "300",fncName: "/(!Panel:!NameID)"}
+		  
+		  
+	  	);
+	  			wcli.util.XBrowser.addFixedPositionAttributes(editbox, 
+	  	
+		  
+		  {top: "32",ctrlWidth: "372", ctrlHeight: "20", fixBottom: "No",fixLeft: "Yes",fixRight: "No",fixTop: "Yes",panelWidth: "508",panelHeight: "300",fncName: "/(!Panel:!NameID)"}
+		  
+		  
+	  	);
+	  			wcli.util.XBrowser.addFixedPositionAttributes(document.getElementById("/(!CustName3157:!NameID)"), 
+	  	
+		  
+		  {top: "32",ctrlWidth: "372", ctrlHeight: "20", fixBottom: "No",fixLeft: "Yes",fixRight: "No",fixTop: "Yes",panelWidth: "508",panelHeight: "300",fncName: "/(!Panel:!NameID)"}
+		  
+		  
+	  	);			
+	  		}
+	  	/(!If)
+	  
+	  	
+	  		
+	      	/(!If:/(!IsDefined:ProtectedEditBorder))
+	      		wcli.util.XBrowser.setBGColor("5                     ","/(!CustName3157:!NameID)");
+	  	    /(!Else)
+	  	    	wcli.util.XBrowser.setBGColor("5                     ","/(!CustName3157:!NameID)", 372, 20);
+	  		/(!If)
+	  		
+	  		
+	  		
+	  		
+	  		/(!If:/(!IsDefined:FixedPositioning))
+	  		if(ableToResize === true){
+	  			wcli.util.XBrowser.resizeDiv(editbox, w,false);
+	  		}
+	  		setTimeout(function(){
+	              if (typeof /(!CustName3157:!NameID)_ProtectResizeEdit === "undefined" && ableToResize === true){
+	                  /(!CustName3157:!NameID)_ProtectResizeEdit = dojo.connect(window, "onresize", function(){                
+	                      var wT = dijit.byId("/(!CustName3157:!NameID)");
+	                      var editboxT = wcli.util.XBrowser.querySelector("/(!CustName3157:!NameID)");
+	                      if(editboxT && wT){
+	                          wcli.util.XBrowser.resizeDiv(editboxT,wT,true);
+	                      }else if(editboxT){
+	                          wcli.util.XBrowser.resizeDiv(document.getElementById("/(!CustName3157:!NameID)"),null,true);
+	                      }
+	                  });
+	              }
+	          }, 300);      
+	  		
+	  		/(!If)
+	  	
+	  	
+	  	
+	  	
+	  	/(!If:/(!IsDefined:HintValue))	
+	  		if(/(!CustName3157:!NameID)HintValue){
+	  			if(dijit.byId("/(!CustName3157:!NameID)")){
+	  				dijit.byId("/(!CustName3157:!NameID)").domNode.setAttribute('title', /(!CustName3157:!NameID)HintValue);
+	  			}
+	  			else if(document.getElementById("/(!CustName3157:!NameID)")){
+	  				document.getElementById("/(!CustName3157:!NameID)").setAttribute('title', /(!CustName3157:!NameID)HintValue);
+	  			}
+	  		}	
+	  	/(!If)
+	  
+	  			
+	  		if ((editbox && editbox.tagName == "INPUT") || true==false) {
+	  			if (wcli.util.XBrowser.querySelector("/(!CustName3157:!NameID)")){ 
+	  				wcli.form.Font.applyPlexFont(wcli.util.XBrowser.querySelector("/(!CustName3157:!NameID)"), "Regular 8  MS Sans Serif ");
+	  			}
+	  		} else if (editbox.tagName == "DIV") {
+	  			wcli.form.Font.applyPlexFont(editbox, "Regular 8  MS Sans Serif ");
+	  		}				
+	  		
+	  	
+	  	
+	    /(!CustName3157:!Action)
+	    
+	  
+	/(!-- End attach point 'JS')
+	
+
+	/(!-- Begin attach point 'JSPost')
+	
+
+	   /(!CustID3154:!Action:SetFocus)
+	      if (dijit.byId("/(!CustID3154:!NameID)"))
+	  	    dijit.byId("/(!CustID3154:!NameID)").focus();
+	   /(!CustID3154:!Action)
+	  
+	   /(!CustName3157:!Action:SetFocus)
+	      if (dijit.byId("/(!CustName3157:!NameID)"))
+	  	    dijit.byId("/(!CustName3157:!NameID)").focus();
+	   /(!CustName3157:!Action)
+	  
+		var showEnquiry = function() {
+		if (enquiryMsg) {
+			var dlg;
+			var doclose = function(){
+				if (dijit.byId(dlgid)){
+					dijit.byId(dlgid).hide(); 
+					dojo.body().removeChild(dijit.byId(dlgid).domNode);
+					dialogIsOpen=false;
+				}else{ 
+					dlg.hide();
+					dojo.body().removeChild(dlg.domNode);
+					dialogIsOpen=false;
+				}
+			};
+			var div = wcli.buildEnquiryDialog(enquiryMsg, function(val) { enqresp(val); doclose(); } );
+			dlg = new dijit.Dialog({ title: /(!Panel:!Title) || "Panel" }, div);
+			dlgid = dlg.id;
+			dlg.startup();
+			dlg._lastFocusItem = dijit.byId("EnquiryYesBtn").domNode;
+			dlg.show(600);
+			dialogIsOpen=true;
+			dijit.byId("EnquiryYesBtn").focus();
+			setTimeout(function(){
+				if(dojo.isIE){
+					dlg.domNode.childNodes[1].childNodes[1].focus();
+				}
+				else{
+					dlg.domNode.childNodes[3].childNodes[1].focus();
+				}
+			}
+			,700);
+			dlg.closeButtonNode.onclick = function() { 
+					if (/(!Panel:!NameID)_form.onsubmit)
+						/(!Panel:!NameID)_form.onsubmit();
+					dojo.xhrPost({
+						form: /(!Panel:!NameID)_form,
+						content: { _type: 'json', enqact:3, pnlid: /(!Panel:!NameID)_pnlid, websessid: window.websessid },
+						load: function(data, ioArgs) {
+						data.main(data);
+					},
+				preventCache: true,
+				handleAs: 'json'	
+				});
+				dijit.byId(dlgid).hide();
+				dojo.body().removeChild(dijit.byId(dlgid).domNode);
+				dialogIsOpen=false;
+			};
+		 }
+		};
+		if (tooltipMsg) {
+			var dlg;
+			var div = wcli.buildDialog(tooltipMsg, function() { dlg.hide(); dojo.body().removeChild(dlg.domNode); dialogIsOpen=false; showEnquiry();} );
+			dlg = new dijit.Dialog({ title: /(!Panel:!Title) || "Panel" }, div);
+			dlg.startup();
+			dlg.show(600);
+			dialogIsOpen=true;
+			setTimeout(function(){
+				if(dojo.isIE){
+					dlg.domNode.childNodes[1].childNodes[1].focus();
+				}
+				else{
+					dlg.domNode.childNodes[3].childNodes[1].focus();
+				}
+			}
+			,700);
+			dlg.closeButtonNode.onclick = function() { 
+				dlg.hide();
+				dojo.body().removeChild(dlg.domNode);
+				dialogIsOpen=false;
+				showEnquiry();
+			};
+		} else {
+	       showEnquiry();
+	   }
+	
+	/(!-- End attach point 'JSPost')
+	
+
+	/(!------------- Start expansion of !MDIActions.js -----------------)
+	dojo.require("wcli.layout.MDIController");
+	
+	/(!Panel:!EnableAction:MDIIconArrange,MDICascade,MDICloseAll,MDITileHorizontally,MDITileVertically)
+	
+	/(!Panel:!Action:MDIIconArrange)
+		wcli.layout.MDIController.MDIIconArrange();
+	/(!Panel:!Action)
+	
+	/(!Panel:!Action:MDICascade)
+		wcli.layout.MDIController.MDICascade();
+	/(!Panel:!Action)
+	
+	/(!Panel:!Action:MDICloseAll)
+		wcli.layout.MDIController.MDICloseAll();
+	/(!Panel:!Action)
+	
+	/(!Panel:!Action:MDITileHorizontally)
+		wcli.layout.MDIController.MDITileHorizontally();
+	/(!Panel:!Action)
+	
+	/(!Panel:!Action:MDITileVertically)
+		wcli.layout.MDIController.MDITileVertically();
+	/(!Panel:!Action)
+	/(!------------- End expansion of !MDIActions.js ------------------)
+	
+
+	/(!If:/(!IsDefined:FocusModeB))
+	/(!Else)
+	 if (window.modifiedBlockFocus) {
+	     return;
+	 }
+	 setTimeout( function() {
+            if (window.dialogIsOpen) {
+                return;
+            }
+	    /(!If:/(!Req:_child))
+		    /* don't set focus if this page is a hidden child panel */
+		    var cp = document.getElementById(/(!Req:_child));
+			if (cp && cp.style.display != "none")
+		/(!If)
+		
+		{
+			if (window.modifiedBlockFocus) {
+			    return;
+			}
+
+			window.settingFocus = true;
+	    	/(!FOCUS)
+	    		if (dijit._curFocus && window.focusElement && dijit._curFocus == window.focusElement){
+	    			window.focusElement = null;
+	    		} else if (dijit.byId("/(!NameID)")) {
+	        		dijit.byId("/(!NameID)").focus();
+	        		wcli.form.selectField(dijit.byId("/(!NameID)"));
+	      		} else if (document.getElementById("/(!NameID)") && document.getElementById("/(!NameID)").focus &&
+		  				document.getElementById("/(!NameID)").disabled == false) {
+		    		document.getElementById("/(!NameID)").focus();
+		    	} else {
+		    		wcli.grid.setFocusByColumnId("/(!NameID)");
+		    	}
+			/(!FOCUS)
+			window.settingFocus = false;
+			if(window.notifyInitialized){
+				window.notifyInitialized();	
+				window.notifyInitialized = null;
+			}
+		}
+	        window.modifiedBlockFocus = false;
+	},50);
+	/(!If)
+
+}/(!------------- End expansion of !WebShell-root.json ------------------)
+
+  /(OutTo)
+  
+/(!Else)
+  /(ContentType:text/html)
+  
+  /(OutTo:html:comments=none)
+    /(!------------- Start expansion of !WebShell-root.html -----------------)
+/(!If:/(!Req:_child))/(!Else)<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+  /(!If:/(!IEVersion)=10)
+	  <meta http-equiv='X-UA-Compatible' content='IE=8' />
+  /(!Else)
+	  <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+  /(!If)
+
+  /(!If:/(!Panel:!Title)=)
+    <title>Panel</title>
+  /(!Else)
+    <title>/(!Panel:!Title)</title>
+  /(!If)
+
+  
+  <style type="text/css">
+    /(Embed:plain:cdata)
+      @import "/(!WsResLib:com.adcaustin.webclient)/js/dijit/themes//(WCTHEME)//(WCTHEME).css";
+      @import "/(!WsResLib:com.adcaustin.webclient)/js/dojox/grid/_grid//(WCTHEME)Grid.css";
+      @import "/(!WsResLib:com.adcaustin.webclient)/js/dojo/resources/dojo.css";
+      @import "/(!WsResLib:com.adcaustin.webclient)/js/wcli/wcli.css";
+      /(!-- Begin attach point 'CSSInit')
+
+
+/(!-- End attach point 'CSSInit')
+
+
+    /(Embed)
+  </style>
+  <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico">
+  /(!-- Begin attach point 'HeadArea')
+
+
+/(!-- End attach point 'HeadArea')
+
+
+
+  <script type="text/javascript" src="/(!WsResLib:com.adcaustin.webclient)/js/eventShim.js"></script>
+  <script type="text/javascript" src="/(!WsResLib:com.adcaustin.webclient)/js/dojo/dojo.js"
+      djConfig="/(!-- Begin attach point 'djConfig')
+
+
+/(!-- End attach point 'djConfig')
+
+parseOnLoad: true"></script>
+  <script type="text/javascript">
+    /(Embed:js:cdata)
+     dojo.require("wcli.util.XBrowser");
+     wcli.util.XBrowser.fixKeys();
+          var messageOptions = {};
+    /(!If:/(!IsDefined:EnquiryYesText))
+			messageOptions.txt_yes = /(EnquiryYesText);
+	/(!If)
+	/(!If:/(!IsDefined:EnquiryNoText))
+    		messageOptions.txt_no = /(EnquiryNoText);
+	/(!If)
+	/(!If:/(!IsDefined:EnquiryCancelText))
+    		messageOptions.txt_cancel = /(EnquiryCancelText);
+	/(!If)
+	/(!If:/(!IsDefined:DialogOkText))
+    		messageOptions.txt_ok = /(DialogOkText);
+	/(!If)
+	/(!If:/(!IsDefined:FixedPositioning))
+          window.fixedPositioningEnabled = true;          
+    /(!If)
+	 var /(!Panel:!NameID)_pnlid = /(PNLID);
+     window.curShellPnl = /(PNLID);
+     /(!If:/(!WEBSESSID))
+     window.websessid = /(WEBSESSID);
+   	 /(!If)
+   	 window.wsaction=/(WSACTION);
+     var keyStatus = { CTRL: false, ALT: false, SHIFT: false };
+     var invKeys = {};
+     for (var k in dojo.keys) {
+         invKeys[dojo.keys[k]] = k;
+     }
+     function getKeyString(evt) {
+         var special = invKeys[evt.keyCode];
+         var alpha = String.fromCharCode(evt.keyCode);
+         return special || alpha;
+     }
+     function encKey(evt) {
+         var res = "";
+         if (keyStatus["SHIFT"])
+             res = res + "SHIFT+";
+      	 if (keyStatus["CTRL"])
+          	 res = res + "CTRL+";
+      	 if (keyStatus["ALT"])
+          	 res = res + "ALT+";
+      	 res = res + getKeyString(evt);
+      	 if (res == "PAGE_DOWN") {
+      		 res = "PAGE DOWN";
+      	 }
+      	 if (res == "PAGE_UP") {
+      		 res = "PAGE UP";
+      	 }
+    	 keyStatus["SHIFT"] = false;
+    	 keyStatus["CTRL"] = false;
+    	 keyStatus["ALT"] = false;
+         return res;
+     }
+
+	 /(!Panel:!EnableAction:RegisterKeyEvent,EnableKeyboardEvent,DisableKeyboardEvent)
+
+	 var /(!Panel:!NameID)_keymap = {};
+	    /(!Panel:!Action:RegisterKeyEvent)
+	 		/(!Panel:!NameID)_keymap[/(!ActionArg)] = /(!ActionArg);
+	    /(!Panel:!Action)
+	 var dokey = function(/(!Panel:!NameID)_keymap, pnlprefix, evt, currPnlid, panelNameId) {
+	    window._savedFocus = dijit._curFocus;
+	    if(evt.target.nodeName != "#document") {
+		    var evtTgtRole = evt.target.getAttribute('role') ;
+			if (evtTgtRole && evtTgtRole == 'menuitem') {
+				if (menuKeyPress(evt)) {
+					return;
+				}
+			}
+	    }
+	   	var enc = encKey(evt);
+		if (evt.keyCode == dojo.keys.ENTER && evt.target.tagName != "TEXTAREA" && evt.target.tagName != "BUTTON") {
+			if (mainform.defaultButtonHandlers && mainform.defaultButtonHandlers.length > 0) {
+				/*Call the function */
+				var dftBtnLen = mainform.defaultButtonHandlers.length;
+				for(var t=0; t<dftBtnLen; t++){
+					mainform.defaultButtonHandlers[t](evt);
+				}
+			}
+		 	if(evt.dftHandled){
+				return;
+			}
+			evt.preventDefault();	// prevent form submit
+		 	evt.stopPropagation();
+		}
+		if (evt.keyCode == dojo.keys.BACKSPACE && evt.target.tagName != "INPUT" && evt.target.tagName != "TEXTAREA") {
+			evt.preventDefault();
+		}
+		var altKeyOnly = evt.altKey && !evt.ctrlKey && !evt.shiftKey;
+		if(enc == "ESCAPE"){
+			enc = "ESC";
+		}
+  		if (/(!Panel:!NameID)_keymap[enc]) {
+  			if (!currPnlid) {
+  				currPnlid = /(!Panel:!NameID)_pnlid ;
+  			}
+  	  		evt.preventDefault();
+  	  		var focus = dijit._curFocus && dijit._curFocus.id;
+  	  		if (dijit._curFocus) {
+	  			var widget = dijit.byId(dijit._curFocus.id);
+	  			if (widget) {
+	  				var parentWidget = dijit.getEnclosingWidget(widget.domNode.parentNode);
+	  				if (parentWidget == null){
+	  					widget = dijit.byId(evt.target.id);
+	  					if(widget != undefined){
+	  						parentWidget = dijit.getEnclosingWidget(widget.domNode.parentNode);
+	  					}
+	  				}
+	  				if (parentWidget == null){
+	  					parentWidget = dijit.getEnclosingWidget(evt.target);
+	  				}
+	  				if (parentWidget.grid) {
+	  					focus = parentWidget.grid.id;
+	  				}
+	  			}
+	  			var eGrid = wcli.grid.findParentGrid(dijit._curFocus);
+	  	  		if (eGrid && eGrid.useEntryGrid) {
+	  	  			eGrid.setValueEntryInput(evt);
+	  	  		   	eGrid.selection.updateValue();
+	  	  		}
+	  		}
+  	  		if(focus == '' && evt.target.className =='dojoxGrid-input'){ 
+	  			var widget = dijit.getEnclosingWidget(dijit._curFocus);
+	  			if (widget && widget.grid && widget.grid.edit && widget.grid.edit.info && widget.grid.edit.info.cell && widget.grid.edit.info.cell.field){
+	  				focus = widget.grid.edit.info.cell.field;
+	  			}
+	  			widget.grid.edit.info.cell.editor.focus();
+	  		}
+			if (dijit._curFocus && !dijit._curFocus.blurCallback) {
+  	  		    dijit._curFocus.blur();
+  	  		}
+			var dokeyOp = function(enc) {
+				//if (mainform.keyIsPending) {
+				//	if (!mainform.keyQueue) {
+				//		mainform.keyQueue = [];
+				//	}
+				//	mainform.keyQueue.push(enc);
+				//	return;
+				//}
+				//mainform.keyIsPending = true;
+				if (window.submitter.onsubmit)
+					window.submitter.onsubmit();
+  				dojo.xhrPost({
+  					form: mainform,
+  					content: { _type: 'json', keyact: pnlprefix + enc, focus: focus, pnlid: currPnlid, websessid: window.websessid },
+  					load: function(data, ioArgs) {
+						//mainform.keyIsPending = false;
+  						data.main(data);
+						if(mainform.afterKeyEvent){
+ 							mainform.afterKeyEvent();
+ 							mainform.afterKeyEvent = null;
+ 						}
+  						if (mainform.keyQueue && mainform.keyQueue.length) {
+  							var nextKey = mainform.keyQueue.shift();
+  							dokeyOp(nextKey);
+  						}
+  					},
+  					handleAs: 'json',
+  					preventCache: true
+  				});
+			};
+			if (dijit._curFocus && dijit._curFocus.blurCallback){
+				dijit._curFocus.blurCallback(null, function() {
+					dokeyOp(enc);
+				});
+			} else {
+				dokeyOp(enc);
+				evt.stopPropagation();
+			}
+			var contentPane = document.getElementById(panelNameId);
+			if (contentPane) {
+				contentPane.setAttribute('tabindex', '0');
+				contentPane.focus();
+			}
+  		} else {
+			if (altKeyOnly) {
+				var altKey = String.fromCharCode(evt.keyCode).toLowerCase();
+				var btns = document.getElementsByTagName("BUTTON");
+				for(var b=0; b < btns.length; b++) {
+					var btn = btns[b];
+					var bkey = btn.getAttribute('plexaccesskey') ;
+					if (bkey==altKey) {
+						var node = btn.parentNode;
+						if (!btn.disabled) {
+							while (node != null) {
+								if (node == evt.currentTarget) {
+									btn.click();
+									evt.preventDefault();
+									evt.stopPropagation();
+									return;
+								}
+								node = node.parentNode;
+							}
+						}
+					}
+				}
+				if (evt.currentTarget.classList && evt.currentTarget.classList.contains("detailDialog")) {
+					evt.preventDefault();
+					evt.stopPropagation();
+					return;
+				}
+			}
+		}
+	 }
+	 tooltipMsg = null;
+	 enquiryMsg = null;
+	 dojo.addOnLoad( function() {
+    			  	dojo.connect(dojo.doc, "onkeydown", function(evt) {
+        			  	var code = getKeyString(evt);
+        			  	if (code in keyStatus) {
+            			  	keyStatus[code] = true;
+        			  	}
+        			  	else if (evt.keyCode != dojo.keys.ENTER)
+    			  			dokey(/(!Panel:!NameID)_keymap, "", evt);
+    				});
+    			  	dojo.connect(dojo.doc, "onkeypress", function(evt) {
+    			  		if (evt.keyCode == dojo.keys.ENTER)
+    			  			dokey(/(!Panel:!NameID)_keymap, "", evt);
+    				});
+    				dojo.connect(dojo.doc, "onkeyup", function(evt) {
+        				var code = getKeyString(evt);
+        				if (code in keyStatus) {
+            				keyStatus[code] = false;
+        				}
+    				});
+     });
+	  var keepsess = false;
+	 	 function /(!Panel:!NameID)_unload() {
+	 		 /(!Panel:!NameID)_form = document.getElementById("_/(!Panel:!NameID)_form");
+	 	   if (!keepsess) {
+	 		   if(dojo.isChrome && navigator.sendBeacon){
+	 			   var url = mainform.action;
+	 			   var data = "_endsess=" + "&websessid=" +  window.websessid;
+	 			   navigator.sendBeacon(url, data);
+	 		   } else {
+	 		 dojo.xhrPost({
+	 		 	form: /(!Panel:!NameID)_form,
+	 			content: { _endsess: "" ,websessid: window.websessid},
+	 			load: function(type, data, evt) {
+	 			},
+	 			preventCache: true,
+	 			sync: true
+	 	     });
+	 		}
+	 	   }
+	 }
+	 if (dojo.isIE) {
+	 	window.attachEvent('onbeforeunload', /(!Panel:!NameID)_unload);
+	 }
+	 dojo.connect(dojo, "_loadInit", function() {
+		 /(!Panel:!NameID)_form = mainform = document.getElementById("_/(!Panel:!NameID)_form");
+	 	dialogreturn = null;
+	 });
+	 window./(!Panel:!NameID)_submitter = window.submitter = {};
+	 dojo.addOnLoad(function() {
+		dojo.addClass(dojo.body(), "loadShow");
+		window.dialogreturn = null;
+		/(!Panel:!NameID)_form = mainform = document.getElementById("_/(!Panel:!NameID)_form");
+		mainform.defaultButtonHandlers = [];
+
+		/(!If:/(!IsDefined:InstantScreenLoader))
+		 var screenpreloader = dijit.byId('screenpreloader');
+		 document.body.style.overflow = 'visible';
+		 screenpreloader.domNode.style.display = 'none';
+		/(!If)
+	 });
+    /(Embed)
+  </script>
+
+  <body onbeforeunload="/(!Panel:!NameID)_unload();" ondragstart="return false;" ondrop="return false;" class="/(WCTHEME) /(!-- Begin attach point 'CSSBodyClass')
+
+
+/(!-- End attach point 'CSSBodyClass')
+
+">
+
+	<div id="BLANKET">
+	</div>
+	/(!If:/(!IsDefined:InstantScreenLoader))
+	<div id="screenpreloader" style="background-color:#fff; z-index:99;width: 100%; height: 100%; position: fixed;" dojoType="dijit.layout.ContentPane">
+	    <div id="preloaderstatus" class="loadingSpinner" dojoType="dijit.layout.ContentPane">&nbsp;</div>
+	</div>
+	 /(!If)
+	/(!-- Begin attach point 'LoadScreen')
+
+
+     <div id="IOSpinner" class="loadingSpinner" style="display: none;">
+     </div>
+
+/(!-- End attach point 'LoadScreen')
+
+
+/(!If)
+	/(!-- Begin attach point 'LinkArea')
+	
+
+	  	<link href="/(!WsResLib:com.adcaustin.webclient)/js/wcli/form/Label.css" rel="stylesheet" type="text/css" />
+	  
+	  	<link href="/(!WsResLib:com.adcaustin.webclient)/js/wcli/form/ReadOnlyTextbox.css" rel="stylesheet" type="text/css" />
+	  	
+	  
+	/(!-- End attach point 'LinkArea')
+	
+
+    /(!-- Begin attach point 'DataArea')
+    
+
+    /(!-- End attach point 'DataArea')
+    
+
+
+/(!If:/(!Req:_child))
+  <script type="text/javascript">
+	dojo.addOnLoad(function() {
+		/(!Panel:!NameID)_form = mainform;
+		/(!Panel:!NameID)_pnlid = /(PNLID);
+		window./(!Panel:!NameID)_submitter = window.submitter;
+	});
+  </script>
+/(!Else)
+    <form method="get" action="/(WSACTION)" id="_/(!Panel:!NameID)_form">
+      <input type="hidden" name="WSYD_SIGN" value="/(!Req:WSYD_SIGN)"/>
+      <input type="hidden" name="WSYD_EVENT" value="/(!Req:WSYD_EVENT)"/>
+      <input type="hidden" name="WSYD_SID" value="/(!Req:WSYD_SID)"/>
+      <input type="hidden" name="WSLNKREF" value="/(!Req:WSLNKREF)"/>
+      <input type="hidden" name="WSCURPRS" value="/(!Req:WSCURPRS)"/>
+/(!If)
+
+  <script type="text/javascript">
+    /(Embed:js:cdata)
+      dojo.require("wcli.data.FormToObject");
+      dojo.require("wcli.util.XBrowser");
+      dojo.require("wcli.layout.Frame");
+      dojo.require("wcli.form.HintTextBox");
+	  /(!-- Begin attach point 'JSInit')
+	  
+
+	  	dojo.require("dijit.layout.ContentPane");
+	  	dojo.require("dijit.layout.LayoutContainer");
+	  	dojo.require("dijit.Tooltip");
+	  	dojo.require("wcli.form.Dialog");
+	  	
+	  	var newLineRegex = new RegExp('\n','g');
+	  	bldMsgText = function(msgText) {
+	  		return msgText.replace(newLineRegex, '<br>');
+	  	}
+	  	var dialogIsOpen;
+	  	dojo.addOnLoad(function() {
+	  		dijit._MasterTooltip.prototype.duration = 450;
+	  		dijit._masterTT = new dijit._MasterTooltip();
+	  		dojo.connect(document.body, "onmousedown", function(evt) {
+	  			if(dijit._masterTT && dijit._masterTT.aroundNode != null){
+	  				dijit._masterTT.hide(dijit._masterTT.aroundNode);
+	  			}
+	   			dijit.popup.closeAll(evt);
+	  		});
+	  		
+	  		dojo.connect(document.body, "onkeydown", function(evt) {
+	  			if (evt.keyCode == dojo.keys.ENTER){
+	  				var focusNode = dijit.getFocus().node;
+	  				if(dojo.isIE && focusNode.className == "dijitDialogTitleBar"){
+	  					var widget = dijit.getEnclosingWidget(focusNode.parentNode);
+	  				}
+	  				else{
+	  					var widget = dijit.getEnclosingWidget(focusNode);
+	  				}
+	  				if((widget && widget.containerNode) && widget.containerNode.childNodes[1].innerText.indexOf("OK") != -1){
+	  						dijit.byId(widget.containerNode.childNodes[1].id).onClick(evt);	
+	  				}	
+	  			}
+	  		});
+	  
+	  		if (!window.shownTooltips) {
+	  			var tooltipMsg = "";		
+	  			var tooltipType = null;
+	  			/(ALERTS)
+	  				tooltipMsg = tooltipMsg + bldMsgText(/(Embed:html)/(AlertMsg)/(Embed)) + "<br/>"; tooltipType = /(AlertType);
+	  			/(ALERTS)
+	  		
+	  			if (tooltipMsg) {
+	  				if (tooltipType == "status" && dijit.byId("Grid")) {
+	  					window.tooltipIsOpen = true;
+	  					dijit.byId("model-Grid").tooltipMsg(tooltipMsg, dijit.byId("Grid"));
+	  				} 
+	  			
+	  				else if(tooltipType == "dialog" || tooltipType == "status" || tooltipType == "log")  {
+	  					var dlg;
+	  					var div = wcli.buildDialog(tooltipMsg, function() { dlg.hide(); dojo.body().removeChild(dlg.domNode);} );
+	  					dlg = new dijit.Dialog({ title: /(!Panel:!Title) || "Panel" }, div);
+	  					dlg.startup();
+	  					dlg.show();
+	  				}
+	  			
+	  				else {
+	  					var dlg;
+	  					var doclose = function(){
+	  						if (dijit.byId(dlgid)){
+	  							dijit.byId(dlgid).hide(); 
+	  							dojo.body().removeChild(dijit.byId(dlgid).domNode);
+	  						}else{ 
+	  							dlg.hide();
+	  							dojo.body().removeChild(dlg.domNode);
+	  						}
+	  					};
+	  					var enqresp = function(resp) {
+	  						dojo.xhrPost({
+	  							form: /(!Panel:!NameID)_form,
+	  							content: { _type: 'json', enqact: resp, pnlid: /(!Panel:!NameID)_pnlid, websessid: window.websessid },
+	  							load: function(data, ioArgs) {
+	  								data.main(data);
+	  							},
+	  							handleAs: 'json',
+	  							preventCache: true
+	  						});
+	  					};
+	  					var div = wcli.buildEnquiryDialog(enquiryMsg, function(val) { enqresp(val); doclose(); } );
+	  					dlg = new dijit.Dialog({ title: /(!Panel:!Title) || "Panel" }, div);
+	  					dlgid = dlg.id;
+	  					dlg.startup();
+	  					dlg._lastFocusItem = dijit.byId("EnquiryYesBtn").domNode;
+	  					dlg.show();
+	  					dialogIsOpen=true;
+	  					dijit.byId("EnquiryYesBtn").focus();
+	  					dlg.closeButtonNode.onclick = function() { 
+	  						if (/(!Panel:!NameID)_form.onsubmit)
+	  							/(!Panel:!NameID)_form.onsubmit();
+	  							dojo.xhrPost({
+	  								form: /(!Panel:!NameID)_form,
+	  								content: { _type: 'json', enqact:3, pnlid: /(!Panel:!NameID)_pnlid, websessid: window.websessid },
+	  								load: function(data, ioArgs) {
+	  									data.main(data);
+	  								},
+	  							preventCache: true,
+	  							handleAs: 'json'	
+	  						});
+	  						dijit.byId(dlgid).hide();
+	  						dojo.body().removeChild(dijit.byId(dlgid).domNode);
+	  					    dialogIsOpen=false;
+	  					};
+	  				}
+	  				window.shownTooltips = true;
+	  			}
+	  		}
+	  	});
+	  	
+	  	/(!Panel:!EnableAction:Alert,Enquiry)
+	  	if (dojo.byId("IOSpinner")) {
+	  	       var spin = dojo.byId("IOSpinner");
+	  	  		if (!spin.spinConnected) {
+	  		        dojo.connect(dojo, "_ioWatch", function(dfd) {
+	  		        	if (window.inLostFocus){
+	  		        		return;
+	  		        	}
+	  		        	// only display spinnner if delay longer than 100ms (prevents display on modified event)
+	  		        	var spinUp = false;
+	  		        	var ioDelayCleared = false;
+	  		        	var ioDelay = setTimeout(function() {
+	  		        		if (ioDelayCleared) {
+	  		        			return;
+	  		        		}
+	  		        		spin.style.display = "block";
+	  		        		spinUp = true;
+	  		        	}, 200);
+	  		        	
+	  		        	var callback = function() {
+	  		            	if (!spinUp) {
+	  			            	clearTimeout(ioDelay);
+	  			            	ioDelayCleared = true;
+	  			            } else {
+	  		                	dojo.byId("IOSpinner").style.display = "none";
+	  		                }
+	  		            };
+	  		            
+	  		            dojo.connect(dfd, "callback", callback);
+	  		            dojo.connect(dfd, "errback", callback);
+	  		    	});
+	  		    	spin.spinConnected = true;
+	  	    	}
+	  	}
+	  	 
+	  	 
+	  	 
+	  	
+	  	
+	  
+	    	dojo.require("wcli.color.RGBColor");
+	        dojo.require("wcli.form.Font");
+	    
+	    	
+	    	  
+	  	    
+	  	      
+	  	  
+	    	
+	    
+	    	dojo.require("wcli.form.Font");
+	    
+	    	
+	    	  
+	  	    
+	  	      
+	  	  
+	    	
+	    	
+	    	/(!If:/(!IsDefined:HintValue))
+	    		/(!CustID3154:!NameID)HintValue = "";
+	    	/(!If)	
+	    	/(!If:/(!IsDefined:ProtectedEditBorder))protectedEditBorder = true;/(!Else)protectedEditBorder = false;/(!If)
+	    	/(!If:/(!IsDefined:AllowTextSelect))TextSelect = true;/(!Else)TextSelect = false;/(!If)
+	    
+	    	
+	    	  
+	  	    
+	  	      
+	  	  
+	    	
+	    
+	    	
+	    	  
+	  	    
+	  	      
+	  	  
+	    	
+	    	
+	    	/(!If:/(!IsDefined:HintValue))
+	    		/(!CustName3157:!NameID)HintValue = "";
+	    	/(!If)	
+	    	/(!If:/(!IsDefined:ProtectedEditBorder))protectedEditBorder = true;/(!Else)protectedEditBorder = false;/(!If)
+	    	/(!If:/(!IsDefined:AllowTextSelect))TextSelect = true;/(!Else)TextSelect = false;/(!If)
+	    
+	  /(!-- End attach point 'JSInit')
+	  
+
+	  wcli.userDateFormat = [/(!If:/(!IsDefined:DatePattern))/(DatePattern)/(!If)];
+	  wcli.userBlankNullDates = [/(!If:/(!IsDefined:BlankNullDates))/(BlankNullDates)/(!If)];
+	  wcli.userTimeFormat = [/(!If:/(!IsDefined:TimePattern))/(TimePattern)/(!If)];
+	  wcli.userBlankNullTimes = [/(!If:/(!IsDefined:BlankNullTimes))/(BlankNullTimes)/(!If)];
+
+	  /(!If:/(!Req:_child))
+	  	var _loadingPane = /(!Req:_child)[0];
+	  /(!If)
+	  dojo.addOnLoad(function() {
+	    /(!-- Begin attach point 'JSOnLoad')
+	    
+
+	      	var bgcolor = wcli.color.setColor("");
+	      	
+	      	
+	      	
+	      	
+	      			wcli.form.Font.applyPlexFont(document.getElementById("/(!WebObLabel_ViewCust_3153:!NameID)"), "Regular 8  MS Sans Serif ");
+	      	
+	      	/(!If:/(!IsDefined:FixedPositioning))
+	      		
+	      	var ableToResize = true;
+	    	  /(!If:/(!IsDefined:MinimumPanelRes))
+	    	  	ableToResize = wcli.util.XBrowser.isAbleToResize(/(MinimumPanelRes));
+	    	  /(!If)
+	    	  
+	    	  
+	    	  
+	    	  
+	    	  	//Use this code when the control is: WebLabel, WebList, WebMultilineEdit (JSOnLoad, SetState), WebStatic, WebTextbox
+	    	  	if(document.getElementById("/(!WebObLabel_ViewCust_3153:!NameID)") && ableToResize === true){
+	    	  		wcli.util.XBrowser.resizeDiv(document.getElementById("/(!WebObLabel_ViewCust_3153:!NameID)"));
+	    	  	}
+	    	  
+	    	  
+	    	  
+	      	
+	      		setTimeout(function(){
+	      			if (typeof /(!WebObLabel_ViewCust_3153:!NameID)_OnLoadResizeLabel === "undefined" && ableToResize === true){
+	      		    	/(!WebObLabel_ViewCust_3153:!NameID)_OnLoadResizeLabel = dojo.connect(window, "onresize", function(){
+	      					if(document.getElementById("/(!WebObLabel_ViewCust_3153:!NameID)")){
+	      						wcli.util.XBrowser.resizeDiv(document.getElementById("/(!WebObLabel_ViewCust_3153:!NameID)"),null,true);
+	      					}
+	      				});
+	      			}
+	          	}, 300);      
+	      		
+	      	/(!If)
+	      	
+	      
+	          var dijitEdit = dijit.byId("/(!CustID3154:!NameID)");
+	          var mode = "Read Only";
+	          var formatvalue = wcli.form.getFormatValue("Char", "%ss10", 0, true, /(!CustID3154), "Read Only");
+	          
+	          	if (protectedEditBorder == true && mode == "Read Only" && dojo.isIE11){
+	          		wcli.util.XBrowser.setBGColor("5                     ","/(!CustID3154:!NameID)", 100, 20);
+	          	}else{ 
+	          		wcli.util.XBrowser.setBGColor("5                     ","/(!CustID3154:!NameID)"); 
+	          	}
+	      	
+	      	
+	      	
+	      	
+	      	
+	      	
+	      	
+	      	/(!If:/(!IsDefined:RightAlignmentMargin))
+	      			
+	      				document.getElementById("/(!CustID3154:!NameID)").children[0].style.marginRight=/(RightAlignmentMargin)+"px";
+	      			
+	      		/(!If)
+	      	
+	      	
+	      	if (wcli.util.XBrowser.querySelector("/(!CustID3154:!NameID)")){ 
+	      		wcli.util.XBrowser.getAttributeReadOnly("/(!CustID3154:!NameID)", mode);
+	      		
+	      		/(!If:/(!IsDefined:FixedPositioning))
+	      			
+	      		var ableToResize = true;
+	    		  /(!If:/(!IsDefined:MinimumPanelRes))
+	    		  	ableToResize = wcli.util.XBrowser.isAbleToResize(/(MinimumPanelRes));
+	    		  /(!If)
+	    		  
+	    		  
+	    		  
+	    		  
+	    		  
+	    		  
+	      		
+	      			if(ableToResize  === true){
+	      				wcli.util.XBrowser.fixedPositionEdit("/(!CustID3154:!NameID)", mode);
+	      			}
+	      		/(!If)
+	      	}
+	      	wcli.util.XBrowser.setValueEdit("/(!CustID3154:!NameID)", mode, formatvalue);
+	      	var editDom = document.getElementById("/(!CustID3154:!NameID)");
+	      	if (editDom.children.length > 0) {
+	      		editDom.children[0].style.whiteSpace= "nowrap";
+	      	} else {
+	      		editDom.style.whiteSpace= "nowrap";
+	      	}
+	      	
+	      	
+	      	
+	      		if (wcli.util.XBrowser.querySelector("/(!CustID3154:!NameID)")){ 
+	      			wcli.form.Font.applyPlexFont(wcli.util.XBrowser.querySelector("/(!CustID3154:!NameID)"), "Regular 8  MS Sans Serif ");
+	      		}
+	      	
+	      	wcli.util.XBrowser.setBorder("/(!CustID3154:!NameID)","Indented");
+	      	
+	      	if (dijit.byId("/(!CustID3154:!NameID)")) {
+	    	  	(function() {
+	    	  		var ctl = dijit.byId("/(!CustID3154:!NameID)");
+	    	  		var tb = ctl["textbox"];
+	    	  		
+	    	  		if (ctl.editEventsCalled) {
+	    	  			return;
+	    	  		}
+	    	  		ctl.editEventsCalled = true;
+	    	  
+	    	  		
+	    	  		var modified = dojo.hitch(ctl, function(e) {
+	    	  			if(e.keyCode == dojo.keys.TAB){
+	    	  		  	 	window.modifiedBlockFocus = true;
+	    	  				return;
+	    	  		    }
+	    	  		    window.modifiedBlockFocus = false;
+	    	  			this._changed = true;
+	    	  			ctl.value = ctl.textbox.value; 
+	    	  			
+	    	  		});
+	    	  		var modifiedIE = function(e) {
+	    	  			if (e.keyCode == dojo.keys.DELETE ||
+	    	  					e.keyCode == dojo.keys.BACKSPACE ||
+	    	  					e.keyCode >= 48 && e.keyCode <= 90 ||
+	    	  					e.keyCode >= 96 && e.keyCode <= 107 ||
+	    	  					e.keyCode >= 109 && e.keyCode <= 111
+	    	  					) {
+	    	  				return modified(e);
+	    	  			}
+	    	  		};
+	    	  		var updated = dojo.hitch(ctl, function(e) {
+	    	  			if (this._changed && !window.dialogIsOpen) {
+	    	  				
+	    	  				this._changed = false;
+	    	  			}
+	    	  		});
+	    	  		dojo.connect(ctl, "_onChange", ctl, updated);
+	    	  		if (dojo.isIE) {
+	    	  			dojo.connect(tb, "onpaste", ctl, modifiedIE);
+	    	  			dojo.connect(tb, "onkeyup", ctl, modifiedIE);
+	    	  		}
+	    	  		else {
+	    	  			dojo.connect(tb, "oninput", ctl, modified);
+	    	  		}
+	    	  		
+	    	  	})();
+	    	  }
+	      	
+	      	
+	      	
+	      	
+	      	/(!If:/(!IsDefined:HintValue))
+	      		var currentControlID = "/(!CustID3154:!NameID)";
+	      		var currentHintValue = "";
+	      		/(!-- Begin attach point 'CustID3154.HintValue')
+	      	
+
+	      	/(!-- End attach point 'CustID3154.HintValue')
+	      	
+
+	      		/(!CustID3154:!NameID)HintValue = currentHintValue;
+	      	/(!If)	
+	      
+	      	var bgcolor = wcli.color.setColor("");
+	      	
+	      	
+	      	
+	      	
+	      			wcli.form.Font.applyPlexFont(document.getElementById("/(!WebObLabel_ViewCust_3156:!NameID)"), "Regular 8  MS Sans Serif ");
+	      	
+	      	/(!If:/(!IsDefined:FixedPositioning))
+	      		
+	      	var ableToResize = true;
+	    	  /(!If:/(!IsDefined:MinimumPanelRes))
+	    	  	ableToResize = wcli.util.XBrowser.isAbleToResize(/(MinimumPanelRes));
+	    	  /(!If)
+	    	  
+	    	  
+	    	  
+	    	  
+	    	  	//Use this code when the control is: WebLabel, WebList, WebMultilineEdit (JSOnLoad, SetState), WebStatic, WebTextbox
+	    	  	if(document.getElementById("/(!WebObLabel_ViewCust_3156:!NameID)") && ableToResize === true){
+	    	  		wcli.util.XBrowser.resizeDiv(document.getElementById("/(!WebObLabel_ViewCust_3156:!NameID)"));
+	    	  	}
+	    	  
+	    	  
+	    	  
+	      	
+	      		setTimeout(function(){
+	      			if (typeof /(!WebObLabel_ViewCust_3156:!NameID)_OnLoadResizeLabel === "undefined" && ableToResize === true){
+	      		    	/(!WebObLabel_ViewCust_3156:!NameID)_OnLoadResizeLabel = dojo.connect(window, "onresize", function(){
+	      					if(document.getElementById("/(!WebObLabel_ViewCust_3156:!NameID)")){
+	      						wcli.util.XBrowser.resizeDiv(document.getElementById("/(!WebObLabel_ViewCust_3156:!NameID)"),null,true);
+	      					}
+	      				});
+	      			}
+	          	}, 300);      
+	      		
+	      	/(!If)
+	      	
+	      
+	          var dijitEdit = dijit.byId("/(!CustName3157:!NameID)");
+	          var mode = "Read Only";
+	          var formatvalue = wcli.form.getFormatValue("Char", "%ss40", 0, true, /(!CustName3157), "Read Only");
+	          
+	          	if (protectedEditBorder == true && mode == "Read Only" && dojo.isIE11){
+	          		wcli.util.XBrowser.setBGColor("5                     ","/(!CustName3157:!NameID)", 372, 20);
+	          	}else{ 
+	          		wcli.util.XBrowser.setBGColor("5                     ","/(!CustName3157:!NameID)"); 
+	          	}
+	      	
+	      	
+	      	
+	      	
+	      	
+	      	
+	      	
+	      	/(!If:/(!IsDefined:RightAlignmentMargin))
+	      			
+	      				document.getElementById("/(!CustName3157:!NameID)").children[0].style.marginRight=/(RightAlignmentMargin)+"px";
+	      			
+	      		/(!If)
+	      	
+	      	
+	      	if (wcli.util.XBrowser.querySelector("/(!CustName3157:!NameID)")){ 
+	      		wcli.util.XBrowser.getAttributeReadOnly("/(!CustName3157:!NameID)", mode);
+	      		
+	      		/(!If:/(!IsDefined:FixedPositioning))
+	      			
+	      		var ableToResize = true;
+	    		  /(!If:/(!IsDefined:MinimumPanelRes))
+	    		  	ableToResize = wcli.util.XBrowser.isAbleToResize(/(MinimumPanelRes));
+	    		  /(!If)
+	    		  
+	    		  
+	    		  
+	    		  
+	    		  
+	    		  
+	      		
+	      			if(ableToResize  === true){
+	      				wcli.util.XBrowser.fixedPositionEdit("/(!CustName3157:!NameID)", mode);
+	      			}
+	      		/(!If)
+	      	}
+	      	wcli.util.XBrowser.setValueEdit("/(!CustName3157:!NameID)", mode, formatvalue);
+	      	var editDom = document.getElementById("/(!CustName3157:!NameID)");
+	      	if (editDom.children.length > 0) {
+	      		editDom.children[0].style.whiteSpace= "nowrap";
+	      	} else {
+	      		editDom.style.whiteSpace= "nowrap";
+	      	}
+	      	
+	      	
+	      	
+	      		if (wcli.util.XBrowser.querySelector("/(!CustName3157:!NameID)")){ 
+	      			wcli.form.Font.applyPlexFont(wcli.util.XBrowser.querySelector("/(!CustName3157:!NameID)"), "Regular 8  MS Sans Serif ");
+	      		}
+	      	
+	      	wcli.util.XBrowser.setBorder("/(!CustName3157:!NameID)","Indented");
+	      	
+	      	if (dijit.byId("/(!CustName3157:!NameID)")) {
+	    	  	(function() {
+	    	  		var ctl = dijit.byId("/(!CustName3157:!NameID)");
+	    	  		var tb = ctl["textbox"];
+	    	  		
+	    	  		if (ctl.editEventsCalled) {
+	    	  			return;
+	    	  		}
+	    	  		ctl.editEventsCalled = true;
+	    	  
+	    	  		
+	    	  		var modified = dojo.hitch(ctl, function(e) {
+	    	  			if(e.keyCode == dojo.keys.TAB){
+	    	  		  	 	window.modifiedBlockFocus = true;
+	    	  				return;
+	    	  		    }
+	    	  		    window.modifiedBlockFocus = false;
+	    	  			this._changed = true;
+	    	  			ctl.value = ctl.textbox.value; 
+	    	  			
+	    	  		});
+	    	  		var modifiedIE = function(e) {
+	    	  			if (e.keyCode == dojo.keys.DELETE ||
+	    	  					e.keyCode == dojo.keys.BACKSPACE ||
+	    	  					e.keyCode >= 48 && e.keyCode <= 90 ||
+	    	  					e.keyCode >= 96 && e.keyCode <= 107 ||
+	    	  					e.keyCode >= 109 && e.keyCode <= 111
+	    	  					) {
+	    	  				return modified(e);
+	    	  			}
+	    	  		};
+	    	  		var updated = dojo.hitch(ctl, function(e) {
+	    	  			if (this._changed && !window.dialogIsOpen) {
+	    	  				
+	    	  				this._changed = false;
+	    	  			}
+	    	  		});
+	    	  		dojo.connect(ctl, "_onChange", ctl, updated);
+	    	  		if (dojo.isIE) {
+	    	  			dojo.connect(tb, "onpaste", ctl, modifiedIE);
+	    	  			dojo.connect(tb, "onkeyup", ctl, modifiedIE);
+	    	  		}
+	    	  		else {
+	    	  			dojo.connect(tb, "oninput", ctl, modified);
+	    	  		}
+	    	  		
+	    	  	})();
+	    	  }
+	      	
+	      	
+	      	
+	      	
+	      	/(!If:/(!IsDefined:HintValue))
+	      		var currentControlID = "/(!CustName3157:!NameID)";
+	      		var currentHintValue = "";
+	      		/(!-- Begin attach point 'CustName3157.HintValue')
+	      	
+
+	      	/(!-- End attach point 'CustName3157.HintValue')
+	      	
+
+	      		/(!CustName3157:!NameID)HintValue = currentHintValue;
+	      	/(!If)	
+	      
+	    /(!-- End attach point 'JSOnLoad')
+	    
+
+		/(!If:/(!Req:_child))/(!Else)document.title = /(!Panel:!Title) || "Panel" ;/(!If)
+	    /(!------------- Start expansion of !MDIActions.js -----------------)
+	    dojo.require("wcli.layout.MDIController");
+	    
+	    /(!Panel:!EnableAction:MDIIconArrange,MDICascade,MDICloseAll,MDITileHorizontally,MDITileVertically)
+	    
+	    /(!Panel:!Action:MDIIconArrange)
+	    	wcli.layout.MDIController.MDIIconArrange();
+	    /(!Panel:!Action)
+	    
+	    /(!Panel:!Action:MDICascade)
+	    	wcli.layout.MDIController.MDICascade();
+	    /(!Panel:!Action)
+	    
+	    /(!Panel:!Action:MDICloseAll)
+	    	wcli.layout.MDIController.MDICloseAll();
+	    /(!Panel:!Action)
+	    
+	    /(!Panel:!Action:MDITileHorizontally)
+	    	wcli.layout.MDIController.MDITileHorizontally();
+	    /(!Panel:!Action)
+	    
+	    /(!Panel:!Action:MDITileVertically)
+	    	wcli.layout.MDIController.MDITileVertically();
+	    /(!Panel:!Action)
+	    /(!------------- End expansion of !MDIActions.js ------------------)
+	    
+
+	    /(!If:/(!Req:_child))
+	    {
+		   	/(!Panel:!EnableAction:RegisterKeyEvent,SetCaption,DisableKeyboardEvent,EnableKeyboardEvent)
+
+			var /(!Panel:!NameID)_childkeymap = {};
+		   	/(!Panel:!Action:RegisterKeyEvent)
+		 		/(!Panel:!NameID)_childkeymap[/(!ActionArg)] = /(!ActionArg);
+		   		window./(!Panel:!NameID)_childkeymap = /(!Panel:!NameID)_childkeymap;
+		    /(!Panel:!Action)
+
+		    /(!Panel:!Action:SetCaption)
+		    document.title = /(!Panel:!Title) || "Panel" ;
+		    /(!Panel:!Action)
+
+		    var p = dijit.byId("/(!Panel:!NameID)").domNode;
+		    if (!p.keysConnected) {
+			    dojo.connect(p, "onkeydown", function(evt) {
+				  	var code = getKeyString(evt);
+				  	if (code in keyStatus) {
+	    			  	keyStatus[code] = true;
+				  	}
+				  	else if (dojo.isIE || evt.keyCode != dojo.keys.ENTER)
+				  		dokey(/(!Panel:!NameID)_childkeymap, evt.currentTarget.id + ":", evt, /(!Panel:!NameID)_pnlid ,
+		  				'/(!Panel:!NameID)');
+				});
+				if (!dojo.isIE) {
+				  	dojo.connect(p, "onkeypress", function(evt) {
+				  		if (evt.keyCode == dojo.keys.ENTER)
+				  			dokey(/(!Panel:!NameID)_childkeymap, evt.currentTarget.id + ":", evt, /(!Panel:!NameID)_pnlid ,
+			  				'/(!Panel:!NameID)');
+					});
+				}
+				dojo.connect(p, "onkeyup", function(evt) {
+					var code = getKeyString(evt);
+					if (code in keyStatus) {
+	    				keyStatus[code] = false;
+					}
+				});
+				p.keysConnected = true;
+		    }
+	    }
+	    /(!If)
+
+	    /(!If:/(!Req:_child))
+		    /* don't set focus if this page is a hidden child panel */
+		    var cp = document.getElementById(/(!Req:_child));
+			if (cp && cp.style.display != "none")
+		/(!If)
+		{
+	    	/(!FOCUS)
+	      		if (dijit.byId("/(!NameID)")) {
+	      			var bodyScrollTop = dojo.body().scrollTop;
+	        		dijit.byId("/(!NameID)").focus();
+	        		dojo.body().scrollTop = bodyScrollTop;
+	        		if (wcli.form != undefined) {
+		        		if (wcli.form.selectField) {
+		        			wcli.form.selectField(dijit.byId("/(!NameID)"));
+		        		}
+	        		}
+	      		} else if (document.getElementById("/(!NameID)") && document.getElementById("/(!NameID)").focus &&
+		  				document.getElementById("/(!NameID)").disabled == false)
+		    		document.getElementById("/(!NameID)").focus();
+			/(!FOCUS)
+		}
+	  });
+	/(Embed)
+  </script>
+
+    /(!-- Begin attach point 'FormArea')
+    
+
+    /(!-- End attach point 'FormArea')
+    
+
+    /(!-- Begin attach point 'MainArea')
+    
+
+    	<div class="WebMessages_Div1" style="width:100%; height:100%;">
+    	    /(!-- Begin attach point 'MenuBarArea')
+    	    
+
+    	    /(!-- End attach point 'MenuBarArea')
+    	    
+
+    		/(!-- Begin attach point 'ToolbarArea')
+    		
+
+    		/(!-- End attach point 'ToolbarArea')
+    		
+
+    		<div class="WebMessages_Div2" style="position: relative; width:100%; height:100%;">
+    			/(!-- Begin attach point 'MainArea')
+    			
+
+    			  
+    			  
+    			  
+    			  
+    			  
+    			  
+    			  
+    			  
+    			  /(!WebObLabel_ViewCust_3153:!EnableAction:SetState,SetText)
+    			  
+    			  <span id="/(!WebObLabel_ViewCust_3153:!NameID)" class="/(!If:/(!IsDefined:LabelAligned))LabelAligned/(!Else)label/(!If)  " tabindex="-1" style="         position: absolute;     left: 12px;     top: 8px;      z-index: 3;     width: 64px;   height: 20px;      /(!If:/(!WebObLabel_ViewCust_3153:!Property:Visible)=No)     display: none; /(!If)text-align:Left;" 
+    			  /(!If:/(!IsDefined:FixedPositioning))
+    			  
+    			  
+    			  
+    			  fncName="/(!Panel:!NameID)" fixBottom="No" fixLeft="Yes" fixRight="No" fixTop="Yes" panelWidth=508 panelHeight=300 ctrlWidth=64 ctrlHeight=20 top=8
+    			  
+    			  
+    			  
+    			  /(!If)>
+    			    /(!WebObLabel_ViewCust_3153:!Text:htmlbr)
+    			  </span>
+    			  
+    			  
+    			  
+    			
+    			  
+    			  
+    			  
+    			  
+    			  
+    			  
+    			  
+    			  
+    			  
+    			    <div id="/(!CustID3154:!NameID)" style="         position: absolute;     left: 96px;     top: 8px;      z-index: 3;     width: 100px;   height: 20px;      /(!If:/(!CustID3154:!Property:Visible)=No)     display: none; /(!If);line-height:20px; overflow:hidden; /(!If:/(!IsDefined:LabelAligned))/(!Else)margin-top:2px;/(!If)" class="protectedTextBox  "
+    			    /(!If:/(!IsDefined:FixedPositioning))
+    			    
+    			    
+    			    
+    			    fncName="/(!Panel:!NameID)" fixBottom="No" fixLeft="Yes" fixRight="No" fixTop="Yes" panelWidth=508 panelHeight=300 ctrlWidth=100 ctrlHeight=20 top=8
+    			    
+    			    
+    			    
+    			    /(!If)>
+    			    <span /(!If:/(!IsDefined:ProtectedDoubleClick))/(!Else)ondblclick="
+    			          if (!window./(!Panel:!NameID)_submitter)
+    			          	return;
+    			          var doEventOp = function() {
+    			          	if (window./(!Panel:!NameID)_submitter.onsubmit)
+    			          		window./(!Panel:!NameID)_submitter.onsubmit();
+    			          	dojo.xhrPost({
+    			          		form: /(!Panel:!NameID)_form,
+    			          		content: { _type: 'json', ctlact: '/(!CustID3154:!NameID):Double Click', pnlid: /(!Panel:!NameID)_pnlid, focus: '/(!CustID3154:!NameID)', websessid: window.websessid },
+    			          		load: function(data, ioArgs) {
+    			          		 //Code starts to manage session timeout in ajax requests.
+    			          			var headerstring = ioArgs.xhr.getResponseHeader('Content-Type');
+    			          			var headers = headerstring.split(';');
+    			          			if (headers && (typeof data != 'object')) {
+    			          				if (headers[0].toLowerCase() != 'text/json' && headers[0].toLowerCase() != 'application/json')
+    			          					window.location.href = ioArgs.url;
+    			          			}
+    			          	           //Code ends to manage session timeout in ajax requests.    	
+    			          			data.main(data);
+    			          		},
+    			          		preventCache: true,
+    			          		handleAs: 'json'	
+    			          	});
+    			          };
+    			          if (window.editGridWait) {
+    			          	dojo.connect(window.editGridWait, 'onEditGridApplied', doEventOp);
+    			          } else {
+    			          	doEventOp();
+    			          }
+    			          "/(!If)
+    			    editMask="%ss10" decplaces="0" fractional="true" 
+    			    dataType="Char">
+    			      /(!If:/(!CustID3154)=)
+    			      	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    			      /(!Else)
+    			      	/(!CustID3154)
+    			      /(!If)
+    			    </span>
+    			    </div>
+    			    
+    			  
+    			  
+    			  
+    			  
+    			  /(!CustID3154:!EnableAction:SetTooltip,SetValue,SetState,SetFocus)
+    			  
+    			  
+    			  
+    			
+    			  
+    			  
+    			  
+    			  
+    			  
+    			  
+    			  
+    			  
+    			  /(!WebObLabel_ViewCust_3156:!EnableAction:SetState,SetText)
+    			  
+    			  <span id="/(!WebObLabel_ViewCust_3156:!NameID)" class="/(!If:/(!IsDefined:LabelAligned))LabelAligned/(!Else)label/(!If)  " tabindex="-1" style="         position: absolute;     left: 12px;     top: 32px;      z-index: 3;     width: 84px;   height: 20px;      /(!If:/(!WebObLabel_ViewCust_3156:!Property:Visible)=No)     display: none; /(!If)text-align:Left;" 
+    			  /(!If:/(!IsDefined:FixedPositioning))
+    			  
+    			  
+    			  
+    			  fncName="/(!Panel:!NameID)" fixBottom="No" fixLeft="Yes" fixRight="No" fixTop="Yes" panelWidth=508 panelHeight=300 ctrlWidth=84 ctrlHeight=20 top=32
+    			  
+    			  
+    			  
+    			  /(!If)>
+    			    /(!WebObLabel_ViewCust_3156:!Text:htmlbr)
+    			  </span>
+    			  
+    			  
+    			  
+    			
+    			  
+    			  
+    			  
+    			  
+    			  
+    			  
+    			  
+    			  
+    			  
+    			    <div id="/(!CustName3157:!NameID)" style="         position: absolute;     left: 96px;     top: 32px;      z-index: 3;     width: 372px;   height: 20px;      /(!If:/(!CustName3157:!Property:Visible)=No)     display: none; /(!If);line-height:20px; overflow:hidden; /(!If:/(!IsDefined:LabelAligned))/(!Else)margin-top:2px;/(!If)" class="protectedTextBox  "
+    			    /(!If:/(!IsDefined:FixedPositioning))
+    			    
+    			    
+    			    
+    			    fncName="/(!Panel:!NameID)" fixBottom="No" fixLeft="Yes" fixRight="No" fixTop="Yes" panelWidth=508 panelHeight=300 ctrlWidth=372 ctrlHeight=20 top=32
+    			    
+    			    
+    			    
+    			    /(!If)>
+    			    <span /(!If:/(!IsDefined:ProtectedDoubleClick))/(!Else)ondblclick="
+    			          if (!window./(!Panel:!NameID)_submitter)
+    			          	return;
+    			          var doEventOp = function() {
+    			          	if (window./(!Panel:!NameID)_submitter.onsubmit)
+    			          		window./(!Panel:!NameID)_submitter.onsubmit();
+    			          	dojo.xhrPost({
+    			          		form: /(!Panel:!NameID)_form,
+    			          		content: { _type: 'json', ctlact: '/(!CustName3157:!NameID):Double Click', pnlid: /(!Panel:!NameID)_pnlid, focus: '/(!CustName3157:!NameID)', websessid: window.websessid },
+    			          		load: function(data, ioArgs) {
+    			          		 //Code starts to manage session timeout in ajax requests.
+    			          			var headerstring = ioArgs.xhr.getResponseHeader('Content-Type');
+    			          			var headers = headerstring.split(';');
+    			          			if (headers && (typeof data != 'object')) {
+    			          				if (headers[0].toLowerCase() != 'text/json' && headers[0].toLowerCase() != 'application/json')
+    			          					window.location.href = ioArgs.url;
+    			          			}
+    			          	           //Code ends to manage session timeout in ajax requests.    	
+    			          			data.main(data);
+    			          		},
+    			          		preventCache: true,
+    			          		handleAs: 'json'	
+    			          	});
+    			          };
+    			          if (window.editGridWait) {
+    			          	dojo.connect(window.editGridWait, 'onEditGridApplied', doEventOp);
+    			          } else {
+    			          	doEventOp();
+    			          }
+    			          "/(!If)
+    			    editMask="%ss40" decplaces="0" fractional="true" 
+    			    dataType="Char">
+    			      /(!If:/(!CustName3157)=)
+    			      	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    			      /(!Else)
+    			      	/(!CustName3157)
+    			      /(!If)
+    			    </span>
+    			    </div>
+    			    
+    			  
+    			  
+    			  
+    			  
+    			  /(!CustName3157:!EnableAction:SetTooltip,SetValue,SetState,SetFocus)
+    			  
+    			  
+    			  
+    			
+    			/(!-- End attach point 'MainArea')
+    			
+
+    		</div>
+    	</div>
+    
+    /(!-- End attach point 'MainArea')
+    
+
+
+
+
+/(!If:/(!Req:_child))
+/(!Else)
+    </form>
+ </body>
+
+</html>
+
+/(!If)/(!------------- End expansion of !WebShell-root.html ------------------)
+
+  /(OutTo)
+  
+/(!If)

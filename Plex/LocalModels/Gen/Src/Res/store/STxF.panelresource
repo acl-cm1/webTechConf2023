@@ -1,4 +1,4 @@
-# GRP_MODEL=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\Plex\GroupModels\Store
+# GRP_MODEL=
 
 WindowId=150
 
@@ -14,7 +14,7 @@ Base.12288.150.SavePlacement=No
 Base.12288.150.WindowPlacement=Default
 Base.12288.150.BackgroundColor=
 
-Base.150.Contains=3151 3153 3154 3156 3157 3159 3160 3162 3163 3165 3166 3168 3169 3171 
+Base.150.Contains=3151 3153 3154 3156 3157 3159 3160 3162 3163 3165 3166 3168 3169 3171 3172 
 
 Base.3151.Type=Static
 Base.12289.3151.Properties=Size Position Border StaticType TextAlignment Transparent Font Text Visible Disabled BackgroundColor TextColor FixLeft FixTop FixBottom FixRight 
@@ -314,4 +314,29 @@ Base.12302.3171.FixLeft=Yes
 Base.12302.3171.FixTop=Yes
 Base.12302.3171.FixBottom=No
 Base.12302.3171.FixRight=No
+
+Base.3172.Type=Pushbutton
+Base.12303.3172.Properties=Size Position NoFocus NoButton Transparent Font Text ControlName Visible Disabled BackgroundColor TextColor ButtonTextAlignment ButtonPictureAlignment RelativeAlignment FlyOverHint TabSequence TabStop FixLeft FixTop FixBottom FixRight 
+Base.12303.3172.Size=16 16
+Base.12303.3172.Position=368 0
+Base.12303.3172.NoFocus=No
+Base.12303.3172.NoButton=No
+Base.12303.3172.Transparent=No
+Base.12303.3172.Font=Bold 8  MS Sans Serif 
+Base.12303.3172.Text=X
+Base.12303.3172.ControlName=closeBtn:MainArea:class=closeBtn
+Base.12303.3172.Visible=No
+Base.12303.3172.Disabled=No
+Base.12303.3172.BackgroundColor=
+Base.12303.3172.TextColor=18
+Base.12303.3172.ButtonTextAlignment=Center
+Base.12303.3172.ButtonPictureAlignment=Center
+Base.12303.3172.RelativeAlignment=On Top
+Base.12303.3172.FlyOverHint=Close
+Base.12303.3172.TabSequence=0
+Base.12303.3172.TabStop=No
+Base.12303.3172.FixLeft=Yes
+Base.12303.3172.FixTop=Yes
+Base.12303.3172.FixBottom=No
+Base.12303.3172.FixRight=No
 
