@@ -1,0 +1,41 @@
+
+<project name="PlexJava" basedir="." default="build">
+
+	<import file="C:\ProgramData\CA\Plex\7.2.1\ObJava\bin\plexjavabuild.xml"/>
+
+	<property name="objava.dir" value="C:\ProgramData\CA\Plex\7.2.1\ObJava"/>
+	<property name="plexclasspath" value="${objava.dir}/lib/ObRun.jar"/>
+
+	<property name="src.dir" value="C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\Plex\LocalModels\Gen\Src"/>
+	<property name="build.dir" value="C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\Plex\LocalModels\Gen\Bld"/>
+	<property name="compiler" value="javac1.7"/>
+	<property name="jdkclasspath" value=""/>
+	<property name="usrclasspath" value="C:\Users\Public\Documents\CA\Plex\7.2.1\CLASS721\ClassLibs\Obcljavaimpl.jar;C:\Users\Public\Documents\CA\Plex\7.2.1\CLASS721\PatternLibs\Obptjavaimpl.jar"/>
+
+	<property name="jar_compress" value="true"/>
+
+	<property name="debug" value="off"/>
+	<property name="encoding" value="Default"/>
+
+	<property name="j2ee_home" value=""/>
+
+	<property name="classpath" value="${build.dir}:${jdkclasspath}:${usrclasspath}:${plexclasspath}:${j2ee_home}/lib/j2ee.jar"/>
+
+
+	<target name="ListOfFilesToCompile">
+		<antcall target="buildjava">
+			<param name="jobname"	value="store.java"/>
+		</antcall>
+	</target>
+
+
+	<target name="model_jar">
+		<antcall target="buildjar">
+			<param name="jobname"	value="store.java"/>
+			<param name="jarimplename"	value="store"/>
+		</antcall>
+	</target>
+
+	<target name="build" depends="ListOfFilesToCompile, model_jar"></target>
+
+</project>

@@ -1,0 +1,29 @@
+/(!-- This control is currently under development )
+
+/(!JSInit:once)
+	dojo.require("dijit.form.Slider");
+/(!JSInit)
+
+<input name="/(!NameID)" type="hidden" />
+<div
+	id="/(!NameID)"
+	style="/(!DefaultCSS:nc:withPos=default)"
+	class="/(!CustomClass:nc:class=/(!Param:class))"
+	dojoType="dijit.form.HorizontalSlider"
+	minimum="0.0" maximum="1.0"	value="0.0">
+	<script type="dojo/connect" event="onChange" args="newValue">
+		mainform["/(!NameID)"].value = "{ position: " + newValue + " }";
+		/(!AJAXDoEvent:phys=Bean Action)
+	</script>
+</div>
+
+/(!EnableAction:SetValue,Show,Hide)
+/(!JS)
+	/(!Action:SetValue)
+		dijit.byId("/(!NameID)").setValue("/(!Var:position)");
+		dijit.byId("/(!NameID)").discreteValues = /(!Var:steps);
+	/(!Action)
+
+	/(!Action:Show)/(!DojoFade:in)/(!Action)
+	/(!Action:Hide)/(!DojoFade:out)/(!Action)
+/(!JS)

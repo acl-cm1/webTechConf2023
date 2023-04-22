@@ -1,0 +1,13 @@
+/(!JSInit:once:seq=0)
+	   dojo.require("wcli.grid.URLFormatter");
+/(!JSInit)
+
+{	
+	name: "/(!Text:htmlbr)",
+	width: /(!If:/(!Param:stretch)=/(!EditNameID))"auto"/(!Else)"/(!Property:Width)px"/(!If),
+	formatter: wcli.grid.URLFormat,
+	field: "/(!Edit:!Name)"
+}
+
+/(!EnableAction:SetValue,SetState,SetFocus)
+		   

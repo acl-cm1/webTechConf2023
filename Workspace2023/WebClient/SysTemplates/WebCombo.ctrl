@@ -1,0 +1,313 @@
+/(!JSInit:once)
+	dojo.require("dijit.form.ComboBox");
+	dojo.require("wcli.color.RGBColor");
+	dojo.require("dojo.data.ItemFileReadStore");
+/(!JSInit)
+
+/(!JSInit)
+	/(!ContextMenu)
+	/(!If:/(!IsDefined:HintValue))
+		/(!NameID)HintValue = "";
+	/(!If)
+	/(!If:/(!IsDefined:ProtectedEditBorder))protectedEditBorder = true;/(!Else)protectedEditBorder = false;/(!If)	
+/(!JSInit)
+
+/(!JSOnLoad)
+  {
+  	wcli.util.XBrowser.setupCombo(/(!jsonValues),/(!jsonOptions),"/(!DataType)","/(!NameID)",/(!This:value), /(!Size:y));
+  }
+  /(!If:/(!Property:TabStop)=No)
+		wcli.util.XBrowser.setComboTabStop("/(!NameID)");
+  /(!If)
+	/(!If:/(!Mode)=Read Only)
+	if(dojo.isFF){
+		dijit.byId("/(!NameID)").setDisabled(true);
+	}
+  	if (dojo.isIE) { 
+  		dijit.byId("/(!NameID)").textbox.setAttribute("disabled", "");
+  	}
+  	/(!If)	
+
+	/(!If:/(!Property:BackgroundColor)=5)
+	/(!Else)
+  		if (dojo.isIE11){
+    		wcli.util.XBrowser.setBGColor("/(!Property:BackgroundColor)","/(!NameID)", null, /(!Size:y));
+    		dijit.byId("/(!NameID)").domNode.style.overflow = "auto";
+    	}else{ 
+    		wcli.util.XBrowser.setBGColor("/(!Property:BackgroundColor)","/(!NameID)"); 
+    	}
+	/(!If) 	
+	
+	var ctrl = dijit.byId("/(!NameID)");
+	var txtcolor = wcli.color.setColor("/(!Property:TextColor)");
+	/(!If:/(!Property:TextColor)=8)
+	/(!Else)
+		if(ctrl && txtcolor != "rgb()" && txtcolor != undefined){
+			dojo.style(ctrl.textbox,"color", txtcolor);
+		}
+	/(!If) 	
+	/(!If:/(!IsDefined:FixedPositioning))
+		/(!AbleToResize:Type2=true)
+	/(!If)
+	
+	/(!If:/(!IsDefined:HintValue))
+		var currentControlID = "/(!NameID)";
+		var currentHintValue = "";
+		/(!AttachPoint:name=HintValue:inlinetemplate)
+			/(!If:/(!This)=)
+			/(!Else)
+				currentHintValue = /(!This);
+				if(dijit.byId(currentControlID)){
+					dijit.byId(currentControlID).domNode.setAttribute('title', currentHintValue);
+				}
+			/(!If)
+		/(!AttachPoint)
+		/(!NameID)HintValue = currentHintValue;
+	/(!If)
+
+	/(!If:/(!Mode)=Read Only) 		
+ 		var combobox = dijit.byId("/(!NameID)");
+ 		if(dojo.isFF){
+			combobox.setDisabled(true);
+		}
+ 	/(!If)	
+/(!JSOnLoad)
+
+ <select style="/(!DefaultCSS:nc:withPos=/(!Param:default))" class="/(!CustomClass:nc:class=/(!Param:class))"
+ 		id="/(!NameID)" name="/(!NameID)"
+ 		dojoType="dijit.form.ComboBox" /(!If:/(!Mode)=Read Only)disabled/(!If)
+ 		sorted=/(!If:/(!Property:Sorted)=Yes)true/(!Else)false/(!If) 
+ 		/(!If:/(!Param:protect))protect=readonly/(!If)
+		/(!If:/(!IsDefined:FixedPositioning))/(!FixPosition)/(!If)>
+  /(!This)
+	<option value="/(!OptValue)" /(!If:/(!OptSelected))selected/(!If)>
+	  /(!OptText)
+	</option>
+  /(!This)
+  
+  <script type="dojo/connect" event="_doSelect">
+  	        /(!AJAXDoEventLF:phys=Modified)
+  </script>
+  
+  /(!If:/(!Event:phys=Lost Focus))
+  <script type="dojo/connect" event="_onBlur">
+  	 		/(!AJAXDoEventLF:phys=Lost Focus)
+  </script>
+  /(!If)
+  
+  /(!If:/(!Event:phys=Mouse Down))
+  <script type="dojo/connect" event="_onMouseDown">
+  	 		/(!AJAXDoEvent:phys=Mouse Down)
+  </script>
+  /(!If)
+  /(!If:/(!Event:phys=Mouse Up))
+  <script type="dojo/connect" event="_onMouseUp">
+  			/(!AJAXDoEvent:phys=Mouse Up)
+  </script>
+  /(!If)
+ </select>
+  /(!If:/(!Param:space))&nbsp;&nbsp;&nbsp; /(!If)
+
+
+/(!EnableAction:SetTooltip,SetValue,SetState,SetFocus,Combo.Clear,Combo.Remove,Combo.Add)
+
+/(!JS)
+  /(!Action:SetTooltip)
+	wcli.util.XBrowser.setTooltip("/(!NameID)",/(!ActionArg));
+  /(!Action)
+
+  /(!Action:SetValue)
+   	if(dijit.byId("/(!NameID)")) {
+   		var comboValue = /(!If:/(!DataType)=Date)wcli.util.XBrowser.formatDateLocale(/(!This:value))/(!Else)/(!This:value)/(!If);
+   		dijit.byId("/(!NameID)").setComboValue(comboValue);
+   	}
+  /(!Action)
+  
+  /(!Action:SetState)	
+    var combobox = dijit.byId("/(!NameID)");
+    var combosrc = document.createElement("INPUT");
+	var div = combobox.domNode.parentNode;
+	
+	div.insertBefore(combosrc,combobox.domNode.nextSibling);  	      	
+	combobox.destroy();
+				
+	var items = [];
+	var value = /(!jsonValues);
+	var name = /(!jsonOptions);
+	for (var i=0; i<value.length; i++)
+	{
+		/(!If:/(!DataType)=Date)name[i] = wcli.util.XBrowser.formatDateLocale(name[i]);/(!If)
+		items.push({name: name[i], value: value[i]});
+	}
+	
+	var jsonobj = {identifier: "name", items: items};
+	var options = new dojo.data.ItemFileReadStore({data: jsonobj});
+    
+ 	/(!If:/(!Mode)=Edit)
+	  	      	var combo = new dijit.form.ComboBox({
+	  	      			id: "/(!NameID)",
+	  	      			name: "/(!NameID)",
+	  	      			store: options,
+	  	      			sorted: /(!If:/(!Property:Sorted)=Yes)true/(!Else)false/(!If),
+	  	      			searchAttr: "name",
+	  	      			/(!If:/(!IsDefined:FixedPositioning))/(!FixPosition:script)/(!If)
+	  	      			style: "/(!DefaultCSS:nc:withPos=/(!Param:default))" }, combosrc);
+	  	      	var comboValue = /(!If:/(!DataType)=Date)wcli.util.XBrowser.formatDateLocale(/(!This:value))/(!Else)/(!This:value)/(!If);
+	  	      	combo.setComboValue(comboValue);
+				/(!If:/(!Param:class))
+				combo.staticClass += ' ' + '/(!Param:class)';
+				/(!If)
+	  	      	/(!If:/(!Event:phys=Modified))
+	  	      	dojo.connect(combo, "_doSelect", function()
+	  	      	{
+	  	      		/(!AJAXDoEvent:phys=Modified)
+	  	      	});
+	  	      	/(!If)
+  	        
+	  	      	/(!If:/(!Event:phys=Lost Focus))
+	  	      	dojo.connect(combo, "_onBlur", function()
+	  	      	{
+	  	      		/(!AJAXDoEventLF:phys=Lost Focus)
+	  	      	});
+	  	      	/(!If)
+	  	      	if(dojo.isFF || dojo.isSafari || dojo.isIE11){
+	  	      		if(/(!Size:y)<20){
+						combo.domNode.style.height = 20 + "px";
+					}
+				}
+ 	/(!If)
+ 	
+ 	/(!If:/(!Mode)=Read Only)
+			combosrc.disabled = true;
+	    	var combo = new dijit.form.ComboBox({
+	  	      			id: "/(!NameID)",
+	  	      			name: "/(!NameID)",
+	  	      			store: options,
+	  	      			sorted: /(!If:/(!Property:Sorted)=Yes)true/(!Else)false/(!If),
+	  	      			searchAttr: "name",
+	  	      			disabled: true,
+	  	      			/(!If:/(!IsDefined:FixedPositioning))/(!FixPosition:script)/(!If)
+	  	      			style: "/(!DefaultCSS:nc:withPos=/(!Param:default))" }, combosrc);
+			var comboValue = /(!If:/(!DataType)=Date)wcli.util.XBrowser.formatDateLocale(/(!This:value))/(!Else)/(!This:value)/(!If);
+			combo.setComboValue(comboValue);
+			combo.staticClass += ' ' + 'ProtectedCB';
+			/(!If:/(!Param:class))
+			combo.staticClass += ' ' + '/(!Param:class)';
+			/(!If)
+			if(dojo.isFF){
+				combo.setDisabled(true);
+			}
+			if (dojo.isIE){ 
+		  		combo.textbox.setAttribute("disabled", "");
+		  	}
+	  	      	/(!If:/(!Event:phys=Modified))
+	  	      	dojo.connect(combo, "_doSelect", function()
+	  	      	{
+	  	      		/(!AJAXDoEvent:phys=Modified)
+	  	      	});
+	  	      	/(!If)
+  	        
+	  	      	/(!If:/(!Event:phys=Lost Focus))
+	  	      	dojo.connect(combo, "_onBlur", function()
+	  	      	{
+	  	      		/(!AJAXDoEventLF:phys=Lost Focus)
+	  	      	});
+	  	      	/(!If)
+	  	      	if(dojo.isFF || dojo.isSafari || dojo.isIE11){
+	  	      		if(/(!Size:y)<20){
+						combo.domNode.style.height = 20 + "px";
+					}
+				}
+ 	/(!If)
+	
+	var w = dijit.byId("/(!NameID)");
+		
+    /(!If:/(!Property:TabStop)=No)
+		wcli.util.XBrowser.setComboTabStop("/(!NameID)");
+	/(!If)
+ 	
+    if (w) {
+    	w.domNode.style.cssText = "/(!DefaultCSS:nc:withPos=/(!Param:default))";
+    	w.textbox.style.cssText = "/(!DefaultCSS:nc:withPos=/(!Param:default))";
+    	w.state = /(!If:/(!Property:BackgroundColor)=255 0 0)"Error"/(!Else)""/(!If);
+    	w._setStateClass();
+		/(!If:/(!Param:class))
+		dojo.addClass(w.domNode, 'ProtectedCB');
+		dojo.addClass(w.domNode.getElementsByTagName('input')[0], 'ProtectedCB');
+		dojo.addClass(w.domNode, '/(!Param:class)');
+		/(!If)
+    	/(!If:/(!IsDefined:FieldErrorMode))
+    	if (w.state == "Error" && tooltipMsg) {
+	    	w.displayMessage(tooltipMsg);
+	    	tooltipMsg = null;
+	    }
+	    /(!If)
+    	w.validate = function() { };
+    }
+    
+    /(!If:/(!Property:BackgroundColor)=5)
+	/(!Else)
+		if (dojo.isIE11){
+    		wcli.util.XBrowser.setBGColor("/(!Property:BackgroundColor)","/(!NameID)", null, /(!Size:y));
+    		if (protectedEditBorder == true) {
+    			dijit.byId("/(!NameID)").domNode.style.overflow = "auto";
+    		}
+    	}else{ 
+    		wcli.util.XBrowser.setBGColor("/(!Property:BackgroundColor)","/(!NameID)"); 
+    	}
+	/(!If) 	
+	
+	var txtcolor = wcli.color.setColor("/(!Property:TextColor)");
+	/(!If:/(!Property:TextColor)=8)
+	/(!Else)
+		if(w && txtcolor != "rgb()" && txtcolor != undefined){
+			dojo.style(w.textbox,"color", txtcolor);
+		}
+	/(!If) 
+	
+    /(!If:/(!IsDefined:HintValue))	
+		if(/(!NameID)HintValue){
+			if(dijit.byId("/(!NameID)")){
+				dijit.byId("/(!NameID)").domNode.setAttribute('title', /(!NameID)HintValue);
+			}
+		}
+	/(!If)
+	/(!If:/(!IsDefined:FixedPositioning)) 
+		/(!AbleToResize)
+		if(ableToResize  === true){
+			wcli.util.XBrowser.resizeDiv(w.domNode,w,false);
+		}
+				
+		setTimeout(function(){
+			if (typeof /(!NameID)_SetStateResizeCombo === "undefined" && ableToResize === true){
+		    	/(!NameID)_SetStateResizeCombo = dojo.connect(window, "onresize", function(){	    		
+					var dijitObj = dijit.byId("/(!NameID)");
+					if(dijitObj && dijitObj.domNode){
+						wcli.util.XBrowser.resizeDiv(dijitObj.domNode,dijitObj,true);
+					}
+				});
+			}
+    	}, 300);      
+		
+	/(!If)
+  /(!Action)
+  
+  /(!Action:Combo.Clear)
+  	wcli.util.XBrowser.cmbAction(/(!jsonValues),/(!jsonOptions),"/(!DataType)","/(!NameID)",/(!This:value));
+  /(!Action)
+  
+  /(!Action:Combo.Remove)
+  	wcli.util.XBrowser.cmbAction(/(!jsonValues),/(!jsonOptions),"/(!DataType)","/(!NameID)",/(!This:value));
+  /(!Action)
+  
+   /(!Action:Combo.Add)
+   	wcli.util.XBrowser.cmbAction(/(!jsonValues),/(!jsonOptions),"/(!DataType)","/(!NameID)",/(!This:value));
+   /(!Action)
+/(!JS)
+
+/(!JSPost:seq=10)
+  /(!Action:SetFocus)
+    if (dijit.byId("/(!NameID)"))
+	    dijit.byId("/(!NameID)").focus();
+  /(!Action)
+/(!JSPost)

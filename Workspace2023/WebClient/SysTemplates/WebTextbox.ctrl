@@ -1,0 +1,486 @@
+/(!LinkArea:once)
+	<link href="/(!WsRes)/js/wcli/form/ReadOnlyTextbox.css" rel="stylesheet" type="text/css" />
+/(!LinkArea)
+
+/(!JSInit:once)
+	dojo.require("wcli.color.RGBColor");
+	dojo.require("wcli.form.Font");
+/(!JSInit)
+
+/(!JSInit)
+	/(!ContextMenu)
+/(!JSInit)
+
+/(!JSOnLoad)
+	var bgcolor = wcli.color.setColor("/(!Property:BackgroundColor)");
+	/(!If:/(!Property:BackgroundColor)=)
+    /(!Else)
+		if (dijit.byId("/(!NameID)") && bgcolor != "rgb()" && bgcolor != undefined){
+			if(dojo.isIE){
+				dojo.style(dijit.byId("/(!NameID)").domNode, "backgroundColor", bgcolor);
+			}
+			dojo.style(dijit.byId("/(!NameID)").domNode.firstChild, "backgroundColor", bgcolor);
+			dojo.style(dijit.byId("/(!NameID)").textbox.parentNode, "backgroundColor", bgcolor);
+			dojo.style(dijit.byId("/(!NameID)").textbox.parentNode, "backgroundImage", "none");
+			dojo.style(dijit.byId("/(!NameID)").domNode, "overflow", "hidden");
+		}
+		if (document.getElementById("/(!NameID)") && bgcolor != "rgb()"){
+			dojo.style(document.getElementById("/(!NameID)"), "backgroundColor", bgcolor);
+			dojo.style(document.getElementById("/(!NameID)"), "border", "#9b9b9b 1px solid");
+		}
+	/(!If)
+	/(!If:/(!Property:TextColor)=8)
+	/(!Else)
+		var txtcolor = wcli.color.setColor("/(!Property:TextColor)");
+		if(dijit.byId("/(!NameID)") && txtcolor != "rgb()" && txtcolor != undefined){
+			dojo.style(dijit.byId("/(!NameID)").domNode.firstChild, "color", txtcolor);
+			dojo.style(dijit.byId("/(!NameID)").textbox.parentNode, "color", txtcolor);
+		}
+		if (document.getElementById("/(!NameID)") && txtcolor != "rgb()"){
+			dojo.style(document.getElementById("/(!NameID)"), "color", txtcolor);
+		}
+	/(!If)
+	/(!If:/(!Property:TextAlignment)=Right)
+	 	if (dijit.byId("/(!NameID)")){
+	 		dojo.style(dijit.byId("/(!NameID)").textbox, "textAlign", "right");
+	 		dojo.style(dijit.byId("/(!NameID)").textbox, "paddingRight", "2px");
+	 	}
+	 	if (document.getElementById("/(!NameID)")){
+	 		dojo.style(document.getElementById("/(!NameID)"), "textAlign", "right");
+			dojo.style(document.getElementById("/(!NameID)"), "paddingRight", "2px");
+	 	}
+	/(!If)
+	
+	/(!If:/(!Mode)=Read Only)
+	if (document.getElementById("/(!NameID)")){ 
+		var editmask  = document.getElementById("/(!NameID)").getAttribute("editMask");
+		var decplaces = parseInt(document.getElementById("/(!NameID)").getAttribute("decplaces"));
+		var fractional = Boolean(document.getElementById("/(!NameID)").getAttribute("fractional"));
+		var datatype = document.getElementById("/(!NameID)").getAttribute("dataType");
+		var value = wcli.util.XBrowser.getTextContent(document.getElementById("/(!NameID)"));
+		var mode = "/(!Mode)";
+		var formatvalue = wcli.form.getFormatValue(datatype, editmask, decplaces, fractional, value, mode);
+		document.getElementById("/(!NameID)").innerHTML = formatvalue;
+	}
+		/(!If:/(!IsDefined:FixedPositioning))
+		/(!AbleToResize:Type3=true)
+		setTimeout(function(){
+	    	if (typeof /(!NameID)_OnLoadResizeProtectedTextbox === "undefined" && ableToResize === true){
+	            /(!NameID)_OnLoadResizeProtectedTextbox = dojo.connect(window, "onresize", function(){
+					wcli.util.XBrowser.resizeDiv(document.getElementById("/(!NameID)"),null,true);
+				});
+			}
+    	}, 300);
+		
+		/(!If)
+	/(!If)
+	
+	/(!If:/(!Property:Font)=)
+	/(!Else)
+			if (document.getElementById("/(!NameID)")){ 
+				wcli.form.Font.applyPlexFont(document.getElementById("/(!NameID)"), "/(!Property:Font)");
+			}
+	/(!If)
+		
+	/(!EditEvents:node=textbox)
+	/(!If:/(!Property:TabStop)=No)
+		if (dijit.byId("/(!NameID)")) {
+			wcli.util.XBrowser.setEditTabStop("/(!NameID)");
+		}
+	/(!If)
+	/(!If:/(!Mode)=Edit)
+	/(!If:/(!IsDefined:FixedPositioning))
+		if(dijit.getEnclosingWidget(document.getElementById("/(!NameID)")).srcNodeRef){
+			wcli.util.XBrowser.resizeCtrl(dijit.getEnclosingWidget(document.getElementById("/(!NameID)")).srcNodeRef);
+		}
+		setTimeout(function(){
+	    	if (typeof /(!NameID)_OnLoadResizeDefaultTextbox === "undefined"){
+                /(!NameID)_OnLoadResizeDefaultTextbox = dojo.connect(window, "onresize", function(){
+					if(dijit.getEnclosingWidget(document.getElementById("/(!NameID)")).srcNodeRef){
+						wcli.util.XBrowser.resizeCtrl(dijit.getEnclosingWidget(document.getElementById("/(!NameID)")).srcNodeRef,null,true);
+					}
+				});
+			}
+    	}, 300);
+		
+	/(!If)
+	/(!If)
+/(!JSOnLoad)
+
+/(!If:/(!Mode)=Read Only)
+  <span id="/(!NameID)" class="readonly /(!CustomClass:nc:class=/(!Param:class))" ondblclick="/(!AJAXDoEvent:phys=Double Click)" 
+  style="/(!DefaultCSS:nc:withPos=/(!Param:default))" 
+  editMask="/(!Property:EditMask)" decplaces="/(!DecLength)" fractional="/(!If:/(!DecLength)="0")false /(!Else)true/(!If)" 
+  dataType="/(!DataType)" /(!If:/(!IsDefined:FixedPositioning))/(!FixPosition)/(!If)>
+    	/(!This)
+  </span>
+  /(!If:/(!Param:space))&nbsp;&nbsp;&nbsp; /(!If)
+/(!If)
+
+/(!If:/(!Mode)=Edit)
+ <div style="/(!DefaultCSS:nc:withPos=/(!Param:default))/(!IMEMode)"
+	 class="/(!CustomClass:nc:class=/(!Param:class))"
+  	 type="text" name="/(!NameID)" id="/(!NameID)" maxLength="/(!Length)" 
+  	 constraints="{places:/(!DecLength),fractional:/(!If:/(!DecLength)="0")false /(!Else)true/(!If)}"
+  	 dojoType="wcli.form.HintTextBox" hintText="/(!Param:hint)" implName="/(!ImplName)" editMask="/(!Property:EditMask)"
+  	 dataType="/(!DataType)" /(!If:/(!Param:dateSelector))dateSelector="/(!Param:dateSelector)"/(!If)
+  	 value="/(!This)" uppercase=/(!If:/(!Property:Case)=Upper)"true" /(!Else)"false" /(!If)
+ 	 /(!If:/(!IsDefined:FixedPositioning))/(!FixPosition)/(!If)>
+  	 
+  	 <script type="dojo/connect" event="onDblClick">
+  	 		/(!AJAXDoEvent:phys=Double Click)
+  	 </script>
+  	 
+  	 /(!If:/(!Event:phys=Modified))
+	 <script type="dojo/connect" event="_onKeyDown" args="evt">
+	    if(evt.keyCode == dojo.keys.TAB){
+	  	 	window.modifiedBlockFocus = true;
+			return;
+	    }
+            window.modifiedBlockFocus = false;
+	 </script>
+	 /(!If)
+  	 
+  	 /(!If:/(!Event:phys=Lost Focus))
+  	 <script type="dojo/connect" event="_onBlur">
+		window.modifiedBlockFocus = true;
+  	 	if(!window.dialogIsOpen){
+  	 		/(!AJAXDoEventLF:phys=Lost Focus)
+  	 	}
+                window.modifiedBlockFocus = false;
+  	 </script>
+  	 /(!If)
+  	 
+  	 /(!If:/(!Event:phys=Gained Focus))
+  	 <script type="dojo/connect" event="onfocus">
+  	 	if(!window.dialogIsOpen && !window.settingFocus){
+  	 		/(!AJAXDoEvent:phys=Gained Focus)
+		}
+  	 </script>
+  	 /(!If)
+  	 
+  	 /(!If:/(!Event:phys=Mouse Down))
+  	 <script type="dojo/connect" event="_onMouseDown">
+  	 		/(!AJAXDoEvent:phys=Mouse Down)
+  	 </script>
+  	 /(!If)
+  	 
+  	 /(!AttachPoint:name=Prompt:inlinetemplate)
+  	 	<script type="dojo/method" event="selector" args="onload">
+  	 		/(!AJAXDoEventSelect:phys=Pressed)
+  	 	</script>
+  	 /(!AttachPoint)
+  	 
+  	 /(!AttachPoint:name=PopUpPrompt:inlinetemplate)
+  	 	<script type="dojo/method" event="popup">
+  	 		/(!AJAXDoEvent:phys=Pressed)
+  	 	</script>
+  	 /(!AttachPoint)
+  </div>
+  /(!If:/(!Param:space))&nbsp;&nbsp;&nbsp; /(!If)
+/(!If)
+
+/(!EnableAction:SetValue,SetState,SetFocus)
+
+/(!JS)
+  /(!Action:SetValue)
+    /(!If:/(!Mode)=Read Only)
+        var formatvalue = wcli.form.getFormatValue("/(!DataType)", "/(!Property:EditMask)", /(!DecLength), /(!If:/(!DecLength)="0")false /(!Else)true/(!If), /(!This), "/(!Mode)");
+      	wcli.util.XBrowser.setTextContent(document.getElementById("/(!NameID)"), formatvalue);
+    /(!If)
+
+    /(!If:/(!Mode)=Edit)
+    	var formatvalue = wcli.form.getFormatValue("/(!DataType)", "/(!Property:EditMask)", /(!DecLength), /(!If:/(!DecLength)="0")false /(!Else)true/(!If), /(!This), "/(!Mode)");
+		if(dijit.byId("/(!NameID)")){
+			dijit.byId("/(!NameID)").value = /(!This);
+	    	if (dijit.byId("/(!NameID)").userInput == false){
+				dijit.byId("/(!NameID)").textbox.value = formatvalue;
+				wcli.util.XBrowser.setTextboxLength(dijit.byId("/(!NameID)"), formatvalue);
+			}
+			else{
+				dijit.byId("/(!NameID)").textbox.value = /(!This);
+				wcli.form.selectField(dijit.byId("/(!NameID)"));
+			}
+			
+			if (dijit.byId("/(!NameID)").dataType == "Date"){
+				dijit.byId("/(!NameID)").setDisplayedValue(formatvalue);
+				dijit.byId("/(!NameID)").setLocalDate(/(!This));
+			}
+		}
+    /(!If)
+  /(!Action)
+
+  /(!Action:SetState)
+    
+    var w = dijit.byId("/(!NameID)");
+    if (w) {
+    	w.domNode.style.cssText = "/(!DefaultCSS:nc:withPos=/(!Param:default))";
+    	w.textbox.style.cssText = "/(!DefaultCSS:nc:withPos=/(!Param:default))";
+    	w.state = /(!If:/(!Property:BackgroundColor)=255 0 0)"Error"/(!Else)/(!If:/(!Property:BackgroundColor)=255,0,0)"Error"/(!Else)""/(!If)/(!If);
+    	w._setStateClass();
+    	if (w.state == "Error" && tooltipMsg) {
+	    	w.displayMessage(tooltipMsg);
+	    	tooltipMsg = null;
+	    }
+    }
+  
+  	if (document.getElementById("/(!NameID)")){
+    	wcli.util.XBrowser.setCSSText(document.getElementById("/(!NameID)"), "/(!DefaultCSS:nc:withPos=/(!Param:default))");
+    }
+		
+	/(!If:/(!Property:TextAlignment)=Right)
+	if (document.getElementById("/(!NameID)")){
+	    dojo.style(document.getElementById("/(!NameID)"), "textAlign", "right");
+	    dojo.style(document.getElementById("/(!NameID)"), "paddingRight", "2px");
+	}
+	/(!If)
+ 
+	
+	/(!If:/(!Property:BackgroundColor)=5))
+    	/(!Else)
+		var bgcolor = wcli.color.setColor("/(!Property:BackgroundColor)");
+		if (dijit.byId("/(!NameID)") && bgcolor != "rgb()" && bgcolor != undefined){
+			if(dojo.isIE){
+				dojo.style(dijit.byId("/(!NameID)").domNode, "backgroundColor", bgcolor);
+			}
+		}
+		if(document.getElementById("/(!NameID)") && bgcolor != "rgb()" && bgcolor != undefined){
+			dojo.style(document.getElementById("/(!NameID)"), "backgroundColor", bgcolor);
+			dojo.style(document.getElementById("/(!NameID)"), "border", "#9b9b9b 1px solid");
+		}
+	    else if(dijit.byId("/(!NameID)") && bgcolor == "rgb()"){ 
+	    	if(dojo.isIE){
+				dojo.style(dijit.byId("/(!NameID)").domNode, "backgroundColor", "");
+			}
+ 		    dojo.style(dijit.byId("/(!NameID)").domNode.firstChild, "backgroundColor", ""); 
+ 		    dojo.style(dijit.byId("/(!NameID)").textbox.parentNode, "backgroundColor", ""); 
+            dojo.style(dijit.byId("/(!NameID)").textbox.parentNode, "backgroundImage", ""); 
+ 		} 
+	/(!If)
+	
+	/(!If:/(!Property:TextColor)=8)
+	/(!Else)
+		var txtcolor = wcli.color.setColor("/(!Property:TextColor)");
+		if(document.getElementById("/(!NameID)") && txtcolor != "rgb()" && txtcolor != undefined){
+			dojo.style(document.getElementById("/(!NameID)"),"color",txtcolor);
+		}
+		else if(dijit.byId("/(!NameID)") && txtcolor == "rgb()"){
+			dojo.style(dijit.byId("/(!NameID)").domNode.firstChild,"color", "");
+			dojo.style(dijit.byId("/(!NameID)").textbox.parentNode,"color", "");
+		}
+	/(!If)
+	
+	var editbox = document.getElementById("/(!NameID)");
+	/(!If:/(!Property:Font)=)
+	/(!Else)
+			if(editbox){
+				wcli.form.Font.applyPlexFont(document.getElementById("/(!NameID)"), "/(!Property:Font)");
+			}
+	/(!If)
+	
+    /(!If:/(!Mode)=Edit)
+	      		var dialogIsOpen;
+	    		var editsrc = document.createElement("div");
+	      		var div = editbox.parentNode;
+	      		var editsibling = editbox.nextSibling;
+	      		
+	          	if (editbox.tagName=="SPAN") {
+	  	      		// remove span and replace with dijit
+	  	      	
+	  	      	editbox.parentNode.removeChild(editbox);
+	  	      	div.insertBefore(editsrc, editsibling);
+
+	  	    	editsrc.setAttribute("type", "text");
+	  	    	editsrc.setAttribute("id", "/(!NameID)");
+	  	    	editsrc.setAttribute("hintText", "/(!Param:hint)");
+	  	    	editsrc.setAttribute("implName", "/(!ImplName)");
+	  	    	editsrc.setAttribute("uppercase", "/(!If:/(!Property:Case)=Upper)true/(!Else)false/(!If)");
+	  	      		var edit = wcli.form.HintTextBox.prototype.markupFactory({
+	  	      			name: "/(!NameID)",
+	  	      			maxLength: "/(!Length)",
+	  	      			style: "/(!DefaultCSS:nc:withPos=/(!Param:default))",
+	  	      			dataType: "/(!DataType)",
+	  	      			editMask: "/(!Property:EditMask)",
+	  	      			constraints: {places:/(!DecLength),fractional:/(!If:/(!DecLength)="0")false /(!Else)true/(!If)}}, editsrc);
+	  	    
+	  	      	var formatvalue = wcli.form.getFormatValue("/(!DataType)", "/(!Property:EditMask)", /(!DecLength), /(!If:/(!DecLength)="0")false /(!Else)true/(!If), /(!This), "/(!Mode)");
+	  	      	
+	  	      	edit.value = /(!This);
+				edit.textbox.value = formatvalue;
+	  	      	/(!If:/(!Property:TextAlignment)=Right)
+	 			if (dijit.byId("/(!NameID)"))
+	 				dojo.style(dijit.byId("/(!NameID)").textbox, "textAlign", "right");
+	 				dojo.style(dijit.byId("/(!NameID)").textbox, "paddingRight", "2px");
+				/(!If)
+				
+	  	      	dojo.connect(edit, "onDblClick", function()
+	  	      	{
+	  	      		/(!AJAXDoEvent:phys=Double Click)
+	  	      	});
+	  	      	
+	  	      	/(!If:/(!Event:phys=Lost Focus))
+	  	      	dojo.connect(edit, "_onBlur", function()
+	  	      	{
+	  	      		if(!window.dialogIsOpen){
+	  	      			/(!AJAXDoEventLF:phys=Lost Focus)
+	  	      		}
+	  	      	});
+	  	      	/(!If)
+	  	      	
+	  	      	/(!If:/(!Event:phys=Gained Focus))
+	  	      	dojo.connect(edit, "onfocus", function()
+	  	      	{
+	  	      		if(!window.dialogIsOpen && !window.settingFocus){
+	  	      			/(!AJAXDoEvent:phys=Gained Focus)
+	  	      		}
+	  	      	});
+	  	      	/(!If)
+	  	      	
+	  	      	/(!If:/(!Event:phys=Modified))
+	  	      	dojo.connect(edit, "_onKeyPress", function()
+	  	      	{
+	  	      		/(!AJAXDoEvent:phys=Modified)
+	  	      	});
+	  	      	/(!If)
+	  	      	
+	  	      	}
+	  	      	
+	  	      	var bgcolor = wcli.color.setColor("/(!Property:BackgroundColor)");
+	  	      	/(!If:/(!Property:BackgroundColor)=5))
+    			/(!Else)
+    				if(dijit.byId("/(!NameID)") && bgcolor != "rgb()" && bgcolor != undefined){
+    					if(dojo.isIE){
+							dojo.style(dijit.byId("/(!NameID)").domNode, "backgroundColor", bgcolor);
+						}
+						dojo.style(dijit.byId("/(!NameID)").domNode.firstChild, "backgroundColor", bgcolor);
+						dojo.style(dijit.byId("/(!NameID)").textbox.parentNode, "backgroundColor", bgcolor);
+						dojo.style(dijit.byId("/(!NameID)").textbox.parentNode, "backgroundImage", "none");
+						dojo.style(dijit.byId("/(!NameID)").domNode, "overflow", "hidden");
+					}
+				/(!If)
+				
+				var txtcolor = wcli.color.setColor("/(!Property:TextColor)");
+				/(!If:/(!Property:TextColor)=8)
+				/(!Else)
+					if(dijit.byId("/(!NameID)") && txtcolor != "rgb()" && txtcolor != undefined){
+							dojo.style(dijit.byId("/(!NameID)").domNode.firstChild,"color", txtcolor);
+							dojo.style(dijit.byId("/(!NameID)").textbox.parentNode,"color", txtcolor);
+					}
+				/(!If)
+				
+				/(!If:/(!Property:ImeMode)=8)dijit.byId("/(!NameID)").textbox.style.imeMode = "active"; /(!If)
+				/(!If:/(!Property:ImeMode)=7)dijit.byId("/(!NameID)").textbox.style.imeMode = "inactive"; /(!If)
+				/(!If:/(!Property:ImeMode)=6)dijit.byId("/(!NameID)").textbox.style.imeMode = "active"; /(!If)
+				/(!If:/(!Property:ImeMode)=5)dijit.byId("/(!NameID)").textbox.style.imeMode = "active"; /(!If)
+				/(!If:/(!Property:ImeMode)=4)dijit.byId("/(!NameID)").textbox.style.imeMode = "active"; /(!If)
+				/(!If:/(!Property:ImeMode)=3)dijit.byId("/(!NameID)").textbox.style.imeMode = "disabled"; /(!If)
+				/(!If:/(!Property:ImeMode)=2)dijit.byId("/(!NameID)").textbox.style.imeMode = "disabled"; /(!If)
+				/(!If:/(!Property:ImeMode)=1)dijit.byId("/(!NameID)").textbox.style.imeMode = "inactive"; /(!If)
+				/(!If:/(!Property:ImeMode)=0)dijit.byId("/(!NameID)").textbox.style.imeMode = "disabled"; /(!If)
+				
+				/(!If:/(!Property:RightContextMenu))
+					var menu = dijit.byId("menu-/(!FindControl:/(!Property:RightContextMenu):!NameID)");
+	   	   			if (menu) {
+	       				menu.bindDomNode(dijit.byId("/(!NameID)").domNode);
+	       				dijit.byId("/(!NameID)").contextmenu = menu;
+	       			}
+	       		/(!If)
+	       		
+	       		/(!If:/(!Property:LeftContextMenu))
+					var menu = dijit.byId("menu-/(!FindControl:/(!Property:LeftContextMenu):!NameID)");
+	   	   			if (menu) {
+	       				menu.bindDomNode(dijit.byId("/(!NameID)").domNode);
+	       				dijit.byId("/(!NameID)").contextmenu = menu;
+	       			}
+	       		/(!If)
+	       		
+	       		/(!If:/(!Property:TabStop)=No)
+				if (dijit.byId("/(!NameID)")) {
+					wcli.util.XBrowser.setEditTabStop("/(!NameID)");
+				}
+				/(!If)
+        /(!If)
+        
+     /(!If:/(!Mode)=Read Only)
+    	
+    	var newspan = document.createElement("SPAN");
+    		
+    	if (editbox.tagName == "INPUT") {
+	      		// remove dijit and replace with span
+	      		var dijitedit = dijit.byId("/(!NameID)");
+	      		var div = dijitedit.domNode.parentNode;
+	  	      	var editsibling = dijitedit.domNode.nextSibling;
+	  	      	
+	  	      	dijitedit.destroy();
+	  	      	div.insertBefore(newspan, editsibling);
+	      		newspan.setAttribute("id", "/(!NameID)");
+	      		newspan.setAttribute("class", "readonly");
+	      		newspan.setAttribute("editMask", "/(!Property:EditMask)");
+	      		newspan.setAttribute("decplaces", "/(!DecLength)");
+	      		newspan.setAttribute("fractional", "/(!If:/(!DecLength)="0")false /(!Else)true/(!If)");
+	      		newspan.setAttribute("dataType", "/(!DataType)");
+
+	  	      	/(!If:/(!Property:TextAlignment)=Right)
+				wcli.util.XBrowser.setCSSText(newspan, "/(!DefaultCSS:nc:withPos=/(!Param:default))text-align: right;");
+			/(!Else)
+				wcli.util.XBrowser.setCSSText(newspan, "/(!DefaultCSS:nc:withPos=/(!Param:default))");
+			/(!If)
+
+	      		dojo.connect(newspan, "ondblclick", function()
+	      		{	
+	      			/(!AJAXDoEvent:phys=Double Click)
+	      		});
+	      	
+	  	      	var formatvalue = wcli.form.getFormatValue("/(!DataType)", "/(!Property:EditMask)", /(!DecLength), /(!If:/(!DecLength)="0")false /(!Else)true/(!If), /(!This), "/(!Mode)");
+			wcli.util.XBrowser.setTextContent(newspan, /(!If:/(!This)=)"      "/(!Else)formatvalue/(!If));
+	      		
+	      		/(!If:/(!Property:TextAlignment)=Right)
+	      		if (document.getElementById("/(!NameID)")){
+	 				dojo.style(newspan, "textAlign", "right");
+					dojo.style(newspan, "paddingRight", "2px");
+	 			}
+			/(!If)
+				
+	  	      	/(!If:/(!Property:BackgroundColor)=5))
+    			/(!Else)
+					var bgcolor = wcli.color.setColor("/(!Property:BackgroundColor)");
+					if(document.getElementById("/(!NameID)") && bgcolor != "rgb()"){
+						dojo.style(document.getElementById("/(!NameID)"), "backgroundColor", bgcolor);
+						dojo.style(document.getElementById("/(!NameID)"), "border", "#9b9b9b 1px solid");
+					}
+				/(!If)
+				/(!If:/(!Property:TextColor)=8)
+				/(!Else)
+					var txtcolor = wcli.color.setColor("/(!Property:TextColor)");
+					if(document.getElementById("/(!NameID)") && txtcolor != "rgb()" && txtcolor != undefined){
+						dojo.style(document.getElementById("/(!NameID)"),"color",txtcolor);
+					}
+				/(!If)
+				/(!If:/(!Property:Font)=)
+				/(!Else)
+					if(document.getElementById("/(!NameID)")){
+						wcli.form.Font.applyPlexFont(document.getElementById("/(!NameID)"), "/(!Property:Font)");
+					}
+				/(!If)
+				/(!If:/(!Property:RightContextMenu))
+					var menu = dijit.byId("menu-/(!FindControl:/(!Property:RightContextMenu):!NameID)");
+	   	   			if (menu) {
+	       				menu.bindDomNode(document.getElementById("/(!NameID)"));
+	       			}
+	       		/(!If)
+	       		/(!If:/(!Property:LeftContextMenu))
+					var menu = dijit.byId("menu-/(!FindControl:/(!Property:LeftContextMenu):!NameID)");
+	   	   			if (menu) {
+	       				menu.bindDomNode(document.getElementById("/(!NameID)"));
+	       			}
+	       		/(!If)
+    	}
+    /(!If)
+  /(!Action)
+/(!JS)
+/(!JSPost:seq=10)
+ /(!Action:SetFocus)
+    if (document.getElementById("/(!NameID)"))
+	    document.getElementById("/(!NameID)").focus();
+ /(!Action)
+/(!JSPost)

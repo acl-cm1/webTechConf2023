@@ -1,0 +1,17 @@
+/(!Panel:!EnableAction:Refresh,AddChild,UpdateChild,RemoveChild)
+
+/(!If:/(!Req:_type)=json)
+  /(ContentType:application/json)
+  
+  /(OutTo:json.main:comments=js)
+    /(!WebPortlet-root.json)
+  /(OutTo)
+  
+/(!Else)
+  /(ContentType:text/html)
+  
+  /(OutTo:html:comments=none)
+    /(!WebPortlet-root.html)
+  /(OutTo)
+  
+/(!If)

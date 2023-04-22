@@ -1,0 +1,43 @@
+# GRP_MODEL=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\GroupModels\Store
+
+WindowId=150
+
+150.Language=Base
+150.WindowType=Dialog
+150.LookAndFeel=com.sun.java.swing.plaf.metal.MetalLookAndFeel
+Base.12288.150.Properties=Size Position Title Resizable SavePlacement WindowPlacement BackgroundColor 
+Base.12288.150.Size=400 300
+Base.12288.150.Position=10 10
+Base.12288.150.Title=Panel
+Base.12288.150.Resizable=No
+Base.12288.150.SavePlacement=No
+Base.12288.150.WindowPlacement=Default
+Base.12288.150.BackgroundColor=
+
+Base.150.Contains=3151 
+
+Base.3151.Type=Pushbutton
+Base.12289.3151.Properties=Size Position NoFocus NoButton Transparent Font Text ControlName Visible Disabled BackgroundColor TextColor ButtonTextAlignment ButtonPictureAlignment RelativeAlignment FlyOverHint TabSequence TabStop FixLeft FixTop FixBottom FixRight 
+Base.12289.3151.Size=16 16
+Base.12289.3151.Position=368 0
+Base.12289.3151.NoFocus=No
+Base.12289.3151.NoButton=No
+Base.12289.3151.Transparent=No
+Base.12289.3151.Font=Bold 8  MS Sans Serif 
+Base.12289.3151.Text=X
+Base.12289.3151.ControlName=closeBtn:MainArea:class=closeBtn
+Base.12289.3151.Visible=Yes
+Base.12289.3151.Disabled=No
+Base.12289.3151.BackgroundColor=
+Base.12289.3151.TextColor=18
+Base.12289.3151.ButtonTextAlignment=Center
+Base.12289.3151.ButtonPictureAlignment=Center
+Base.12289.3151.RelativeAlignment=On Top
+Base.12289.3151.FlyOverHint=Close
+Base.12289.3151.TabSequence=0
+Base.12289.3151.TabStop=No
+Base.12289.3151.FixLeft=Yes
+Base.12289.3151.FixTop=Yes
+Base.12289.3151.FixBottom=No
+Base.12289.3151.FixRight=No
+

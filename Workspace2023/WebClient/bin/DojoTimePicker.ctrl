@@ -1,0 +1,129 @@
+/(!JSInit:once)
+     dojo.require("dijit.form.TimeTextBox");
+/(!JSInit)
+
+/(!JSInit)
+	/(!ContextMenu)
+/(!JSInit)
+
+/(!JSOnLoad)
+	/(!If:/(!Mode)=Read Only)
+		dijit.byId('/(!NameID)').disabled = true;
+		dijit.byId('/(!NameID)').focusNode.readOnly = true;
+	/(!If)
+	var newTime = /(!This);
+  	if(newTime == "") {
+  		newTime = "00:00:00";
+  	}
+	var HMS = newTime.split(':');
+	var hour = (HMS[0].indexOf("T") != -1) ? HMS[0].slice(1) : HMS[0];
+	var minute = HMS[1];
+	
+  	if (dojo.locale == "en-us" || dojo.locale == "en" || dojo.locale == "es-mx"){
+		var AMPM = "AM";
+		if(hour > 11) {
+			AMPM = "PM";
+		}
+		if(hour > 12) {
+			hour = hour - 12;
+		}
+		if(hour == "00") {
+			hour = 12;
+		}
+		
+		var displayTime = hour + ':' + minute + ' ' + AMPM;
+		
+	  	} else {		
+			var displayTime = hour + ':' + minute;
+	  	}
+	  	
+	  	var storedTime = (newTime.indexOf("T") != -1) ? newTime : 'T' + newTime;
+	  	
+	  	dojo.byId('/(!NameID)').value = displayTime;
+		var pickers = document.getElementsByName('/(!NameID)');
+		pickers.forEach(function(item) {
+			if(item.nodeName == 'INPUT') {
+				item.value = storedTime;
+			}
+		});
+		
+		/(!If:/(!IsDefined:FixedPositioning))
+			/(!AbleToResize)
+			if(ableToResize  === true){
+				var mode = "/(!Mode)";
+				wcli.util.XBrowser.addFixedPositionAttributes(dijit.byId("/(!NameID)").textbox, /(!FixPosition:object=true));
+				wcli.util.XBrowser.fixedPositionEdit("/(!NameID)", mode);
+			}  
+		/(!If)
+		
+/(!JSOnLoad)
+
+ <input dojoType="dijit.form.TimeTextBox" id="/(!NameID)"
+         style="/(!DefaultCSS:nc:withPos=/(!Param:default))" name="/(!NameID)"
+		 class="/(!CustomClass:nc:class=/(!Param:class))"
+         value="/(!This)" 
+         /(!If:/(!Event:phys=Modified))
+         onChange="var newTime = dojo.byId('/(!NameID)').value;
+         var pickers = document.getElementsByName('/(!NameID)');
+         pickers.forEach(function(item) {
+         	if(item.nodeName == 'INPUT') {
+         		item.value = newTime;
+         	}
+         });
+         /(!AJAXDoEvent:phys=Modified)/(!If)"
+         /(!If:/(!IsDefined:FixedPositioning))/(!FixPosition)/(!If) />
+
+	
+/(!EnableAction:SetValue,SetState,SetFocus)
+
+/(!JS)
+  /(!Action:SetValue)
+  	var newTime = /(!This);
+  	if(newTime == "") {
+  		newTime = "00:00:00";
+  	}
+	var HMS = newTime.split(':');
+	var hour = (HMS[0].indexOf("T") != -1) ? HMS[0].slice(1) : HMS[0];
+	var minute = HMS[1];
+	
+  	if (dojo.locale == "en-us" || dojo.locale == "en" || dojo.locale == "es-mx"){
+		var AMPM = "AM";
+		if(hour > 11) {
+			AMPM = "PM";
+		}
+		if(hour > 12) {
+			hour = hour - 12;
+		}
+		if(hour == "00") {
+			hour = 12;
+		}
+		
+		var displayTime = hour + ':' + minute + ' ' + AMPM;
+		
+	  	} else {		
+			var displayTime = hour + ':' + minute;
+	  	}
+	  	
+	  	var storedTime = (newTime.indexOf("T") != -1) ? newTime : 'T' + newTime;
+	  	
+	  	dojo.byId('/(!NameID)').value = displayTime;
+		var pickers = document.getElementsByName('/(!NameID)');
+		pickers.forEach(function(item) {
+			if(item.nodeName == 'INPUT') {
+				item.value = storedTime;
+			}
+		});
+  /(!Action)
+  
+  /(!Action:SetState)   	
+  	/(!If:/(!Mode)=Read Only)
+		dijit.byId('/(!NameID)').disabled = true;
+		dijit.byId('/(!NameID)').focusNode.readOnly = true;
+    /(!If)
+
+    /(!If:/(!Mode)=Edit)
+      	dijit.byId('/(!NameID)').disabled = false;
+      	dijit.byId('/(!NameID)').focusNode.readOnly = false;
+    /(!If)
+  /(!Action)
+/(!JS)	

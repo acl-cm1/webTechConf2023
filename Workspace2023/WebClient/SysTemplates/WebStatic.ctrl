@@ -1,0 +1,151 @@
+/(!JSInit:once)
+	dojo.require("wcli.color.RGBColor");
+	dojo.require("wcli.form.Font");
+/(!JSInit)
+
+/(!JSOnLoad)
+	var bgcolor = wcli.color.setColor("/(!Property:BackgroundColor)");
+	/(!If:/(!Property:TextColor)=8)
+		/(!If:/(!Property:Transparent)=No)
+			if (document.getElementById("/(!NameID)") && bgcolor != "rgb()")
+				document.getElementById("/(!NameID)").style.backgroundColor = bgcolor;
+		/(!If)
+	/(!Else)
+		var txtcolor = wcli.color.setColor("/(!Property:TextColor)");
+		if (document.getElementById("/(!NameID)") && bgcolor != "rgb()"){
+			document.getElementById("/(!NameID)").style.backgroundColor = bgcolor;
+			document.getElementById("/(!NameID)").style.color = txtcolor;
+		}
+		else if(document.getElementById("/(!NameID)")){
+			document.getElementById("/(!NameID)").style.color = txtcolor;
+		}
+	/(!If)
+	/(!If:/(!Property:Font)=)
+	/(!Else)
+		if (wcli.util.XBrowser.querySelector("/(!NameID)")){ 
+			wcli.form.Font.applyPlexFont(wcli.util.XBrowser.querySelector("/(!NameID)"), "/(!Property:Font)");
+		}
+	/(!If)
+	/(!If:/(!IsDefined:FixedPositioning))
+		/(!AbleToResize:Type3=true)
+		setTimeout(function(){
+			if (typeof /(!NameID)_OnLoadResizeStatic === "undefined" && ableToResize === true){
+		    	/(!NameID)_OnLoadResizeStatic = dojo.connect(window, "onresize", function(){
+					if(document.getElementById("/(!NameID)")){
+						wcli.util.XBrowser.resizeDiv(document.getElementById("/(!NameID)"),null,true);
+					}
+				});
+			}
+    	}, 300);  		
+	/(!If)
+/(!JSOnLoad)
+
+/(!EnableAction:SetState,SetText)
+
+/(!If:/(!Property:StaticType)=Text)
+  <div class="/(!CustomClass:nc:class=/(!Param:class))label" id="/(!NameID)" style="/(!DefaultCSS:nc:frame:withPos=/(!Param:default)) /(!StaticBorder)" /(!If:/(!IsDefined:FixedPositioning))/(!FixPosition)/(!If)>
+	<div id="txt-/(!NameID)" style="text-align:/(!Property:TextAlignment);">/(!Text:tight:htmlbr)</div>
+  </div>
+/(!If)
+
+/(!If:/(!Property:StaticType)=Frame)
+  <div class="/(!CustomClass:nc:class=/(!Param:class)) plexframe" id="/(!NameID)" style="/(!DefaultCSS:nc:frame:withPos=/(!Param:default)) text-align:/(!Property:TextAlignment);/(!StaticBorder)"
+  /(!If:/(!IsDefined:FixedPositioning))/(!FixPosition)/(!If)>	
+  </div>
+/(!If)
+
+/(!If:/(!Property:StaticType)=Picture)
+	/(!If:/(!Property:BitmapFile))
+		<img src="/(!WsResLib:plex.imageresources)/images//(!BitmapFile)" class="/(!CustomClass:nc:class=/(!Param:class))" style="/(!DefaultCSS:nc:withPos=/(!Param:default)) /(!StaticBorder)" alt="/(!Property:FlyOverHint)" onerror="this.className='imgnotfound';" />
+	/(!If)
+/(!If)
+/(!If:/(!Property:StaticType)=Group)
+	<div class="/(!CustomClass:nc:class=/(!Param:class)) plexframe" id="/(!NameID)" style="/(!DefaultCSS:nc:withPos=/(!Param:default)) text-align:/(!Property:TextAlignment);/(!StaticBorder)">
+		/(!Text:tight)
+  	</div>
+/(!If)
+/(!JS)
+	/(!Action:SetState)
+		/(!If:/(!Property:StaticType)=Text)
+			wcli.util.XBrowser.setCSSText(document.getElementById("/(!NameID)"), "/(!DefaultCSS:nc:frame:withPos=/(!Param:default))");
+			document.getElementById("/(!NameID)").style.borderStyle = "/(!If:/(!Property:Border)=None)none/(!If)/(!If:/(!Property:Border)=Standard)solid/(!If)/(!If:/(!Property:Border)=Indented)inset/(!If)/(!If:/(!Property:Border)=Extruded)outset/(!If)/(!If:/(!Property:Border)=Bump)ridge/(!If)";
+			document.getElementById("/(!NameID)").style.borderWidth = "/(!If:/(!Property:Border)=Bump)medium/(!Else)thin/(!If)";
+			if (wcli.util.XBrowser.isHTML(/(!Text:tight:htmlbr:value)) == true) {
+				document.getElementById("txt-/(!NameID)").innerHTML = /(!Text:tight:htmlbr:value);
+			} else {
+				document.getElementById("txt-/(!NameID)").innerText = /(!Text:tight:htmlbr:value);
+			}
+			document.getElementById("/(!NameID)").style.textAlign = "/(!Property:TextAlignment)";
+			/(!If:/(!Property:Font)=)
+			/(!Else)
+				wcli.form.Font.applyPlexFont(dojo.byId("/(!NameID)"), "/(!Property:Font)");
+			/(!If)
+		/(!If)
+		/(!If:/(!Property:StaticType)=Group)
+			wcli.util.XBrowser.setCSSText(document.getElementById("/(!NameID)"), "/(!DefaultCSS:nc:frame:withPos=/(!Param:default))");
+			document.getElementById("/(!NameID)").style.borderStyle = "/(!If:/(!Property:Border)=None)none/(!If)/(!If:/(!Property:Border)=Standard)solid/(!If)/(!If:/(!Property:Border)=Indented)inset/(!If)/(!If:/(!Property:Border)=Extruded)outset/(!If)/(!If:/(!Property:Border)=Bump)ridge/(!If)";
+			document.getElementById("/(!NameID)").style.borderWidth = "/(!If:/(!Property:Border)=Bump)medium/(!Else)thin/(!If)";
+			document.getElementById("/(!NameID)").innerText = "/(!Text:tight)";
+			document.getElementById("/(!NameID)").style.textAlign = "/(!Property:TextAlignment)";
+			/(!If:/(!Property:Font)=)
+			/(!Else)
+				wcli.form.Font.applyPlexFont(dojo.byId("/(!NameID)"), "/(!Property:Font)");
+			/(!If)
+		/(!If)
+		var bgcolor = wcli.color.setColor("/(!Property:BackgroundColor)");
+		/(!If:/(!Property:TextColor)=8)
+			/(!If:/(!Property:Transparent)=No)
+				if (document.getElementById("/(!NameID)")) {
+					if (bgcolor != "rgb()") {
+						document.getElementById("/(!NameID)").style.backgroundColor = bgcolor;
+					} else {
+						document.getElementById("/(!NameID)").style.backgroundColor = "";
+					}
+				}
+			/(!If)
+		/(!Else)
+			var txtcolor = wcli.color.setColor("/(!Property:TextColor)");
+			if (document.getElementById("/(!NameID)") && bgcolor != "rgb()"){
+				document.getElementById("/(!NameID)").style.backgroundColor = bgcolor;
+				document.getElementById("/(!NameID)").style.color = txtcolor;
+			}
+			else if(document.getElementById("/(!NameID)")){
+				document.getElementById("/(!NameID)").style.color = txtcolor;
+			}
+		/(!If)
+	/(!Action)
+	
+	/(!Action:SetText)
+		if (document.getElementById("/(!NameID)")){
+			document.getElementById("txt-/(!NameID)").innerHTML = "/(!Text:tight:htmlbr)";
+		}
+	/(!Action)
+	
+/(!JS)
+
+/(!JSInit)
+  /(!If:/(!Property:StaticType)=Text)
+	 /(!If:/(!Property:RightContextMenu))
+	   dojo.addOnLoad(function() {
+	   	   var menu = dijit.byId("menu-/(!FindControl:/(!Property:RightContextMenu):!NameID)");
+	   	   if (menu) {
+	       		menu.bindDomNode(document.getElementById("/(!NameID)"));
+	       }
+	   });
+  	 /(!If)
+  	 /(!If:/(!Property:LeftContextMenu))
+	   dojo.addOnLoad(function() {
+	   	   var menu = dijit.byId("menu-/(!FindControl:/(!Property:LeftContextMenu):!NameID)");
+	   	   if (menu) {
+	       		menu.bindDomNode(document.getElementById("/(!NameID)"));
+	       }
+	   });
+  	 /(!If)
+  	 /(!If:/(!Property:Font)=)
+     /(!Else)
+       dojo.addOnLoad(function() {
+         wcli.form.Font.applyPlexFont(dojo.byId("/(!NameID)"), "/(!Property:Font)");
+       });
+	 /(!If)
+  /(!If)
+/(!JSInit)

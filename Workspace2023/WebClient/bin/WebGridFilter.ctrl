@@ -1,0 +1,354 @@
+/(!JSInit:once)
+	dojo.require("dijit.form.ComboBox");
+	dojo.require("dijit.form.TextBox");
+	dojo.require("dojo.data.ItemFileReadStore");
+/(!JSInit)
+
+/(!JSOnLoad)
+ 	dojo.addOnLoad(function() {
+	var childName ;
+
+	var gridId="/(!FindControlByName:/(!Param:GridId):!NameID)";
+	var textboxId="/(!FindControlByName:/(!Param:TextId):!NameID)";
+ 	var w = dijit.byId(gridId);
+ 	var cols = w.layout.cells;
+ 	var allRows = w.layout.grid.model.data;
+ 	var items = [];
+ 	var colName;
+ 	//Get the column name into array
+	for(var colIndex=0; colIndex < cols.length; colIndex++ ) {
+		colName = w.layout.cells[colIndex].name;
+		colName = colName.replace(/<br>/g, " "); 
+		var fldIdx = w.layout.cells[colIndex].fieldIndex;
+		var idxs = w.getViewAndColumnIndex(fldIdx);
+		if(w.layout.structure[idxs.v].colvis[idxs.c]) {
+			items.push({name: colName, value: fldIdx});
+		}
+	 }
+		var jsonobj = {identifier: "name", items: items};
+		var options = new dojo.data.ItemFileReadStore({data: jsonobj});
+		options._forceLoad();
+		if(dijit.byId("/(!NameID)")){
+			dijit.byId("/(!NameID)").store = options;
+		 }
+		
+		dojo.connect(dojo.byId(textboxId), "onkeyup", function(evt) {
+			filterData();
+		});
+		getSelectedColumnDataType = function(colIdx) {
+			var w = dijit.byId("/(!FindControlByName:/(!Param:GridId):!NameID)");
+			var idxs = w.getViewAndColumnIndex(colIdx);
+			var mdlStruct = w.model.observers[0].o.structure[idxs.v] ;
+			var cell = mdlStruct.cells[0][idxs.c];
+			return cell.editMode.dataType;
+		}
+		 
+		var filterData = function() {
+			var col = dijit.byId("/(!NameID)").getFormValue();
+			if (col == undefined) 
+				return;
+			var value = dojo.byId(textboxId).value.toLowerCase();
+			var w = dijit.byId(gridId);
+		  
+			if (w.newFilterData) {
+				allRows = w.layout.grid.model.data;
+				w.newFilterData = false;
+			}
+					  
+			if(value=="" || value==null || value==undefined) {
+				w.needRefilter = false;
+				w.model.count=allRows.length;
+				w.model.setData(allRows);
+				w.beginUpdate();
+				w.defaultUpdate();
+				w.endUpdate();
+				if(w.model.rowVis){
+					for(var y=0;y<w.model.rowVis.length;y++) {
+						w.model.rowVis[y]=true;
+	      			}
+				}
+			  	return;
+			}
+			
+			if(w == null || w == undefined) {
+				alert("There is no grid with given id");
+				return false;
+			}
+			var rowCount = allRows.length;
+		    var cols = w.layout.cells;
+		    var colIndex = dijit.byId("/(!NameID)").getFormValue();
+		    if (colIndex === '') {
+		    	return false;
+		    }
+		    var rows = allRows;
+		    var rowVis = new Array(rowCount);
+		   	if (rowCount > 0) {
+		   		var tempData = [];
+		   		var tempIndex = 0;
+		   		var idxs = w.getViewAndColumnIndex(colIndex);
+		   		var mdlStruct = w.model.observers[0].o.structure[idxs.v] ;
+		   		var sts;
+		   		var optVal;
+				for(var rowIndex=0; rowIndex < rows.length; rowIndex++ ) {
+   		   			rowVis[rowIndex]=false;
+   		   			optVal = rows[rowIndex][colIndex].v ;
+   		   			sts = mdlStruct.cells[0][idxs.c].readOnlyMode ;
+   		   			if (typeof sts.options != 'undefined') {
+   		   				for(var opt=0; opt < sts.options.length; opt++) {
+   		   					if (sts.options[opt].toLowerCase().indexOf(value) != -1) {
+   		   						if ((optVal == sts.values[opt]) || (optVal == '' && sts.values[opt] == ' ')) {
+   		   							rowVis[rowIndex]=true;
+   		   							tempData[tempIndex++] = rows[rowIndex];
+   		   							break;
+   		   						}
+   		   					}
+   		   				}
+   		   			} else {
+   						if (optVal.toLowerCase().indexOf(value) != -1) {
+   							tempData[tempIndex++] = rows[rowIndex];
+   							rowVis[rowIndex]=true;
+   	      				}	
+      				}
+   				}
+				w.model.count=	tempData.length;	
+	   			w.model.setData(tempData);
+	   			w.model.rowVis = rowVis;
+	   			w.model.allRows = allRows;
+	   			if (w.sortInfo != 0) {
+	   				w.sort();
+	   			}
+	   			w.beginUpdate();
+	   			w.defaultUpdate();
+	   			w.endUpdate();
+  	   			var selRow;
+  	   			if (w.selection.selectedIndex < w.rowCount) {
+  	   				selRow = w.selection.selectedIndex;
+  	   			} else {
+  	   				selRow = 0;
+  	   			}
+  				if(w.selection.onCanSelect(selRow)) {
+  				    w.selection.unselectAll();
+  				    w.selection.select(selRow, false);
+  				    w.scrollToRow(0);
+  				    w.refresh();
+  			   	}
+			   	w.needRefilter = true;
+		   	}
+		} 
+		dijit.byId(gridId).filterData = filterData;
+		 
+	});
+	var w = dijit.byId('/(!NameID)');
+ 	dojo.connect(w, "_doSelect", function() {
+		if(w  && w.getFormValue() != ''){
+ 			var dType = getSelectedColumnDataType(w.getFormValue());
+			var textId = "/(!FindControlByName:/(!Param:TextId):!NameID)";
+			var hint = '';
+			switch (dType) {
+				case 'Date':
+					hint = 'Enter date as YYYY-MM-DD';
+					break;
+				case 'Time':
+					hint = 'Enter time as HH:MM:SS';
+					break;
+			}
+ 			dijit.byId(textId).textbox.placeholder = hint;
+		}
+ 	});
+/(!JSOnLoad)
+<div>
+
+<select style="/(!DefaultCSS:nc:withPos=/(!Param:default))" class="/(!CustomClass:nc:class=/(!Param:class))"
+ 		id="/(!NameID)" name="/(!NameID)"
+ 		dojoType="dijit.form.ComboBox" /(!If:/(!Mode)=Read Only)disabled/(!If)>
+ </select>
+ </div>
+ 
+  /(!If:/(!Param:space))&nbsp;&nbsp;&nbsp; /(!If)
+
+
+/(!EnableAction:SetValue,SetState,SetFocus,Combo.Clear,Combo.Remove,Combo.Add)
+
+/(!JS)
+  /(!Action:SetValue)
+
+   	if(dijit.byId("/(!NameID)"))
+   		dijit.byId("/(!NameID)").setComboValue(/(!This:value));
+  
+  /(!Action)
+  
+  /(!Action:SetState)
+	var w = dijit.byId("/(!NameID)");
+    if (w) {
+    	w.domNode.style.cssText = "/(!DefaultCSS:nc:withPos=/(!Param:default))";
+    	w.textbox.style.cssText = "/(!DefaultCSS:nc:withPos=/(!Param:default))";
+    	w.state = /(!If:/(!Property:BackgroundColor)=255 0 0)"Error"/(!Else)""/(!If);
+    	w._setStateClass();
+    	if (w.state == "Error" && tooltipMsg) {
+	    	w.displayMessage(tooltipMsg);
+	    	tooltipMsg = null;
+	    }
+    	w.validate = function() { };
+    }
+    
+    var combobox = dijit.byId("/(!NameID)");
+    var combosrc = document.createElement("INPUT");
+	var div = combobox.domNode.parentNode;
+	
+	div.insertBefore(combosrc,combobox.domNode.nextSibling);  	      	
+	combobox.destroy();
+	var childName ;
+
+	var w = dijit.byId("/(!FindControlByName:/(!Param:GridId):!NameID)");
+ 	var cols = w.layout.cells;
+ 	var items = [];
+ 	var colName;
+ 	//Get the column name into array
+	for(var colIndex=0; colIndex < cols.length; colIndex++ ) {
+		colName = w.layout.cells[colIndex].name;
+		colName = colName.replace(/<br>/g, " "); 
+		var idxs = w.getViewAndColumnIndex(colIndex);
+		if(w.layout.structure[idxs.v].colvis[idxs.c]) {
+				items.push({name: colName, value: colIndex});
+			}	
+		 }
+		 
+		var jsonobj = {identifier: "name", items: items};
+		var options = new dojo.data.ItemFileReadStore({data: jsonobj});			
+	
+ 	/(!If:/(!Mode)=Edit)
+	  	      	var combo = new dijit.form.ComboBox({
+	  	      			id: "/(!NameID)",
+	  	      			name: "/(!NameID)",
+	  	      			store: options,
+	  	      			searchAttr: "name",
+	  	      			style: "/(!DefaultCSS:nc:withPos=/(!Param:default))" }, combosrc);
+	  	      	combo.setComboValue(/(!This:value));
+	  	      	/(!If:/(!Event:phys=Modified))
+	  	      	dojo.connect(combo, "_doSelect", function()
+	  	      	{
+  	      			/(!AJAXDoEvent:phys=Modified)
+	  	      	});
+	  	      	/(!If)
+  	        
+	  	      	/(!If:/(!Event:phys=Lost Focus))
+	  	      	dojo.connect(combo, "_onBlur", function()
+	  	      	{
+	  	      		/(!AJAXDoEventLF:phys=Lost Focus)
+	  	      	});
+	  	      	/(!If)
+	  	      	if(dojo.isFF || dojo.isSafari || dojo.isIE11){
+	  	      		if(/(!Size:y)<20){
+						combo.domNode.style.height = 20 + "px";
+					}
+				}
+ 	/(!If)
+ 	
+ 	/(!If:/(!Mode)=Read Only)
+	    	var combo = new dijit.form.ComboBox({
+	  	      			id: "/(!NameID)",
+	  	      			name: "/(!NameID)",
+	  	      			store: options,
+	  	      			searchAttr: "name",
+	  	      			disabled: true,
+	  	      			style: "/(!DefaultCSS:nc:withPos=/(!Param:default))" }, combosrc);
+	  	      	combo.setComboValue(/(!This:value));
+	  	      	/(!If:/(!Event:phys=Modified))
+	  	      	dojo.connect(combo, "_doSelect", function()
+	  	      	{
+	  	      		/(!AJAXDoEvent:phys=Modified)
+	  	      	});
+	  	      	/(!If)
+  	        
+	  	      	/(!If:/(!Event:phys=Lost Focus))
+	  	      	dojo.connect(combo, "_onBlur", function()
+	  	      	{
+	  	      		/(!AJAXDoEventLF:phys=Lost Focus)
+	  	      	});
+	  	      	/(!If)
+	  	      	if(dojo.isFF || dojo.isSafari || dojo.isIE11){
+	  	      		if(/(!Size:y)<20){
+						combo.domNode.style.height = 20 + "px";
+					}
+				}
+ 	/(!If)
+ 	
+  /(!Action)
+  
+  /(!Action:Combo.Clear)
+  	var childName ;
+
+	var w = dijit.byId("/(!FindControlByName:/(!Param:GridId):!NameID)");
+ 	var cols = w.layout.cells;
+ 	var items = [];
+ 	var colName;
+ 	//Get the column name into array
+	for(var colIndex=0; colIndex < cols.length; colIndex++ ) {
+		colName = w.layout.cells[colIndex].name;
+		colName = colName.replace(/<br>/g, " "); 
+		var idxs = w.getViewAndColumnIndex(colIndex);
+		if(w.layout.structure[idxs.v].colvis[idxs.c]) {
+				items.push({name: colName, value: colIndex});
+			}	
+		 }
+		 
+		var jsonobj = {identifier: "name", items: items};
+		var options = new dojo.data.ItemFileReadStore({data: jsonobj});			
+	
+	dijit.byId("/(!NameID)").store = options;
+	dijit.byId("/(!NameID)").setComboValue(/(!This:value));
+  /(!Action)
+  
+  /(!Action:Combo.Remove)
+  	var childName ;
+
+	var w = dijit.byId("/(!FindControlByName:/(!Param:GridId):!NameID)");
+ 	var cols = w.layout.cells;
+ 	var items = [];
+ 	var colName;
+ 	//Get the column name into array
+	for(var colIndex=0; colIndex < cols.length; colIndex++ ) {
+		colName = w.layout.cells[colIndex].name;
+		colName = colName.replace(/<br>/g, " "); 
+		var idxs = w.getViewAndColumnIndex(colIndex);
+		if(w.layout.structure[idxs.v].colvis[idxs.c]) {
+				items.push({name: colName, value: colIndex});
+			}	
+		 }
+		 
+		var jsonobj = {identifier: "name", items: items};
+		var options = new dojo.data.ItemFileReadStore({data: jsonobj});			
+	dijit.byId("/(!NameID)").store = options;
+	dijit.byId("/(!NameID)").setComboValue(/(!This:value));
+  /(!Action)
+  
+   /(!Action:Combo.Add)
+   var childName ;
+
+	var w = dijit.byId("/(!FindControlByName:/(!Param:GridId):!NameID)");
+ 	var cols = w.layout.cells;
+ 	var items = [];
+ 	var colName;
+ 	//Get the column name into array
+	for(var colIndex=0; colIndex < cols.length; colIndex++ ) {
+		colName = w.layout.cells[colIndex].name;
+		colName = colName.replace(/<br>/g, " "); 
+		var idxs = w.getViewAndColumnIndex(colIndex);
+		if(w.layout.structure[idxs.v].colvis[idxs.c]) {
+				items.push({name: colName, value: colIndex});
+			}	
+		 }
+		 
+		var jsonobj = {identifier: "name", items: items};
+		var options = new dojo.data.ItemFileReadStore({data: jsonobj});			
+	dijit.byId("/(!NameID)").store = options;
+	dijit.byId("/(!NameID)").setComboValue(/(!This:value));
+   /(!Action)
+/(!JS)
+
+/(!JSPost:seq=10)
+  /(!Action:SetFocus)
+    if (dijit.byId("/(!NameID)"))
+	    dijit.byId("/(!NameID)").focus();
+  /(!Action)
+/(!JSPost)

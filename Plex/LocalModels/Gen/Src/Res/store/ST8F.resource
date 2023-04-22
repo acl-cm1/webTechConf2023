@@ -1,0 +1,28 @@
+# GRP_MODEL=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\Plex\GroupModels\Store
+
+String.125=Function: {0} was not found or did not execute correctly - contact your software supplier.\nThe call failed with codes:\nCS={1}\nRS={2}
+String.124=An unknown error occurred on the requested operation - try again later.\nThe error code is {0}.
+String.123=The row has been locked by another user - try again later.
+String.122=Data already exists for the supplied keys - re-type and try again.
+String.121=Function: {0} was not found or did not execute correctly - contact your software supplier.\nThe call failed with codes:\nCS={1}\nRS={2}
+String.120=An unknown error occurred on the requested operation - try again later.\nThe error code is {0}.
+String.119=The row has been locked by another user - try again later.
+String.118=The data could not be read from the database - no row exists for the supplied keys.
+String.117=Function: {0} was not found or did not execute correctly - contact your software supplier.\nThe call failed with codes:\nCS={1}\nRS={2}
+String.116=Function: {0} was not found or did not execute correctly - contact your software supplier.\nThe call failed with codes:\nCS={1}\nRS={2}
+String.115=An unknown error occurred on the requested operation - try again later.\nThe error code is {0}.
+String.114=The row has been locked by another user - try again later.
+String.113=The data could not be read from the database - no row exists for the supplied keys.
+String.112={0} needs to have a value entered.
+String.111={0} needs to have a value entered.
+String.110={0} needs to have a value entered.
+String.109={0} needs to have a value entered.
+String.108={0} needs to have a value entered.
+String.107=Function: {0} was not found or did not execute correctly - contact your software supplier.\nThe call failed with codes:\nCS={1}\nRS={2}
+String.106=An unknown error occurred on the requested operation - try again later.\nThe error code is {0}.
+String.105=The row has been locked by another user - try again later.
+String.104=The data could not be read from the database - no row exists for the supplied keys.
+String.103={0}
+String.102={0}
+String.101={0}
+String.100={0}

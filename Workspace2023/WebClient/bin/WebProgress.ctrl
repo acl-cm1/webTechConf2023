@@ -1,0 +1,24 @@
+/(!JSInit:once)
+	dojo.require("dijit.ProgressBar");
+/(!JSInit)
+
+<div
+	id="/(!NameID)"
+	style="/(!DefaultCSS:nc:withPos=default)"
+	dojoType="dijit.ProgressBar"
+	minimum="0.0" maximum="1.0" value="0.0">
+</div>
+
+/(!EnableAction:SetValue,Show,Hide)
+/(!JS)
+	/(!Action:SetValue)
+		(function() {
+			var val = /(!Var:progress).val;
+			var ctl = dijit.byId("/(!NameID)");
+			ctl.update({ progress: val });
+		})();
+	/(!Action)
+
+	/(!Action:Show)/(!DojoFade:in)/(!Action)
+	/(!Action:Hide)/(!DojoFade:out)/(!Action)
+/(!JS)

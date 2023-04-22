@@ -1,0 +1,796 @@
+/(!LinkArea:once)
+  <link href="/(!WsRes)/js/dojox/grid/_grid//(WCTHEME)Grid.css" rel="stylesheet" type="text/css" />
+/(!LinkArea)
+
+/(!JSInit:once)
+    dojo.require("dojox.grid.Grid");
+    dojo.require("dojox.grid._data.editors");    
+    dojo.require("dojox.grid._data.dijitEditors");
+    dojo.require("wcli.grid.PlexData");
+    dojo.require("wcli.grid.FilterGridView");
+    dojo.require("wcli.grid.CheckboxEditor"); 
+    dojo.require("wcli.grid.NumberEditor");
+    dojo.require("wcli.grid.IntegerEditor");
+    dojo.require("wcli.grid.EditMaskEditor");
+    dojo.require("wcli.grid.DateEditor");
+    dojo.require("wcli.grid.TimeEditor");
+    dojo.require("wcli.color.RGBColor");
+    dojo.require("wcli.form.Font");
+    dojo.require("dojo.parser");       
+/(!JSInit)
+
+/(!JSInit:seq=1)
+    var jColVis = /(!jsonColVis);
+    var appName = /(WSACTION);
+	appName = appName.substring(1, appName.lastIndexOf("/"));
+    if(window.localStorage){
+		var store = window.localStorage;
+	    for(var i=0;i<store.length;i++){
+	    	var itemKey = store.key(i);
+	    	if(itemKey !=null){
+	    	    var values = store.getItem(itemKey);
+	    	   	itemKey = itemKey.split(";");
+	    	    var gridID = itemKey[0];
+	    	   	var colHiddenIdx = itemKey[1];
+	    	    if(gridID == appName+"/(!Panel:!Name)_/(!Name)"){
+	    	    	if(values=="false"){
+	    	    	    jColVis[colHiddenIdx]=false;
+	    	    	}
+	    	    	if(values=="true"){
+	    	    		jColVis[colHiddenIdx]=true;
+	    	    	}
+	    	    }
+	    	}
+	    }
+    }
+
+	dojo.addOnLoad(function() {
+	var d = dijit.byId("/(!NameID)");
+    	if(d){
+    		d.layout.colvis = jColVis.slice(0);
+	    	d.jColVis = jColVis;
+	    	d.keyid = "/(!Panel:!Name)_/(!Name)";
+	    	d.columnCookieApp = appName;
+		/(!If:/(!IsDefined:ColumnCookie))
+		d.columnCookie = /(ColumnCookie);
+		/(!If)
+		/(!If:/(!IsDefined:DeploymentVersion))
+		if(window.localStorage){
+			var store = window.localStorage;
+			if(store && (store.getItem("DeploymentVersion") == null || (store.getItem("DeploymentVersion") && store.getItem("DeploymentVersion") != /(DeploymentVersion)))){
+				window.localStorage.clear();
+				window.localStorage.setItem("DeploymentVersion",/(DeploymentVersion));
+			}
+		}
+		/(!If)
+	    	d.layout.cells = d.layout.getColumnFromLocalStorage(appName+"/(!Panel:!Name)_/(!Name)");
+	    	/(!If:/(!Event:phys=Select))
+	    		/(!If:/(!Property:Disabled)=No)
+	    			//if (typeof /(!NameID)SelectEvent === "undefined") {
+	    				/(!NameID)SelectEvent = dojo.connect(d, "onSelected", function() {/(!AJAXDoEvent:phys=Select)});
+	    			//}
+	    		/(!Else)
+			 		d.onCanSelect = function(){
+			 			return false;
+			 		};
+	    		/(!If)
+			/(!If)
+	}
+    });
+
+    var view1 = {
+    	colvis: jColVis.slice(0),
+    	colmodes: /(!jsonModes),
+        /(!If:/(!Property:ColumnHeadings)=No)hideColumnHeadings: true,/(!If)
+		cells: [[
+	      /(!AttachPoint:name=ColumnsArea:inlinetemplate:sep=,:gridNameID=/(!NameID))
+	       /(!If:/(!Param:template))
+	      		/(!Template)
+	       /(!Else)
+	       
+	       /(!JSInit)
+	       /(!If:/(!Param:tooltipfields))
+		   /(!GridRichTooltip:tooltipfields=/(!Param:tooltipfields):showdelay=/(!Param:showdelay):gridid=/(!GridP:!NameID))
+		   /(!If)
+	       /(!JSInit)
+	
+			{name: "/(!Text:htmlbr)",
+			 width:"/(!Property:Width)px",
+			 /(!If:/(!Edit:!Property:BackgroundColor))bgcolor: wcli.color.setColor("/(!Edit:!BackgroundColor)"),/(!Else)/(!If)
+			 /(!If:/(!Edit:!Property:TextColor))txtcolor: wcli.color.setColor("/(!Edit:!TextColor)"),/(!Else)/(!If)
+			 /(!If:/(!Edit:!Property:Font))font: wcli.form.Font.setPlexFont("/(!Edit:!Font)"),/(!Else)/(!If)
+			 /(!If:/(!Param:cellTitle))title: "/(!Param:cellTitle)",/(!If)
+			 /(!If:/(!Param:grouprow))grouprow: "/(!Param:grouprow)",/(!If)
+			 customEvents: window./(!Param:gridNameID)_customEvents &&
+			               window./(!Param:gridNameID)_customEvents["/(!Text:htmlbr)"],
+			 editMode: {
+			 	
+			 	onStartEdit: function(eCell, eRow) {
+			 		this.oldValue = this.value;
+		 		},
+		 		
+			 	onCellFocus: function(eCell, eRow) {
+			 		this.oldValue = this.value;
+		 		},
+			   /(!If:/(!Edit:!Type)=Combo)
+			     editor: dojox.grid.editors.ComboBox,
+			     alwaysOn: true,
+			     /(!If:/(IsDefined:ReadOnlyCombo))protect: 'readonly',/(!If)
+			     options: /(!Edit:!jsonOptions),
+			     values: /(!Edit:!jsonValues),
+			     formatter: wcli.grid.OptionFormat,
+			     onSelect: function(){
+			     	 /(!If:/(!Edit:!Event:phys=Modified))/(!AJAXDoEventCell:phys=Modified)/(!If)
+			     },
+			     onBlur: function(){
+				if(this.getValue && this.cell){
+						if(this.editor){
+							this.originalValue = this.editor.value;
+						}
+			     		this.currentValue = this.getValue(this.cell.grid.edit.info.rowIndex);
+				}
+			     	if (this.originalValue && (this.originalValue != this.currentValue)) {
+			     		/(!If:/(!Edit:!Event:phys=Updated))/(!AJAXDoEventCell:phys=Updated)/(!If)
+						this.originalValue=null;
+			     	}
+			     	/(!If:/(!Edit:!Event:phys=Lost Focus))/(!AJAXDoEventCell:phys=Lost Focus)/(!If)
+			     }
+			      /(!Edit:!EnableAction:SetState,Combo.Add)
+			   /(!Else)
+			     /(!If:/(!Edit:!Type)=Checkbox)
+			       textAlign: "center",
+  			       alwaysOn: true,
+			       editor: wcli.grid.CheckboxEditor,
+			       checkedval: "/(!Edit:!CheckedValue)", 
+			       uncheckedval: "/(!Edit:!UncheckedValue)",
+			       disabled: false,
+			       onClick: function(){
+			       		/(!If:/(!Edit:!Event:phys=Modified))/(!AJAXDoEventCell:phys=Modified)/(!If)
+						/(!If:/(!Edit:!Event:phys=Updated))/(!AJAXDoEventCell:phys=Updated)/(!If)
+			       }
+			     /(!Else)
+			       /(!If:/(!Edit:!DataType)=Char)
+			       		textAlign: "/(!Edit:!TextAlignment)",
+			       		/(!If:/(!Edit:!Property:ImeMode))imeMode: "/(!Edit:!Property:ImeMode)",/(!Else)/(!If)
+  			       		editor: wcli.grid.EditMaskEditor,
+  			       		formatter: wcli.grid.EditMaskFormat,
+  			       		dataType: "/(!Edit:!DataType)",
+  			       		length: /(!Edit:!Length),
+  			       		editMask: "/(!Edit:!EditMask)",
+						upper: "/(!Edit:!Case)",
+  			       		/(!If:/(!Edit:!Event:phys=Double Click))
+	  			       	onDblClick: function(){
+  				       		/(!AJAXDoEventCellDblClick:phys=Double Click)
+  				       	},
+  				       	/(!If)
+  			       		/(!If:/(!Edit:!Event:phys=Gained Focus))
+  			       		onFocus: function() {
+  			       			setTimeout(function() {
+  			       				/(!AJAXDoEventCell:phys=Gained Focus)
+  			       			}, 10);
+  			       		},
+  			       		/(!If)
+  			       		onUpdated: function(){
+  			       			/(!If:/(!Edit:!Event:phys=Updated))
+  			       				/(!AJAXDoEventCell:phys=Updated)
+  			       			/(!If)
+  			       		},
+  			       		onBlur: function(){
+  			       			if(!window.tooltipIsOpen){
+								if(this.getValue && this.cell){
+									if(this.editor){
+										this.originalValue = this.editor.getAttribute("value");
+									}
+							     	this.currentValue = this.getValue(this.cell.grid.edit.info.rowIndex);
+								}
+					       		/(!If:/(!Edit:!Event:phys=Updated))
+							     	if (this.originalValue != undefined && (this.originalValue != this.currentValue)) {
+							     		/(!AJAXDoEventCell:phys=Updated)
+							     		this.originalValue=null;
+							     	}
+						     	/(!If)
+						    }
+						    /(!If:/(!Edit:!Event:phys=Lost Focus))
+					     		/(!AJAXDoEventCell:phys=Lost Focus)
+					     	/(!If)
+  			       		},
+  			       		/(!If:/(!Edit:!Event:phys=Modified))
+  			       			onKeyUp: function(){
+	  			       			/(!AJAXDoEventCell:phys=Modified)
+  			       			},
+  			       		/(!If)
+  			       /(!Else)
+  			       		/(!If:/(!Edit:!DataType)=FixedDec)
+  			       			/(!If:/(!Edit:!DecLength)=0)
+  			       				textAlign: "/(!Edit:!TextAlignment)",
+  			       				editor: wcli.grid.IntegerEditor,
+  			       			/(!Else)
+  			       				textAlign: "/(!Edit:!TextAlignment)",
+  			       				editor: wcli.grid.NumberEditor,
+  			       			/(!If)
+  			       		/(!Else)
+  			       			/(!If:/(!Edit:!DataType)=Double)
+  			       				/(!If:/(!Edit:!DecLength)=0)
+  			       					textAlign: "/(!Edit:!TextAlignment)",
+  			       					editor: wcli.grid.IntegerEditor,
+  			       				/(!Else)
+  			       					textAlign: "/(!Edit:!TextAlignment)",
+  			       					editor: wcli.grid.NumberEditor,
+  			       				/(!If)
+  			       			/(!Else)
+  			       				/(!If:/(!Edit:!DataType)=Integer)
+  			       				textAlign: "/(!Edit:!TextAlignment)",
+  			       				editor: wcli.grid.IntegerEditor,
+  			       				/(!Else)
+  			       					/(!If:/(!Edit:!DataType)=Long)
+  			       					textAlign: "/(!Edit:!TextAlignment)",
+  			       					editor: wcli.grid.IntegerEditor,
+  			       					/(!If)
+  			       					/(!If:/(!Edit:!DataType)=Single)
+  			       					textAlign: "/(!Edit:!TextAlignment)",
+  			       					editor: wcli.grid.NumberEditor,
+  			       					/(!If)
+  			       					/(!If:/(!Edit:!DataType)=LongDouble)
+  			       					textAlign: "/(!Edit:!TextAlignment)",
+  			       					editor: wcli.grid.NumberEditor,
+  			       					/(!If)
+  			       					/(!If:/(!Edit:!DataType)=Time)
+  			       					textAlign: "/(!Edit:!TextAlignment)",
+  			       					editor: wcli.grid.TimeEditor,
+  			       					/(!If)
+  			       					/(!If:/(!Edit:!DataType)=Date)
+  			       					textAlign: "/(!Edit:!TextAlignment)",
+  			       					editor: wcli.grid.DateEditor,
+  			       					/(!If)
+  			       				/(!If)
+  			       			/(!If)
+  			       		/(!If)
+  			       		textAlign: "/(!Edit:!TextAlignment)",
+  			       		formatter: wcli.grid.EditMaskFormat,
+  			       		dataType: "/(!Edit:!DataType)",
+  			       		length: /(!Edit:!Length),
+			 	 		editMask: "/(!Edit:!EditMask)",
+  			       		constraints: {places:/(!Edit:!DecLength),fractional:/(!If:/(!Edit:!DecLength)="0")false /(!Else)true/(!If)},
+  			       		onDblClick: function(){
+  			       			/(!If:/(!Edit:!Event:phys=Double Click))/(!AJAXDoEventCellDblClick:phys=Double Click)/(!If)
+  			       		},
+  			       		onUpdated: function(){
+  			       			/(!If:/(!Edit:!Event:phys=Updated))
+  			       				/(!AJAXDoEventCell:phys=Updated)
+  			       			/(!If)
+  			       		},
+  			       		onBlur: function(){
+  			       			if(!window.tooltipIsOpen){
+  			       				if(this.editor){
+  			       					/(!If:/(!Edit:!DataType)=Date)
+  			       					if(this.editor.originalValue != null && this.editor.originalValue != ""){
+  			       						this.originalValue = dojo.date.locale.format(this.editor.originalValue, {datePattern: "yyyy-MM-dd", selector: "date"});
+  			       					}else if(this.editor.originalValue == ""){
+  			       						this.originalValue = "";
+  			       					}
+  			       					/(!Else)
+  			       					this.originalValue = this.editor._lastValueReported;
+  			       					/(!If)
+  			       				}
+						     	this.currentValue = this.getValue(this.cell.grid.edit.info.rowIndex);
+						     	if (this.originalValue != undefined && (this.originalValue != this.currentValue)) {
+						     		/(!If:/(!Edit:!Event:phys=Updated))/(!AJAXDoEventCell:phys=Updated)/(!If)
+						     		this.originalValue=null;
+						     	}
+						     	/(!If:/(!Edit:!Event:phys=Lost Focus))/(!AJAXDoEventCell:phys=Lost Focus)/(!If)
+  			       			}
+  			       		},
+  			       		onKeyUp: function(){
+  			       			/(!If:/(!Edit:!Event:phys=Modified))/(!AJAXDoEventCell:phys=Modified)/(!If)
+  			       		},
+  			       /(!If)
+  			       editorClasses: ['editableCell']
+  			     /(!If)
+			   /(!If)
+			 },
+			 readOnlyMode: {
+			   /(!If:/(!Edit:!Type)=Combo)
+			     options: /(!Edit:!jsonOptions),
+			     values: /(!Edit:!jsonValues),
+			     formatter: wcli.grid.OptionFormat,
+			     onSelect: function(){
+			     	 /(!If:/(!Edit:!Event:phys=Modified))/(!AJAXDoEventCell:phys=Modified)/(!If)
+			     },
+			     onBlur: function(){
+			     	/(!If:/(!Edit:!Event:phys=Lost Focus))/(!AJAXDoEventCell:phys=Lost Focus)/(!If)
+			     }
+			      /(!Edit:!EnableAction:SetState)
+			   /(!Else)
+			   	/(!If:/(!Edit:!Type)=Checkbox)
+				       textAlign: "center",
+	  			       alwaysOn: true,
+				       editor: wcli.grid.CheckboxEditor,
+				       checkedval: "/(!Edit:!CheckedValue)", 
+				       uncheckedval: "/(!Edit:!UncheckedValue)",
+				       disabled: true,
+				       onClick: function(){
+			       			/(!If:/(!Edit:!Event:phys=Modified))/(!AJAXDoEventCell:phys=Modified)/(!If)
+			       	   }
+				/(!Else)
+					/(!If:/(!Edit:!DataType)=Date)
+						textAlign: "/(!Edit:!TextAlignment)",
+			   	 		formatter:wcli.grid.DateFormat,
+			   		/(!Else)
+			   			/(!If:/(!Edit:!DecLength)=0)
+			   				textAlign: "/(!Edit:!TextAlignment)",
+			   				formatter: wcli.grid.EditMaskFormat,
+			   				dataType: "/(!Edit:!DataType)",
+			   				mode: "/(!EditProperty:Mode)",
+			   				constraints: {places:/(!Edit:!DecLength),fractional:/(!If:/(!Edit:!DecLength)="0")false /(!Else)true/(!If)},
+			   			/(!Else)
+			   				textAlign: "/(!Edit:!TextAlignment)",
+			 	 			formatter: wcli.grid.DecimalFormat,
+			 	 			dataType: "/(!Edit:!DataType)",
+			 	 			mode: "/(!EditProperty:Mode)",
+			 	 			constraints: {places:/(!Edit:!DecLength),fractional:/(!If:/(!Edit:!DecLength)="0")false /(!Else)true/(!If)},
+			 	 		/(!If)
+			   		/(!If)
+			   	 	length: /(!Edit:!Length),
+			 	 	editMask: "/(!Edit:!EditMask)"
+			   	/(!If)
+			   /(!If)
+			 },
+			 field: "/(!Edit:!Name)"}
+		     /(!EnableAction:SetValue,SetState,SetFocus)
+		    /(!If)
+		   /(!AttachPoint)
+		]]
+	};
+
+    // a grid layout is an array of views.
+    /(!If:/(!Param:frozenColumns))
+    var fc = /(!Param:frozenColumns);
+    /(!Else)
+    var fc = 0;
+    /(!If)    
+    if (fc > 0) {
+	    var view0 = {
+	    	cells: new Array (view1.cells[0].splice(0, fc)),
+	    	colmodes: view1.colmodes.splice(0, fc), 
+	    	colvis: view1.colvis.splice(0, fc),
+	    	noscroll: true
+	    }
+    	/(!NameID)_layout = [ view0, view1 ];
+    } else {
+    	/(!NameID)_layout = [ view1 ];
+    }
+ 
+    /(!ContextMenu)
+     
+    dojo.addOnLoad( function() {
+      var form = /(!Panel:!NameID)_form;
+      if (window./(!Panel:!NameID)_submitter['/(!NameID)']) {
+          return;
+      }
+      dojo.connect(window./(!Panel:!NameID)_submitter, "onsubmit",
+	    function () {
+	    	var w = dijit.byId("/(!NameID)");
+	    	var m = dojo.getObject("model-/(!NameID)");
+	    	if (form['/(!NameID)'] && w && m) {
+	    		form['/(!NameID)'].value = w.selection.getSelectedForSubmit().toString() + m.getPendingUpdates();
+	    	}
+	    });
+	  window./(!Panel:!NameID)_submitter['/(!NameID)'] = true;
+	});
+	/(!If:/(!IsDefined:FixedPositioning))
+	  	window.gridAbleToResize = true;
+	  	/(!If:/(!IsDefined:MinimumPanelRes))
+			window.gridAbleToResize = wcli.util.XBrowser.isAbleToResize(/(MinimumPanelRes));
+		/(!If)
+	/(!If)
+/(!JSInit)
+
+/(!JSOnLoad)
+/(!If:/(!Param:NoLoadGrid)=Yes)
+	if(dijit.byId("/(!NameID)")){
+		dijit.byId("/(!NameID)").noLoadGrid=true;
+	}
+	/(!Else)
+	/(!If:/(!IsDefined:NoLoadGrid))
+	if(dijit.byId("/(!NameID)")){
+		dijit.byId("/(!NameID)").noLoadGrid=true;
+	}
+	/(!Else)
+	if(dijit.byId("/(!NameID)")){
+		dijit.byId("/(!NameID)").noLoadGrid=false;
+	}
+	/(!If)
+	/(!If:/(!Param:OnPaste)=Yes)
+	if(dijit.byId("/(!NameID)")){
+		dijit.byId("/(!NameID)").triggerPaste=true;
+	}
+	/(!If)
+/(!If)
+/(!If:/(!IsDefined:ColumnSortCookie))
+	var appName = /(WSACTION);
+	appName = appName.substring(1, appName.lastIndexOf("/"));
+	if(dijit.byId("/(!NameID)").selection.selectedIndex != -1){
+		var selectedIndex = dijit.byId("/(!NameID)").selection.selectedIndex;	
+	}
+	dijit.byId("/(!NameID)").columnSortCookie = "/(!Panel:!Name)/(!Name)"+appName;
+	var sI = window.localStorage.getItem(dijit.byId("/(!NameID)").columnSortCookie+"SortIndex");
+	var sA = window.localStorage.getItem(dijit.byId("/(!NameID)").columnSortCookie+"SortAsc");		
+	if(sI && sA){
+		dijit.byId("/(!NameID)").setSortIndex(parseInt(sI),(sA === "true"));
+	}		
+	if(selectedIndex){
+		dijit.byId("/(!NameID)").selection.selectedIndex = dijit.byId("/(!NameID)").model.findSortedRowSeq(selectedIndex);
+	}
+/(!If)
+if(dijit.byId("/(!NameID)").selection.selectedIndex != -1){
+	dijit.byId("/(!NameID)").selection.select(dijit.byId("/(!NameID)").selection.selectedIndex, true);
+	dijit.byId("/(!NameID)").scrollToRow(dijit.byId("/(!NameID)").selection.selectedIndex);
+}
+
+/(!If:/(!IsDefined:ScrollPagePerPage))
+wcli.scrollPagePerPage = true;
+/(!If)
+//New listener that is added to the grid when returning from a dialog function to a child function within the TreeView menu.
+setTimeout(function(){      
+    /(!If:/(!IsDefined:FixedPositioning)) 
+    /(!AbleToResize:Type5=true)             
+    /(!If)
+}, 100);
+/(!JSOnLoad)
+
+/(!DataArea)
+	<div dojoType="wcli.grid.PlexData" id="model-/(!NameID)" jsId="model-/(!NameID)"
+		jsondata="/(!This:!jsonRows)" jsoncols="/(!This:!jsonCols)"
+		rowsPerPage="20" clientSort=/(!If:/(!Property:Sortable)=Yes)"true"/(!Else)"false"/(!If)>
+		/(!If:/(!Event:phys=Changed))
+		<script type="dojo/method" event="onChanged">
+			if (typeof pnlid == 'undefined' || (/(!Panel:!NameID)_pnlid >= pnlid)) {
+				/(!AJAXDoEvent:phys=Changed)
+			}
+		</script>
+		/(!If)
+
+	</div>
+/(!DataArea)
+
+/(!FormArea)
+	<input name="/(!NameID)" type="hidden" value="" />
+/(!FormArea)
+
+/(!EnableAction:Grid.Clear,Grid.Insert,Grid.Remove,Grid.Update,SetState,Grid.AddRowSelection,Grid.RemoveRowSelection,Grid.Locate,ChangeColumnHeading)
+
+/(!JS)
+  var /(!NameID)StateChange = false;
+  var d = dijit.byId("/(!NameID)");
+  if (d) {
+  	var si = d.views.scrollViewIdx;
+  	d.gridCleared = false;
+  	d.needsUpdate = false;
+  	d.gridend = /(!GridEnd);
+  	if (d.gridend == ""){
+  		d.scroller.onLoadGrid = dojo.hitch(d, "onLoadGrid");
+  	}
+  	d.beginUpdate();
+  	d.model.beginUpdate();
+  	/(!Action:Grid.Clear)
+  	d.model.clear();
+	d.selection.unselectAll();
+	d.focus.rowIndex=0;
+	d.selection.setSelected(0, true, undefined, false);
+	d.updateRowCount(0);
+	d.scrollTop = 0;
+	d.gridCleared = true;
+	d.newFilterData = true;
+	delete d.model.allRows;
+	 /(!Action)
+  }
+  if(d.model.allRows) {
+  	filteredRows = d.model.data;
+  	d.model.count =	d.model.allRows.length;
+  	d.model.setData(d.model.allRows);  	
+  }
+  /(!Action:ChangeColumnHeading)
+	if (d){
+		var v = 0;
+		var values = [];
+		var value = /(!ActionArg);
+		if (Array.isArray(value)) {
+			values = /(!ActionArg);	
+		} else {
+			values.push(value);
+		}
+		for (var v in values) {
+			var cell = d.layout.cells.find(function(element) { return element.layoutIndex == values[v].colIndex; });
+			cell.name = values[v].newHeading;
+      	}
+		d.update();
+	}
+  /(!Action)
+
+  /(!Action:Grid.Insert)
+  if (d) {
+  	d.model.insert(/(!ActionArg)); d.needRefilter = true;
+  }
+  /(!Action)
+ 
+  /(!Action:Grid.Remove)
+  if (d) {
+    d.model.remove(/(!ActionArg)); d.needRefilter = true;
+    d.selection.unselectAll();
+    d.selection.select(0, true);
+    d.scrollToRow(0);
+  }
+  /(!Action)
+
+  /(!Action:Grid.Update)
+  if (d) {
+    d.model.update(/(!ActionArg)); d.needRefilter = true;
+  }
+  /(!Action)
+  
+  /(!Action:SetState)
+  if (d) {
+  	 var colVis = /(!jsonColVis);
+     var colModes = /(!jsonModes);
+  	 if(!dojo.isIE11){
+     	d.domNode.disabled = /(!If:/(!Property:Disabled)=Yes)true/(!Else)false/(!If);
+     } 
+     d.isVisible=/(!If:/(!Property:Visible)=Yes)true/(!Else)false/(!If);
+     d.domNode.style.cssText = "/(!DefaultCSS:nc:withPos=/(!Param:default))";
+     d.layout.colvis = colVis.slice(0);
+	 if (d.frozenColumns > 0) {
+	    d.layout.structure[0].colvis = colVis.splice(0, d.frozenColumns);
+	    d.layout.structure[0].colmodes = colModes.splice(0, d.frozenColumns);
+	    d.layout.structure[1].colvis = colVis;
+	    d.layout.structure[1].colmodes = colModes;
+     } else {
+  	 	if(!d.columnToggling){
+  	 		d.layout.structure[0].colvis = colVis;
+  	 	}
+  	 	d.layout.structure[0].colmodes = colModes;
+	 }
+	 d.needsUpdate = true;
+	 /(!If:/(!Event:phys=Select))
+	 	 /(!If:/(!Property:Disabled)=No)
+			if (typeof /(!NameID)SelectEvent === "undefined") {
+				/(!NameID)SelectEvent = dojo.connect(d, "onSelected", function() {/(!AJAXDoEvent:phys=Select)});
+			}
+			d.onCanSelect = function(){
+		 		return true;
+		 	};
+		 /(!Else)
+		 	if (typeof /(!NameID)SelectEvent != "undefined") {
+		 		dojo.disconnect(/(!NameID)SelectEvent);
+		 		delete /(!NameID)SelectEvent;
+		 	}
+		 	d.onCanSelect = function(){
+		 		return false;
+		 	};
+		 /(!If)
+	 /(!If)
+  }
+  /(!If:/(!IsDefined:FixedPositioning))
+  /(!AbleToResize)
+  if(ableToResize === true){
+  	d.gridRescaling();
+  }
+  /(!If)
+  /(!Action)
+
+  /(!Action:Grid.Locate)
+  if (d) {
+    var row = /(!ActionArg);
+    d.selection.select(row.n, true);
+    d.scrollToRow(row.n);
+  }
+  /(!Action)
+
+  /(!Action:Grid.AddRowSelection)
+  if (d) {
+    var row = /(!ActionArg);
+    d.selection.setSelected(row.n, true);
+	if (d.entryGrid) {
+		d.selection.copyValue(row.n);
+	}
+  }
+  /(!Action)
+
+  /(!Action:Grid.RemoveRowSelection)
+  if (d) {
+    var row = /(!ActionArg);
+    d.selection.setSelected(row.n, false);
+	if (d.entryGrid){
+    	d.selection.clear();
+    	d.selection.setSelected(row.n, true);
+    	d.selection.copyValue(row.n);
+    }
+  }
+  /(!Action)
+  if (d) {
+	  d.endUpdate();
+	
+	  d.model.endUpdate(d);
+	  if (d.filterData && d.needRefilter) {
+		  d.filterData();
+	  }
+	  
+	  if (d.gridCleared){
+	  	d.views.views[si].scrollboxNode.scrollTop = 0;
+	    d.views.views[si].scrollboxNode.scrollLeft = 0;
+	    d.views.views[si].headerNode.scrollLeft = 0;
+		d.edit.info = {};
+	  	d.refresh();
+	  	d.rebuildHeader();//needed to hide the ordering icons in the header
+	  }
+  }
+/(!JS)
+
+/(!JSPost:seq=999)
+	if (/(!NameID)StateChange) {
+		var dg = dijit.byId("/(!NameID)");
+		var oldcolvis = dg.layout.colvis; 
+		var jColVis = /(!jsonColVis); //Plex
+		var newcolvis = [];
+		var appName = /(WSACTION);
+		    appName = appName.substring(1, appName.lastIndexOf("/"));
+		for (var i=0; i<jColVis.length; i++){
+			var lsColVisStr = localStorage.getItem(appName+"/(!Panel:!Name)_/(!Name);" + i); // localStorage, true, false or null(true)
+			var lsColVis;
+			if (lsColVisStr) {
+				lsColVis = (lsColVisStr == 'true');
+			} else {
+				lsColVis = true;
+			}
+	  		if (!jColVis[i]){ // if hidden in Plex, always hidden
+	  			newcolvis[i] = false;
+	  		}
+	  		else{
+	  			newcolvis[i] = true && lsColVis ; // if hidden in localStorage, always hidden
+	  		}
+	 	}
+	 	if (!dg.needsUpdate) {
+		 	for (var j=0; j<oldcolvis.length; j++){
+		 		if(oldcolvis[j] != newcolvis[j]){
+					dg.needsUpdate = true;
+					break;
+		 		}
+		 	}
+	 	}
+ 		dg.layout.colvis = newcolvis.slice(0);
+ 		if (dg.frozenColumns>0) {
+			dg.layout.structure[0].colvis = newcolvis.splice(0, dg.frozenColumns);
+			dg.layout.structure[1].colvis = newcolvis;
+ 		} else {
+			dg.layout.structure[0].colvis = newcolvis;
+ 		}
+	}
+	var d = dijit.byId("/(!NameID)");
+	if (d && d.needsUpdate) {
+		d.update();
+		d.setHeaderMenu(d.columnToggling);
+		d.setupHeaderMenu();
+		d.needsUpdate = false;
+	}
+	
+	if (d && d.gridCleared){
+  		d.views.views[si].scrollboxNode.scrollTop = 0;
+  		d.views.views[si].scrollboxNode.scrollLeft = 0;
+  		d.views.views[si].headerNode.scrollLeft = 0;
+		d.edit.info = {};
+  		d.gridCleared = false;
+    }
+        
+    /(!If:/(!IsDefined:FixedPositioning)) 
+    /(!AbleToResize:Type5=true)
+    /(!If)
+/(!JSPost)
+<div id="/(!NameID)" dojoType="dojox.Grid" model="model-/(!NameID)" gridend="/(!GridEnd)" isVisible=/(!If:/(!Property:Visible)=Yes)"true"/(!Else)"false"/(!If) columnToggling=/(!If:/(!Param:ColumnToggling)=Yes)"true"/(!Else)"false"/(!If) columnReordering=/(!If:/(!Property:ColumnResequencing)=Yes)"true"/(!Else)"false"/(!If)
+	structure="/(!NameID)_layout" /(!If:/(!Param:default))style="/(!DefaultCSS:withPos=true)" /(!Else) style="/(!DefaultCSS:nc:withPos=/(!Param:default))"/(!If) allowCellColor=/(!If:/(!Param:allowCellColor)=Yes)"true"/(!Else)"false"/(!If)
+	/(!If:/(!Param:frozenColumns))frozenColumns=/(!Param:frozenColumns)/(!If) /(!If:/(!Param:class))class="/(!CustomClass:nc:class=/(!Param:class))"/(!If) multiSelect=/(!If:/(!Property:SingleRowSelect)=No)"true"/(!Else)"false"/(!If)
+	tabStop=/(!If:/(!Property:TabStop)=No)"false"/(!Else)"true"/(!If) mode="/(!Property:Mode)" noLoadGrid=/(!If:/(!Param:NoLoadGrid)=Yes)true/(!Else)/(!If:/(!IsDefined:NoLoadGrid))true/(!Else)false/(!If)/(!If)
+	/(!If:/(!IsDefined:FixedPositioning))/(!FixPosition)/(!If) entryGrid=/(!If:/(!Param:entryGrid))/(!Param:entryGrid)/(!Else)/(!If:/(!IsDefined:EntryGrid))/(EntryGrid)/(!Else)false/(!If)/(!If) /(!If:/(!IsDefined:UpdateValueOnDblClick))updateValueOnDblClick=true/(!If)>
+	/(!AttachPoint:name=CellsArea:template=GridFilterCell)
+		<script type="dojo/method" event="onEntryGridFocus">
+			if (typeof pnlid == 'undefined' || (/(!Panel:!NameID)_pnlid >= pnlid)) {
+				if (!window./(!Panel:!NameID)_submitter)
+					return;
+				var doEventOp = function() {
+					if (window./(!Panel:!NameID)_submitter.onsubmit)
+						window./(!Panel:!NameID)_submitter.onsubmit();
+					dojo.xhrPost({
+						form: /(!Panel:!NameID)_form,
+						content: { _type: 'json', ctlact: '/(!NameID):Dummy', pnlid: /(!Panel:!NameID)_pnlid, focus: '/(!NameID)', websessid: window.websessid },
+						load: function(data, ioArgs) {
+						 	//Code starts to manage session timeout in ajax requests.
+							var headerstring = ioArgs.xhr.getResponseHeader('Content-Type');
+							var headers = headerstring.split(';');
+							if (headers && (typeof data != 'object')) {
+								if (headers[0].toLowerCase() != 'text/json' && headers[0].toLowerCase() != 'application/json')
+									window.location.href = ioArgs.url;
+							}
+					        //Code ends to manage session timeout in ajax requests.    	
+						},
+						preventCache: true,
+						handleAs: 'json'	
+					});
+				};
+				if (window.editGridWait) {
+					dojo.connect(window.editGridWait, 'onEditGridApplied', doEventOp);
+				} else {
+					doEventOp();
+				}
+			}
+		</script>
+	/(!If:/(!Event:phys=Double Click))
+		<script type="dojo/method" event="onRowDblClick">	
+		if(dijit.byId("/(!NameID)") && dijit.byId("/(!NameID)").domNode.disabled && dijit.byId("/(!NameID)").domNode.disabled == "Yes"){
+	 		return;
+	 	}	
+		/(!AJAXDoEvent:phys=Double Click)
+		</script>		
+	/(!If)
+
+	/(!If:/(!Param:NoLoadGridPhys)=Yes)
+	/(!Else)
+		/(!If:/(!IsDefined:NoLoadGrid))
+			/(!If:/(!Event:phys=Load Grid))
+				<script type="dojo/method" event="onLoadGrid">
+					if (!dijit._gridGainedFocus || dijit._gridGainedFocus != true) {
+						var curFocus;
+						if (typeof(/(!Panel:!NameID)_form) != "undefined" && dijit.byId("/(!NameID)").gridend != "Y"){
+							if(dijit._curFocus){
+								curFocus = dijit._curFocus;
+							}
+							/(!AJAXDoEvent:phys=Load Grid)
+							if (dijit._curFocus == null && curFocus != null){
+								dijit._curFocus = curFocus;
+								dijit._curFocus.focus();
+							}	
+						}
+					}
+					dijit._gridGainedFocus = false;
+				</script>
+			/(!If)
+		/(!Else)
+			/(!If:/(!Event:phys=Load Grid))
+				<script type="dojo/method" event="onLoadGrid">
+					var curFocus;
+					if (typeof(/(!Panel:!NameID)_form) != "undefined" && dijit.byId("/(!NameID)").gridend != "Y"){
+						if(dijit._curFocus){
+							curFocus = dijit._curFocus;
+						}
+						/(!AJAXDoEvent:phys=Load Grid)
+						if (dijit._curFocus == null && curFocus != null){
+							dijit._curFocus = curFocus;
+							dijit._curFocus.focus();
+						}	
+					}
+				</script>
+			/(!If)
+		/(!If)
+	/(!If)
+	/(!If:/(!Mode)=Edit)
+		<script type="dojo/connect" event="onCellFocus" args="editCell, editRowIdx">
+			if (this.getCell(editCell.fieldIndex).get(editRowIdx)){
+				originalValue = this.getCell(editCell.fieldIndex).get(editRowIdx).v;	
+			}
+		</script>
+	/(!If)
+	<script type="dojo/method">
+		if (dojo.isIE) {
+			var saveScrollTop = document.documentElement.scrollTop;
+			var saveScrollLeft = document.documentElement.scrollLeft;
+		}
+		var sel = /(!This:!jsonSelected);
+		var userSelect = false;
+		this.selection.unselectAll();
+		for (var i=0; i<sel.length; i++) {
+			this.selection.select(sel[i], userSelect);
+		}
+		if (dojo.isIE) {
+			document.documentElement.scrollTop = saveScrollTop;
+			document.documentElement.scrollLeft = saveScrollLeft;
+		}
+		
+	</script>	
+</div>

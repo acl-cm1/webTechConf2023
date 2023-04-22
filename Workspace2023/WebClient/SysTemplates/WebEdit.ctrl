@@ -1,0 +1,591 @@
+/(!LinkArea:once)
+	<link href="/(!WsRes)/js/wcli/form/ReadOnlyTextbox.css" rel="stylesheet" type="text/css" />
+	/(!If:/(!DataType)=Date)
+		/(!If:/(!IsDefined:CalendarIcon))
+  			<link href="/(!WsRes)/js/wcli/form/DateTextBox.css" rel="stylesheet" type="text/css" />
+  		/(!If)
+	/(!If)
+/(!LinkArea)
+
+/(!JSInit:once)
+	dojo.require("wcli.form.Font");
+/(!JSInit)
+
+/(!JSInit)
+	/(!ContextMenu)
+	/(!If:/(!Param:tooltipfields))
+		/(!RichTooltip:tooltipfields=/(!Param:tooltipfields):showdelay=/(!Param:showdelay))
+	/(!If)
+	/(!If:/(!IsDefined:HintValue))
+		/(!NameID)HintValue = "";
+	/(!If)	
+	/(!If:/(!IsDefined:ProtectedEditBorder))protectedEditBorder = true;/(!Else)protectedEditBorder = false;/(!If)
+	/(!If:/(!IsDefined:AllowTextSelect))TextSelect = true;/(!Else)TextSelect = false;/(!If)
+/(!JSInit)
+
+/(!JSOnLoad)
+    var dijitEdit = dijit.byId("/(!NameID)");
+    var mode = "/(!Mode)";
+    var formatvalue = wcli.form.getFormatValue("/(!DataType)", "/(!Property:EditMask)", /(!DecLength), /(!If:/(!DecLength)="0")false /(!Else)true/(!If), /(!This), "/(!Mode)");
+    /(!If:/(!Property:BackgroundColor)=5)
+    /(!Else)
+    	if (protectedEditBorder == true && mode == "Read Only" && dojo.isIE11){
+    		wcli.util.XBrowser.setBGColor("/(!Property:BackgroundColor)","/(!NameID)", /(!Size:x), /(!Size:y));
+    	}else{ 
+    		wcli.util.XBrowser.setBGColor("/(!Property:BackgroundColor)","/(!NameID)"); 
+    	}
+	/(!If)
+	
+	/(!If:/(!Property:TextColor)=8)
+	/(!Else)
+		wcli.util.XBrowser.setTextColor("/(!Property:TextColor)","/(!NameID)");
+	/(!If)
+	
+	/(!If:/(!Property:TextAlignment)=Right)
+		if (wcli.util.XBrowser.querySelector("/(!NameID)")) {
+			dojo.style(wcli.util.XBrowser.querySelector("/(!NameID)"), "textAlign", "right");
+		}
+	/(!If)
+	
+	/(!If:/(!IsDefined:RightAlignmentMargin))
+			/(!If:/(!Mode)=Read Only)
+				document.getElementById("/(!NameID)").children[0].style.marginRight=/(RightAlignmentMargin)+"px";
+			/(!Else)
+				document.getElementById("/(!NameID)").style.paddingRight=/(RightAlignmentMargin)+"px";
+				document.getElementById("/(!NameID)").style.boxSizing = "border-box";
+			/(!If)
+		/(!If)
+	
+	/(!If:/(!Mode)=Read Only)
+	if (wcli.util.XBrowser.querySelector("/(!NameID)")){ 
+		wcli.util.XBrowser.getAttributeReadOnly("/(!NameID)", mode);
+		
+		/(!If:/(!IsDefined:FixedPositioning))
+			/(!AbleToResize)
+			if(ableToResize  === true){
+				wcli.util.XBrowser.fixedPositionEdit("/(!NameID)", mode);
+			}
+		/(!If)
+	}
+	wcli.util.XBrowser.setValueEdit("/(!NameID)", mode, formatvalue);
+	var editDom = document.getElementById("/(!NameID)");
+	if (editDom.children.length > 0) {
+		editDom.children[0].style.whiteSpace= "nowrap";
+	} else {
+		editDom.style.whiteSpace= "nowrap";
+	}
+	/(!If)
+	
+	/(!If:/(!Property:Font)=)
+	/(!Else)
+		if (wcli.util.XBrowser.querySelector("/(!NameID)")){ 
+			wcli.form.Font.applyPlexFont(wcli.util.XBrowser.querySelector("/(!NameID)"), "/(!Property:Font)");
+		}
+	/(!If)
+	wcli.util.XBrowser.setBorder("/(!NameID)","/(!Property:Border)");
+	/(!EditEvents:node=textbox)
+	/(!If:/(!Property:TabStop)=No)
+		if (dijitEdit) {
+			wcli.util.XBrowser.setEditTabStop("/(!NameID)");
+		}
+	/(!If)
+	/(!If:/(!Mode)=Edit)
+		/(!If:/(!IsDefined:FixedPositioning))
+			/(!AbleToResize)
+			if(ableToResize  === true){
+				wcli.util.XBrowser.addFixedPositionAttributes(dijit.byId("/(!NameID)").textbox, /(!FixPosition:object=true));
+				wcli.util.XBrowser.fixedPositionEdit("/(!NameID)", mode);
+			}
+		/(!If)
+		wcli.util.XBrowser.setValueEdit("/(!NameID)", mode, formatvalue, "/(!DataType)", /(!This));
+		var editbox = wcli.util.XBrowser.querySelector("/(!NameID)");
+		editbox.maxLength = "/(!Length)";
+	/(!If)
+	
+	/(!If:/(!IsDefined:HintValue))
+		var currentControlID = "/(!NameID)";
+		var currentHintValue = "";
+		/(!AttachPoint:name=HintValue:inlinetemplate)
+			/(!If:/(!This)=)
+			/(!Else)
+				currentHintValue = /(!This);
+				if(dijit.byId(currentControlID)){
+					dijit.byId(currentControlID).domNode.setAttribute('title', currentHintValue);
+				}
+				else if(document.getElementById(currentControlID)){
+					document.getElementById(currentControlID).setAttribute('title', currentHintValue);
+				}
+			/(!If)
+		/(!AttachPoint)
+		/(!NameID)HintValue = currentHintValue;
+	/(!If)	
+/(!JSOnLoad)
+
+/(!If:/(!Mode)=Read Only)
+  <div id="/(!NameID)" style="/(!DefaultCSS:nc:withPos=/(!Param:default):zindex=/(!Param:zindex));line-height:/(!Size:y)px; overflow:hidden; /(!If:/(!IsDefined:LabelAligned))/(!Else)margin-top:2px;/(!If)" class="protectedTextBox /(!CustomClass:nc:class=/(!Param:class))"
+  /(!If:/(!IsDefined:FixedPositioning))/(!FixPosition)/(!If)>
+  <span /(!If:/(IsDefined:ProtectedDoubleClick))/(!Else)ondblclick="/(!AJAXDoEvent:phys=Double Click)"/(!If)
+  editMask="/(!Property:EditMask)" decplaces="/(!DecLength)" fractional="/(!If:/(!DecLength)="0")false /(!Else)true/(!If)" 
+  dataType="/(!DataType)">
+    /(!If:/(!This)=)
+    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    /(!Else)
+    	/(!This)
+    /(!If)
+  </span>
+  </div>
+  /(!If:/(!Param:space))&nbsp;&nbsp;&nbsp; /(!If)
+/(!If)
+
+/(!If:/(!Mode)=Edit)
+  <div style="/(!DefaultCSS:nc:withPos=/(!Param:default):zindex=/(!Param:zindex))/(!IMEMode)"
+	 class="/(!CustomClass:nc:class=/(!Param:class))"
+  	 type="text" name="/(!NameID)" id="/(!NameID)" maxLength="/(!Length)" 
+  	 constraints="{places:/(!DecLength),fractional:/(!If:/(!DecLength)="0")false /(!Else)true/(!If)}"
+  	 dojoType="wcli.form.HintTextBox" hintText="/(!Param:hint)" implName="/(!ImplName)" editMask="/(!Property:EditMask)"
+  	 dataType="/(!DataType)" /(!If:/(!Param:dateSelector))dateSelector="/(!Param:dateSelector)"/(!If)
+  	 value="/(!This)" uppercase=/(!If:/(!Property:Case)=Upper)"true" /(!Else)"false" /(!If)
+	 /(!If:/(!Property:Case)=Lower)lowercase="true"/(!If)
+	 /(!If:/(!IsDefined:FixedPositioning))/(!FixPosition)/(!If)>
+  	 
+  	 <script type="dojo/connect" event="onDblClick" args="evt">
+  	 	if(wcli.util.XBrowser.checkBorder(evt)){
+  	 		return;
+  	 	}
+  	 	
+  	 	/(!If:/(!DataType)=Date)
+  	 		/(!If:/(!IsDefined:DisableDateDblClick))
+  	 				
+  	 		/(!Else)
+  	 			/(!AJAXDoEvent:phys=Double Click)	 			
+  	 		/(!If)
+  	 	/(!Else)
+  	 		/(!AJAXDoEvent:phys=Double Click)	 			
+  	 	/(!If)
+  	 </script>
+  	 
+	 /(!If:/(!Event:phys=Modified))
+	 <script type="dojo/connect" event="_onKeyDown" args="evt">
+	    if(evt.keyCode == dojo.keys.TAB){
+	  	 	window.modifiedBlockFocus = true;
+			return;
+	    }
+	    window.modifiedBlockFocus = false;
+	 </script>
+	 /(!If)
+
+  	 /(!If:/(!Event:phys=Lost Focus))
+  	 <script type="dojo/connect" event="_onBlur">
+		window.modifiedBlockFocus = true;
+  	 	if(!window.dialogIsOpen){
+			/(!If:/(!IsDefined:NoSpinnerOnLostFocusEdit))
+				editLostFocus = true;
+			/(!If)	
+  	 		/(!AJAXDoEventLF:phys=Lost Focus)
+  	 	}
+                window.modifiedBlockFocus = false;
+  	 </script>
+  	 /(!If)
+  	 
+  	 /(!If:/(!Event:phys=Gained Focus))
+  	 <script type="dojo/connect" event="onfocus">
+  	 	if(!window.dialogIsOpen && !window.settingFocus){
+  	 		/(!AJAXDoEvent:phys=Gained Focus)
+		}
+  	 </script>
+  	 /(!If)
+  	 
+  	 /(!If:/(!Event:phys=Mouse Down))
+  	 <script type="dojo/connect" event="_onMouseDown">
+  	 		/(!AJAXDoEvent:phys=Mouse Down)
+  	 </script>
+  	 /(!If)
+  	 
+  	 /(!AttachPoint:name=Prompt:inlinetemplate)
+  	 	<script type="dojo/method" event="selector" args="onload">
+  	 		/(!AJAXDoEventSelect:phys=Pressed)
+  	 	</script>
+  	 /(!AttachPoint)
+  	 
+  	 /(!AttachPoint:name=PopUpPrompt:inlinetemplate)
+  	 	<script type="dojo/method" event="popup">
+  	 		/(!AJAXDoEvent:phys=Pressed)
+  	 	</script>
+  	 /(!AttachPoint)
+  </div>
+  /(!If:/(!Param:space))&nbsp;&nbsp;&nbsp; /(!If)
+/(!If)
+
+/(!EnableAction:SetTooltip,SetValue,SetState,SetFocus)
+
+/(!JS)
+  /(!Action:SetTooltip)       
+  	wcli.util.XBrowser.setTooltip("/(!NameID)",/(!ActionArg));
+  /(!Action)
+  
+  /(!Action:SetValue)
+  	var formatvalue = wcli.form.getFormatValue("/(!DataType)", "/(!Property:EditMask)", /(!DecLength), /(!If:/(!DecLength)="0")false /(!Else)true/(!If), /(!This), "/(!Mode)");
+    	var mode = "/(!Mode)";
+    /(!If:/(!Mode)=Read Only) 
+    	wcli.util.XBrowser.setValueEdit("/(!NameID)", mode, formatvalue);
+    /(!If)
+
+    /(!If:/(!Mode)=Edit)
+    	wcli.util.XBrowser.setValueEdit("/(!NameID)", mode, formatvalue, "/(!DataType)", /(!This), /(!DecLength));
+	var editbox = wcli.util.XBrowser.querySelector("/(!NameID)");
+	editbox.maxLength = "/(!Length)";
+    /(!If)
+	
+  /(!Action)
+
+  /(!Action:SetState)
+    var w = dijit.byId("/(!NameID)");
+    var editbox = wcli.util.XBrowser.querySelector("/(!NameID)");
+    if (w) {
+    	w.domNode.style.cssText = "/(!DefaultCSS:nc:withPos=/(!Param:default):zindex=/(!Param:zindex))";
+    	w.textbox.style.cssText = "/(!DefaultCSS:nc:withPos=/(!Param:default):zindex=/(!Param:zindex))";
+    	w.state = /(!If:/(!Property:BackgroundColor)=255 0 0)"Error"/(!Else)/(!If:/(!Property:BackgroundColor)=255,0,0)"Error"/(!Else)""/(!If)/(!If);
+    	w._setStateClass();
+    	/(!If:/(!IsDefined:FieldErrorMode))
+			if (w.state == "Error" && tooltipMsg) {
+				w.displayMessage(tooltipMsg);
+				tooltipMsg = null;
+			}
+		/(!If)
+    }
+    if (editbox){
+  		/(!If:/(!Property:TextAlignment)=Right)
+		wcli.util.XBrowser.setCSSText(editbox, "/(!DefaultCSS:nc:withPos=/(!Param:default):zindex=/(!Param:zindex))text-align: right;overflow: hidden;");
+		/(!Else)
+		/(!If:/(!Mode)=Edit)
+		wcli.util.XBrowser.setCSSText(editbox, "/(!DefaultCSS:nc:withPos=/(!Param:default):zindex=/(!Param:zindex))");
+		/(!If)
+		/(!If:/(!Mode)=Read Only)
+		if (protectedEditBorder == false) {
+			wcli.util.XBrowser.setCSSText(editbox, "/(!DefaultCSS:nc:withPos=/(!Param:default):zindex=/(!Param:zindex))line-height:/(!Size:y)px; overflow: hidden;margin-top: 2px;");
+		}
+		/(!If)
+		/(!If)
+	}
+	
+	/(!If:/(!DataType)=Date)
+	/(!Else)
+	if(editbox){
+		var formatvalue = wcli.form.getFormatValue("/(!DataType)", "/(!Property:EditMask)", /(!DecLength), /(!If:/(!DecLength)="0")false /(!Else)true/(!If), /(!This), "/(!Mode)");
+		editbox.value = formatvalue;
+	}
+	/(!If)
+	/(!If:/(!Property:Font)=)
+	/(!Else)
+	if(editbox){
+		wcli.form.Font.applyPlexFont(editbox, "/(!Property:Font)");
+	}
+	/(!If)
+	
+    /(!If:/(!Mode)=Edit)
+	var dialogIsOpen;
+	if(editbox){
+		if (editbox.tagName=="DIV") {
+			var editsrc = wcli.util.XBrowser.newEdit("/(!NameID)","/(!ImplName)");
+			var edit = wcli.form.HintTextBox.prototype.markupFactory({
+				name: "/(!NameID)",
+				maxLength: "/(!Length)",
+				style: "/(!DefaultCSS:nc:withPos=/(!Param:default):zindex=/(!Param:zindex))",
+				hintText: "/(!Param:hint)",
+				dataType: "/(!DataType)",
+				editMask: "/(!Property:EditMask)",
+				uppercase: "/(!If:/(!Property:Case)=Upper)true/(!Else)false/(!If)",
+				/(!If:/(!IsDefined:FixedPositioning))/(!FixPosition:script)/(!If)
+				/(!If:/(!Property:Case)=Lower)lowercase:"true",/(!If)
+				constraints: {places:/(!DecLength),fractional:/(!If:/(!DecLength)="0")false /(!Else)true/(!If)}}, editsrc);
+					
+			edit.value = /(!This);
+			/(!If:/(!Param:blankZeroDate))
+			if(edit.value == ''){
+				var formatvalue = edit.value
+			} else {
+				var formatvalue = wcli.form.getFormatValue("/(!DataType)", "/(!Property:EditMask)", /(!DecLength), /(!If:/(!DecLength)="0")false /(!Else)true/(!If), /(!This), "/(!Mode)");
+			}
+			/(!Else)
+			var formatvalue = wcli.form.getFormatValue("/(!DataType)", "/(!Property:EditMask)", /(!DecLength), /(!If:/(!DecLength)="0")false /(!Else)true/(!If), /(!This), "/(!Mode)");
+			/(!If)
+			if((dojo.isIE11 || dojo.isSafari) && (formatvalue.toString().length > /(!Length))){
+				 edit.textbox.maxLength = edit.editMask.length;
+				 edit.textbox.value = formatvalue;
+			}
+			else{
+				 if(formatvalue != ""){
+					 edit.textbox.value = formatvalue;
+					 edit.textbox.maxLength = "/(!Length)";
+				  }
+			}
+					
+			dojo.connect(edit, "onDblClick", function(evt) {
+				if(wcli.util.XBrowser.checkBorder(evt)){
+						return;
+				}
+				if (dijit.byId("/(!NameID)")){
+						dijit.byId("/(!NameID)")._onBlur();
+				}
+				/(!AJAXDoEvent:phys=Double Click)
+			});
+					
+			/(!If:/(!Event:phys=Lost Focus))
+			dojo.connect(edit, "_onBlur", function() {
+				if(!window.dialogIsOpen){
+					/(!If:/(!IsDefined:NoSpinnerOnLostFocusEdit))
+						editLostFocus = true;
+					/(!If)	
+					/(!AJAXDoEventLF:phys=Lost Focus)
+				}
+			});
+			/(!If)
+					
+			/(!If:/(!Event:phys=Gained Focus))
+			dojo.connect(edit, "onfocus", function() {
+				 if(!window.dialogIsOpen && !window.settingFocus){
+						/(!AJAXDoEvent:phys=Gained Focus)
+				 }
+			});
+			/(!If)
+					
+			/(!EditEvents:node=textbox)
+		 }/(!If:/(!IsDefined:FixedPositioning))
+		 else{			
+				if(edit && edit.id != "/(!NameID)")
+					edit = null;
+		 }
+		 /(!If)	     	  	      	
+	}
+	
+
+				
+		/(!If:/(!Property:RightContextMenu))
+		var menu = dijit.byId("menu-/(!FindControl:/(!Property:RightContextMenu):!NameID)");
+	   	if (menu) {
+	       	menu.bindDomNode(dijit.byId("/(!NameID)").domNode);
+	       	dijit.byId("/(!NameID)").contextmenu = menu;
+	    }
+	    /(!If)
+	    
+	    /(!If:/(!Property:LeftContextMenu))
+		var menu = dijit.byId("menu-/(!FindControl:/(!Property:LeftContextMenu):!NameID)");
+	   	if (menu) {
+	       	menu.bindDomNode(dijit.byId("/(!NameID)").domNode);
+	       	dijit.byId("/(!NameID)").contextmenu = menu;
+	    }
+	    /(!If)
+	    
+		/(!If:/(!Property:TabStop)=No)
+		if (dijit.byId("/(!NameID)")) {
+			wcli.util.XBrowser.setEditTabStop("/(!NameID)");
+		}
+		/(!If)
+		
+		/(!If:/(!Param:tooltipfields))
+		var tooltipFlds = [/(!Param:tooltipfields)];
+		var hoverShowDelay = /(!Param:showdelay);
+		wcli.util.XBrowser.setupTooltip(tooltipFlds,"/(!NameID)", hoverShowDelay);
+		/(!If)		
+    /(!If)
+        
+    /(!If:/(!Mode)=Read Only)
+    if (editbox){	
+    	var formatvalue = wcli.form.getFormatValue("/(!DataType)", "/(!Property:EditMask)", /(!DecLength), /(!If:/(!DecLength)="0")false /(!Else)true/(!If), /(!This), "/(!Mode)");
+    	if (editbox.tagName == "INPUT") {
+    		var newspan = wcli.util.XBrowser.newDiv("/(!NameID)","/(!Property:EditMask)","/(!DecLength)","/(!DataType)");
+	      		
+	      	/(!If:/(IsDefined:ProtectedDoubleClick))/(!Else)dojo.connect(newspan, "ondblclick", function()
+	      	{	
+	      		/(!AJAXDoEvent:phys=Double Click)
+	      	});
+			/(!If)
+	  	      					
+			wcli.util.XBrowser.setTextContent(newspan, /(!If:/(!This)=)"      "/(!Else)formatvalue/(!If));
+	      													
+    	}
+    	if(editbox.tagName == "DIV"){
+	      	wcli.util.XBrowser.setTextContent(editbox.firstElementChild, /(!If:/(!This)=)"      "/(!Else)formatvalue/(!If));
+    	}
+    }	
+		/(!If:/(!Property:TextAlignment)=Right)
+	    if (editbox) {
+	      	dojo.style(editbox, "textAlign", "right");
+	    }
+		/(!If)
+		/(!If:/(!Property:Font)=)
+		/(!Else)
+		if(editbox){
+			wcli.form.Font.applyPlexFont(editbox, "/(!Property:Font)");
+		}
+		/(!If)
+		/(!If:/(!Property:RightContextMenu))
+		var menu = dijit.byId("menu-/(!FindControl:/(!Property:RightContextMenu):!NameID)");
+	   	if (menu) {
+	       	menu.bindDomNode(editbox);
+	    }
+	    /(!If)
+	    /(!If:/(!Property:LeftContextMenu))
+		var menu = dijit.byId("menu-/(!FindControl:/(!Property:LeftContextMenu):!NameID)");
+	   	if (menu) {
+	       	menu.bindDomNode(editbox);
+	    }
+	    /(!If)
+		document.getElementById("/(!NameID)").classList.add("protectedTextBox")
+    /(!If)
+    
+    /(!If:/(!Property:TextAlignment)=Right)    
+		wcli.util.XBrowser.setCSSText(document.getElementById("/(!NameID)"), "/(!DefaultCSS:nc:withPos=/(!Param:default):zindex=/(!Param:zindex))line-height:/(!Size:y)px; text-align: right; overflow: hidden; /(!If:/(!IsDefined:LabelAligned))/(!Else)margin-top:2px;/(!If)");
+		/(!If:/(!IsDefined:RightAlignmentMargin))
+			/(!If:/(!Mode)=Read Only)
+				document.getElementById("/(!NameID)").children[0].style.marginRight=/(RightAlignmentMargin)+"px";
+			/(!Else)
+				document.getElementById("/(!NameID)").style.paddingRight=/(RightAlignmentMargin)+"px";
+				document.getElementById("/(!NameID)").style.boxSizing = "border-box";
+			/(!If)
+		/(!If)
+	/(!Else)                
+		wcli.util.XBrowser.setCSSText(document.getElementById("/(!NameID)"), "/(!DefaultCSS:nc:withPos=/(!Param:default):zindex=/(!Param:zindex))line-height:/(!Size:y)px; overflow: hidden; /(!If:/(!IsDefined:LabelAligned))/(!Else)margin-top:2px;/(!If)");
+	/(!If)
+	
+	/(!If:/(!Mode)=Edit)
+		/(!If:/(!Property:ImeMode))
+			wcli.util.XBrowser.setIMEMode("/(!NameID)",/(!Property:ImeMode));
+		/(!If)
+	/(!If)
+		
+	if (protectedEditBorder == true && dojo.isIE11) {			
+		wcli.util.XBrowser.setBGColor("/(!Property:BackgroundColor)","/(!NameID)", /(!Size:x), /(!Size:y));
+	}	
+	
+	/(!If:/(!IsDefined:FixedPositioning))
+		/(!AbleToResize)
+		if(editbox && w && ableToResize === true){
+			wcli.util.XBrowser.addFixedPositionAttributes(w, /(!FixPosition:object=true));
+			wcli.util.XBrowser.addFixedPositionAttributes(editbox, /(!FixPosition:object=true));
+			wcli.util.XBrowser.addFixedPositionAttributes(document.getElementById("/(!NameID)"), /(!FixPosition:object=true));			
+		}
+	/(!If)
+
+	/(!If:/(!Mode)=Read Only)
+		/(!If:/(!Property:BackgroundColor)=5)
+    	/(!Else)
+    	/(!If:/(!IsDefined:ProtectedEditBorder))
+    		wcli.util.XBrowser.setBGColor("/(!Property:BackgroundColor)","/(!NameID)");
+	    /(!Else)
+	    	wcli.util.XBrowser.setBGColor("/(!Property:BackgroundColor)","/(!NameID)", /(!Size:x), /(!Size:y));
+		/(!If)
+		/(!If)
+		
+		/(!If:/(!Property:TextColor)=8)
+		/(!Else)
+		wcli.util.XBrowser.setTextColor("/(!Property:TextColor)","/(!NameID)");
+		/(!If)
+		/(!If:/(!IsDefined:FixedPositioning))
+		if(ableToResize === true){
+			wcli.util.XBrowser.resizeDiv(editbox, w,false);
+		}
+		setTimeout(function(){
+            if (typeof /(!NameID)_ProtectResizeEdit === "undefined" && ableToResize === true){
+                /(!NameID)_ProtectResizeEdit = dojo.connect(window, "onresize", function(){                
+                    var wT = dijit.byId("/(!NameID)");
+                    var editboxT = wcli.util.XBrowser.querySelector("/(!NameID)");
+                    if(editboxT && wT){
+                        wcli.util.XBrowser.resizeDiv(editboxT,wT,true);
+                    }else if(editboxT){
+                        wcli.util.XBrowser.resizeDiv(document.getElementById("/(!NameID)"),null,true);
+                    }
+                });
+            }
+        }, 300);      
+		
+		/(!If)
+	/(!If)
+	
+	/(!If:/(!Mode)=Edit)
+		/(!If:/(!Property:BackgroundColor)=5)
+    	/(!Else)
+    	wcli.util.XBrowser.setBGColor("/(!Property:BackgroundColor)","/(!NameID)");
+		/(!If)
+		
+		/(!If:/(!Property:TextColor)=8)
+		/(!Else)
+		wcli.util.XBrowser.setTextColor("/(!Property:TextColor)","/(!NameID)");
+		/(!If)	
+		
+		/(!If:/(!IsDefined:FixedPositioning))
+		if(ableToResize === true){
+			if(edit){
+				wcli.util.XBrowser.resizeDiv(edit.domNode,edit,false);			
+			} else {
+				wcli.util.XBrowser.resizeDiv(w.domNode,w,false);
+			}
+		}		
+		setTimeout(function(){
+			if (typeof /(!NameID)_DefaultResizeEdit === "undefined" && ableToResize === true){
+		    	/(!NameID)_DefaultResizeEdit = dojo.connect(window, "onresize", function(){	    		
+					var dijitObj = dijit.byId("/(!NameID)");
+					if(dijitObj && dijitObj.domNode){
+						wcli.util.XBrowser.resizeDiv(dijitObj.domNode,dijitObj,true);
+					}
+				});
+			}
+    	}, 300);      
+		
+	/(!If)
+	/(!If)
+	
+	/(!If:/(!IsDefined:HintValue))	
+		if(/(!NameID)HintValue){
+			if(dijit.byId("/(!NameID)")){
+				dijit.byId("/(!NameID)").domNode.setAttribute('title', /(!NameID)HintValue);
+			}
+			else if(document.getElementById("/(!NameID)")){
+				document.getElementById("/(!NameID)").setAttribute('title', /(!NameID)HintValue);
+			}
+		}	
+	/(!If)
+
+	/(!If:/(!Property:Font)=)
+	/(!Else)		
+		if ((editbox && editbox.tagName == "INPUT") || true==/(!If:/(!Mode)=Edit)true/(!Else)false/(!If)) {
+			if (wcli.util.XBrowser.querySelector("/(!NameID)")){ 
+				wcli.form.Font.applyPlexFont(wcli.util.XBrowser.querySelector("/(!NameID)"), "/(!Property:Font)");
+			}
+		} else if (editbox.tagName == "DIV") {
+			wcli.form.Font.applyPlexFont(editbox, "/(!Property:Font)");
+		}				
+	/(!If)	
+	/(!If:/(!Param:class))
+		classes = "/(!Param:class)";
+		classesArray = [];
+		if(classes.split(' ').length > 1){
+			for (i = 0; i < classes.split(' ').length; i++) {
+			  classesArray.push(classes.split(' ')[i]);
+			} 
+		} else {
+			classesArray.push(classes);
+		}
+		/(!If:/(!Mode)=Edit)
+		for (i = 0; i < classesArray.length; i++) {
+			document.querySelector("[widgetid=/(!NameID)]").classList.add(classesArray[i]);
+			document.getElementById("/(!NameID)").classList.add(classesArray[i]);
+			if(!dijit.byId("/(!NameID)").staticClass.includes(classesArray[i]))
+				dijit.byId("/(!NameID)").staticClass = dijit.byId("/(!NameID)").staticClass + " " + classesArray[i];
+		}
+		/(!Else)
+		for (i = 0; i < classesArray.length; i++) {
+			document.getElementById("/(!NameID)").classList.add(classesArray[i]);
+		}
+		/(!If)		
+	/(!If)
+	
+  /(!Action)
+  
+/(!JS)
+/(!JSPost:seq=10)
+ /(!Action:SetFocus)
+    if (dijit.byId("/(!NameID)"))
+	    dijit.byId("/(!NameID)").focus();
+ /(!Action)
+/(!JSPost)

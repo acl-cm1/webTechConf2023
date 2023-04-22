@@ -1,0 +1,56 @@
+/(!AttachPoint:name=Filter:inlinetemplate:cell=/(!Name))
+	<div filterCell="/(!Param:cell)" class="filterCell" /(!If:/(!IsDefined:FilterCellPositionBelowHeader))filterPosBelowHeader="/(!IsDefined:FilterCellPositionBelowHeader)"/(!If)>
+		/(!Template)
+	</div>
+/(!AttachPoint)
+
+/(!EnableAction:SetValue,SetState,SetFocus,Combo.Add)
+/(!JS)
+	/(!Action:SetState)
+		/(!Parent:!NameID)StateChange = true;
+	/(!Action)
+	/(!Action:Combo.Add)
+	 /(!If:/(!Type)=Combo)
+		var items = [];
+		var value = /(!jsonValues);
+		var name = /(!jsonOptions);
+		var cellName = "/(!Text:htmlbr)";
+		var grid = dijit.byId("/(!Parent:!NameID)");
+		var cells = grid.layout.cells;
+		var cellsLen = cells.length;
+		for (var i=0; i<value.length; i++)
+		{
+			/(!If:/(!DataType)=Date)name[i] = wcli.util.XBrowser.formatDateLocale(name[i]);/(!If)
+			items.push({name: name[i], value: value[i]});
+		}
+		var jsonobj = {identifier: "name", items: items};
+		var options = new dojo.data.ItemFileReadStore({data: jsonobj});
+		options._forceLoad();
+		
+		var structure = grid.structure[0].cells[0];
+		var strLen = structure.length;
+		var viewStructure = grid.layout.cells;
+		for(var x=0; x<strLen; x++){
+			if(structure[x].name == cellName){
+				structure[x].editMode.options = name;
+				structure[x].editMode.values = value;
+			}
+			if(viewStructure[x].name == cellName){
+				viewStructure[x].editMode.options = name;
+				viewStructure[x].editMode.values = value;
+				break;
+			}
+		}
+	
+		for(var i=0; i<cellsLen; cellsLen++){
+			if(cells[i].name == cellName){
+				cells[i].editor.editor.store = options;
+				cells[i].editor.editor.textbox.value = grid.model.data[0][i].v;
+				cells[i].editor.editor.value = grid.model.data[0][i].v;
+				grid.needsUpdate = true;
+				break;
+			}
+		}
+	/(!If)
+	/(!Action)
+/(!JS)

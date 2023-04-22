@@ -1,0 +1,1 @@
+/(!If:/(!Property:Border))z-index:1;border:/(!If:/(!Property:Border)=None)none/(!If)/(!If:/(!Property:Border)=Standard)thin solid/(!If)/(!If:/(!Property:Border)=Indented)thin inset/(!If)/(!If:/(!Property:Border)=Extruded)thin outset/(!If)/(!If:/(!Property:Border)=Bump)medium ridge/(!If);/(!If)

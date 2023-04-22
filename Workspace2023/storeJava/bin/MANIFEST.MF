@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.9.4
+Created-By: 11.0.6+10 (AdoptOpenJDK)
+Built-By: SYSTEM
+
+Name: common
+AllFusionPlex-Title: CA Plex
+AllFusionPlex-Version: r7.2.1
+AllFusionPlex-Vendor: CA - http://www.ca.com
+Implementation-Title: Your project or product name
+Implementation-Version: 1.0
+Implementation-Vendor: Your Company name
+

@@ -1,0 +1,543 @@
+1644167176	Recreated Group model after apparent corruption in UIBasic
+1644167177	Added File Preview and File Edit
+1644167178	Fixed ReadFile impl name
+1644167179	Re-applied package
+1644167180	Modified ReadFile
+1644167181	2nd attempt to fix JavaReadFile
+1644167182	3rd time lucky?
+1644167183	Minor fix
+1644167184	Cosmetic fix
+1644167185	Added Tabbed version of UI function
+1644167186	Inheritance Change
+1644167187	Inheritance change
+1644167188	Add bean class
+1644167189	Minor fixes
+1644167190	Added Gen function calls
+1644167191	Add impl triples
+1644167192	Added Abstract Generation Function
+1644167193	initial File write code
+1644167194	Fix to Entity name and write file
+1644167195	Minor fixes
+1644167196	Filename fix
+1644167197	Error handling for file operations
+1644167198	Filename fix
+1644167199	Cosmetic
+1644167200	Various additions
+1644167201	Prepare for Evaluation functions
+1644167202	Remove suffix from output files.  Initiate Template class
+1644167203	Added Call to Parse and Edit points
+1644167204	Added Impl Names
+1644167205	Add file name triples
+1644167206	Fixed source code objects
+1644167207	Added some template node source code
+1644167208	Fixed source code
+1644167209	Add node parsing functions
+1644167210	Fix source code
+1644167211	Concat Evaluation output
+1644167212	Changed Eval order
+1644167213	Support for Template Node Type
+1644167214	Fixed bug clearing evaluation
+1644167215	New Evaluation functions
+1644167216	Paramater mapping fix
+1644167217	Source code fix
+1644167218	Fixed parameter
+1644167219	Placeholders added to fix concat trimming spaces.  Removed length of EvaluationText
+1644167220	Fixed mapping
+1644167221	Fixed parm again
+1644167222	First attempt at implementing loop
+1644167223	Increased length of LoopName
+1644167224	Added GetLoopName function
+1644167225	Fix to return eval text for loops
+1644167226	Fixes to parameters
+1644167227	Fix to loop processing
+1644167228	Fix to loop meta code
+1644167229	More meta code fixes
+1644167230	Meta code test
+1644167231	More meta testing
+1644167232	More meta testing
+1644167233	Add defaults to meta code
+1644167234	Fix to meta defaults
+1644167235	Fix to default impl name
+1644167236	Fix for loop processing
+1644167237	Apply Key Attributes
+1644167238	Fix support for key loops
+1644167239	Add condition processing
+1644167240	Fixed source code and refactored
+1644167241	Minor fixes to conditions
+1644167242	Fixed String comparisons
+1644167243	Fix for conditions within loops
+1644167244	Add support for Clause Nodes
+1644167245	Added Support for Field Values
+1644167246	Add missing impl triples
+1644167247	Source code fix
+1644167248	Fix to inherited Implement SYS triples
+1644167249	Remove Implement SYS No triples
+1644167250	Fix to values meta code
+1644167251	Fix to get value literal
+1644167252	Fix to show values of current attribute field
+1644167253	More rules for varname modifier
+1644167254	Add attribute label
+1644167255	Support for default values
+1644167256	Fix to default value
+1644167257	Start to add support for Include files
+1644167258	Fixed parameter
+1644167259	Remove debug text for include
+1644167260	Added upper, lower and camel modifiers.  Returns surrogate name if no impl name
+1644167261	Fix to camel case syntax
+1644167262	Add case and alignment attributes
+1644167263	Fixed field lengths
+1644167264	Meta code fix
+1644167265	Attempt to return mandatory flag
+1644167266	Added ViewL variable to Evaluate Attribute
+1644167267	Fixing Mandatory Flag
+1644167268	Still trying to set Mandatory flag
+1644167269	Fix for mandatory fields flag - mandatory relations still outstanding
+1644167270	Added Order Processing Example
+1644167271	If label large property is empty, use label name
+1644167272	Use unscoped label name
+1644167273	Start Function Parameter evaluation
+1644167274	Checks for Keys, Foreign keys and directions
+1644167275	Add missing variable fields
+1644167276	Attempt to check Query View attributes
+1644167277	Key, Foreign Key, Mandatory checks
+1644167278	Object renaming
+1644167279	Start v0.2 loop refactoring
+1644167280	Attempted fix to meta code
+1644167281	2nd attempt to fix meta code
+1644167282	3rd attempt to fix meta code
+1644167283	4th attempt...
+1644167284	5th...
+1644167285	6th meta code fix - plus new properties
+1644167286	Refactoring
+1644167287	More view loop options
+1644167288	Minor changes
+1644167289	Minor loop fixes
+1644167290	Fixed bug with some attribute types
+1644167291	Turned off excessive messages
+1644167292	Attempt to set optionality
+1644167293	Added decimal places and edit mask
+1644167294	Working on meta code
+1644167295	Meta Entity Relations
+1644167296	Fix for virtual entity relations
+1644167297	Decimal Place fix
+1644167298	Added own string comparison function
+1644167299	Fixed compare strings parameter 
+1644167300	Fixed undefined meta variable
+1644167301	Major refactor - AttributeName is too small, so changed to AttributeScopedName
+1644167302	Allow multiple modifiers
+1644167303	Fixed Unscoped modifier
+1644167304	Starting to add code to retrieve function parameters
+1644167305	More work with function paramters
+1644167306	Meta code fix - 1
+1644167307	Function parameter meta-code
+1644167308	Parameter fix
+1644167309	More work on function parameters
+1644167310	Testing parameters
+1644167311	Still parameter meta-code
+1644167312	More parameter stuff
+1644167313	Big Refactor - Added Function Loop processing
+1644167314	Fix to parameter mapping
+1644167315	Add missing call and go sub
+1644167316	Differentiate between Data Attributes and Function Attributes
+1644167317	Fixed meta function parameter
+1644167318	Meta function not working, using inline code
+1644167319	Fix to function loop processing
+1644167320	fix aligmnent tag name
+1644167321	I forgot what I fixed this time
+1644167322	First attempt to add function attributes
+1644167323	Fixed some bugs
+1644167324	Fixing a problem with function attributes
+1644167325	Testing function parameters
+1644167326	Apply changes to all attribute functions
+1644167327	Attempt fix for replaced functions
+1644167328	More fixed for replaced functions
+1644167329	Senile dementia
+1644167330	More replacement tests
+1644167331	More testing
+1644167332	still testing
+1644167333	Testing
+1644167334	more testing
+1644167335	More testing...
+1644167336	Added ReplaceableDatabaseFunction to fix issues with replacement
+1644167337	Refactor EvaluateFunctionAttribute
+1644167338	Added same code for all database replacement functions
+1644167339	Removed deleted references causing gen errors
+1644167340	Added new messages for better error handling
+1644167341	Updated field state LoopName.Function Loop to include delete function
+1644167342	Trying variable properties
+1644167343	Variable properties
+1644167344	Forgot to add type SYS meta
+1644167345	Prepare to add counter loops
+1644167346	Added loop counter support
+1644167347	Fixed GetLoopCounterRange source code
+1644167348	Fixed parameter mapping
+1644167349	Added missing go sub
+1644167350	Working on loop issues
+1644167351	Missed one...
+1644167352	Still loops
+1644167353	Fixed assignment
+1644167354	Fix to counter value
+1644167355	Added more context parameters to allow loops to pick up values from loops
+1644167356	Differentiate Variable names in Field loops and Variable loops
+1644167357	Fixed Variable name assignment, and Max count
+1644167358	Update to UI to filter templates and folders only
+1644167359	Update UI to handle absolute paths
+1644167360	Fix to filename filter
+1644167361	Preparing for nested folder generation - checking I haven't broken anything
+1644167362	Fixes related to folder generation
+1644167363	Try again
+1644167364	Another fix to output folder
+1644167365	Still playing with source/dest folders
+1644167366	Little fix
+1644167367	First attempt at generating nested folders
+1644167368	Added code to create output folders if not existing
+1644167369	Added missing import statement for source code
+1644167370	Started to add folder navigation in UI
+1644167371	Fixed parameter mapping, and null pointer
+1644167372	Allow drill down in folders
+1644167373	Fixed bug trying to generate parent folder
+1644167374	Fix to source code to create folder if not existing
+1644167375	Removed periods and spaces from generated filenames
+1644167376	Added isVisible and isEditable properties
+1644167377	Add missing variables to FunctionAttribute
+1644167378	Didn't catch them all
+1644167379	Bringing in OfflineApplication, scoping UI to that entity.  Starting to add application entity loop
+1644167380	Working on application entity loops and filename tag
+1644167381	Refactoring - preparing for application templates
+1644167382	Added missing Go Sub
+1644167383	Fix missing output parameter assignment
+1644167384	First attempt at Application UI
+1644167385	Added missing Go Sub.  Added validation for incorrect inheritance.
+1644167386	Attempt to fix GPF while generating.  Was incorrectly setting state for GridP instead of Grid2P.
+1644167387	Still GPF.  Removed set state.
+1644167388	Still GPF.  Commented out error checking code.
+1644167389	Stopped GPF.  Added code back in using Grid2P<EntityName> as message parm
+1644167390	Fixed AppEntityBlockFetch
+1644167391	Minor Tweak
+1644167392	Major refactor.  Prepare GenUI to run under OfflineApplication only.  Add Application Tab.
+1644167393	Minor fixes
+1644167394	Parameter fix
+1644167395	Allow wildcards for file filter
+1644167396	Add code to generate call to Application Entity generation function
+1644167397	Fix for nesting generating folders
+1644167398	Fix to set output folder
+1644167399	Created 1st version of Application Generator
+1644167400	Missing go sub
+1644167401	Cosmetic Fixes
+1644167402	Fixed file validation to include application templates
+1644167403	Correctly format output path name
+1644167404	Extra validation
+1644167405	Fixed call to abstract function
+1644167406	Corrected filter for processing subfolders
+1644167407	Lots of changes.  Adding application tag processing.
+1644167408	Meta-code fix
+1644167409	Minor fixes
+1644167410	Clean up
+1644167411	Missing go sub
+1644167412	Attempt to fix application generator
+1644167413	Still fixing
+1644167414	Allow for Plain Text in application templates
+1644167415	Still trying to fix application templates
+1644167416	Fixing meta code evaluation
+1644167417	Another meta 'fix'
+1644167418	Learning how to program
+1644167419	Filling in the missing bits
+1644167420	Evaluate Application Entity Loop
+1644167421	Fix to update shareddata
+1644167422	Automatically apply app properties
+1644167423	Still getting weird sharreddata behaviour
+1644167424	Changed Dual parameter mapping
+1644167425	Fix for incorrect call.  Allow include tags in application templates
+1644167426	Attempted fix for include files in app templates
+1644167427	Another attempt for include files
+1644167428	Add conditions in application templates
+1644167429	Trying to fix inheritance issue
+1644167430	Still got a funny inheritance issue
+1644167431	Still the inheritance problem
+1644167432	Fix to abstract call
+1644167433	Fix for application conditions
+1644167434	Forgot a gosub
+1644167435	Parameter mapping change
+1644167436	Working on conditions
+1644167437	Increase File Blockfetch to 1024 occurences (workaround for now)
+1644167438	Added Application Title and Package attributes
+1644167439	Added better messages for UI
+1644167440	Minor UI fix
+1644167441	Allow custom properties from property file
+1644167442	Missing literal value
+1644167443	Change to remove underscores from Entity template filenames
+1644167444	Correctly set camel case this time
+1644167445	Change to strip periods from CamelCase
+1644167446	Removed separating underscore
+1644167447	Change to Camel case mod to not convert existing capitals to lower case
+1644167448	Allow for Modifiers over 20 characters in length
+1644167449	Set virtual and derived attributes as non-editable
+1644167450	Test meta code to identify target of refers to or owned by relationships
+1644167451	Added processed and error count messages
+1644167452	Changed to pass processed/error counts as parameters
+1644167453	Attempt to fix strange Plex bug where it is confused by empty output variable
+1644167454	Still trying to fix Plex bug
+1644167455	Still working on the Plex bug
+1644167456	Minor Cleanup
+1644167457	Fix for dual parameters
+1644167458	Prepare for Subversion
+1644167459	Removed redundant 'Java' prefix of source-code objects
+1644167460	Changed application generator to process entity templates, and non-templates, allowing for the whole app to be generated in one operation, and removing the need to apply the .atp suffix to non-template files.
+1644167461	Big refactor.  Removed Entity tab, process all templates through application tab.  Renamed entity templates from .tpl to .etp
+1644167462	Fix to meta parameter mapping for entity template processing
+1644167463	Changed place in application & entity generation where generated file is actually written.
+1644167464	Fix when processing Entity loop.  Fix to write non-template files.
+1644167465	Fix for out of range index error
+1644167466	Fix incorrect variable assignment
+1644167467	Fix for infinite loop when processing entities
+1644167468	Added attribute.foreignentity tag to help identify references
+1644167469	Fix to call correct subroutine to evaluate Foreign entity
+1644167470	Started to add support for foreach.entity.ancestor loop with ancestor.name tag
+1644167471	Added missing +++define statement for EvaluateLoop
+1644167472	Fixed length of AncestorEntityName to allow for scoping
+1644167473	Added JSONResponse function to allow Plex functions to output in JSONFormat.  Currently uses field name rather than Impl Name.
+1644167474	Changed JSONResponse to use impl names.  Escaped quotes within the data
+1644167475	Fix to correctly generate surrogate if Impl Name is not available
+1644167476	Added BlockFetchJSON to return entire view as a JSON string
+1644167477	Change default  Fetch function to BlockFetchJSON
+1644167478	Make BlockFetchJSON a ServerExternal
+1644167479	Made some field objects real
+1644167480	Added option to not create an output file if the content is empty
+1644167481	Added filename triple for GetTextLength
+1644167482	Fixed syntax error in source code
+1644167483	Added Ability entities and started entity.inherits tag support
+1644167484	Fix to meta code for entity.inherits
+1644167485	Added support for validation function
+1644167486	Fix for mis-named Go Sub
+1644167487	Made Validation function ServerExternal
+1644167488	Added Ability.ValidateAllowed entity
+1644167489	Added code to support validation function parameter loops
+1644167490	Fix to incorrect field states in LoopName
+1644167491	Return field impl name with messages in ValidateEntity
+1644167492	Added extra message to report filename of template in error if there is a parsing problem.
+1644167493	Removed deprecated custom property /(custom:appname) and added new property /(custom:gridtemplate) to allow for grid templates per entity
+1644167494	Fix to correct text returned by Format Message as it adds quotes to { and } characters
+1644167495	Deleted unused objects and code related to the deprecated function.package tag
+1644167496	Removed some action diagram code referring to the deleted objects
+1644167497	Fix to FormatMessageText source code to use regex for replaceAll()
+1644167498	Changed /(custom) to /(entity.custom).  Started change to function processing, using modifiers to specify the function
+1644167499	Fixed missing Go Sub
+1644167500	Adding more code related to function attributes
+1644167501	Minor fix to IF statement
+1644167502	Still working on new function tags
+1644167503	Fix to function loops
+1644167504	Fix to function attributes
+1644167505	Fixed incorrect variable
+1644167506	Another variable fix
+1644167507	Still working on function loops
+1644167508	Another minor fix
+1644167509	Still working on function attributes
+1644167510	Reworked CalledFunctions to be implementable
+1644167511	Added FunctionName for condion context
+1644167512	Add FunctionName context to EvaluateLoop
+1644167513	Started to commented out hard-coded function loops
+1644167514	Changed EvaluateCustom to find messages by name under the TemplateGeneration.Custom function
+1644167515	Fix to used unscoped names in CustomValue
+1644167516	Defined CalledFunctions for data operations
+1644167517	Fixed parameter mapping for delete
+1644167518	Set attribute.foreignentity for virtual fields
+1644167519	Added support for /(attribute.isreal) tag
+1644167520	Fix to attribute.isreal
+1644167521	Fix to automatically apply changes.  Changed label for generate button.
+1644167522	Changed UI caption
+1644167523	Attempt to fix Apply properties
+1644167524	Added extra error reporting
+1644167525	Extra error checking
+1644167526	Return record attributes from Delete/Update/Insert
+1644167527	Return JSONResponse if validation failed
+1644167528	Fix parameter mapping for Insert
+1644167529	Error handling for Update/Insert/Delete
+1644167530	Fixed stupid little bug
+1644167531	Fix to JSON output to format variable and impl names as 'varname' to produce valid JSON
+1644167532	Added support for /(foreach.view.attribute:ViewName) to allow any views to be referenced
+1644167533	Added missing +++define 
+1644167534	Fix for non-key attributes
+1644167535	Introduced /(attribute.inherits:FieldName) tag
+1644167536	Fix to attribute.inherits tag
+1644167537	Fix to correctly output attribute.inherits
+1644167538	Change to allow HSync functions to generate as Java, while maintaining the UIBasic/Storage configuration of the customer's model
+1644167539	Added WriteBinaryFile source code to handle both  binary and text files
+1644167540	Renamed variable in source code that was causing a conflict
+1644167541	Fix to Java source code
+1644167542	Added support to identify and copy binary files
+1644167543	Fixed parameter mapping
+1644167544	Fix another parameter mapping
+1644167545	Fix parameters for CopyFile
+1644167546	Create folder structure for copy file if it doesn't exist
+1644167547	Fix to copy source code
+1644167548	First attempt at foreach.child.entity and foreach.parent.entity
+1644167549	Fix to parameter mapping. Fix for Child entity
+1644167550	Another attempt at child.entity loop
+1644167551	Starting to add /(child.entity.inherits:...) and /(parent.entity.inherits:..) tags
+1644167552	Still working on child.inherits and parent.inherits
+1644167553	Added handling of the parent/child inherits, plus the Ability.DrillDownParent & DrillDownChild
+1644167554	For inheritance checking, no longer use meta function - was generating differently than inline code
+1644167555	Started to add support for /(attribute.foreignentiy.inherits:...) tag
+1644167556	Added Ability.ComboSelectAllowed entity
+1644167557	Renamed Ability entities to remove 'Allowed' suffix.  Fix to /(foreach.view.attribute) to include entity relations
+1644167558	Start change to View Loops to evaluate view fields in the correct order
+1644167559	Continue to change view loops to evaluate in correct order
+1644167560	Fix to meta-code for View Loops
+1644167561	Another fix to view loops
+1644167562	Added Ability.ListTotals
+1644167563	Changed ListTotals and ComboSelect views to be unkeyed
+1644167564	Added Ability.Password field
+1644167565	Changed Entity name to 128 characters to cope with large scoped names
+1644167566	Add support for qualified attributes
+1644167567	Fix to qualified attributes to prefix impl names with qualifier
+1644167568	Minor fix to prevent qualifier appearing twice for attribute names
+1644167569	Started to add processing to handle sections within include files
+1644167570	Missing FileName triple
+1644167571	Added include section processing to Application templates
+1644167572	Fix to parameter mapping for include sections
+1644167573	Simplify how sections are handled
+1644167574	Fix to evaluate sections for applications and entities
+1644167575	Add Ability.EditList
+1644167576	Fix to foreign entity inheritance to generate correctly if more than one foreign key
+1644167577	Fix to attribute inheritance to check for disabled abilities.  Added field abilities for AutoSequence and AutoUUID
+1644167578	Removed Ability.Edit (use Ability.Update).  Added Ability.MenuItem
+1644167579	Added /(attribute.issuperkey) tag to identify attributes for ENT owned by ENT
+1644167580	Fix to evaluation of superkeys
+1644167581	Changed /(attribute.foreignentity) to /(attribute.foreignentity.name)
+1644167582	Add Ability.FilterList
+1644167583	Fix to Generator UI so it is no longer necessary to click the 'Apply' button to pick up the settings values for generation
+1644167584	Added Ability.ReadOnly
+1644167585	Fix to Meta.EvaluateEntityAttributes to try to identify attributes instead of fields
+1644167586	Removed call to Get Attribute Qualifier, shouldn't be required
+1644167587	Modify BlockFetchJSON to use attribute impl names if qualified
+1644167588	Fix to set TargetRelations in Validate
+1644167589	Added attribute.attrname tag.  Deals with attribute object, e.g. Order refers to User ...for Order.  Order | User ID may have impl name UserID, but attribute name AA1A
+1644167590	Fix to field.implname to return attribute name.  This matches Plex generation.
+1644167591	Fixed references to deleted subroutine
+1644167592	Renamed attribute.implname to attribute. foreignimplname, renamed attribute.attrname to attribute.impl name - for consistency
+1644167593	Set *returning status if error in Insert, Update or Delete
+1644167594	Remove the following tags are they are unneccessary, and generate excessive code: field.label, field.case, field.alignment, field.control, field.editmask
+1644167595	Also removed field.default, field.decimalplaces
+1644167596	Only generate Input and Output fields for functions (was including Locals) to reduce generated code
+1644167597	Changed VarName and Camel modifiers to replace illegal French characters
+1644167598	Added Ability.ListHeadings
+1644167599	Added error checking for missing runtime properties to provide more info for the user
+1644167600	Fixed some parameter mappings
+1644167601	Fix to /(attribute.foreignentity.inherits) to be applicable for virtual attributes
+1644167602	By default, the templates use the Fetch and Update views.  Added support to use different views, add the triple: MyEntity.TemplateGeneration FNC replaces VW MyEntity.Fetch ...by VW MyEntity.CustomView
+1644167603	For numeric, date, time or timestamp fields set the Default Value to zero if no Default VAL triple exists
+1644167604	Add ability to specify label with /(attribute.label:LabelName).  Added ListAttributes view to List Abililties
+1644167605	Added some missing variables
+1644167606	Added more missing variables
+1644167607	Fix +++define for labels
+1644167608	Format numbers for JSON, force period as decimal point.  Added Ability.AutoSequence entity.  Added Ability.ColumnStyle field.
+1644167609	Add missing +++Define 
+1644167610	Fix to /(attribute.label:LabelName) to return blank if a label named after the modifier doesn't exist
+1644167611	Fix issue when identifying a label for a field with multiple labels
+1644167612	Added view AutoSequenceAttributes to AbilityAutoSequence.  Removed unused Ability fields AutoSequence, AutoUUID, ComboDescription
+1644167613	Prevent inheritance from both List and EditList with Ability.EditList/ENT replaces ENT/Ability.List/TRP by ENT/Ability.Disabled
+1644167614	Added SelectFilterAttributes view to Ability.Select
+1644167615	Add SelectFilterAttributes to TemplateViewsL in EvaluateLoop
+1644167616	Added 'order on Unkeyed' on Ability views to prevent key fields being added by default
+1644167617	Check for functions scoped under functions within CalledFunctions, e.g. API.Retrieve
+1644167618	Check for functions scoped under functions within CalledFunctions, e.g. API.Retrieve.  2nd attempt
+1644167619	Update to allow scoped functions under CalledFunctions (to one level).  E.g. CalledFunctions.API.Retrieve evaluates as API.Retrieve
+1644167620	Fix to add missing +++define for previous change
+1644167621	Fix wrong meta variable
+1644167622	A little bit of refactoring
+1644167623	Complete coding for child functions
+1644167624	Fix to correctly build scoped name
+1644167625	Add scoped function handling to loops
+1644167626	Fix to JSONResponse to only include local variables that match the variable name
+1644167627	Added Ability.Entry (display form without update button).  Added Custom.MenuText, Custom.DisplayName, Custom.DisplayNamePlural
+1644167628	Made inherited objects real
+1644167629	Fix Custom messages scoped to wrong function
+1644167630	Added Ability.SyncChild to synchronize child entities restricted by parent keys
+1644167631	Working on Parent Custom meta-code - may take a few goes
+1644167632	Added TemplateGeneratorCommand to run from command line.  OfflineApplication entity is now Application.
+1644167633	Fix message parameters.  Fix generation folder parameter.
+1644167634	Added SharedData application properties to command generator
+1644167635	Moved APIResource entities from test to the main group model
+1644167636	Added Ability.FilterRetrieveAPI to main HSync model
+1644167637	Added missing Go Sub
+1644167638	Allow for filtering of virtual attributes
+1644167639	Fix to meta code to include virtual filters
+1644167640	Remove WHERE from SQL filter
+1644167641	For FilterRetrieve, add T1 qualifier for foreign keys to remove ambiguity in Where clause
+1644167642	Added Limit<RecordLimit> to RetrieveAPI to limit result set
+1644167643	Fix parameter mapping
+1644167644	Remove statement no longer required in FilterRetrieve
+1644167645	Deprecated TemplateGeneratorUI and made it Impl SYS No
+1644167646	Deprecation of generationUI tabs
+1644167647	More deprecation
+1644167648	Added impl name to MessageType
+1644167649	Fix to read file to use Cp1252 for european character sets
+1644167650	Set JSONResponse length to 32767 for RPGIV
+1644167651	Removed RPGIV triples for JSONResponse.  Found workaround.
+1644167652	Added initial attempt at RPGIV source code
+1644167653	Attempting parent.entity.custom
+1644167654	Still working on parent.entity.custom
+1644167655	Still working on parent.entity.custom...
+1644167656	Still working on parent.entity.custom......
+1644167657	Still working on parent.entity.custom.........
+1644167658	Parent Entity Custom again
+1644167659	Again with the parent.entity.custom tag
+1644167660	Again with the parent.entity.custom tag...
+1644167661	Still working on parent entity custom
+1644167662	Polishing code for parent entity custom
+1644167663	For REST API templates, set the variable name to 'data' instead of 'FetchedData'
+1644167664	Revert variable name change
+1644167665	Removed unused data variable
+1644167666	Improvements to message handling and validation
+1644167667	Fix to variable names
+1644167668	Fix for message handling
+1644167669	Added child entity custom tag
+1644167670	Added foreign entity custom tag
+1644167671	Fix to foreign entity custom
+1644167672	Fix to parameters to use impl name for fields if field has name triple
+1644167673	Reverted parameter input change
+1644167674	Attempting fix to get name of fields, ignoring Name triples
+1644167675	Let's do this properly this time
+1644167676	Fix for entity names, possible fix for attribute parameters
+1644167677	Another attempt at resolving attributes as parameters
+1644167678	Fix to foreign custom values for entities with Name triples
+1644167679	Change to UpdateAPI to work like Modify.  Only the APIUpdateAttributes can be changed
+1644167680	Fixes to UpdateAPI code
+1644167681	Fix to UpdateAPI messages
+1644167682	Fix to JSON for update API
+1644167683	Set ReturningStatus for Update error
+1644167684	Deal with shared keys for foreign attributes
+1644167685	Fix to validation if multiple views are in the UpdateData variable
+1644167686	Add Ability.Popup
+1644167687	Added inheritence - FilterList is a List
+1644167688	Added check for line feeds in EscapeJSON function.  Renamed impl from EscQuote to EscJSON
+1644167689	Fixes to shared foreign keys to scope the entity name to help identify
+1644167690	Fix to virtuals in a loop
+1644167691	Fix to foreign entity inheritance
+1644167692	Added ChildView custom message to DrillDownChild
+1644167693	Refactored JSONResponse to use JSONObject rather than strings
+1644167694	Added Ability.GroupedList
+1644167695	Added imports to JSON source code
+1644167696	Fix to JSONResponse
+1644167697	Fix to JSONResponse parameter
+1644167698	Fix for named labels to set to blank if no label found
+1644167699	Added HSyncSelectAttributes to Ability.Select
+1644167700	Fix to Real Attributes loop for non-foreign attributes
+1644167701	Fix to called functions to return the correct *Returning Status
+1644167702	Fix for API Retrieve collections
+1644167703	Added Multi parameter abilities for the API templates.
+1644167704	Fixed AttributeAlignmentType length from 5 to 6
+1644167705	Fix to FilterRetrieve to prefix with 'T1' when dealing with a Key attribute
+1644167706	Fix for view key attributes loop and superkey check for foreign entities
+1644167707	Add foreign attribute recognition for field value loop
+1644167708	Fix to attribute value loop
+1644167709	Added additional edit points for API functions after server function calls.  Deleted DEPRECATED generator UI.
+1644167710	Fix to return surrogate when using CreateAPI
+1644167711	Added APIImplName label to allow impl names to be overridden.
+1644167712	In JSONResponse use APIImplName label narrative to override field impl name
+1644167713	More code to support APIImplName override
+1644167714	still working on API field name override
+1644167715	Fix to check for unscoped label name
+1644167716	Fix to APIImplName override
+1644167717	More work on APIImplName override
+1644167718	Change source code JSON imports from org.json to com.cmfirstgroup

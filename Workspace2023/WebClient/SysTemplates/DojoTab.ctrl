@@ -1,0 +1,159 @@
+/(!JSInit:once)
+     dojo.require("wcli.layout.PlexTabContainer");
+     /(!If:/(!IsDefined:FixedPositioning))	
+	/(!If:/(!IsDefined:ForceTabContainerResize))	
+	window.ForceTabContainerResize = true;
+	/(!If)
+    /(!If)
+/(!JSInit)
+
+<div dojoType="wcli.layout.PlexTabContainer" id="/(!NameID)" style="position: absolute; left: /(!If:/(!Property:Position))/(!Position:x)/(!Else)0/(!If)px; top: /(!If:/(!Property:Position))/(!Position:y)/(!Else)0/(!If)px; width: /(!Size:x)px; height: /(!Size:y)px;" /(!If:/(!IsDefined:FixedPositioning))/(!FixPosition)/(!If)
+	tabs="/(Embed:js)
+			/(!Var:allTabs)
+		  /(Embed)" fixValues='/(!FixPosition:json=true)'>
+  /(!AttachPoint:name=TabSite)
+</div>
+<input name="/(!NameID)" type="hidden" value="" />
+ 
+/(!JSOnLoad)
+var f = function() {
+	var w = dijit.byId("/(!NameID)");
+	if(dojo.isIE){
+		var y = w.containerNode && w.containerNode.firstChild && w.containerNode.firstChild.nextSibling
+			&& w.containerNode.firstChild.nextSibling.style;	
+	}
+	else{
+	    var y = w.containerNode && w.containerNode.firstChild && w.containerNode.firstChild.nextSibling
+			&& w.containerNode.firstChild.nextSibling.nextElementSibling.style;
+	}
+	h = 0;
+	if(y) {
+		if(y.height){
+			/(!If:/(!IsDefined:FixedPositioning))
+			/(!AbleToResize)
+			if(ableToResize == true){
+				if((w.srcNode.getAttribute("fixTop") == "Yes" && w.srcNode.getAttribute("fixBottom") == "No" && w.srcNode.getAttribute("fixLeft") == "Yes" && w.srcNode.getAttribute("fixRight") == "No") || (sessionStorage.getItem(w.domNode.getAttribute("fncName")+"_isPopUp")) || (window.popupFixedPositioning && window.popupFixedPositioning.enabled == false)){
+					if(dojo.isIE){
+			    		w.domNode.style.height = parseInt(y.height) + 30;
+				    }
+				    else{
+				      	w.domNode.style.height = parseInt(y.height) + 30 + "px";
+				    }
+				}
+				if(/(WCTHEME)=="claro"){
+	                var container = dijit.byId("/(!NameID)").containerNode;
+	                var t = dojo._getMarginBox(container).t + 4;
+	                dojo._setMarginBox(container, null, t); 
+	            }
+			}else{
+				if(dojo.isIE){
+		    		w.domNode.style.height = parseInt(y.height) + 30;
+			    }
+			    else{
+			      	w.domNode.style.height = parseInt(y.height) + 30 + "px";
+			    }
+			}
+			/(!Else)
+			if(dojo.isIE){
+		    	w.domNode.style.height = parseInt(y.height) + 30;
+		    }
+		    else{
+		      	w.domNode.style.height = parseInt(y.height) + 30 + "px";
+		    }
+			/(!If)
+		}
+		else{
+		    w.domNode.style.height = (parseInt(w.containerNode.firstChild.nextSibling.clientHeight) + 40) + "px";
+		}
+
+		if (dojo.isIE) {
+			w.domNode.style.width = w.tablist.style.width = parseInt(y.width) + 10;
+			w.containerNode.style.width = parseInt(y.width);
+			w.containerNode.style.height = parseInt(y.height);
+		}
+		else {
+			w.domNode.style.width = w.tablist.style.width = parseInt(y.width) + 10 + "px";
+			w.containerNode.style.width = y.width;
+			w.containerNode.style.height = y.height;
+		}
+	}
+	
+	for(var i=1; i<w.containerNode.children.length; i++){//Expand the areas of all child functions
+		if(w.containerNode.children[i].tagName === "DIV"){
+			w.containerNode.children[i].style.width = "100%";
+			w.containerNode.children[i].style.height = "100%";
+			w.containerNode.children[i].children[0].style.width = "100%";
+			w.containerNode.children[i].children[0].style.height = "100%";
+		}
+	}
+	
+	var w = dijit.byId("/(!NameID)").tablist;
+ 	w.onButtonClick = function(page){
+		/(!Panel:!NameID)_form["/(!NameID)"].value = "{ selectedTab: " + page.index + " }";
+		/(!AJAXDoEvent:phys=Mouse Up)
+				
+		w.onSelectChild(page);
+	};
+ 	w.onCloseButtonClick = function(page){
+ 	};
+		 	
+	w.onSelectChild(w.tablist[/(!Var:selectedTab) - 1]);
+	
+	/(!If:/(!Property:Visible)=No)
+		w.domNode.style.display = "none";
+	/(!If)
+};
+
+setTimeout(f, 0);
+//New listener that is added to the PVTab when returning from a dialog function to a child function within the TreeView menu.
+setTimeout(function(){
+    /(!If:/(!IsDefined:FixedPositioning))	
+    	/(!AbleToResize:Type4=true)
+    /(!If)
+}, 100);
+/(!JSOnLoad)
+
+/(!JSPost)		
+	/(!If:/(!IsDefined:FixedPositioning))
+		/(!AbleToResize:Type4=true)
+    /(!If)
+	
+/(!JSPost)
+
+/(!EnableAction:SelectTab,AddTab,RemoveTab,ClearTabs,Hide,Show)
+
+/(!JS)  
+  /(!Action:RemoveTab)
+    dijit.byId("/(!NameID)").tablist.onRemoveChild( /(!ActionArg) );
+  /(!Action)  
+  
+  /(!Action:ClearTabs)  	
+	dijit.byId("/(!NameID)").tablist.onRemoveAll();
+	var parent = document.getElementsByClassName("dijitTabPaneWrapper")[0];
+	var nodes = parent.childNodes;
+	for(var i=0; i<nodes.length;i++){
+		if(nodes[i].tagName && nodes[i].tagName == "DIV" && !nodes[i].id.includes("/(!Panel:!NameID)",5)){
+			nodes[i].style.display = "none";			
+		}			
+	}	
+  /(!Action)
+
+	/(!Action:AddTab)
+    dijit.byId("/(!NameID)").tablist.onAddChild( /(!ActionArg) );
+  /(!Action)
+  
+	/(!Action:SelectTab)
+    var w = dijit.byId("/(!NameID)");
+    w.tablist.onSelectChild(w.tablist.tablist[/(!Var:selectedTab) - 1]);
+  /(!Action)
+
+  /(!Action:Hide)
+  	dijit.byId("/(!NameID)").domNode.style.display = "none";
+  /(!Action)
+  
+  /(!Action:Show)
+  	dijit.byId("/(!NameID)").domNode.style.display = "block";
+  /(!Action)
+/(!JS)
+
+/(!ContextMenu)

@@ -1,0 +1,115 @@
+/(!JSInit:once)
+	 dojo.registerModulePath("wcli.extras", /(!WsRes)+"/js/wcli/extras");
+	 dojo.require("dojo.data.ItemFileWriteStore");
+     dojo.require("wcli.extras.Tree");
+     dojo.require("dijit.layout.AccordionContainer");
+     /(!CreateCSSStyle)
+/(!JSInit)
+
+/(!JSOnLoad)
+	var appTreeData = /(!Var:treeJSONData);
+	// Create styles from the image list
+	var imageListJSON = /(!Var:imageListJSON);
+	divEl = document.createElement("div");
+	for (var imgIdx=0;imgIdx<imageListJSON.images.length; imgIdx++)
+	{
+		className = "/(!NameID)Img" + (imgIdx + 1); // add one to match Plex index
+		styleText = "." + className + "{background-image: url('images/" + imageListJSON.images[imgIdx] + "');background-repeat: no-repeat;width: 18px;height: 18px;text-align: center;}";
+		createCSSStyle(styleText);
+	}
+	accContainerDjt = dijit.byId("accContainer/(!NameID)");
+	loadTreeData = function(treeData) {
+		accContainerDjt.destroyDescendants();
+		if (typeof treeData.items == 'undefined') {
+			treeData.items = [];
+		}
+		for (var nodeIdx=0;nodeIdx<treeData.items.length; nodeIdx++){
+			var root = treeData.items[nodeIdx];
+			if(root.children == undefined){
+				root.children = [];
+			}
+			for (var childIdx=0;childIdx<root.children.length; childIdx++) {
+				var child = root.children[childIdx];
+				child.type = "root";
+			}
+			var childStore = new dojo.data.ItemFileWriteStore({data: { identifier: "nodeID", label: "nodeDesc", items: root.children }});
+			var existingTree = dijit.byId("/(!NameID)_"+nodeIdx) ;
+			if (existingTree!=null) {
+				existingTree.destroy();
+			}
+			var newtree = new wcli.extras.Tree({
+				id:"/(!NameID)_"+nodeIdx, 
+				"class":"treeView",
+				/(!If:/(!IsDefined:expandOnClick))fullChildExpand:(/(expandOnClick)=='Y'),/(!If)
+				style:"overflow:auto;",
+				store:childStore,
+				getIconClass: function(item,selected){
+					if (item!=null)	{
+				  		if (selected) {
+				  			iconIdx = this.store.getValue(item, "selImageIdx");		
+				  		} else {
+							iconIdx = this.store.getValue(item, "imageIdx");  
+				        }
+				        return ("/(!NameID)Img" + iconIdx);
+			        } else {
+			        	return "defaultImg";
+			        }      
+	      		},
+	      		onClick: function(item){
+	      			if (item) { 
+	  					mainform["/(!NameID)"].value = '{ currentEvent: "NodeClicked", currentNode: "' + item.nodeID + '"}';
+						/(!AJAXDoEvent:phys=Bean Action)
+  					} 
+	      		},
+				query:{type:'root'},
+				/(!If:/(!Param:persist))persist:"/(!Param:persist)"/(!Else)persist:false/(!If)}
+			);			 
+			var expandclick = function(message){
+				var node = message.node;
+	      		if (message) {
+					if(!node.isExpanded){ 
+						mainform["/(!NameID)"].value = '{ currentEvent: "NodeCollapsing", currentNode: "' + node.item.nodeID + '"}';
+						/(!AJAXDoEvent:phys=Bean Action)
+						mainform["/(!NameID)"].value = '{ currentEvent: "NodeCollapsed", currentNode: "' + node.item.nodeID + '"}';
+						/(!AJAXDoEvent:phys=Bean Action)
+					} else {
+						mainform["/(!NameID)"].value = '{ currentEvent: "NodeExpanding", currentNode: "' + node.item.nodeID + '"}';
+						/(!AJAXDoEvent:phys=Bean Action)
+						mainform["/(!NameID)"].value = '{ currentEvent: "NodeExpanded", currentNode: "' + node.item.nodeID + '"}';
+						/(!AJAXDoEvent:phys=Bean Action)
+					}
+  				}
+			};
+			 dojo.connect(newtree, "_onExpandoClick", expandclick);
+			 var divEl = document.createElement("div");
+		     divEl.appendChild(newtree.domNode);
+		     var newacc = new dijit.layout.AccordionPane({title: treeData.items[nodeIdx].nodeDesc, nodeID: treeData.items[nodeIdx].nodeID});
+		     dojo.connect(newacc, "onSelected", function() {
+				mainform["/(!NameID)"].value = '{ currentEvent: "NodeExpanded", currentNode: "' + this.nodeID + '"}';
+	  			/(!AJAXDoEvent:phys=Bean Action)
+			 });
+		     newacc.setContent(divEl);
+		     accContainerDjt._started = false;
+		     accContainerDjt.addChild(newacc);
+		}
+		if (treeData.items.length > 0) {
+			accContainerDjt._started = true;
+			accContainerDjt.initialize();
+			accContainerDjt.resize();
+		}
+	}	 
+	loadTreeData(appTreeData);
+/(!JSOnLoad)
+
+<input name="/(!NameID)" type="hidden" value="" />
+<div id="accContainer/(!NameID)" dojoType="dijit.layout.AccordionContainer">
+</div>
+
+/(!EnableAction:RefreshTree)
+/(!JS)	
+  /(!Action:RefreshTree)
+	var appTreeData = /(!Var:treeJSONData);
+	// reload the child stores for each heading in the accordion
+	loadTreeData(appTreeData);
+  /(!Action)
+/(!JS)

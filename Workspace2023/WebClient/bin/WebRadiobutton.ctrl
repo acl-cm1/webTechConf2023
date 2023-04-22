@@ -1,0 +1,121 @@
+/(!JSInit:once)
+	dojo.require("wcli.form.CheckBox");
+	dojo.require("wcli.form.Font");
+/(!JSInit)
+
+/(!JSInit)
+	/(!ContextMenu)
+/(!JSInit)
+
+/(!JSOnLoad)
+	/(!If:/(!Property:Font)=)
+		/(!Else)
+			wcli.form.Font.applyPlexFont(dojo.byId("/(!NameID)"), "/(!Property:Font)");
+	/(!If)
+
+	/(!If:/(!Mode)=Read Only)		
+		var isDisabled = /(!If:/(!Property:Disabled)=Yes)true/(!Else)false/(!If);
+	    var isEdit = /(!If:/(!Mode)=Edit)true/(!Else)false/(!If);
+	    var isChecked = dijit.byId("/(!NameID)").value == dijit.byId("/(!NameID)").checkedval;
+	    	
+	    dijit.byId("/(!NameID)").setDisabled(!isChecked && (isDisabled || !isEdit) );		
+	/(!If)
+	
+	/(!If:/(!Property:TextColor)=8)
+    /(!Else)
+    	wcli.util.XBrowser.setTextColorRadio("/(!NameID)","/(!Property:TextColor)");
+    /(!If)
+    
+    /(!If:/(!IsDefined:FixedPositioning))
+    	/(!AbleToResize)
+		if(ableToResize  === true){
+			var w = dijit.byId("/(!NameID)");
+	    	wcli.util.XBrowser.addFixedPositionAttributes(document.getElementById("/(!NameID)"),/(!FixPosition:object=true));
+	    	wcli.util.XBrowser.resizeCtrl(w, document.getElementById("/(!NameID)"),false);
+		}
+    	setTimeout(function(){
+	    	if (typeof /(!NameID)_OnLoadResizeRadio === "undefined" && ableToResize  === true){
+		    	/(!NameID)_OnLoadResizeRadio = dojo.connect(window, "onresize", function(){
+		    		if(dojo.query("[class *= dijitDialog dijitContentPane detailDialog]").length >= 1){
+		    			if(document.getElementById("/(!NameID)")){
+						wcli.util.XBrowser.resizeCtrl(document.getElementById("/(!NameID)"),null,true);
+						}
+		    		}else{
+		    			var wT = dijit.byId("/(!NameID)");
+		    			wcli.util.XBrowser.resizeCtrl(wT, document.getElementById("/(!NameID)"),true);
+		    		}
+				});
+			}
+    	}, 300);  			
+	/(!If)
+/(!JSOnLoad)
+
+/(!If:/(!Mode)=Read Only)
+<span id="/(!NameID)" style="/(!DefaultCSS:nc:withPos=/(!Param:default))" class="/(!CustomClass:nc:class=/(!Param:class))">
+	<div dojoType="wcli.form.RadioButton" type="radio" id="/(!NameID)" name="/(!ButtonGroup)" value="/(!ButtonValue)" checkedval="/(!This)"
+		/(!If:/(!ButtonValue)=/(!This)) /(!Else)disabled/(!If) >
+		/(!If:/(!Event:phys=Modified))
+		<script type="dojo/method" event="onClick">
+  	 		/(!AJAXDoEvent:phys=Modified)
+  		</script>
+  		/(!If)
+  	</div>
+	/(!Text)
+</span>
+/(!If)
+
+/(!If:/(!Mode)=Edit)
+<span id="/(!NameID)" style="/(!DefaultCSS:nc:withPos=/(!Param:default))" class="/(!CustomClass:nc:class=/(!Param:class))">
+	<div dojoType="wcli.form.RadioButton" type="radio" id="/(!NameID)" name="/(!ButtonGroup)" value="/(!ButtonValue)" checkedval="/(!This)"
+		/(!If:/(!Property:Disabled)=Yes)disabled /(!Else)/(!If) >
+		/(!If:/(!Event:phys=Modified))
+		<script type="dojo/method" event="onClick">
+  	 		/(!AJAXDoEvent:phys=Modified)
+  		</script>
+  		/(!If)
+  	</div>
+	/(!Text)
+</span>
+/(!If)
+
+/(!EnableAction:SetValue,SetState,SetFocus)
+
+/(!JS)
+  /(!Action:SetValue)
+  	wcli.util.XBrowser.setValueRadio("/(!NameID)", /(!ButtonGroup), "/(!Property:Disabled)", "/(!Mode)", /(!This));
+  /(!Action)
+  
+  /(!Action:SetState)
+  	dijit.byId("/(!NameID)").domNode.parentNode.style.cssText = "/(!DefaultCSS:nc:withPos=/(!Param:default))";
+  	
+  	var isDisabled = /(!If:/(!Property:Disabled)=Yes)true/(!Else)false/(!If);
+	var isEdit = /(!If:/(!Mode)=Edit)true/(!Else)false/(!If);
+	var isChecked = dijit.byId("/(!NameID)").value == dijit.byId("/(!NameID)").checkedval;
+	    	
+	dijit.byId("/(!NameID)").setDisabled(!isChecked && (isDisabled || !isEdit) );
+	    	
+	/(!If:/(!Property:Font)=)
+	/(!Else)
+		wcli.form.Font.applyPlexFont(dojo.byId("/(!NameID)"), "/(!Property:Font)");
+	/(!If)
+			
+	/(!If:/(!Property:TextColor)=8)
+    /(!Else)
+    	wcli.util.XBrowser.setTextColorRadio("/(!NameID)","/(!Property:TextColor)");
+     /(!If)
+
+     /(!If:/(!IsDefined:FixedPositioning))
+     	/(!AbleToResize)
+		if(ableToResize  === true){
+			wcli.util.XBrowser.resizeCtrl(dijit.byId("/(!NameID)"), document.getElementById("/(!NameID)"),false);
+		}    	
+    /(!If)
+  /(!Action)
+/(!JS)
+
+/(!JSPost:seq=10)
+  /(!Action:SetFocus)
+	if (dijit.byId("/(!NameID)"))
+		dijit.byId("/(!NameID)").focus();
+  /(!Action)
+/(!JSPost)

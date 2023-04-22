@@ -1,0 +1,35 @@
+/(!LinkArea)
+<!-- Load c3.css -->
+<link href="/(!WsResLib:com.adcaustin.webclient)/js/c3/c3.css" rel="stylesheet" type="text/css">
+
+<!-- Load d3.js and c3.js -->
+<script src="/(!WsResLib:com.adcaustin.webclient)/js/d3/d3.min.js" charset="utf-8"></script>
+<script src="/(!WsResLib:com.adcaustin.webclient)/js/c3/c3.min.js"></script>
+/(!LinkArea)
+
+/(!JSOnLoad)
+var chart = c3.generate({
+	bindto: '#/(!NameID)',
+    data: {
+        // iris data from R
+        columns: wcli.util.XBrowser.formatColumnData(/(!This:!jsonData)),
+        type : '/(!Param:chartType)'
+    }
+});
+document.getElementById("/(!NameID)").style.position="absolute";
+/(!JSOnLoad)
+
+<div id="/(!NameID)" /(!If:/(!Param:default))style="/(!DefaultCSS:withPos=true)" /(!Else) style="/(!DefaultCSS:nc:withPos=/(!Param:default))"/(!If)></div>
+
+/(!EnableAction:Grid.Clear,Grid.Insert)
+/(!JS)
+ var chart = c3.generate({
+    bindto: '#/(!NameID)',
+    data: {
+        columns: wcli.util.XBrowser.formatColumnData(/(!This:!jsonData)),
+        type : '/(!Param:chartType)'
+    }
+ });
+ document.getElementById("/(!NameID)").style.position="absolute";   
+
+/(!JS)

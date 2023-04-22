@@ -1,0 +1,134 @@
+/(!JSInit:once)
+    dojo.require("dijit.form.Button");
+	dojo.require("wcli.color.RGBColor");
+	
+    dojo.addOnLoad(function() {
+	     var buttons = document.getElementsByTagName("BUTTON");
+	     for(var x=0; x<buttons.length; x++){
+	        if(buttons[x].innerHTML.indexOf("</u>") != -1 || buttons[x].innerHTML.indexOf("</U>") != -1){
+	        	var uPos = buttons[x].innerHTML.indexOf("</u>")
+	        	if(dojo.isIE){
+	        		var uPos = buttons[x].innerHTML.indexOf("</U>");
+	        	}
+	        	var keyPos = uPos - 1;
+	        	var key = buttons[x].innerHTML.charAt(keyPos).toLowerCase();
+	        	buttons[x].setAttribute("plexaccesskey",key);
+	        }
+	    }
+	 /(!If:/(!Property:DefaultButton)=Yes)
+	 		mainform.defaultButtonHandlers.push(function(evt) {
+                      if (evt.target.tagName == "TEXTAREA")
+                              return;
+                      if (evt.keyCode == dojo.keys.SPACE && evt.target.tagName == "BUTTON"){
+	                          dijit.byNode(dijit._curFocus).onClick(evt);
+	                  }
+                      if (evt.keyCode == dojo.keys.ENTER && dijit.byId("/(!NameID)") && dijit.byId("/(!NameID)").focusNode != null && !evt.shiftKey && wcli.util.checkCtrlInPanel(evt.target, dijit.byId("/(!NameID)"))){
+                              if(dijit.byId("/(!NameID)").focusNode.offsetHeight != 0){
+                                      if (!evt.dftHandled) {
+                                      	      dijit.byId("/(!NameID)").focus();
+                                              dijit.byId("/(!NameID)")._onClick(evt);
+                                              evt.dftHandled = true;
+                                      }
+                              }
+				      }
+			evt.preventDefault();
+              });
+	/(!If)
+	/(!If:/(!Property:TabStop)=No)
+		// Prevent button from gaining focus
+		if(dijit.byId("/(!NameID)"))
+		wcli.util.XBrowser.setEditTabStop("/(!NameID)");
+	/(!If)
+	});
+/(!JSInit)
+
+/(!JSInit)
+	/(!ContextMenu)
+	/(!If:/(!IsDefined:FixedPositioning))
+	dojo.addOnLoad(function() {
+		/(!AbleToResize:Type1=true)
+		setTimeout(function(){
+			if (typeof /(!NameID)_OnLoadResizeButton === "undefined" && ableToResize === true){
+		    	/(!NameID)_OnLoadResizeButton = dojo.connect(window, "onresize", function(){
+					if(document.getElementById("/(!NameID)")){				
+						wcli.util.XBrowser.resizeCtrl(document.getElementById("/(!NameID)"), null, true);
+					}
+				});
+			}
+    	}, 300);  		
+	});
+	/(!If)
+/(!JSInit)
+
+/(!JSOnLoad)
+	/(!If:/(!Property:TextColor))
+		var txtcolor = wcli.color.setColor("/(!Property:TextColor)");
+		if (document.getElementById("/(!NameID)")){
+			document.getElementById("/(!NameID)").style.color = txtcolor;
+		}
+	/(!If)
+	/(!If:/(!Param:shortcut))
+	var button = dijit.byId("/(!NameID)");
+	var key = "/(!Param:shortcut)";
+	button.domNode.setAttribute("plexaccesskey", key.toLowerCase());
+	/(!If)
+	/(!If:/(!IsDefined:FixedPositioning))
+	wcli.util.XBrowser.addFixedPositionAttributes(document.getElementById("/(!NameID)"), /(!FixPosition:object=true));
+	/(!If)	
+/(!JSOnLoad)
+
+<button dojoType="dijit.form.Button" /(!If:/(!Property:BitmapFile))class="wcliButtonHasImg /(!Name) /(!Param:class)"/(!Else)class="/(!Name) /(!Param:class) /(!If:/(!Property:DefaultButton)=Yes)defaultBtn/(!If)"/(!If) type="button" id="/(!NameID)" title="/(!Property:FlyOverHint)" style="/(!DefaultCSS:nc:withPos=/(!Param:default))"
+/(!If:/(!Property:Disabled)=Yes)disabled /(!Else)/(!If)/(!If:/(!IsDefined:FixedPositioning))/(!FixPosition)/(!If)>
+	/(!AlignButtonTextAndImage:textalignment=/(!Property:ButtonTextAlignment))
+	
+	<script type="dojo/method" event="onClick">
+		/(!AJAXDoEventButton:phys=Pressed)
+	</script>
+</button>
+
+/(!EnableAction:SetState,SetFocus,SetText,SetTooltip)
+/(!JS)
+  /(!Action:SetState)
+	 if (dijit.byId("/(!NameID)")){
+		dojo.query("div", dijit.byId("/(!NameID)").containerNode)[0].innerHTML = /(Embed:html)/(!Text:htmlaccel:htmlbr)/(Embed);
+	 	dijit.byId("/(!NameID)").setDisabled(/(!If:/(!Property:Disabled)=Yes)true/(!Else)false/(!If));
+	 	/(!If:/(!IsDefined:FixedPositioning))
+		 	/(!If:/(!Property:Visible)=No)
+			    dijit.byId("/(!NameID)").domNode.style.display ="none";
+	    	/(!Else)
+	    		dijit.byId("/(!NameID)").domNode.style.display ="block";
+			/(!If)
+			if( (sessionStorage.getItem(document.getElementById("/(!NameID)").getAttribute("fncName")+"_isPopUp"))				
+				|| (document.getElementById("/(!NameID)").getAttribute("fixbottom") === "No" && document.getElementById("/(!NameID)").getAttribute("fixleft") === "No" && document.getElementById("/(!NameID)").getAttribute("fixright") === "No" &&document.getElementById("/(!NameID)").getAttribute("fixtop") === "No"))
+				wcli.util.XBrowser.setCSSText(document.getElementById("/(!NameID)"), "/(!DefaultCSS:nc:withPos=/(!Param:default))");
+		/(!Else)
+			dijit.byId("/(!NameID)").domNode.style.cssText = "/(!DefaultCSS:nc:withPos=/(!Param:default))";
+		/(!If)	
+	 	/(!If:/(!Property:BitmapFile))
+  		dijit.byId("/(!NameID)").domNode.children[1].children[1].setAttribute("src", /(!WsResLib:plex.imageresources)+"/images//(!BitmapFile)");
+  		/(!If)
+  	}
+  	/(!If:/(!Property:TextColor))
+		var txtcolor = wcli.color.setColor("/(!Property:TextColor)");
+		if (document.getElementById("/(!NameID)")){
+			document.getElementById("/(!NameID)").style.color = txtcolor;
+		}
+	/(!If)
+  /(!Action)
+  
+  /(!Action:SetFocus)
+  	 if (dijit.byId("/(!NameID)"))
+  	 	dijit.byId("/(!NameID)").focus();
+  /(!Action)
+  
+	/(!Action:SetText)
+		if (dijit.byId("/(!NameID)")){
+			dojo.query("div", dijit.byId("/(!NameID)").containerNode)[0].innerHTML = "/(!Text:htmlaccel:htmlbr)";
+		}
+	/(!Action)
+
+	/(!Action:SetTooltip)
+		var msg = /(!ActionArg);
+		document.getElementById("/(!NameID)").title = msg.text;
+	/(!Action)
+/(!JS)

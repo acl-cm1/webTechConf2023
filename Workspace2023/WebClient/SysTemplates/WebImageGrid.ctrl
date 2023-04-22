@@ -1,0 +1,14 @@
+/(!JSInit:once:seq=0)
+	   dojo.require("wcli.grid.ImageFormatter");
+/(!JSInit)
+
+{	
+	name: "/(!Text:htmlbr)",
+	width: /(!If:/(!Param:stretch)=/(!EditNameID))"auto"/(!Else)"/(!Property:Width)px"/(!If),
+	imagesrc: /(!WsResLib:plex.imageresources) + "/images/",
+	formatter: wcli.grid.ImageFormat,
+	field: "/(!Edit:!Name)"
+}
+
+/(!EnableAction:SetValue,SetState,SetFocus)
+		

@@ -1,0 +1,34 @@
+-1	0	1	-1	-1	-1	-1	1	Admin	Andrew Leggett - Group model administrator
+1
+-1	1	1	-1	-1	-1	-1	13	*OB_OCM	Virtual user for OCM
+1
+12
+3
+5
+11
+7
+2
+13
+6
+10
+4
+8
+9
+-2	2	1	-1	-1	-1	-1	13	Developers	Developers
+1
+12
+3
+5
+11
+7
+2
+13
+6
+10
+4
+8
+9
+2	3	1	-1	-1	-1	-1	0	Lucio	Lucio Gayosso
+2	4	1	-1	-1	-1	-1	0	Abram	Abram Darnutzer
+2	5	1	-1	-1	-1	-1	0	Eric	Eric Giron
+2	6	1	-1	-1	-1	-1	0	Andrew	Andrew Leggett

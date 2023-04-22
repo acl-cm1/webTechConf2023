@@ -1,0 +1,17 @@
+/(!JSInit:once)
+	dojo.require("wcli.util.nls");
+	dojo.require("wcli.form.Dialog");
+/(!JSInit)
+
+/(!JSOnLoad)
+	wcli.util.nls.setLocale(/(!This));
+/(!JSOnLoad)
+<input name="/(!NameID)" type="hidden" value="" />
+
+/(!EnableAction:SetValue,SetState)
+
+/(!JS)
+  /(!Action:SetValue)
+  		wcli.util.nls.setLocale(/(!This));
+  /(!Action)
+/(!JS)

@@ -1,0 +1,3 @@
+<div class="menubar" id="/(!NameID)" /(!If:/(!IsDefined:HideMenuBar)) style="display:none"/(!If)>
+	/(!AttachPoint:name=MenuArea)
+</div>

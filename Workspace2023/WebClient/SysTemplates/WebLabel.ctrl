@@ -1,0 +1,108 @@
+/(!LinkArea:once)
+	<link href="/(!WsRes)/js/wcli/form/Label.css" rel="stylesheet" type="text/css" />
+/(!LinkArea)
+
+/(!JSInit:once)
+	dojo.require("wcli.color.RGBColor");
+    dojo.require("wcli.form.Font");
+/(!JSInit)
+
+/(!JSInit)
+	/(!ContextMenu)
+/(!JSInit)
+
+/(!JSOnLoad)
+	var bgcolor = wcli.color.setColor("/(!Property:BackgroundColor)");
+	/(!If:/(!Property:Transparent)=No)
+			if (document.getElementById("/(!NameID)") && bgcolor != "rgb()")
+				document.getElementById("/(!NameID)").style.backgroundColor = bgcolor;
+	/(!If)
+	/(!If:/(!Property:TextColor)=8)
+	/(!Else)
+		var txtcolor = wcli.color.setColor("/(!Property:TextColor)");
+		if (document.getElementById("/(!NameID)") && txtcolor != "rgb()"){
+			document.getElementById("/(!NameID)").style.color = txtcolor;
+		}
+		else if(document.getElementById("/(!NameID)")){
+			document.getElementById("/(!NameID)").style.color = "";
+		}
+	/(!If)
+	/(!If:/(!Property:Font)=)
+	/(!Else)
+			wcli.form.Font.applyPlexFont(document.getElementById("/(!NameID)"), "/(!Property:Font)");
+	/(!If)
+	/(!If:/(!IsDefined:FixedPositioning))
+		/(!AbleToResize:Type3=true)
+		setTimeout(function(){
+			if (typeof /(!NameID)_OnLoadResizeLabel === "undefined" && ableToResize === true){
+		    	/(!NameID)_OnLoadResizeLabel = dojo.connect(window, "onresize", function(){
+					if(document.getElementById("/(!NameID)")){
+						wcli.util.XBrowser.resizeDiv(document.getElementById("/(!NameID)"),null,true);
+					}
+				});
+			}
+    	}, 300);      
+		
+	/(!If)
+	
+/(!JSOnLoad)
+
+/(!EnableAction:SetState,SetText)
+
+<span id="/(!NameID)" class="/(!If:/(!IsDefined:LabelAligned))LabelAligned/(!Else)label/(!If) /(!CustomClass:nc:class=/(!Param:class))" tabindex="-1" style="/(!DefaultCSS:nc:withPos=/(!Param:default))text-align:/(!Property:TextAlignment);" 
+/(!If:/(!IsDefined:FixedPositioning))/(!FixPosition)/(!If)>
+  /(!Text:htmlbr)
+</span>
+
+/(!JS)
+	/(!Action:SetState)
+	
+	if (document.getElementById("/(!NameID)")){
+		/(!If:/(!IsDefined:FixedPositioning))
+			/(!If:/(!Property:Visible)=No)
+		    	document.getElementById("/(!NameID)").style.display ="none";
+    		/(!Else)
+    			document.getElementById("/(!NameID)").style.display ="block";
+			/(!If)
+			if( (sessionStorage.getItem(document.getElementById("/(!NameID)").getAttribute("fncName")+"_isPopUp"))				
+				|| (document.getElementById("/(!NameID)").getAttribute("fixbottom") === "No" && document.getElementById("/(!NameID)").getAttribute("fixleft") === "No" && document.getElementById("/(!NameID)").getAttribute("fixright") === "No" &&document.getElementById("/(!NameID)").getAttribute("fixtop") === "No"))
+				wcli.util.XBrowser.setCSSText(document.getElementById("/(!NameID)"), "/(!DefaultCSS:nc:withPos=/(!Param:default))");
+		/(!Else)
+		wcli.util.XBrowser.setCSSText(document.getElementById("/(!NameID)"), "/(!DefaultCSS:nc:withPos=/(!Param:default))");
+		/(!If)
+	}
+	document.getElementById("/(!NameID)").style.textAlign = "/(!Property:TextAlignment)";
+	document.getElementById("/(!NameID)").innerHTML = "/(!Text:htmlbr)";
+	var bgcolor = wcli.color.setColor("/(!Property:BackgroundColor)");
+	/(!If:/(!Property:Transparent)=No)
+			if (document.getElementById("/(!NameID)")) {
+				if (bgcolor != "rgb()") {
+					document.getElementById("/(!NameID)").style.backgroundColor = bgcolor;
+				} else {
+					document.getElementById("/(!NameID)").style.backgroundColor = "";
+				}
+			}
+	/(!If)
+	/(!If:/(!Property:TextColor)=8)	
+	/(!Else)
+		var txtcolor = wcli.color.setColor("/(!Property:TextColor)");
+		if (document.getElementById("/(!NameID)") && txtcolor != "rgb()"){
+			document.getElementById("/(!NameID)").style.color = txtcolor;
+		}
+		else if(document.getElementById("/(!NameID)")){
+			document.getElementById("/(!NameID)").style.color = "";
+		}
+	/(!If)
+	/(!If:/(!Property:Font)=)
+		/(!Else)
+			wcli.form.Font.applyPlexFont(document.getElementById("/(!NameID)"), "/(!Property:Font)");
+	/(!If)
+	
+	/(!Action)
+
+	/(!Action:SetText)
+		if (document.getElementById("/(!NameID)")){
+			document.getElementById("/(!NameID)").innerHTML = "/(!Text:htmlbr)";
+		}
+	/(!Action)
+/(!JS)

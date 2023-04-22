@@ -1,0 +1,229 @@
+/(!JSInit:once)
+	dojo.require("dijit.form.ComboBox");
+	dojo.require("wcli.color.RGBColor");
+	dojo.require("dojo.data.ItemFileReadStore");
+/(!JSInit)
+
+/(!JSInit)
+	/(!ContextMenu)
+/(!JSInit)
+
+/(!JSOnLoad)
+  {
+	wcli.util.XBrowser.setupFilter(/(!jsonValues),/(!jsonOptions),"/(!NameID)",/(!This:value),/(!Size:y));
+  }
+  /(!If:/(!Property:TabStop)=No)
+		wcli.util.XBrowser.setComboTabStop("/(!NameID)");
+  /(!If)
+	/(!If:/(!Mode)=Read Only)
+  	if (dojo.isIE) { 
+  		dijit.byId("/(!NameID)").textbox.setAttribute("disabled", "");
+  	}
+  	/(!If)	
+	
+	/(!If:/(!Property:BackgroundColor)=5)
+	/(!Else)
+		wcli.util.XBrowser.setBGColor("/(!Property:BackgroundColor)","/(!NameID)");
+	/(!If) 	
+	
+	var ctrl = dijit.byId("/(!NameID)");
+	var txtcolor = wcli.color.setColor("/(!Property:TextColor)");
+	/(!If:/(!Property:TextColor)=8)
+	/(!Else)
+		if(ctrl && txtcolor != "rgb()" && txtcolor != undefined){
+			dojo.style(ctrl.textbox,"color", txtcolor);
+		}
+	/(!If) 	
+	/(!If:/(!IsDefined:FixedPositioning))
+		/(!AbleToResize:Type2=true)
+	/(!If)
+/(!JSOnLoad)
+
+ <select style="/(!DefaultCSS:nc:withPos=/(!Param:default))" 
+		class="/(!CustomClass:nc:class=/(!Param:class))"
+ 		id="/(!NameID)" name="/(!NameID)"
+ 		dojoType="dijit.form.ComboBox" /(!If:/(!Mode)=Read Only)disabled/(!If) 
+ 		hasDownArrow="/(!If:/(!Param:escapChar))false/(!Else)true/(!If)"
+ 		moreThanOneChar=true 
+ 		searchDelay=500
+ 		/(!If:/(!IsDefined:FixedPositioning))/(!FixPosition)/(!If)>
+  
+  /(!If:/(!Param:escapChar))
+	  <script type="dojo/connect" event="onkeyup" args="evt">
+	  		if (evt.keyCode == dojo.keys.ENTER || evt.keyCode == dojo.keys.UP_ARROW
+	  			|| evt.keyCode == dojo.keys.DOWN_ARROW || evt.keyCode == dojo.keys.PAGE_UP
+	  			|| evt.keyCode == dojo.keys.PAGE_DOWN)
+	  			return;
+	      if(dojo.byId("/(!NameID)").value.length == /(!Param:escapChar)) {
+	      //Added below line to set the current value to the combobox.
+	      	dijit.byId("/(!NameID)")._startSearch(dijit.byId("/(!NameID)").textbox.value)
+	 	    dijit.byId("/(!NameID)").setComboValue(dijit.byId("/(!NameID)").value);
+	 	    
+	  	        /(!AJAXDoEvent:phys=Modified)
+	  	  } 
+	  </script>
+  /(!If)
+  
+  /(!If:/(!Event:phys=Updated))
+  <script type="dojo/connect" event="_selectOption">
+  	 		/(!AJAXDoEvent:phys=Updated)
+  </script>
+  /(!If)
+  
+  /(!If:/(!Event:phys=Lost Focus))
+  <script type="dojo/connect" event="_onBlur">
+  	 		/(!AJAXDoEventLF:phys=Lost Focus)
+  </script>
+  /(!If)
+  
+  /(!If:/(!Event:phys=Mouse Down))
+  <script type="dojo/connect" event="_onMouseDown">
+  	 		/(!AJAXDoEvent:phys=Mouse Down)
+  </script>
+  /(!If)
+ </select>
+  /(!If:/(!Param:space))&nbsp;&nbsp;&nbsp; /(!If)
+
+/(!EnableAction:SetValue,SetState,SetFocus,Combo.Clear,Combo.Remove,Combo.Add)
+
+/(!JS)
+
+  /(!Action:SetValue)
+   	if(dijit.byId("/(!NameID)")){
+ 	dijit.byId("/(!NameID)").setComboValue(/(!This:value));
+   	}	
+  
+  /(!Action)
+  
+  /(!Action:SetState)
+	var combobox = dijit.byId("/(!NameID)");
+    var combosrc = document.createElement("INPUT");
+	var div = combobox.domNode.parentNode;
+	
+	div.insertBefore(combosrc,combobox.domNode.nextSibling);  	      	
+	combobox.destroy();
+				
+	var items = [];
+	var value = /(!jsonValues);
+	var name = /(!jsonOptions);
+	for (var i=0; i<value.length; i++)
+	{
+		items.push({name: name[i], value: value[i]});
+	}
+	
+	var jsonobj = {identifier: "name", items: items};
+	var options = new dojo.data.ItemFileReadStore({data: jsonobj});
+ 	/(!If:/(!Mode)=Edit)
+	  	      	var combo = new dijit.form.ComboBox({
+	  	      			id: "/(!NameID)",
+	  	      			name: "/(!NameID)",
+	  	      			store: options,
+	  	      			searchAttr: "name",
+	  	      			style: "/(!DefaultCSS:nc:withPos=/(!Param:default))" }, combosrc);
+	  	      	combo.setComboValue(/(!This:value));
+	  	      	/(!If:/(!Event:phys=Modified))
+		  	      	
+		  	      	dojo.connect(combo, "_doSelect", function() {
+		  	      	   		/(!AJAXDoEvent:phys=Modified)
+		  	      	});
+	  	      	/(!If)
+  	        
+	  	      	/(!If:/(!Event:phys=Lost Focus))
+	  	      	dojo.connect(combo, "_onBlur", function()
+	  	      	{
+	  	      		/(!AJAXDoEventLF:phys=Lost Focus)
+	  	      	});
+	  	      	/(!If)
+	  	      	if(dojo.isFF || dojo.isSafari || dojo.isIE11){
+	  	      		if(/(!Size:y)<20){
+						combo.domNode.style.height = 20 + "px";
+					}
+				}
+ 	/(!If)
+ 	
+ 	/(!If:/(!Mode)=Read Only)
+ 			combosrc.disabled = true;
+	    	var combo = new dijit.form.ComboBox({
+	  	      			id: "/(!NameID)",
+	  	      			name: "/(!NameID)",
+	  	      			store: options,
+	  	      			searchAttr: "name",
+	  	      			disabled: true,
+	  	      			style: "/(!DefaultCSS:nc:withPos=/(!Param:default))" }, combosrc);
+	  	      	combo.setComboValue(/(!This:value));
+	  	      	if(dojo.isFF){
+					combo.setDisabled(true);
+				}
+				if (dojo.isIE){ 
+			  		combo.textbox.setAttribute("disabled", "");
+			  	}
+	  	      	/(!If:/(!Event:phys=Modified))
+	  	      	dojo.connect(combo, "_doSelect", function()
+	  	      	{
+	  	      		/(!AJAXDoEvent:phys=Modified)
+	  	      	});
+	  	      	/(!If)
+  	        
+	  	      	/(!If:/(!Event:phys=Lost Focus))
+	  	      	dojo.connect(combo, "_onBlur", function()
+	  	      	{
+	  	      		/(!AJAXDoEventLF:phys=Lost Focus)
+	  	      	});
+	  	      	/(!If)
+	  	      	if(dojo.isFF || dojo.isSafari || dojo.isIE11){
+	  	      		if(/(!Size:y)<20){
+						combo.domNode.style.height = 20 + "px";
+					}
+				}
+ 	/(!If)
+ 	var w = dijit.byId("/(!NameID)");
+    if (w) {
+    	w.domNode.style.cssText = "/(!DefaultCSS:nc:withPos=/(!Param:default))";
+    	w.textbox.style.cssText = "/(!DefaultCSS:nc:withPos=/(!Param:default))";
+    	w.state = /(!If:/(!Property:BackgroundColor)=255 0 0)"Error"/(!Else)""/(!If);
+    	w._setStateClass();
+    	/(!If:/(!IsDefined:FieldErrorMode))
+    	if (w.state == "Error" && tooltipMsg) {
+	    	w.displayMessage(tooltipMsg);
+	    	tooltipMsg = null;
+	    }
+	    /(!If)
+    	w.validate = function() { };
+    }
+	
+	/(!If:/(!Property:BackgroundColor)=5)
+	/(!Else)
+		wcli.util.XBrowser.setBGColor("/(!Property:BackgroundColor)","/(!NameID)");
+	/(!If) 	
+	
+	var txtcolor = wcli.color.setColor("/(!Property:TextColor)");
+	/(!If:/(!Property:TextColor)=8)
+	/(!Else)
+		if(w && txtcolor != "rgb()" && txtcolor != undefined){
+			dojo.style(w.textbox,"color", txtcolor);
+		}
+	/(!If) 	
+    /(!If:/(!Property:TabStop)=No)
+		wcli.util.XBrowser.setComboTabStop("/(!NameID)");
+	/(!If)
+  /(!Action)
+  
+  /(!Action:Combo.Clear)
+  	wcli.util.XBrowser.filterAction(/(!jsonValues),/(!jsonOptions),"/(!NameID)");
+  /(!Action)
+  
+  /(!Action:Combo.Remove)
+  	wcli.util.XBrowser.filterAction(/(!jsonValues),/(!jsonOptions),"/(!NameID)");
+  /(!Action)
+  
+   /(!Action:Combo.Add)
+   	wcli.util.XBrowser.filterAction(/(!jsonValues),/(!jsonOptions),"/(!NameID)");
+   /(!Action)
+/(!JS)
+
+/(!JSPost:seq=10)
+  /(!Action:SetFocus)
+    if (dijit.byId("/(!NameID)"))
+	    dijit.byId("/(!NameID)").focus();
+  /(!Action)
+/(!JSPost)

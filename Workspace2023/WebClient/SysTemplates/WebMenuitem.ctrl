@@ -1,0 +1,25 @@
+<div dojoType="dijit.MenuItem" id="/(!NameID)" style="display:/(!If:/(!Property:Visible)=Yes)block/(!Else)none/(!If)" onClick="/(!AJAXDoMenuEvent:phys=Select Menu)" /(!If:/(!Property:Disabled)=Yes)disabled /(!Else)/(!If)>
+/(!If:/(!Property:BitmapFile)=)
+/(!Else)
+		<img src="/(!WsResLib:plex.imageresources)/images//(!BitmapFile)" alt="/(!Property:FlyOverHint)" />
+/(!If)
+/(!Text:htmlaccel)
+</div>
+/(!EnableAction:SetState,SetText)
+/(!JS)
+	/(!Action:SetState)
+		var mi = dijit.byId("/(!NameID)")
+		if(mi) {
+	 	   mi.setDisabled(/(!If:/(!Property:Disabled)=Yes)true/(!Else)false/(!If));
+	 	   mi.setVisible(/(!If:/(!Property:Visible)=Yes)true/(!Else)false/(!If));
+		}
+	/(!Action)
+/(!JS)
+
+/(!JSOnLoad)
+var accelIdx = /(!Text:value).indexOf('&') + 1;
+if (accelIdx!=0) {
+	var menuEl = document.getElementById('/(!NameID)') ;
+	menuEl.setAttribute('plexaccesskey', /(!Text:value)[accelIdx].toLowerCase());
+}
+/(!JSOnLoad)

@@ -1,0 +1,126 @@
+function(json) {
+
+/(!Panel:!Action:Refresh)
+	/(!If:/(!Panel:!WindowType)=MDIChild)
+		// Avoid refreshing the parent on child refreshes
+	/(!Else)
+		if (dialogreturn && dialogreturn(/(PNLID))) {
+			// fall thru
+		} else {
+			/(!If:/(!WEBSESSID))
+     		window.websessid = /(WEBSESSID);
+   	 		/(!If)
+			keepsess = true;
+			if(window.websessid){
+				location.replace(window.wsaction + "?websessid=" + window.websessid);
+			} else if (location.href != window.wsaction) {
+				location.replace(location.href);
+			} else {
+				location.replace(window.wsaction);
+			}
+			return;
+		}
+	/(!If)
+/(!Panel:!Action)
+
+/(!Panel:!Action:EnableKeyboardEvent)
+	/(!If:/(!Panel:!WindowType)=Dialog)
+	/(!Panel:!NameID)_keymap[/(!ActionArg)] = /(!ActionArg);
+	/(!Else)
+	/(!Panel:!NameID)_childkeymap[/(!ActionArg)] = /(!ActionArg);
+	/(!If)
+/(!Panel:!Action)
+
+/(!Panel:!Action:DisableKeyboardEvent)
+	/(!If:/(!Panel:!WindowType)=Dialog)
+	delete /(!Panel:!NameID)_keymap[/(!ActionArg)];
+	/(!Else)
+	delete /(!Panel:!NameID)_childkeymap[/(!ActionArg)];
+	/(!If)
+/(!Panel:!Action)
+
+	var pnlid = /(PNLID);
+/(!If:/(!Panel:!WindowType)=MDIParent)
+
+	dojo.require("wcli.util.XBrowser");
+/(!Panel:!Action:AddChild)
+	var nameid = "/(!ActionArg:!Panel:!NameID)";
+	if (!dijit.byId(nameid)) {
+		var html = /(Embed:html)/(!ActionArg:!Render:_type=html:_child=/(!ActionArg:!Panel:!NameID))/(Embed);
+		var node = document.createElement("div");
+		node.setAttribute("id", nameid);
+
+		var container = dojo.byId("childContainer");
+		container.appendChild(node);
+		var child = new wcli.layout.Frame({
+			title: "/(!ActionArg:!Panel:!Property:Title)"
+		}, nameid);
+
+		var div = document.createElement("div");
+		dojo.style(div, "position", "relative");
+		div.innerHTML = "<html><body>" + html + "</body></html>";
+		wcli.util.XBrowser.setContent(child, div);
+		dojo.connect(dijit.byId(nameid), "close", {}, function() {
+			/(!AJAXDoPanelEvent:phys=Query Close:pnlid=/(!ActionArg:PNLID))
+		});
+	}
+/(!Panel:!Action)
+/(!Panel:!Action:RemoveChild)
+	if (dijit.byId(/(!ActionArg))) {
+		dijit.byId(/(!ActionArg)).close();
+	}
+/(!Panel:!Action)
+/(!Panel:!Action:UpdateChild)
+	var data = /(Embed:js:cdata)/(!ActionArg:!Render:_type=json:_child=/(!ActionArg:!Panel:!NameID))/(Embed);
+	data.main();
+/(!Panel:!Action)
+/(!If)
+	/(!AttachPoint:name=JS)
+	/(!AttachPoint:name=JSPost)
+	/(!MDIActions.js)
+
+	/(!If:/(!IsDefined:FocusModeB))
+	/(!Else)
+	 if (window.modifiedBlockFocus) {
+	     return;
+	 }
+	 setTimeout( function() {
+            if (window.dialogIsOpen) {
+                return;
+            }
+	    /(!If:/(!Req:_child))
+		    /* don't set focus if this page is a hidden child panel */
+		    var cp = document.getElementById(/(!Req:_child));
+			if (cp && cp.style.display != "none")
+		/(!If)
+		
+		{
+			if (window.modifiedBlockFocus) {
+			    return;
+			}
+
+			window.settingFocus = true;
+	    	/(!FOCUS)
+	    		if (dijit._curFocus && window.focusElement && dijit._curFocus == window.focusElement){
+	    			window.focusElement = null;
+	    		} else if (dijit.byId("/(!NameID)")) {
+	        		dijit.byId("/(!NameID)").focus();
+	        		wcli.form.selectField(dijit.byId("/(!NameID)"));
+	      		} else if (document.getElementById("/(!NameID)") && document.getElementById("/(!NameID)").focus &&
+		  				document.getElementById("/(!NameID)").disabled == false) {
+		    		document.getElementById("/(!NameID)").focus();
+		    	} else {
+		    		wcli.grid.setFocusByColumnId("/(!NameID)");
+		    	}
+			/(!FOCUS)
+			window.settingFocus = false;
+			if(window.notifyInitialized){
+				window.notifyInitialized();	
+				window.notifyInitialized = null;
+			}
+		}
+	        window.modifiedBlockFocus = false;
+	},50);
+	/(!If)
+
+}

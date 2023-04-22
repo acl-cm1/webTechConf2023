@@ -1,0 +1,17 @@
+<button dojoType="dijit.form.Button" id="/(!NameID)" type="button" /(!If:/(!Property:MenuItem))/(!If:/(!Property:HintText))title="/(!FindControl:/(!Property:MenuItem):!Property:HintText)"/(!Else)title=""/(!If)/(!If) 
+style= "display:/(!If:/(!Property:Visible)=Yes)inline/(!Else)none/(!If)" onClick="/(!AJAXDoEventToolbar:phys=Select Menu)" /(!If:/(!Property:Disabled)=Yes)disabled /(!Else)/(!If)>
+/(!If:/(!Property:BitmapFile))
+		<img src="/(!WsResLib:plex.imageresources)/images//(!BitmapFile)" alt="/(!Property:FlyOverHint)"/>
+/(!If)
+</button>
+
+/(!EnableAction:SetState)
+/(!JS)
+	/(!Action:SetState)
+		var tb = dijit.byId("/(!NameID)");
+		if(tb) {
+			tb.setDisabled(/(!If:/(!Property:Disabled)=Yes)true/(!Else)false/(!If));
+			tb.domNode.style.display = '/(!If:/(!Property:Visible)=Yes)inline/(!Else)none/(!If)';
+		}
+	/(!Action)
+/(!JS)

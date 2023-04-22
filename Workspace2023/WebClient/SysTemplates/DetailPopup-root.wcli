@@ -1,0 +1,370 @@
+/(!Panel:!EnableAction:Refresh,SetCaption,RegisterKeyEvent,EnableKeyboardEvent,DisableKeyboardEvent)
+
+/(!If:/(!Req:_type)=json)
+  /(ContentType:application/json)
+  
+  /(OutTo:json.main:comments=js)
+	function(json) {
+	    /(!Panel:!Action:EnableKeyboardEvent)	 	
+	 		/(!Panel:!NameID)_keymap[/(!ActionArg)] = /(!ActionArg);
+	    /(!Panel:!Action)
+	    /(!Panel:!Action:DisableKeyboardEvent)
+	 		delete /(!Panel:!NameID)_keymap[/(!ActionArg)]; 
+	    /(!Panel:!Action)
+		/(!Panel:!Action:Refresh)
+			if (dialogreturn && dialogreturn(/(PNLID))) {
+				// fall thru
+				/(!AttachPoint:name=DialogReturn)
+			} else {
+				if (typeof pnlid == 'undefined' || pnlid != /(PNLID)) {
+					dojo.require('wcli.form.Dialog');
+					
+					if (dialogreturn)
+						dialogreturn(/(PARENTPNLID));
+		
+					var parentmainform = mainform;
+					var parentpnlid = /(PARENTPNLID);
+					var parentregistry = dijit.registry;
+					var parentdialogreturn = dialogreturn;
+					var parentsubmitter = window.submitter;	
+					var parentShellPnl = window.curShellPnl;		
+					window.parentsArr = window.parentsArr || [];
+					window.parentsArr.push(parentpnlid);
+					window./(!Panel:!NameID)_submitter = window.submitter = {};
+					window.shownTooltips = false;
+					/(!Panel:!NameID)_pnlid = pnlid = /(PNLID);
+					window.curShellPnl = pnlid;
+					/(!If:/(!IsDefined:DisablePopupFixedPositioning))
+					window.popupFixedPositioning = {
+						enabled: false
+					};
+					/(!If)
+		
+					dojo.xhrPost({
+						url: mainform.getAttributeNode('action').value,
+						content: { _type: 'json', specact: 'ackalerts', pnlid: pnlid, websessid: window.websessid },
+						load: function(data, ioArgs) {
+						},
+						preventCache: true,
+						handleAs: 'text'	
+					});
+								
+					var dlg;
+					var div = document.createElement("div");
+					div.innerHTML = json.html;
+					if(dojo.isFF || dojo.isSafari || dojo.isIE11){
+						mainform = div.firstElementChild;
+						var list = dojo.query("script[type^='text/javascript']", mainform);
+					}
+					else{
+						mainform = div.firstChild;
+						var list = dojo.query("script[type^='text/javascript']", mainform);
+					}
+					/(!Panel:!NameID)_form = mainform;
+					mainform.action = parentmainform.action;
+					mainform.method = parentmainform.method;
+					mainform.defaultButtonHandlers = [];
+					
+					/(!If:/(IsDefined:AutoResizePopup))
+					//Get the 'DETAIL' region, which is the full plex panel.
+					for (i = 0; i < div.children.length; i++) {
+					    if(div.children[i].tagName === 'FORM'){
+							for (j = 0; j < div.children[i].children.length; j++) {
+								if(div.children[i].children[j].className.indexOf('DETAIL') > -1){
+									//Make sure the width/height of the panel isn't greater than available screen space.
+									if(parseInt(div.children[i].children[j].style.width) > window.innerWidth){
+										div.children[i].children[j].style.width = window.innerWidth - 60 + 'px';
+									}
+									if(parseInt(div.children[i].children[j].style.height) > window.innerHeight){
+										div.children[i].children[j].style.height = window.innerHeight - 60 + 'px';
+									}
+									break;
+								}
+							}
+							break;
+						}
+					}
+					/(!If)
+		
+					dojo._inFlightCount++;
+					json.init();
+					dojo.forEach(list, function(node){
+						eval(node.innerHTML);
+					});
+					
+					window.inDialogCreate = true;
+				
+					var dialogreg = dijit.registry = new dijit.WidgetSet();
+					dijit.registry.parentregistry = parentregistry;
+					document.body.appendChild(div);
+					dojo.parser.parse(div);
+					json.onload();
+		
+					dlg = new dijit.Dialog({
+						title: /(!Panel:!Title) || "/(!Panel:!Property:Title)"
+					}, div);
+					dojo.addClass(dlg.domNode, "detailDialog");
+					var userclose = function() {
+						if(dijit._masterTT){
+							dijit._masterTT.destroyRecursive();
+							dijit._masterTT = null;
+						}
+						dojo.disconnect(/(!Panel:!NameID)_KeyDown);
+						if (!dojo.isIE) {
+							dojo.disconnect(/(!Panel:!NameID)_KeyPress);
+						}
+						
+						if (mainform.onsubmit)
+							mainform.onsubmit();
+						if (window./(!Panel:!NameID)_submitter.onsubmit)
+							window./(!Panel:!NameID)_submitter.onsubmit();
+						dojo.xhrPost({
+							url: mainform.getAttributeNode('action').value,
+							form: /(!Panel:!NameID)_form,
+							content: { _type: 'json', ctlact: '/(!Panel:!NameID):Query Close', pnlid: pnlid, websessid: window.websessid},
+							load: function(data, ioArgs) {
+							data.main(data);
+						},
+						preventCache: true,
+						handleAs: 'json'	
+						});						
+					}
+				    var p = dlg.domNode;
+					p.setAttribute("panelnameid", "/(!Panel:!NameID)");
+				    	/(!Panel:!NameID)_KeyDown = dojo.connect(p, "onkeydown", function(evt) {
+					  	var code = getKeyString(evt);
+					  	if (code in keyStatus) {
+		    			  	keyStatus[code] = true;
+					  	}
+					  	else {
+					  		/(!If:/(IsDefined:PopupCloseKey))
+					  		var closeKey = /(PopupCloseKey);
+					  		var keyCombo = closeKey.split('+');
+					  		var mod = true;
+					  		if (keyCombo.length > 1) {
+					  			switch(keyCombo[0]) {
+					  				case 'SHIFT':
+					  					mod = evt.shiftKey;
+					  					break;
+					  				case 'CTRL':
+					  					mod = evt.ctrlKey;
+					  					break;
+					  				case 'ALT':
+					  					mod = evt.altKey;
+					  					break;
+					  				default:
+					  					mod = false;
+					  			}
+					  			closeKey = keyCombo[1];
+					  		}
+					  		if (mod && evt.key.toUpperCase() == closeKey) {
+					  			userclose();
+								window./(!Panel:!NameID)_submitter = null;
+					  		} else {
+					  			dokey(/(!Panel:!NameID)_keymap, "/(!Panel:!NameID):", evt, /(!Panel:!NameID)_pnlid);
+					  		}/(!Else)
+					  		dokey(/(!Panel:!NameID)_keymap, "/(!Panel:!NameID):", evt, /(!Panel:!NameID)_pnlid);
+					  		/(!If)
+				  		}
+					});
+					if (!dojo.isIE) {
+					  	/(!Panel:!NameID)_KeyPress = dojo.connect(p, "onkeypress", function(evt) {
+					  		if (evt.keyCode == dojo.keys.ENTER)
+					  			dokey(/(!Panel:!NameID)_keymap, "/(!Panel:!NameID):", evt, /(!Panel:!NameID)_pnlid);
+						});
+					}
+					/(!AttachPoint:name=DialogInit)
+					dlg.startup();
+		
+					dojo._inFlightCount--;
+			  		dojo._callLoaded();
+		
+					dlg.show();
+					
+					window.inDialogCreate = false;
+					
+					setTimeout(function() {
+						// we need to set the focus before show so that the saved focus
+						// value in dialog's onEnd will not override our focus
+						/(!FOCUS)
+						if (dijit.byId("/(!NameID)")) {
+							dijit.byId("/(!NameID)").focus();
+						}
+						/(!FOCUS)
+						if(window.notifyInitialized){
+							window.notifyInitialized();	
+							window.notifyInitialized = null;
+						}
+			        	document.querySelectorAll('.dijitTooltipRight').forEach(function(node) { // Clear any orphaned tooltips 
+			        		node.remove(); 
+			        	});
+						if(wcli.grid && wcli.grid.setGridEditCellFocusCallback){
+							wcli.grid.setGridEditCellFocusCallback();
+							wcli.grid.setGridEditCellFocusCallback = null;
+						}
+					}, 550);
+					
+					dialogreturn = function(reqpnlid) {
+						window.curFocus = "";
+						if(dijit._masterTT){
+							dijit._masterTT.destroyRecursive();
+							dijit._masterTT = null;
+						}
+						var childrenMenu = dojo.query('body > table');
+						if(childrenMenu.length >0){
+							for(var x=0; x<childrenMenu.length; x++){
+								dijit.byNode(childrenMenu[x]).destroyRecursive();
+							}
+						}
+						for(var x=0;x<window.parentsArr.length;x++){
+							var parentid = window.parentsArr[x];
+							if(reqpnlid == parentid && parentShellPnl == parentpnlid){
+								dialogreturn = null;
+								var restoreFocus = dlg.hide();
+								dialogreg.forEach(function(w) {
+									if (w._onBlur){
+										w._onBlur();
+									}
+									if (w.setDisabled){
+										w.setDisabled(true);
+									}
+								});
+								mainform = parentmainform;
+								pnlid = parentpnlid;
+								dijit.registry = parentregistry;
+								dialogreturn = parentdialogreturn;
+								window.submitter = parentsubmitter;
+								window.curShellPnl = parentShellPnl;
+								parentsArr.splice(window.parentsArr.length-1,1);
+								/(!If:/(!IsDefined:DisablePopupFixedPositioning))
+								if (document.getElementsByClassName("detailDialog").length == 1) {
+									window.popupFixedPositioning = {
+										enabled: null
+									};
+								}
+								/(!If)
+								if (dialogreturn)
+									dialogreturn(reqpnlid);
+								if(dlg._savedFocus.node && dlg._savedFocus.node.offsetWidth > 0){
+									dijit.focus(dlg._savedFocus.node);
+								} else {
+			              			var cellsInFocus = dojo.doc.getElementsByClassName("dojoxGrid-cell-focus");
+			              			if(cellsInFocus && cellsInFocus.length > 0){
+			                     		dijit.focus(cellsInFocus[cellsInFocus.length - 1]);
+			              			}else{
+										if(dijit.byNode(mainform.parentNode.parentNode)){
+											dijit.focus(dijit.byNode(mainform.parentNode.parentNode).titleBar);
+										}
+									}
+			       				}			
+								
+								dojo.body().removeChild(dlg.domNode);
+								dojo.xhrPost({
+									url: mainform.getAttributeNode('action').value,
+									content: { _type: 'json', specact: 'ackalerts', pnlid: pnlid, websessid: window.websessid},
+									load: function(data, ioArgs) {
+									},
+									preventCache: true,
+									handleAs: 'text'	
+								});
+								return true;
+								}
+							}
+						return false;
+					}		
+					dlg.closeButtonNode.onclick = userclose;
+					dlg.closeButtonNode.title = /(!If:/(IsDefined:DialogCloseText))/(DialogCloseText)/(!Else)''/(!If) ;
+					dlg.cancel = userclose;
+					dlg.closeButtonNode.ondblclick = userclose;
+					/(!Panel:!Action:RegisterKeyEvent)
+						/(!Panel:!NameID)_keymap[/(!ActionArg)] = /(!ActionArg);
+	    				/(!Panel:!Action)
+	    			setTimeout(function(div) {
+	    				//Refresh Grid controls after the PopUp has being built and the CSS is complete loaded
+	    				var gridControls = div.getElementsByClassName("dojoxGrid");	    				
+	    				for(var i=0; i < gridControls.length; i++){
+	    					dijit.byId(gridControls[i].id).refresh();
+	    					dijit.byId(gridControls[i].id).rebuildHeader();
+	    				}	    					
+	    			}, 100, dlg.domNode);
+					return;
+				} 
+			}
+		/(!Panel:!Action)
+		/(!Panel:!Action:SetCaption)
+		if(!dojo.isIE){
+			dijit.byNode(mainform.parentNode.parentNode).titleBar.childNodes[1].textContent = /(!Panel:!Title) || "/(!Panel:!Property:Title)";
+		}
+		else {
+			dijit.byNode(mainform.parentNode.parentNode).titleBar.children[0].innerText = /(!Panel:!Title) || "/(!Panel:!Property:Title)";
+		}
+		/(!Panel:!Action)
+		/(!Panel:!NameID)_pnlid = pnlid = /(PNLID);
+		
+		/(!AttachPoint:name=JS)
+		/(!AttachPoint:name=JSPost)
+	}
+  /(OutTo)
+  
+  /(OutTo:json.html)
+    /(Embed:html)
+      <form method="get" action="/(WSACTION)">
+        <input type="hidden" name="WSYD_SIGN" value="/(!Req:WSYD_SIGN)"/>
+      	<input type="hidden" name="WSYD_EVENT" value="/(!Req:WSYD_EVENT)"/>
+	<input type="hidden" name="WSYD_SID" value="/(!Req:WSYD_SID)"/>
+      	<input type="hidden" name="WSLNKREF" value="/(!Req:WSLNKREF)"/>
+      	<input type="hidden" name="WSCURPRS" value="/(!Req:WSCURPRS)"/>          
+      	  
+	<div class="DETAIL" style="position: relative; width: /(!Panel:!Size:x)px; height: /(!Panel:!Size:y)px; padding: 0px;" >
+		/(!AttachPoint:name=LinkArea)
+		/(!AttachPoint:name=LoadScreen)
+		/(!AttachPoint:name=DataArea)   
+		/(!AttachPoint:name=FormArea)
+		/(!AttachPoint:name=MainArea)
+	</div>
+      </form>
+      	/(!AttachPoint:name=OtherFormsArea)
+    /(Embed)
+  /(OutTo)
+  
+  /(OutTo:json.init)
+  	function() {
+  		/(!If:/(!IsDefined:FixedPositioning))
+  			if(!sessionStorage.getItem("/(!Panel:!NameID)_isPopUp")){
+				sessionStorage.setItem("/(!Panel:!NameID)_isPopUp", true);
+			}  						
+		/(!If)
+  		/(!AttachPoint:name=JSInit)
+  	}
+  /(OutTo)
+  
+  /(OutTo:json.onload)
+  	function() {
+  		/(!Panel:!NameID)_keymap = {};
+	    /(!Panel:!Action:RegisterKeyEvent)		
+		/(!Panel:!NameID)_keymap[/(!ActionArg)] = /(!ActionArg);
+		/(!Panel:!Action)
+	    /(!Panel:!Action:EnableKeyboardEvent)	 	
+	 		/(!Panel:!NameID)_keymap[/(!ActionArg)] = /(!ActionArg);
+	    /(!Panel:!Action)
+	    /(!Panel:!Action:DisableKeyboardEvent)
+	 		delete /(!Panel:!NameID)_keymap[/(!ActionArg)]; 
+	    /(!Panel:!Action)
+  		/(!AttachPoint:name=JSOnLoad)
+  	}
+  /(OutTo)
+/(!Else)
+
+  /(ContentType:text/html)
+  
+  /(OutTo:html:comments=none)
+  	<html>
+  		<body>
+  			<script type="text/javascript">
+	  			window.alert("Please return to original session");
+			</script>
+		</body>
+	</html>
+  /(OutTo)
+  
+/(!If)

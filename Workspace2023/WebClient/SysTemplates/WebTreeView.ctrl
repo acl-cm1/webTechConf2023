@@ -1,0 +1,128 @@
+/(!JSInit:once)
+	 dojo.registerModulePath("wcli.extras", /(!WsRes)+"/js/wcli/extras");
+	 dojo.require("dojo.data.ItemFileWriteStore");
+     dojo.require("wcli.extras.Tree");
+     
+     /(!CreateCSSStyle)
+/(!JSInit)
+
+/(!JSInit)
+	/(!NameID)store = new dojo.data.ItemFileWriteStore({data: /(!Var:treeJSONData)});
+	
+	// Create styles from the image list
+	var imageListJSON = /(!Var:imageListJSON);
+	for (var imgIdx=0;imgIdx<imageListJSON.images.length; imgIdx++)
+	{
+		className = "/(!NameID)Img" + (imgIdx + 1); // add one to match Plex index
+		styleText = "." + className + "{background-image: url('images/" + imageListJSON.images[imgIdx] + "');background-repeat: no-repeat;width: 18px;height: 18px;text-align: center;}";
+		createCSSStyle(styleText, /(PNLID));
+	}
+/(!JSInit)
+
+/(!JSOnLoad)
+	/(!If:/(!IsDefined:FixedPositioning)) 
+		/(!AbleToResize)
+		
+		var tree = dijit.byId("/(!NameID)");
+		if(ableToResize  === true){			
+			wcli.util.XBrowser.addFixedPositionAttributes(tree, /(!FixPosition:object=true));
+			wcli.util.XBrowser.resizeDiv(tree.domNode,tree,false);
+		}
+				
+		setTimeout(function(){
+			if (typeof /(!NameID)_SetStateResizeTree === "undefined" && ableToResize === true){
+		    	/(!NameID)_SetStateResizeTree = dojo.connect(window, "onresize", function(){	    		
+					var dijitObj = dijit.byId("/(!NameID)");					
+					if(dijitObj && dijitObj.domNode){
+						
+						wcli.util.XBrowser.resizeDiv(dijitObj.domNode,dijitObj,true);
+					}
+				});
+			}
+    	}, 300);      
+		
+	/(!If)
+/(!JSOnLoad)
+
+<input name="/(!NameID)" type="hidden" value="" />
+<div dojoType="wcli.extras.Tree" id="/(!NameID)" class="treeView /(!CustomClass:nc:class=/(!Param:class))" 
+	style="/(!DefaultCSS:nc:withPos=/(!Param:default)) overflow:auto" store="/(!NameID)store"
+	labelAttr="nodeDesc" query="{type:'root'}"
+	/(!If:/(!Param:persist))persist="/(!Param:persist)"/(!Else)persist="true"/(!If)
+	/(!If:/(!IsDefined:FixedPositioning))/(!FixPosition)/(!If)>
+  <script type="dojo/method" event="onDblClick" args="item">
+  	// *** This isn't being triggered for some reason
+  	if (item) {
+	  	mainform["/(!NameID)"].value = '{ currentEvent: "NodeDoubleClicked", currentNode: "' + item.nodeID + '"}';
+		/(!AJAXDoEvent:phys=Bean Action)
+  	}
+  </script>
+  <script type="dojo/method" event="onClick" args="item">
+  	if (item) {
+	  	mainform["/(!NameID)"].value = '{ currentEvent: "NodeClicked", currentNode: "' + item.nodeID + '"}';
+		/(!AJAXDoEvent:phys=Bean Action)
+  	}
+  </script>
+  <script type="dojo/connect" event="_expandNode" args="node">
+  		if (this.inRefresh || !node.item || node.webTreeExpanded) {
+  			return;
+  		}
+		mainform["/(!NameID)"].value = '{ currentEvent: "NodeExpanding", currentNode: "' + node.item.nodeID + '"}';
+		/(!AJAXDoEvent:phys=Bean Action)
+		mainform["/(!NameID)"].value = '{ currentEvent: "NodeExpanded", currentNode: "' + node.item.nodeID + '"}';
+		/(!AJAXDoEvent:phys=Bean Action)
+		node.webTreeExpanded = true;
+  </script>
+  <script type="dojo/connect" event="_collapseNode" args="node">
+  		if (this.inRefresh || !node.item || !node.webTreeExpanded) {
+  			return;
+  		}
+		mainform["/(!NameID)"].value = '{ currentEvent: "NodeCollapsing", currentNode: "' + node.item.nodeID + '"}';
+		/(!AJAXDoEvent:phys=Bean Action)
+		mainform["/(!NameID)"].value = '{ currentEvent: "NodeCollapsed", currentNode: "' + node.item.nodeID + '"}';
+		/(!AJAXDoEvent:phys=Bean Action)
+		node.webTreeExpanded = false;
+  </script>
+  
+  <script type="dojo/method" event="getIconClass" args="item, selected">
+  		if (item!=null)	{
+	  		if (selected)	{
+	  			iconIdx = /(!NameID)store.getValue(item, "selImageIdx");		
+	  		} else {
+				iconIdx = /(!NameID)store.getValue(item, "imageIdx");  
+	        }
+	        return ("/(!NameID)Img" + iconIdx);
+        }
+        else {
+        	return "defaultImg";
+        }       
+ </script>
+</div>
+/(!EnableAction:RefreshTree,CollapseTree)
+/(!JS)	
+  /(!Action:RefreshTree)
+ 	 /(!NameID)store = new dojo.data.ItemFileWriteStore({data: /(!Var:treeJSONData)});
+ 	 var tree = dijit.byId("/(!NameID)");
+ 	 tree.inRefresh = true; 
+ 	 tree.refresh(/(!NameID)store);
+ 	 if (/(!NameID)store._jsonData!=null && typeof /(!NameID)store._jsonData.items=='undefined') {
+		tree.collapse();
+	 }
+	  	 if (tree.isExpanded) {
+	 	var rootNode = tree._navToRootOrFirstNode();
+	 	if (rootNode && rootNode.isExpanded) {
+	 		tree._expandNode(rootNode);
+	 	}
+	 }	 
+ 	 tree.inRefresh = false;
+  /(!Action)
+  /(!Action:CollapseTree)
+	var tree = dijit.byId("/(!NameID)");
+	if (tree.isExpanded) {
+	 	var rootNode = tree._navToRootOrFirstNode();
+	 	if (rootNode) {
+	 		rootNode.collapse();
+	 	}
+	 }
+  /(!Action)
+/(!JS)

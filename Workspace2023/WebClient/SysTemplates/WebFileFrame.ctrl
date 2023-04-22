@@ -1,0 +1,12 @@
+<iframe id="/(!NameID)" style="/(!DefaultCSS:nc:withPos=/(!Param:default))" class="/(!CustomClass:nc:class=/(!Param:class))" src="/(!This);"
+	<p>Your browser does not support iframes.</p>
+</iframe>
+
+/(!EnableAction:SetValue)
+
+/(!JS)
+	/(!Action:SetValue)
+   	if(document.getElementById("/(!NameID)"))
+   	   document.getElementById("/(!NameID)").action = "/(!This)";
+	/(!Action)
+/(!JS)

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="storeJava">
+        <wb-resource deploy-path="/" source-path="/PlexSrc"/>
+        <wb-resource deploy-path="/" source-path="/PlexRes"/>
+        <wb-resource deploy-path="/" source-path="/WebGenTemplates"/>
+    </wb-module>
+</project-modules>

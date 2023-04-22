@@ -1,0 +1,21 @@
+body {
+    background: lightblue;
+    font-family: Verdana, Arial, Tahoma, Serif;
+  }
+
+  h1{
+    color: green;
+  }
+  
+  button {
+    color: white;
+  }
+  
+  .redBtn {
+    background: red;
+  }
+  
+  .blueBtn {
+    background: blue;
+  }
+  

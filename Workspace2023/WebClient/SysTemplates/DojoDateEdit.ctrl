@@ -1,0 +1,99 @@
+/(!LinkArea:once)
+  <link href="/(!WsRes)/js/wcli/form/DateTextBox.css" rel="stylesheet" type="text/css" />
+/(!LinkArea)
+
+/(!JSInit:once)
+     dojo.require("wcli.form.DateTextBox");
+/(!JSInit)
+
+/(!JSInit)
+	/(!ContextMenu)
+/(!JSInit)
+
+/(!JSOnLoad)
+    /(!If:/(!Property:BackgroundColor)=5))
+    /(!Else)
+		wcli.util.XBrowser.setBGColor("/(!Property:BackgroundColor)","/(!NameID)");
+	/(!If)
+	
+	/(!If:/(!Property:TextAlignment)=Right)
+		if (wcli.util.XBrowser.querySelector("/(!NameID)")) {
+			dojo.style(wcli.util.XBrowser.querySelector("/(!NameID)"), "textAlign", "right");
+		}
+	/(!If)
+	
+	/(!If:/(!Mode)=Read Only)
+		wcli.util.XBrowser.getDateAttReadOnly("/(!NameID)", "/(!Mode)");
+	/(!If)
+	
+	/(!EditEvents:node=textbox)
+/(!JSOnLoad)
+
+/(!If:/(!Mode)=Read Only)
+  <span id="/(!NameID)" style="/(!DefaultCSS:nc:withPos=/(!Param:default))margin-top:4px;" editMask="/(!Property:EditMask)"  class="protectedTextBox /(!CustomClass:nc:class=/(!Param:class))"
+  decplaces="/(!DecLength)" fractional="/(!If:/(!DecLength)="0")false /(!Else)true/(!If)" 
+  dataType="/(!DataType)" dateFormat="/(!Param:dateFormat)">
+    /(!This)
+  </span>
+/(!If)
+
+/(!If:/(!Mode)=Edit)  
+  <input dojoType="wcli.form.DateTextBox" id="/(!NameID)"
+         style="/(!DefaultCSS:nc:withPos=/(!Param:default))" 
+		 class="/(!CustomClass:nc:class=/(!Param:class))"
+         name="/(!NameID)"
+         value="/(!This)" editMask="/(!Property:EditMask)" dateFormat="/(!Param:dateFormat)" />
+/(!If)
+	
+/(!EnableAction:SetValue,SetState,SetFocus)
+/(!JS)
+  /(!Action:SetValue)
+    /(!If:/(!Mode)=Read Only)
+	wcli.util.XBrowser.setTextContent(document.getElementById("/(!NameID)"), /(!This));
+    /(!If)
+
+    /(!If:/(!Mode)=Edit)
+      wcli.util.XBrowser.setValueDate("/(!NameID)",/(!This));
+    /(!If)
+  /(!Action)
+
+  /(!Action:SetState)
+
+    var w = dijit.byId("/(!NameID)");
+    if (w) {
+    	w.domNode.style.cssText = "/(!DefaultCSS:nc:withPos=/(!Param:default))";
+    	w.textbox.style.cssText = "/(!DefaultCSS:nc:withPos=/(!Param:default))";
+    	w.state = /(!If:/(!Property:BackgroundColor)=255 0 0)"Error"/(!Else)""/(!If);
+    	w._setStateClass();
+    	if (w.state == "Error" && tooltipMsg) {
+	    	w.displayMessage(tooltipMsg);
+	    	tooltipMsg = null;
+	    }
+    }
+  
+    if (document.getElementById("/(!NameID)")) {
+	wcli.util.XBrowser.setCSSText(document.getElementById("/(!NameID)"), "/(!DefaultCSS:nc:withPos=/(!Param:default))");
+	
+    /(!If:/(!Property:TextAlignment)=Right)
+	   wcli.util.XBrowser.setCSSStyle(document.getElementById("/(!NameID)"), "textAlign", "right");
+    /(!If)
+    }
+ 	var editbox = document.getElementById("/(!NameID)");
+ 	  
+    /(!If:/(!Mode)=Edit)
+	wcli.util.XBrowser.setStateDateEdit("/(!NameID)", "/(!DefaultCSS:nc:withPos=/(!Param:default))", /(!This), "/(!Property:EditMask)");
+    /(!If)
+        
+    /(!If:/(!Mode)=Read Only)	
+    	wcli.util.XBrowser.setStateDateReadOnly("/(!NameID)","/(!Property:EditMask)", "/(!DecLength)", "/(!DataType)", "/(!DefaultCSS:nc:withPos=/(!Param:default))", "/(!Property:TextAlignment)", /(!This));
+    /(!If)
+  /(!Action)
+  
+  /(!Action:SetFocus)
+    if (document.getElementById("/(!NameID)"))
+	    document.getElementById("/(!NameID)").focus();
+  /(!Action)
+/(!JS)
+
+
+

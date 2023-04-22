@@ -1,0 +1,181 @@
+/(!JSInit:once)
+    dojo.require("dijit.form.Button");
+    /(!If:/(!Property:DefaultButton)=Yes)
+    dojo.addOnLoad(function() {
+		dojo.connect(mainform, "onkeypress", function(evt) {
+			if (evt.target.tagName == "TEXTAREA" || evt.target.tagName == "BUTTON")
+				return;
+			if (evt.keyCode == dojo.keys.ENTER)
+				dijit.byId("/(!NameID)").onClick(evt);
+		});
+	});
+	/(!If)
+/(!JSInit)
+
+/(!JSInit)
+	/(!ContextMenu)
+	dojo.addOnLoad(function() {
+		dojo.connect(dijit.byId("/(!NameID)"), "onClick", function(evt) {
+				var pane = dijit.byId("/(!Panel:!NameID)");
+				var panelDomNode;
+					if (!pane) {
+						if(dojo.query(".dijitDialog").length > 0){
+							var dialogLn = dojo.query(".dijitDialog").length;
+							for(var x=0; x<dialogLn; x++){
+								var dlgid = dojo.query(".dijitDialog")[x].getAttribute("panelnameid");
+								if(dlgid == "/(!Panel:!NameID)"){
+									panelDomNode = dojo.query(".dijitDialog")[x];
+								}
+							}
+						}
+						else{
+							panelDomNode = document.body;
+						}
+					} else {
+						panelDomNode = pane.domNode;
+					}
+	    			if(mainform.ctlact.length > 1){
+	    				for(var i=0; i<mainform.ctlact.length; i++){
+	    					/(!Panel:!NameID)_form.ctlact[i].value = '/(!NameID):Pressed';
+	    					/(!Panel:!NameID)_form.pnlid[i].value = /(!Panel:!NameID)_pnlid;
+	    					if(window.websessid){
+	    						/(!Panel:!NameID)_form.websessid[i].value = window.websessid;
+	    					}
+	    	
+	    					var panelGrid = dojo.query(".dojoxGrid", panelDomNode);
+	  	    				if(panelGrid.length == 1){
+								var gridID = dojo.query(".dojoxGrid", panelDomNode)[0].id;
+								/(!Panel:!NameID)_form.colvis[i].value = JSON.stringify(dijit.byId(gridID).layout.colvis); 
+							}
+							else{
+								for(var t=0; t< panelGrid.length; t++) {
+									if(panelGrid[t].parentNode.parentNode == panelDomNode){
+										gridID = panelGrid[t].id;
+									}
+								}
+								/(!Panel:!NameID)_form.colvis[i].value = JSON.stringify(dijit.byId(gridID).layout.structure[0].colvis);
+							}
+      						var colLen = dijit.byId(gridID).model.colCount;
+      						var fieldIndex = new Array(colLen);
+      						for(var x=0; x<colLen; x++){
+      							fieldIndex[x]=dijit.byId(gridID).layout.cells[x].fieldIndex;
+      						}
+  							 /(!Panel:!NameID)_form.gridstate[i].value = JSON.stringify(fieldIndex);
+  							 if(dijit.byId(gridID).model.rowVis != undefined){
+  							 	/(!Panel:!NameID)_form.rowvis[i].value = JSON.stringify(dijit.byId(gridID).model.rowVis);
+  							 }
+	    				}
+	    			}
+	    			else{
+	    				/(!Panel:!NameID)_form.ctlact.value = '/(!NameID):Pressed';
+	    				/(!Panel:!NameID)_form.pnlid.value = /(!Panel:!NameID)_pnlid;
+	    				if(window.websessid){
+	    					/(!Panel:!NameID)_form.websessid.value = window.websessid;
+	    				}
+	    		
+  	    				var panelGrid = dojo.query(".dojoxGrid", panelDomNode);
+  	    				if(panelGrid.length == 1){
+							var gridID = dojo.query(".dojoxGrid", panelDomNode)[0].id; 
+						}
+						else{
+							for(var t=0; t< panelGrid.length; t++) {
+								if(panelGrid[t].parentNode.parentNode == panelDomNode){
+									gridID = panelGrid[t].id;
+								}
+							}
+						}
+						var gridCtl = dijit.byNode(document.getElementById(gridID));
+						if(panelGrid.length == 1){
+							/(!Panel:!NameID)_form.colvis.value = JSON.stringify(gridCtl.layout.colvis);
+						}else{
+							/(!Panel:!NameID)_form.colvis.value = JSON.stringify(gridCtl.layout.structure[0].colvis);
+						}
+      					var colLen = gridCtl.model.colCount;
+      					var fieldIndex = new Array(colLen);
+      					for(var x=0; x<colLen; x++){
+      						fieldIndex[x]=gridCtl.layout.cells[x].fieldIndex;
+      					}
+  						 /(!Panel:!NameID)_form.gridstate.value = JSON.stringify(fieldIndex);
+  						if(gridCtl.model.rowVis != undefined){
+  							/(!Panel:!NameID)_form.rowvis.value = JSON.stringify(gridCtl.model.rowVis);
+  						}
+	    			}
+	    			keepsess = true;
+	    			/(!Panel:!NameID)_form.method = "post";
+	    			/(!Panel:!NameID)_form.submit();
+		});
+	});
+	
+	/(!If:/(!IsDefined:FixedPositioning))
+	dojo.addOnLoad(function() {
+		/(!AbleToResize:Type1=true)
+		setTimeout(function(){
+            if (typeof /(!NameID)_OnLoadResizeGridExport === "undefined" && ableToResize === true){
+                /(!NameID)_OnLoadResizeGridExport = dojo.connect(window, "onresize", function(){
+                    if(document.getElementById("/(!NameID)")){              
+                        wcli.util.XBrowser.resizeCtrl(document.getElementById("/(!NameID)"), null, true);
+                    }
+                });
+            }
+        }, 300);  		
+	});
+	/(!If)		  
+/(!JSInit)
+
+/(!JSOnLoad)
+	/(!If:/(!IsDefined:FixedPositioning))
+		wcli.util.XBrowser.addFixedPositionAttributes(document.getElementById("/(!NameID)"), /(!FixPosition:object=true));
+	/(!If)	
+/(!JSOnLoad)
+
+
+/(!FormArea:once)
+	<input type="hidden" name="ctlact">
+/(!FormArea)
+
+/(!FormArea:once)
+	<input type="hidden" name="pnlid">
+/(!FormArea)
+
+/(!FormArea:once)
+	<input type="hidden" name="colvis">
+/(!FormArea)
+
+/(!FormArea:once)
+	<input type="hidden" name="gridstate">
+/(!FormArea)
+
+/(!FormArea:once)
+	<input type="hidden" name="rowvis">
+/(!FormArea)
+
+/(!FormArea:once)
+	<input type="hidden" name="websessid">
+/(!FormArea)
+
+<button dojoType="dijit.form.Button" type="button" id="/(!NameID)" style="/(!DefaultCSS:nc:withPos=/(!Param:default))" class="/(!CustomClass:nc:class=/(!Param:class))" title="/(!Property:FlyOverHint)"
+/(!If:/(!Property:Disabled)=Yes)disabled /(!Else)/(!If) /(!If:/(!IsDefined:FixedPositioning))/(!FixPosition)/(!If)>
+	/(!Text:htmlaccel)
+	/(!If:/(!Property:BitmapFile))
+		<img src="/(!WsResLib:plex.imageresources)/images//(!BitmapFile)" />
+	/(!If)
+	
+	
+</button>
+
+/(!EnableAction:SetState,SetFocus)
+/(!JS)
+  /(!Action:SetState)
+	 if (dijit.byId("/(!NameID)"))
+	 	dijit.byId("/(!NameID)").setDisabled(/(!If:/(!Property:Disabled)=Yes)true/(!Else)false/(!If));
+	 	/(!If:/(!IsDefined:FixedPositioning))
+		/(!Else)
+			dijit.byId("/(!NameID)").domNode.style.cssText = "/(!DefaultCSS:nc:withPos=/(!Param:default))";
+		/(!If)
+  /(!Action)
+  
+  /(!Action:SetFocus)
+  	 if (dijit.byId("/(!NameID)"))
+  	 	dijit.byId("/(!NameID)").focus();
+  /(!Action)
+/(!JS)

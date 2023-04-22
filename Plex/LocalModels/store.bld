@@ -1,0 +1,1578 @@
+[Service generation options]
+Create C# interface classes=0
+Create Java interface classes=0
+
+[Name configuration]
+Name allocator dll=ObAlcNme.dll
+Truncate long file names at generation=0
+Parameter file=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\store.bld
+
+[Name allocation]
+Enabled=1
+SQL Long Names=0
+Model prefix=ST
+Last used counter=53
+Retry count=50
+Maximum long name length=25
+
+[Options]
+StopBuild=0
+Debug=0
+MakeExes=0
+DatabaseLabels=1
+JavaFieldImplementationNames=1
+Release=721
+;Set 'Allocate Fixed Control IDs' to 1 to generate Control ID properties against all panel elements.
+Allocate Fixed Control IDs=0
+EJB Remote Interface=1
+Generate Usage Triples=0
+UseSQLNameWithoutConv=0
+;Generate EJB interface type as Local or Remote, value 0 for Local.= 
+
+[C++ Generation Options]
+Generate File Version Information=0
+Source Code Library=
+
+[Build Systems]
+WINNT=%LOCAL%
+WINC=%LOCAL%
+AS400=
+HPUX=
+JAVA=%LOCAL%
+C#=%LOCAL%
+
+[Remote GenBuild]
+Queuedir=
+
+[Remote Generation]
+ShowNewObjects=0
+
+[C++LibsUsage]
+Use=0
+
+[32-bit C++LibsUsage]
+Use=0
+
+[GeneratorTrace]
+SequenceGeneratedSourceFile=on
+ShowGeneratedSourceSequenceID=off
+/* Remember to turn comment generation on */
+DebugTrace=off
+TraceLogOnly=off
+TraceLogFile=OB_TRACE.LOG
+TraceShowLineNumbers=on
+TraceShowExecutionSequenceNumbers=on
+TraceShowFiles=On
+TraceFilterShowFiles=
+TraceFilterShowClasses=
+TraceFilterHideClasses=
+TraceFilterShowMethods=
+TraceFilterHideMethods=GenSourcef::GenComment::GenSource::GenSourcefCommentBox::GenCharLineComment::OBPrePassRTFTopics::GenSourcePrivate::GenSourcePrivateLine
+TraceProgrammerNotes=on
+
+[C#Fnc]
+desc=Windows C# function
+sourcedir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+16targetdir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\Plex\LocalModels\Gen
+32targetdir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+sourceext=cs
+objectext=dll
+OS400obj=0
+HPUXobj=0
+WinNTobj=0
+Javaobj=0
+CSharpobj=1
+sourcelib=
+sourcefile=
+sharename=
+objectlib=
+
+[WinCFnc]
+desc=Windows C++ function
+sourcedir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+16targetdir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\Plex\LocalModels\Gen
+32targetdir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+sourceext=cpp
+objectext=obj
+OS400obj=0
+HPUXobj=0
+WinNTobj=0
+CSharpobj=0
+sourcelib=
+sourcefile=
+sharename=
+objectlib=
+Javaobj=
+
+[WinCPnl]
+desc=Windows panel
+sourcedir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+sourceext=rc
+objectext=res
+OS400obj=0
+HPUXobj=0
+WinNTobj=0
+CSharpobj=0
+sourcelib=
+sourcefile=
+sharename=
+objectlib=
+Javaobj=
+16targetdir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\Plex\LocalModels\Gen
+32targetdir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+
+[WinCRpt]
+desc=Windows report
+sourcedir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+sourceext=rc
+objectext=res
+OS400obj=0
+HPUXobj=0
+WinNTobj=0
+CSharpobj=0
+sourcelib=
+sourcefile=
+sharename=
+objectlib=
+Javaobj=
+16targetdir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\Plex\LocalModels\Gen
+32targetdir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+
+[WinNTCFnc]
+desc=Windows NT C++ function
+sourcedir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+targetdir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+sourceext=cpp
+objectext=obj
+OS400obj=0
+HPUXobj=0
+WinNTobj=1
+CSharpobj=0
+sharename=NTGEN
+sourcelib=
+sourcefile=
+objectlib=
+Javaobj=
+
+[JavaFnc]
+desc=Java function
+sourcedir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+sourceext=java
+objectext=class
+OS400obj=0
+HPUXobj=0
+WinNTobj=0
+Javaobj=1
+CSharpobj=0
+sourcelib=
+sourcefile=
+sharename=
+objectlib=
+16targetdir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\Plex\LocalModels\Gen
+32targetdir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+
+[ODBCTbl]
+desc=ODBC Table
+sourcedir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+sourceext=tbl
+OS400obj=0
+HPUXobj=0
+WinNTobj=0
+CSharpobj=0
+sourcelib=
+sourcefile=
+sharename=
+objectlib=
+objectext=
+Javaobj=
+16targetdir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\Plex\LocalModels\Gen
+32targetdir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+
+[ODBCVw]
+desc=ODBC View
+sourcedir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+sourceext=viw
+OS400obj=0
+HPUXobj=0
+WinNTobj=0
+CSharpobj=0
+sourcelib=
+sourcefile=
+sharename=
+objectlib=
+objectext=
+Javaobj=
+16targetdir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\Plex\LocalModels\Gen
+32targetdir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+
+[ODBCWinNTTbl]			
+desc=ODBCWinNT Table
+sourcedir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+sourceext=tbl
+OS400obj=0
+HPUXobj=0
+WinNTobj=1
+CSharpobj=0
+sharename=NTGEN
+sourcelib=
+sourcefile=
+objectlib=
+objectext=
+Javaobj=
+targetdir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+
+[ODBCWinNTVw]			
+desc=ODBCWinNT View
+sourcedir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+sourceext=viw
+OS400obj=0
+HPUXobj=0
+WinNTobj=1
+CSharpobj=0
+sharename=NTGEN
+sourcelib=
+sourcefile=
+objectlib=
+objectext=
+Javaobj=
+targetdir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+
+[OracleWinNTTbl]			
+desc=OracleWinNT Table
+sourcedir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+sourceext=tbl
+OS400obj=0
+HPUXobj=0
+WinNTobj=1
+CSharpobj=0
+sharename=NTGEN
+sourcelib=
+sourcefile=
+objectlib=
+objectext=
+Javaobj=
+targetdir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+
+[OracleWinNTVw]			
+desc=OracleWinNT View
+sourcedir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+sourceext=viw
+OS400obj=0
+HPUXobj=0
+WinNTobj=1
+CSharpobj=0
+sharename=NTGEN
+sourcelib=
+sourcefile=
+objectlib=
+objectext=
+Javaobj=
+targetdir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+
+[OracleTbl]
+desc=Oracle Table
+sourcedir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+sourceext=tbl
+OS400obj=0
+HPUXobj=1
+WinNTobj=0
+CSharpobj=0
+sourcelib=
+sourcefile=
+sharename=
+objectlib=
+objectext=
+Javaobj=
+
+[OracleVw]
+desc=Oracle View
+sourcedir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+sourceext=viw
+OS400obj=0
+HPUXobj=1
+WinNTobj=0
+CSharpobj=0
+sourcelib=
+sourcefile=
+sharename=
+objectlib=
+objectext=
+Javaobj=
+
+[JDBCTbl]
+desc=JDBC Table
+sourcedir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+sourceext=tbl
+OS400obj=0
+HPUXobj=0
+WinNTobj=0
+Javaobj=1
+CSharpobj=0
+sourcelib=
+sourcefile=
+sharename=
+objectlib=
+objectext=
+16targetdir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\Plex\LocalModels\Gen
+32targetdir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+
+[JDBCVw]
+desc=JDBC View
+sourcedir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+sourceext=viw
+OS400obj=0
+HPUXobj=0
+WinNTobj=0
+Javaobj=1
+CSharpobj=0
+sourcelib=
+sourcefile=
+sharename=
+objectlib=
+objectext=
+16targetdir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\Plex\LocalModels\Gen
+32targetdir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+
+[JDBCOracleTbl]
+desc=JDBCOracle Table
+sourcedir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+sourceext=tbl
+OS400obj=0
+HPUXobj=0
+WinNTobj=0
+Javaobj=1
+CSharpobj=0
+sourcelib=
+sourcefile=
+sharename=
+objectlib=
+objectext=
+16targetdir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\Plex\LocalModels\Gen
+32targetdir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+
+[JDBCOracleVw]
+desc=JDBCOracle View
+sourcedir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+sourceext=viw
+OS400obj=0
+HPUXobj=0
+WinNTobj=0
+Javaobj=1
+CSharpobj=0
+sourcelib=
+sourcefile=
+sharename=
+objectlib=
+objectext=
+16targetdir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\Plex\LocalModels\Gen
+32targetdir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+
+[RTFTpc]
+desc=Windows help
+sourcedir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+sourceext=rtf
+objectext=hlp
+OS400obj=0
+HPUXobj=0
+WinNTobj=0
+CSharpobj=0
+sourcelib=
+sourcefile=
+sharename=
+objectlib=
+Javaobj=
+16targetdir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\Plex\LocalModels\Gen
+32targetdir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+
+[UIMTpc]
+desc=System i UIM help
+sourcedir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+sourceext=uim
+OS400obj=1
+sourcelib=SRCLIB
+sourcefile=QPNLSRC
+objectlib=OBJLIB
+HPUXobj=0
+WinNTobj=0
+CSharpobj=0
+sharename=
+objectext=
+Javaobj=
+
+[RPG400Fnc]
+desc=System i RPG400 Function
+sourcedir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+sourceext=rpg
+OS400obj=1
+sourcelib=SRCLIB
+sourcefile=QRPGSRC
+objectlib=OBJLIB
+HPUXobj=0
+WinNTobj=0
+CSharpobj=0
+sharename=
+objectext=
+Javaobj=
+
+[RPG400Pnl]
+desc=System i RPG400 Display file
+sourcedir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+sourceext=dsp
+OS400obj=1
+sourcelib=SRCLIB
+sourcefile=QDDSSRC
+objectlib=OBJLIB
+HPUXobj=0
+WinNTobj=0
+CSharpobj=0
+sharename=
+objectext=
+Javaobj=
+
+[RPG400Rpt]
+desc=System i RPG400 Print file
+sourcedir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+sourceext=prt
+OS400obj=1
+sourcelib=SRCLIB
+sourcefile=QDDSSRC
+objectlib=OBJLIB
+HPUXobj=0
+WinNTobj=0
+CSharpobj=0
+sharename=
+objectext=
+Javaobj=
+
+[RPGIVFnc]
+desc=System i RPGIV Function
+sourcedir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+sourceext=rp4
+OS400obj=1
+sourcelib=SRCLIB
+sourcefile=QRPGLESRC
+objectlib=OBJLIB
+HPUXobj=0
+WinNTobj=0
+CSharpobj=0
+sharename=
+objectext=
+Javaobj=
+
+[RPGIVPnl]
+desc=System i RPGIV Display file
+sourcedir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+sourceext=dsp
+OS400obj=1
+sourcelib=SRCLIB
+sourcefile=QDDSSRC
+objectlib=OBJLIB
+HPUXobj=0
+WinNTobj=0
+CSharpobj=0
+sharename=
+objectext=
+Javaobj=
+
+[RPGIVRpt]
+desc=System i RPGIV Print file
+sourcedir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+sourceext=prt
+OS400obj=1
+sourcelib=SRCLIB
+sourcefile=QDDSSRC
+objectlib=OBJLIB
+HPUXobj=0
+WinNTobj=0
+CSharpobj=0
+sharename=
+objectext=
+Javaobj=
+
+[SQLRPG400Fnc]
+desc=System i SQLRPG400 Function
+sourcedir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+sourceext=srg
+OS400obj=1
+sourcelib=SRCLIB
+sourcefile=QRPGSRC
+objectlib=OBJLIB
+HPUXobj=0
+WinNTobj=0
+CSharpobj=0
+sharename=
+objectext=
+Javaobj=
+
+[SQLRPG400Pnl]
+desc=System i SQLRPG400 Display file
+sourcedir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+sourceext=dsp
+OS400obj=1
+sourcelib=SRCLIB
+sourcefile=QDDSSRC
+objectlib=OBJLIB
+HPUXobj=0
+WinNTobj=0
+CSharpobj=0
+sharename=
+objectext=
+Javaobj=
+
+[SQLRPG400Rpt]
+desc=System i SQLRPG400 Print file
+sourcedir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+sourceext=prt
+OS400obj=1
+sourcelib=SRCLIB
+sourcefile=QDDSSRC
+objectlib=OBJLIB
+HPUXobj=0
+WinNTobj=0
+CSharpobj=0
+sharename=
+objectext=
+Javaobj=
+
+[SQLRPGIVFnc]
+desc=System i SQLRPGIV Function
+sourcedir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+sourceext=sr4
+OS400obj=1
+sourcelib=SRCLIB
+sourcefile=QRPGLESRC
+objectlib=OBJLIB
+HPUXobj=0
+WinNTobj=0
+CSharpobj=0
+sharename=
+objectext=
+Javaobj=
+
+[SQLRPGIVPnl]
+desc=System i SQLRPGIV Display file
+sourcedir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+sourceext=dsp
+OS400obj=1
+sourcelib=SRCLIB
+sourcefile=QDDSSRC
+objectlib=OBJLIB
+HPUXobj=0
+WinNTobj=0
+CSharpobj=0
+sharename=
+objectext=
+Javaobj=
+
+[SQLRPGIVRpt]
+desc=System i SQLRPGIV Print file
+sourcedir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+sourceext=prt
+OS400obj=1
+sourcelib=SRCLIB
+sourcefile=QDDSSRC
+objectlib=OBJLIB
+HPUXobj=0
+WinNTobj=0
+CSharpobj=0
+sharename=
+objectext=
+Javaobj=
+
+[DDSTbl]
+desc=System i Table
+sourcedir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+sourceext=tbl
+OS400obj=1
+sourcelib=SRCLIB
+sourcefile=QDDSSRC
+objectlib=OBJLIB
+HPUXobj=0
+WinNTobj=0
+CSharpobj=0
+sharename=
+objectext=
+Javaobj=
+
+[DDSVw]
+desc=System i View
+sourcedir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+sourceext=viw
+OS400obj=1
+sourcelib=SRCLIB
+sourcefile=QDDSSRC
+objectlib=OBJLIB
+HPUXobj=0
+WinNTobj=0
+CSharpobj=0
+sharename=
+objectext=
+Javaobj=
+
+[RPG400Msg]
+desc=System i Message file
+sourcedir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+sourceext=msg
+OS400obj=1
+sourcelib=SRCLIB
+sourcefile=QMSGSRC
+objectlib=OBJLIB
+msgfilename=OBSYMSGF
+msgimplname=OBSYMSGF
+HPUXobj=0
+WinNTobj=0
+CSharpobj=0
+sharename=
+objectext=
+Javaobj=
+
+[RPG400Val]
+desc=System i Value file
+sourcedir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+sourceext=val
+OS400obj=1
+sourcelib=SRCLIB
+sourcefile=QVALSRC
+objectlib=OBJLIB
+msgfilename=OBSYVALF
+msgimplname=OBSYVALF
+HPUXobj=0
+WinNTobj=0
+CSharpobj=0
+sharename=
+objectext=
+Javaobj=
+
+[ODBCFnc]
+desc=ODBC Database Object
+sourcedir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+sourceext=dbo
+OS400obj=0
+HPUXobj=0
+WinNTobj=0
+CSharpobj=0
+sourcelib=
+sourcefile=
+sharename=
+objectlib=
+objectext=
+Javaobj=
+16targetdir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\Plex\LocalModels\Gen
+32targetdir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+
+[ODBCWinNTFnc]
+desc=ODBCWinNT Database Object
+sourcedir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+sourceext=dbo
+OS400obj=0
+HPUXobj=0
+WinNTobj=1
+CSharpobj=0
+sharename=NTGEN
+sourcelib=
+sourcefile=
+objectlib=
+objectext=
+Javaobj=
+targetdir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+
+[OracleWinNTFnc]
+desc=OracleWinNT Database Object
+sourcedir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+sourceext=dbo
+OS400obj=0
+HPUXobj=0
+WinNTobj=1
+CSharpobj=0
+sharename=NTGEN
+sourcelib=
+sourcefile=
+objectlib=
+objectext=
+Javaobj=
+targetdir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+
+[OracleFnc]
+desc=Oracle Database Object
+sourcedir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+sourceext=dbo
+OS400obj=0
+HPUXobj=1
+WinNTobj=0
+CSharpobj=0
+sourcelib=
+sourcefile=
+sharename=
+objectlib=
+objectext=
+Javaobj=
+
+[JDBCFnc]
+desc=JDBC Database Object
+sourcedir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+sourceext=dbo
+OS400obj=0
+HPUXobj=0
+WinNTobj=0
+Javaobj=1
+CSharpobj=0
+sourcelib=
+sourcefile=
+sharename=
+objectlib=
+objectext=
+16targetdir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\Plex\LocalModels\Gen
+32targetdir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+
+[Environment]
+Resource Directory=C:\ProgramData\CA\Plex\7.2.1\BMP3
+
+[32-bit Environment]
+Resource directory=C:\ProgramData\CA\Plex\7.2.1\BMP3
+
+[remote configuration]
+system=
+jobqueue=QBATCH
+jobqueuelib=QGPL
+jobdesc=PLEX
+jobdesclib=PLEX721
+holdjob=0
+priority=5
+
+[DBCS]
+ConvertUppercase=0
+FieldImplNames=0
+Translate By AllFusion Plex=False
+Translation DLL=
+JavaEncoding=Default
+
+
+[Unix Configuration]
+dbname=
+dbuser=
+dbpassword=
+appldir=
+c++compopts=
+proCopts=
+AllFusion Plex path=
+Oracle path=
+link options=
+Debug=
+
+[ODBC]
+PrimaryKey=1
+ForeignKey=1
+DefaultValues=1
+CheckConstraints=1
+NamedConstraints=0
+DataSource=ConfStore
+Triggers=0
+UID=sa
+UPWD=sapwd
+DataSource 1=confStoreLite
+UID 1=
+UPWD 1=
+DataSource 2=ConfStoreAnywhere
+UID 2=
+UPWD 2=
+DataSource 3=
+UID 3=
+UPWD 3=
+DataSource 4=
+UID 4=
+UPWD 4=
+DataSource 5=
+UID 5=
+UPWD 5=
+ObjectsOwner=
+
+[HelpText]
+Default=0
+TopicStyle=RTF
+
+[WINNT ODBC]		
+PrimaryKey=1
+ForeignKey=1
+DefaultValues=1
+CheckConstraints=1
+LongNames=0
+NamedConstraints=0
+Triggers=0
+
+[WINNT]
+lastmakenumber=0
+
+[WINNT build]
+srvsrcdir=
+srvtgtdir=
+dbpassword=
+dbuser=
+datasource=
+ODBCBldPriority=7
+BuildQuePriority=7
+NTExecutionPriority=3
+StopBuild=0
+ForceBuild=1
+AD Debug=0
+Debug=0
+Workspace Size=20
+Use Prebuilt libraries=0
+Libraries=
+Header Dirs=
+
+[AS400 build]
+jobqueue=QBATCH
+jobqueuelib=QGPL
+jobdesc=PLEX
+jobdesclib=PLEX721
+holdjob=0
+priority=5
+Data Conversion=1
+
+
+[HPUX build]
+dbname=
+dbuser=
+dbpassword=
+appldir=
+c++compopts=
+proCopts=
+AllFusion Plex path=
+Oracle path=
+link options=
+Debug=
+
+[JAVA build]
+Debug=0
+Classpath=
+Compiler=
+Server source=
+Server class=
+JDKClasses=
+Encoding=Default
+JavaLauncherDir=
+CompilerAlias=javac1.7
+CreateEclipseProject=0
+EntryPointClass=
+UserClasses=C:\Users\Public\Documents\CA\Plex\7.2.1\CLASS721\ClassLibs\Obcljavaimpl.jar;C:\Users\Public\Documents\CA\Plex\7.2.1\CLASS721\PatternLibs\Obptjavaimpl.jar
+Nmake=c:\program files\Microsoft Visual Studio\vc98
+
+[WINNT configuration]
+Locator=
+Protocol=
+
+[AS400 configuration]
+BufferSize=4
+Program=YOBSYRPC
+Library=PLEX
+Job Description=PLEX721/PLEX
+Protocol=TCPIP
+Port Number=1200
+Code Page=101
+User=
+Password=
+
+[HPUX configuration]
+BufferSize=4
+Program=dispatch
+Path=/usr/plex/bin/
+UserId=
+Password=
+Protocol=TCPIP
+
+[JAVA configuration]
+IPAddress=
+Port Number=1999
+Protocol=Tcpip
+
+[RemoteAS400]
+System Count=0
+Active system=
+
+[RemoteWINNT]
+System Count=0
+Active system=
+
+[AD debug]
+Gen=0
+Debug=0
+32-bit Debug=0
+
+[Client build]
+Build 32-bit=1
+
+[32-bit Options]
+Debug=0
+StopBuild=0
+Dev Studio Window=2
+ForceBuild=0
+Workspace Size=20
+
+[Java PlugIn]
+Enable=1
+TemplateFile=C:\ProgramData\CA\Plex\7.2.1\OBJAVA\default170.tpl
+CabFileLocation=http://java.sun.com/products/plugin/1.1/jinstall-11-win32.cab#Version=1,1,0,0
+NSFileLocation=http://java.sun.com/products/plugin/1.1/plugin-install.html
+AlternateHTML=
+
+[JAVA Execute]
+RunAs=Java
+UpdatePropertiesFile=1
+BrowserPath=C:\Program Files\Internet Explorer\IEXPLORE.EXE
+
+[32-bit Cust Bld WinC Internal]
+Usr Comp Opt Debug=
+Usr Post Bld Cmd Debug=
+[32-bit Cust Bld WinC External]
+Usr Comp Opt Release=
+Usr Link Opt Release=
+Usr Post Bld Cmd Release=
+Usr Pre Bld Cmd Release=
+Usr Comp Opt Debug=
+Usr Link Opt Debug=
+Usr Post Bld Cmd Debug=
+Usr Pre Bld Cmd Debug=
+[32-bit Cust Bld WinNT Internal]
+Usr Comp Opt Debug=
+Usr Post Bld Cmd Debug=
+[32-bit Cust Bld WinNT External]
+Usr Comp Opt Release=
+Usr Link Opt Release=
+Usr Post Bld Cmd Release=
+Usr Pre Bld Cmd Release=
+Usr Comp Opt Debug=
+Usr Link Opt Debug=
+Usr Post Bld Cmd Debug=
+Usr Pre Bld Cmd Debug=
+[32-bit Cust Bld Panel]
+Usr Comp Opt Debug=
+Usr Link Opt Debug=
+Usr Post Bld Cmd Debug=
+Usr Pre Bld Cmd Debug=
+Usr Comp Opt Release=
+Usr Link Opt Release=
+Usr Post Bld Cmd Release=
+Usr Pre Bld Cmd Release=
+[32-bit Cust Bld Topic]
+Usr Post Bld Cmd Debug=
+[32-bit Cust Bld Executable]
+Usr Link Opt Release=
+Usr Post Bld Cmd Release=
+Usr Link Opt Debug=
+Usr Post Bld Cmd Debug=
+
+[WebSourceHTM]
+sourcedir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+sourceext=htm
+desc=Web HTML source
+os400obj=0
+HPUXobj=0
+WINNTobj=0
+sourcelib=
+sourcefile=
+sharename=
+objectlib=
+objectext=
+Javaobj=
+CSharpobj=
+16targetdir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\Plex\LocalModels\Gen
+32targetdir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+
+[WebSourceWML]
+sourcedir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+sourceext=wml
+desc=Web WML source
+os400obj=0
+HPUXobj=0
+WINNTobj=0
+sourcelib=
+sourcefile=
+sharename=
+objectlib=
+objectext=
+Javaobj=
+CSharpobj=
+16targetdir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\Plex\LocalModels\Gen
+32targetdir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+
+[WebSourceXMLx]
+sourcedir=c:\GEN\XML
+sourceext=xml
+desc=Web XML source
+os400obj=0
+HPUXobj=0
+WINNTobj=0
+
+[CSharp build]
+ServiceWrapperType=Web
+Debug=0
+DefaultCodeLibraryName=store
+AdditionalReferences=
+[USERLIB32]
+Library=C:\Users\Public\Documents\CA\Plex\7.2.1\CLASS721\ClassLibs\obcl32.lib;C:\Users\Public\Documents\CA\Plex\7.2.1\CLASS721\PatternLibs\obpt32.lib
+Desc=
+Header=
+[Java Client Properties File]
+Default Location=C:\ProgramData\CA\Plex\7.2.1\OBJAVA
+[Group Model Paths]
+C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\Plex\LocalModels\store.mdl=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\Plex\GroupModels\Store
+C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\store.mdl=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\GroupModels\Store
+[WebSourceXML]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[RPG400PGE]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[RPGIVPGE]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[SQLRPG400PGE]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[SQLRPGIVPGE]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[WinCPGE]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[HPUXCPGE]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[ODBCPGE]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[OraclePGE]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[WinNTCPGE]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[ODBCWinNTPGE]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[OracleWinNTPGE]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[JavaPGE]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[JDBCPGE]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[C#PGE]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[SMSPKG]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[COOL:PlexPKG]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[AllFusionPlexPKG]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[WinCPKG]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[WinNTCPKG]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[JavaPKG]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[C#PKG]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[HPUXCRPT]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[ODBCRPT]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[OracleRPT]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[WinNTCRPT]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[ODBCWinNTRPT]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[OracleWinNTRPT]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[JavaRPT]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[JDBCRPT]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[C#RPT]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[RPGIVVAL]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[SQLRPG400VAL]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[SQLRPGIVVAL]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[WinCVAL]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[HPUXCVAL]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[ODBCVAL]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[OracleVAL]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[WinNTCVAL]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[ODBCWinNTVAL]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[OracleWinNTVAL]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[JavaVAL]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[JDBCVAL]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[C#VAL]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[HPUXCPNL]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[ODBCPNL]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[OraclePNL]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[WinNTCPNL]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[ODBCWinNTPNL]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[OracleWinNTPNL]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[JavaPNL]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[JDBCPNL]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[C#PNL]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[HPUXCFNC]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[RPGIVMSG]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[SQLRPG400MSG]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[SQLRPGIVMSG]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[WinCMSG]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[HPUXCMSG]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[ODBCMSG]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[OracleMSG]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[WinNTCMSG]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[ODBCWinNTMSG]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[OracleWinNTMSG]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[JavaMSG]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[JDBCMSG]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[C#MSG]
+sourcedir=
+sourcelib=
+sourcefile=
+sourceext=
+sharename=
+objectlib=
+objectext=
+[Generation Systems]
+WINC=%LOCAL%
+WINNT=%LOCAL%
+AS400=%LOCAL%
+HPUX=%LOCAL%
+JAVA=%LOCAL%
+C#=%LOCAL%
+[RemoteHPUX]
+System Count=4
+System 1=
+Active System=
+System 2=
+System 3=
+System 4=
+[Impact Analysis]
+Log list name=
+[Defaults]
+Directory=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+32targetdir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+targetdir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\Gen
+SourceLibrary=SRCLIB
+ObjectLibrary=OBJLIB
+NtdirSharename=NTGEN

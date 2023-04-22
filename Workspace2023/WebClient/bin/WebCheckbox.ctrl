@@ -1,0 +1,140 @@
+/(!JSInit:once)
+	dojo.require("wcli.form.CheckBox");
+	dojo.require("wcli.color.RGBColor");
+	dojo.require("wcli.form.Font");
+/(!JSInit)
+
+/(!JSInit)
+	/(!ContextMenu)
+	/(!If:/(!IsDefined:HintValue))
+		/(!NameID)HintValue = "";
+	/(!If)	
+/(!JSInit)
+
+/(!JSOnLoad)
+	dijit.byId("/(!NameID)").setDisabled(/(!If:/(!Property:Disabled)=Yes)true/(!Else)/(!If:/(!Mode)=Read Only)true/(!Else)false/(!If)/(!If));
+	/(!If:/(!Property:BackgroundColor)=5))
+    	/(!Else)
+		var bgcolor = wcli.color.setColor("/(!Property:BackgroundColor)");
+		if(dijit.byId("/(!NameID)") && bgcolor != "rgb()" && bgcolor != undefined){
+			dojo.style(dijit.byId("/(!NameID)").domNode.parentNode, "backgroundColor", bgcolor);
+		}
+	/(!If)
+	/(!If:/(!Property:Font)=)
+		/(!Else)
+			wcli.form.Font.applyPlexFont(dojo.byId("/(!NameID)").parentNode.parentNode, "/(!Property:Font)");
+	/(!If)
+	/(!If:/(!IsDefined:FixedPositioning))
+		/(!AbleToResize:Type1=true)
+		
+		setTimeout(function(){
+			if (typeof /(!NameID)_OnLoadResizeCheck === "undefined" && ableToResize === true){
+		    	/(!NameID)_OnLoadResizeCheck = dojo.connect(window, "onresize", function(){
+					if(document.getElementById("/(!NameID)")){
+						wcli.util.XBrowser.resizeCtrl(document.getElementById("/(!NameID)"),null,true);
+					}
+				});
+			}
+    	}, 300);      
+		
+	/(!If)
+	
+	/(!If:/(!IsDefined:HintValue))
+		var currentControlID = "/(!NameID)";
+		var currentHintValue = "";
+		/(!AttachPoint:name=HintValue:inlinetemplate)
+			/(!If:/(!This)=)
+			/(!Else)
+				currentHintValue = /(!This);
+				if(dijit.byId(currentControlID)){
+					dijit.byId(currentControlID).domNode.setAttribute('title', currentHintValue);
+				}
+			/(!If)
+		/(!AttachPoint)
+		/(!NameID)HintValue = currentHintValue;
+	/(!If)	
+/(!JSOnLoad)
+
+<span class="dijitCheckBoxParent /(!CustomClass:nc:class=/(!Param:class))" style="/(!DefaultCSS:nc:withPos=/(!Param:default))" /(!If:/(!IsDefined:FixedPositioning))/(!FixPosition)/(!If)>
+	<span dojotype="wcli.form.CheckBox" name="/(!NameID)"
+	id="/(!NameID)" type="checkbox" value="/(!This)" checkedval="/(!CheckedValue)" 
+	uncheckedval="/(!UncheckedValue)" /(!If:/(!Property:Disabled)=Yes)disabled /(!Else)/(!If)
+	/(!If:/(!Mode)=Read Only)disabled /(!If)
+	/(!If:/(!Event:phys=Modified))onclick="/(!AJAXDoEvent:phys=Modified)"/(!If)>
+		/(!If:/(!Event:phys=Mouse Down))
+  	 		<script type="dojo/connect" event="_onMouseDown">
+  	 			/(!AJAXDoEvent:phys=Mouse Down)
+  	 		</script>
+  	 	/(!If)
+  	</span>
+	/(!Text:htmlbr)
+</span>
+
+/(!EnableAction:SetValue,SetState,SetFocus)
+
+/(!JS)
+  /(!Action:SetValue)
+  	dijit.byId("/(!NameID)").value = /(!This);
+  	if (dijit.byId("/(!NameID)").value == dijit.byId("/(!NameID)").checkedval)
+	{
+	    dijit.byId("/(!NameID)").setChecked(true);
+	}
+	else
+	{
+	    dijit.byId("/(!NameID)").setChecked(false);
+	}
+  /(!Action)
+  
+  /(!Action:SetState)
+  	dijit.byId("/(!NameID)").domNode.parentNode.style.cssText = "/(!DefaultCSS:nc:withPos=/(!Param:default))";
+  	dijit.byId("/(!NameID)").setDisabled(/(!If:/(!Property:Disabled)=Yes)true/(!Else)false/(!If));
+  	dijit.byId("/(!NameID)").setDisabled(/(!If:/(!Mode)=Read Only)true/(!Else)false/(!If));
+  	
+  	/(!If:/(!Property:BackgroundColor)=5))
+    	/(!Else)
+		var bgcolor = wcli.color.setColor("/(!Property:BackgroundColor)");
+		if(dijit.byId("/(!NameID)") && bgcolor != "rgb()" && bgcolor != undefined){
+			dojo.style(dijit.byId("/(!NameID)").domNode.parentNode, "backgroundColor", bgcolor);
+		}
+	/(!If)
+	
+	/(!If:/(!Property:Font)=)
+	/(!Else)
+		wcli.form.Font.applyPlexFont(dojo.byId("/(!NameID)").parentNode.parentNode, "/(!Property:Font)");
+	/(!If)
+	
+	/(!If:/(!IsDefined:HintValue))	
+		if(/(!NameID)HintValue){
+			if(dijit.byId("/(!NameID)")){
+				dijit.byId("/(!NameID)").domNode.setAttribute('title', /(!NameID)HintValue);
+			}
+		}
+	/(!If)
+	
+	/(!If:/(!IsDefined:FixedPositioning))
+		/(!AbleToResize:Type1=true)
+
+        setTimeout(function(){
+	        if (typeof /(!NameID)_SetStateResizeCheck === "undefined" && ableToResize === true){
+	            /(!NameID)_SetStateResizeCheck = dojo.connect(window, "onresize", function(){
+	                if(document.getElementById("/(!NameID)")){
+	                    wcli.util.XBrowser.resizeCtrl(document.getElementById("/(!NameID)"),null,true);
+	                }
+	            });
+	        }
+        }, 300);      
+        /(!If:/(!Property:Visible)=No)
+			dijit.byId("/(!NameID)").domNode.parentNode.style.display ="none";
+	    /(!Else)
+	    	dijit.byId("/(!NameID)").domNode.parentNode.style.display ="block";
+		/(!If)
+    /(!If)
+  /(!Action)
+ /(!JS)
+ 
+ /(!JSPost)
+   /(!Action:SetFocus)
+	if (dijit.byId("/(!NameID)"))
+		dijit.byId("/(!NameID)").focus();
+   /(!Action)
+ /(!JSPost)

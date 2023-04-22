@@ -1,0 +1,6 @@
+/(!If:/(!Parent:!Type)=Menu)
+<div dojoType="dijit.MenuSeparator"></div>
+/(!If)
+/(!If:/(!Parent:!Type)=Toolbar)
+<div dojoType="dijit.ToolbarSeparator"></div>
+/(!If)

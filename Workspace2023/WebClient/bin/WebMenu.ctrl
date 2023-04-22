@@ -1,0 +1,45 @@
+/(!JSInit:once)
+	dojo.require("dijit.Menu");
+	dojo.require("dijit.form.Button");
+/(!JSInit)
+/(!JSInit:once)
+	menuKeyPress =  function(evt) {
+		var menuCtl = dijit.byId(evt.target.parentNode.id).getParent();
+		switch(evt.keyCode) {
+		case dojo.keys.ESCAPE:
+			menuCtl.onCancel(true);
+			return true;
+		case dojo.keys.UP_ARROW:
+			menuCtl.focusPrev();
+			return true;
+		case dojo.keys.DOWN_ARROW:
+			menuCtl.focusNext();
+			return true;
+		default: 
+			var evtKey = String.fromCharCode(evt.keyCode).toLowerCase();
+			var menuEl = menuCtl.domNode;
+			var menuItemEls = menuEl.getElementsByTagName('tr');
+			for (var i=0; i < menuItemEls.length; i++) {
+				var menuItemEl = menuItemEls[i] ;
+				if (menuItemEl.offsetParent!==null) { // is visible
+					var accKey = menuItemEl.getAttribute('plexaccesskey');
+					if (accKey && accKey == evtKey) {
+						menuItemEl.click();
+						return true;
+					}
+				}
+			}
+		}
+		menuCtl.onCancel(true);
+		return true;
+	}
+/(!JSInit)
+/(!If:/(!Parent:!Type)=Menubar)<button dojoType="dijit.form.DropDownButton" type="button" label="/(!Text:htmlaccel:htmlbr)" dropDown="menu-/(!NameID)"  
+/(!If:/(!Property:Visible)=No)style="display:none;"/(!If)></button>/(!Else)
+	<span dojoType="dijit.PopupMenuItem" popup="menu-/(!NameID)" style="display:/(!If:/(!Property:Visible)=Yes)block/(!Else)none/(!If)">
+		<span>/(!Text:htmlaccel:htmlbr)</span>
+	</span>
+/(!If)<div dojoType="dijit.Menu" id="menu-/(!NameID)" style="display: none;">
+	/(!AttachPoint:name=MenuItemArea)
+	/(!AttachPoint:name=MenuArea)
+</div>

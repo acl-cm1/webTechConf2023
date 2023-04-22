@@ -1,0 +1,175 @@
+/(!JSInit:once)
+	dojo.require("wcli.color.RGBColor");
+/(!JSInit)
+
+/(!JSInit)
+	/(!ContextMenu)
+/(!JSInit)
+
+/(!JSOnLoad)
+	/(!If:/(!Property:BackgroundColor)=5)
+    /(!Else)
+    var bgcolor = wcli.color.setColor("/(!Property:BackgroundColor)");
+	if (document.getElementById("/(!NameID)") && bgcolor != "rgb()")
+		document.getElementById("/(!NameID)").style.backgroundColor = bgcolor;
+	/(!If)
+	/(!If:/(!Property:TextColor)=8)
+	/(!Else)
+	var txtcolor = wcli.color.setColor("/(!Property:TextColor)");
+	if (document.getElementById("/(!NameID)") && txtcolor != "rgb()"){
+		document.getElementById("/(!NameID)").style.color = txtcolor;
+	}
+	else if(document.getElementById("/(!NameID)")){
+		document.getElementById("/(!NameID)").style.color = "";
+	}
+	/(!If)	
+	/(!If:/(!Property:Font)=)
+	/(!Else)
+		if (document.getElementById("/(!NameID)")){ 
+			wcli.form.Font.applyPlexFont(document.getElementById("/(!NameID)"), "/(!Property:Font)");
+		}
+	/(!If)
+	/(!If:/(!IsDefined:FixedPositioning))
+		/(!AbleToResize:Type3=true)
+		setTimeout(function(){
+			if (typeof /(!NameID)_OnLoadResizeMultiline === "undefined" && ableToResize === true){
+		    	/(!NameID)_OnLoadResizeMultiline = dojo.connect(window, "onresize", function(){		
+					var node = document.getElementById("/(!NameID)");			
+					if(node){
+						wcli.util.XBrowser.resizeDiv(node,null,true);
+					}
+				});
+			}
+    	}, 300);  
+		
+	/(!If)
+
+	document.getElementById("/(!NameID)").addEventListener("change", function(e) {		
+		/(!If:/(!Event:phys=Updated))
+			/(!AJAXDoEvent:phys=Updated)
+		/(!If)
+	});
+	
+	/(!If:/(!IsDefined:LabelAligned))
+		document.getElementById("/(!NameID)").style.height= (/(!Size:y) - 4) + "px";		
+	/(!If)
+	
+	/(!If:/(!Property:Font)=)
+	/(!Else)
+	if(document.getElementById("/(!NameID)")){
+		wcli.form.Font.applyPlexFont(document.getElementById("/(!NameID)"), "/(!Property:Font)");
+	}
+	/(!If)
+	
+/(!JSOnLoad)
+	
+/(!If:/(!Mode)=Read Only)
+  <textarea id="/(!NameID)" name="/(!NameID)" style="/(!DefaultCSS:nc:withPos=/(!Param:default):zindex=/(!Param:zindex)) /(!MultilineEditCSS)" disabled class="protectedTextArea /(!CustomClass:nc:class=/(!Param:class))" /(!If:/(!IsDefined:FixedPositioning))/(!FixPosition)/(!If)>/(!This)</textarea>
+/(!If)
+
+/(!If:/(!Mode)=Edit)
+  <textarea style="/(!DefaultCSS:nc:withPos=/(!Param:default):zindex=/(!Param:zindex)) /(!MultilineEditCSS) /(!IMEMode)"
+	 class="/(!CustomClass:nc:class=/(!Param:class))"
+  	 type="text" name="/(!NameID)" id="/(!NameID)" maxLength="/(!Length)" 
+  	 uppercase=/(!If:/(!Property:Case)=Upper)"true" /(!Else)"false" /(!If)
+  	 /(!If:/(!Event:phys=Lost Focus))onblur="/(!AJAXDoEventLF:phys=Lost Focus)"/(!If)
+  	 /(!If:/(!Event:phys=Mouse Down))onmousedown="/(!AJAXDoEvent:phys=Mouse Down)"/(!If)
+  	 onkeydown="wcli.util.XBrowser._onKeyDownMultiEdit(event, '/(!NameID)', /(!Length)) /(!If:/(!Event:phys=Modified))/(!AJAXDoEvent:phys=Modified)/(!If)"
+	  /(!If:/(!IsDefined:FixedPositioning))/(!FixPosition)/(!If)>/(!This)</textarea>
+/(!If)
+
+/(!EnableAction:SetValue,SetState,SetFocus)
+
+/(!JS)
+  /(!Action:SetValue)
+  	/*if(dojo.isFF || dojo.isSafari || dojo.isIE11){
+  		if (document.getElementById("/(!NameID)"))
+    	document.getElementById("/(!NameID)").value = /(!This);
+  	}
+  	else{
+    	if (document.getElementById("/(!NameID)"))
+    	document.getElementById("/(!NameID)").innerText = /(!This);
+    }*/
+	if(dojo.isIE){
+		wcli.util.XBrowser.setTextContent(wcli.util.XBrowser.querySelector("/(!NameID)"), /(!This));
+	} else {
+		document.getElementById("/(!NameID)").value = /(!This);
+		//If the ID contains "Messages", set the Title equal to the value (M3 Enhancement)
+		if(document.getElementById("/(!NameID)").id.indexOf('Messages') > -1){
+			document.getElementById("/(!NameID)").title = /(!This);
+		}
+	}
+  /(!Action)
+  
+  /(!Action:SetState)
+	wcli.util.XBrowser.setCSSText(document.getElementById("/(!NameID)"), "/(!DefaultCSS:nc:withPos=/(!Param:default):zindex=/(!Param:zindex))");
+	var w = document.getElementById("/(!NameID)");
+	
+	/(!If:/(!IsDefined:LabelAligned))
+		w.style.height= (/(!Size:y) - 4) + "px";		
+	/(!If)
+	
+	/(!If:/(!Property:Font)=)
+	/(!Else)
+	if(document.getElementById("/(!NameID)")){
+		wcli.form.Font.applyPlexFont(document.getElementById("/(!NameID)"), "/(!Property:Font)");
+	}
+	/(!If)
+	
+	/(!If:/(!Mode)=Edit)
+		//remove div and create textarea
+	 	if (w.tagName=="TEXTAREA"){
+	 		w.disabled = false;
+	 		/(!If:/(!Property:ScrollBars)=None)w.style.overflow="auto";/(!If)
+			/(!If:/(!Property:ScrollBars)=Horizontal)w.style.overflowX="scroll";w.style.overflowY="hidden";/(!If)
+			/(!If:/(!Property:ScrollBars)=Vertical)w.style.overflowY="scroll";/(!If)
+			/(!If:/(!Property:ScrollBars)=Both)w.style.overflow="scroll";/(!If)
+	 	}
+	 	w.maxLength = "/(!Length)"; 
+	/(!If)
+	 
+	/(!If:/(!Mode)=Read Only)
+	 	//remove textarea and create div
+	 	if (w.tagName=="TEXTAREA"){
+	 		w.disabled = true;
+	 		/(!If:/(!Property:ScrollBars)=None)w.style.overflow="auto";/(!If)
+			/(!If:/(!Property:ScrollBars)=Horizontal)w.style.overflowX="scroll";w.style.overflowY="hidden";/(!If)
+			/(!If:/(!Property:ScrollBars)=Vertical)w.style.overflowY="scroll";/(!If)
+			/(!If:/(!Property:ScrollBars)=Both)w.style.overflow="scroll";/(!If)	
+	 	}
+	/(!If)
+	
+	/(!If:/(!Mode)=Edit)
+		/(!If:/(!Property:ImeMode))
+			wcli.util.XBrowser.setIMEMode("/(!NameID)",/(!Property:ImeMode));
+		/(!If)
+	/(!If)
+	
+	/(!If:/(!Property:BackgroundColor)=5)
+    /(!Else)
+    var bgcolor = wcli.color.setColor("/(!Property:BackgroundColor)");
+	if (document.getElementById("/(!NameID)") && bgcolor != "rgb()")
+		document.getElementById("/(!NameID)").style.backgroundColor = bgcolor;
+	/(!If)
+	/(!If:/(!Property:TextColor)=8)
+	/(!Else)
+	var txtcolor = wcli.color.setColor("/(!Property:TextColor)");
+	if (document.getElementById("/(!NameID)") && txtcolor != "rgb()"){
+		document.getElementById("/(!NameID)").style.color = txtcolor;
+	}
+	else if(document.getElementById("/(!NameID)")){
+		document.getElementById("/(!NameID)").style.color = "";
+	}
+	/(!If)
+	/(!If:/(!IsDefined:FixedPositioning))
+		/(!AbleToResize:Type3=true)
+	/(!If)
+  /(!Action)
+/(!JS)
+
+/(!JSPost)
+  /(!Action:SetFocus)
+  if (document.getElementById("/(!NameID)"))
+    document.getElementById("/(!NameID)").focus();
+  /(!Action)
+/(!JSPost)

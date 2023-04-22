@@ -1,0 +1,111 @@
+/(!JSInit:once)
+	dojo.registerModulePath("wcli.extras", /(!WsRes)+"/js/wcli/extras");
+	dojo.require("dojox.grid.Grid");
+	dojo.require("wcli.extras.FlexGridData");
+/(!JSInit)
+
+/(!JSInit)
+	/(!NameID)Model = new dojox.grid.data.Objects(null, /(!Var:fGridData)) ;
+	/(!NameID)rowHeadingView = { cells: /(!Var:fGridRowDefinitions), colvis: /(!Var:fGridRowHeadingVisible), noscroll: true, colmodes:["Read Only"]} ;
+	/(!NameID)gridDataView = { cells: /(!Var:fGridColumnDefinitions),
+			colvis: /(!Var:fGridVisibleColumns),
+			gridCellStyleArray: /(!Var:fGridCellStyleArray),
+			hideColumnHeadings: false} ; 
+	/(!NameID)rowHeadingView.gridCellStyleArray = /(!NameID)gridDataView.gridCellStyleArray; 
+	/(!NameID)Structure = [/(!NameID)rowHeadingView, /(!NameID)gridDataView] ;
+	wcli.extras.applyFlexGridStyles(/(!Var:fGridCellStyles), /(!NameID)gridDataView, /(PNLID) );	
+/(!JSInit)
+
+/(!LinkArea:once)
+  <link href="/(!WsResLib:com.adcaustin.webclient)/js/dojox/grid/_grid/tundraGrid.css" rel="stylesheet" type="text/css" />
+/(!LinkArea)
+
+<input name="/(!NameID)" type="hidden" value="" />
+
+<div id="/(!NameID)Grid" dojoType="dojox.Grid" 
+	model="/(!NameID)Model" structure="/(!NameID)Structure" 
+	style="/(!DefaultCSS:nc:withPos=default)"
+	class="/(!CustomClass:nc:class=/(!Param:class))"
+	pnl=/(PNLID) 
+	canSort="wcli.extras.noSort"
+	rowsPerPage=64>
+	<script type="text/javascript">
+		wcli.extras.setFlexGridFormatter(/(!NameID)Structure, wcli.extras.rowHeadingViewIdx);
+		wcli.extras.setFlexGridFormatter(/(!NameID)Structure, wcli.extras.gridContentViewIdx);
+	</script>
+	<script type="dojo/connect" event="onCellDblClick" args="evt">
+		clearTimeout(dblClickTimer) ;
+		dblClickTimer = null;
+		 var clickRow = evt.rowIndex + 1 ;
+		 var clickCol = evt.cellIndex ;
+		 var grid = dijit.byId("/(!NameID)Grid");
+		 if (grid.structure[wcli.extras.rowHeadingViewIdx].colvis[0]) { // Adjust the column if the row header is visible
+		 	clickCol++;
+		 }
+		 mainform["/(!NameID)"].value = '{ currentEvent: "CellDoubleClick", row: ' 
+		 	+ clickRow + ', col: ' + clickCol + '}';
+		 /(!AJAXDoEvent:phys=Bean Action)
+	</script>
+	<script type="dojo/connect" event="onCellClick" args="evt">
+		 if (typeof dblClickTimer != "undefined" && dblClickTimer) {
+		 	clearTimeout(dblClickTimer) ;
+		 	dblClickTimer = null;
+		 } else {
+		 	 dblClickTimer = setTimeout(function() {
+				 var clickRow = evt.rowIndex + 1 ;
+				 var clickCol = evt.cellIndex ;
+				 var grid = dijit.byId("/(!NameID)Grid");
+				 if (grid.structure[wcli.extras.rowHeadingViewIdx].colvis[0]) { // Adjust the column if the row header is visible
+				 	clickCol++;
+				 }
+				 mainform["/(!NameID)"].value = '{ currentEvent: "CellClick", row: ' 
+				 	+ clickRow + ', col: ' + clickCol + '}';
+				 /(!AJAXDoEvent:phys=Bean Action)
+				 dblClickTimer = null;
+			 }, 400);
+		 }
+	</script>
+	<script type="dojo/connect" event="onCellContextMenu" args="evt">
+		 var clickRow = evt.rowIndex + 1 ;
+		 var clickCol = evt.cellIndex ;
+		 var grid = dijit.byId("/(!NameID)Grid");
+		 if (grid.structure[wcli.extras.rowHeadingViewIdx].colvis[0]) { // Adjust the column if the row header is visible
+		 	clickCol++;
+		 }
+		 mainform["/(!NameID)"].value = '{ currentEvent: "CellRightClick", row: ' 
+		 	+ clickRow + ', col: ' + clickCol + '}';
+		 evt.preventDefault();
+		 /(!AJAXDoEvent:phys=Bean Action)
+	</script>
+</div>
+
+/(!EnableAction:RefreshGrid)
+
+/(!JS)
+	/(!Action:RefreshGrid)
+	/(!If:/(!Var:fGridDimensionsChanged)=true)
+  		/(!NameID)Model = new dojox.grid.data.Objects(null, /(!Var:fGridData)) ;
+		/(!NameID)rowHeadingView = { cells: /(!Var:fGridRowDefinitions), colvis: /(!Var:fGridRowHeadingVisible), noscroll: true, colmodes:["Read Only"]} ;
+		/(!NameID)gridDataView = { cells: /(!Var:fGridColumnDefinitions),
+		colvis: /(!Var:fGridVisibleColumns),
+		gridCellStyleArray: /(!Var:fGridCellStyleArray),
+		hideColumnHeadings: false} ; 
+		/(!NameID)Structure = [/(!NameID)rowHeadingView, /(!NameID)gridDataView] ;
+		wcli.extras.applyFlexGridStyles(/(!Var:fGridCellStyles), /(!NameID)gridDataView, /(PNLID));
+		flexGrid = dijit.byId("/(!NameID)Grid");
+		flexGrid.beginUpdate();
+		flexGrid.setModel(/(!NameID)Model);
+		wcli.extras.setFlexGridFormatter(/(!NameID)Structure, wcli.extras.rowHeadingViewIdx);
+		wcli.extras.setFlexGridFormatter(/(!NameID)Structure, wcli.extras.gridContentViewIdx);
+		flexGrid.setStructure(/(!NameID)Structure);
+		//flexGrid.refresh();
+		flexGrid.endUpdate();
+		flexGrid.render();	
+	/(!Else)
+		flexGrid = dijit.byId("/(!NameID)Grid");
+		flexGrid.gridCellStyleArray = /(!Var:fGridCellStyleArray);
+		wcli.extras.applyFlexGridStyles(/(!Var:fGridCellStyles), /(!NameID)gridDataView, /(PNLID) );
+		wcli.extras.updateGridData("/(!NameID)Grid", /(!Var:fChangedCellData));
+	/(!If)
+  /(!Action)
+/(!JS)

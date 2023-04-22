@@ -1,0 +1,34 @@
+<div id="/(!NameID)" style="/(!DefaultCSS:nc:withPos=/(!Param:default))"><a id="/(!NameID)Link" class="/(!Param:class)" target="_blank" href="/(!This)">/(!Param:label)</a></div>
+
+/(!JSInit:once)
+	dojo.require("wcli.form.Font");
+/(!JSInit)
+
+/(!JSOnLoad)
+	document.getElementById("/(!NameID)").style.textAlign = "/(!Property:TextAlignment)";
+	/(!If:/(!Property:Font)=)
+	/(!Else)
+			wcli.form.Font.applyPlexFont(document.getElementById("/(!NameID)"), "/(!Property:Font)");
+	/(!If)
+/(!JSOnLoad)
+
+/(!EnableAction:SetValue,SetState)
+
+/(!JS)
+	/(!Action:SetValue)
+	if(document.getElementById("/(!NameID)Link")){
+		document.getElementById("/(!NameID)Link").setAttribute("href", /(!This))
+	}
+	/(!Action)
+  
+	/(!Action:SetState)
+	if(document.getElementById("/(!NameID)")){
+		document.getElementById("/(!NameID)").style.display=/(!If:/(!Property:Visible)=No) "none"/(!Else) "block"/(!If);
+		document.getElementById("/(!NameID)").style.textAlign = "/(!Property:TextAlignment)";
+		/(!If:/(!Property:Font)=)
+		/(!Else)
+			wcli.form.Font.applyPlexFont(document.getElementById("/(!NameID)"), "/(!Property:Font)");
+		/(!If)
+	}
+	/(!Action)
+/(!JS)

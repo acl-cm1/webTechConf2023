@@ -1,0 +1,3 @@
+<span id="/(!NameID)" class="label /(!CustomClass:nc:class=/(!Param:class))" style="/(!DefaultCSS:nc:withPos=/(!Param:default))text-align:/(!Property:TextAlignment);">
+  /(!Text:html)
+</span>

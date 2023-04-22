@@ -1,0 +1,245 @@
+<div id="/(!Req:windowID)" style="position: relative; width: /(!Panel:!Size:x)px; height: /(!Panel:!Size:y)px;">
+/(!If:/(!Req:_child))/(!Else)
+  <style type="text/css">
+    /(Embed:plain:cdata)
+      @import "/(!WsRes)/js/dijit/themes/tundra/tundra.css";
+      @import "/(!WsRes)/js/dojox/grid/_grid/tundraGrid.css";
+      @import "/(!WsRes)/js/dojo/resources/dojo.css";
+      @import "/(!WsRes)/js/wcli/wcli.css";
+      /(!AttachPoint:name=CSSInit)
+    /(Embed)
+  </style>
+
+  <script type="text/javascript">
+  	(function() {
+  	  var bodyClass = document.body.className;
+  	  if (bodyClass.indexOf("tundra") == -1) {
+  		  bodyClass = bodyClass.split(" ");
+  		  bodyClass.push("tundra");
+  		  bodyClass = bodyClass.join(" ");
+  	  }
+  	  document.body.className = bodyClass;
+  	})();
+  </script>
+  /(!AttachPoint:name=HeadArea)
+
+  <script type="text/javascript" src="/(!WsRes)/js/dojo/dojo.js" 
+      djConfig="parseOnLoad: true"></script>
+  
+  <script type="text/javascript">
+    /(Embed:js:cdata)
+     dojo.require("wcli.util.XBrowser");
+     wcli.util.XBrowser.fixKeys();
+
+     var /(!Panel:!NameID)_pnlid = /(PNLID);
+	 window.curShellPnl = /(PNLID);
+	 window.websessid = /(WEBSESSID);
+     var keyStatus = { CTRL: false, ALT: false, SHIFT: false };
+     var invKeys = {};
+
+     for (var k in dojo.keys) {
+         invKeys[dojo.keys[k]] = k;
+     }
+     
+     function getKeyString(evt) {
+         var special = invKeys[evt.keyCode];
+         var alpha = String.fromCharCode(evt.keyCode);
+         return special || alpha;
+     }
+     
+     function encKey(evt) {
+         var res = "";
+         if (keyStatus["SHIFT"])
+             res = res + "SHIFT+";
+      	 if (keyStatus["CTRL"])
+          	 res = res + "CTRL+";
+      	 if (keyStatus["ALT"])
+          	 res = res + "ALT+";
+      	 res = res + getKeyString(evt);
+         return res;
+     }
+     
+	 /(!Panel:!EnableAction:RegisterKeyEvent)
+	 
+	 var /(!Panel:!NameID)_keymap = {};
+	    /(!Panel:!Action:RegisterKeyEvent)
+	 		/(!Panel:!NameID)_keymap[/(!ActionArg)] = /(!ActionArg);
+	    /(!Panel:!Action)
+	 
+	 var dokey = function(/(!Panel:!NameID)_keymap, pnlprefix, evt) {
+	   	var enc = encKey(evt);
+		if (evt.keyCode == dojo.keys.ENTER && evt.target.tagName != "TEXTAREA" && evt.target.tagName != "BUTTON") {
+		 	evt.preventDefault();	// prevent form submit
+		}  	 
+  		if (/(!Panel:!NameID)_keymap[enc]) {
+  	  		evt.preventDefault();
+  			if (/(!Panel:!NameID)_form.onsubmit)
+				/(!Panel:!NameID)_form.onsubmit();
+			dojo.xhrPost({
+				form: /(!Panel:!NameID)_form,
+				content: { _type: 'json', keyact: pnlprefix + enc, focus: dijit._curFocus && dijit._curFocus.id, pnlid: /(!Panel:!NameID)_pnlid, websessid: window.websessid },
+				load: function(data, ioArgs) {
+					data.main(data);
+				},
+				handleAs: 'json',
+				preventCache: true
+			});
+  		}
+	 }
+	 
+	 tooltipMsg = null;
+	 enquiryMsg = null;
+	 dojo.addOnLoad( function() {
+    			  	dojo.connect(dojo.doc, "onkeydown", function(evt) {
+        			  	var code = getKeyString(evt);
+        			  	if (code in keyStatus) {
+            			  	keyStatus[code] = true;
+        			  	}
+        			  	else if (evt.keyCode != dojo.keys.ENTER)
+    			  			dokey(/(!Panel:!NameID)_keymap, "", evt);
+    				});
+    			  	dojo.connect(dojo.doc, "onkeypress", function(evt) {
+    			  		if (evt.keyCode == dojo.keys.ENTER)
+    			  			dokey(/(!Panel:!NameID)_keymap, "", evt);
+    				});
+    				dojo.connect(dojo.doc, "onkeyup", function(evt) {
+        				var code = getKeyString(evt);
+        				if (code in keyStatus) {
+            				keyStatus[code] = false; 
+        				}
+    				});
+     });
+    			  				  	
+	 var keepsess = false;
+	 function /(!Panel:!NameID)_unload() {
+		 /(!Panel:!NameID)_form = document.getElementById("_/(!Panel:!NameID)_form");
+	   if (!keepsess) {
+		 dojo.xhrPost({
+		 	form: /(!Panel:!NameID)_form,
+			content: { _endsess: "" },
+			load: function(type, data, evt) {
+			},
+			preventCache: true,
+			sync: true
+	     });
+	   }
+	 }
+	 dojo.connect(window, "onbeforeunload", {}, /(!Panel:!NameID)_unload);
+	 dojo.connect(dojo, "_loadInit", function() {
+	 	/(!Panel:!NameID)_form = mainform = document.getElementById("_/(!Panel:!NameID)_form");
+	 	dialogreturn = null;
+	 });
+ 	 window./(!Panel:!NameID)_submitter = window.submitter = {};
+	 dojo.addOnLoad(function() {
+		dojo.addClass(dojo.body(), "loadShow");
+		window.dialogreturn = null;
+		/(!Panel:!NameID)_form = mainform = document.getElementById("_/(!Panel:!NameID)_form");
+	 });
+    /(Embed)
+  </script>
+
+	<div id="BLANKET">
+	  /(!AttachPoint:name=LoadScreen)
+	</div>
+/(!If)
+	/(!AttachPoint:name=LinkArea)
+    /(!AttachPoint:name=DataArea)
+
+/(!If:/(!Req:_child))
+  <script type="text/javascript">
+	dojo.addOnLoad(function() {
+		/(!Panel:!NameID)_form = mainform;
+	});
+  </script>
+/(!Else)
+    <form method="get" action="/(!Req:resourceURL)" id="_/(!Panel:!NameID)_form">
+      <input type="hidden" name="WSYD_SIGN" value="/(!Req:WSYD_SIGN)"/>
+      <input type="hidden" name="WSYD_EVENT" value="/(!Req:WSYD_EVENT)"/>
+      <input type="hidden" name="WSYD_SID" value="/(!Req:WSYD_SID)"/>
+      <input type="hidden" name="WSLNKREF" value="/(!Req:WSLNKREF)"/>
+      <input type="hidden" name="WSCURPRS" value="/(!Req:WSCURPRS)"/>          
+/(!If)
+
+  <script type="text/javascript">
+    /(Embed:js:cdata)
+      dojo.require("wcli.data.FormToObject");
+      dojo.require("wcli.util.XBrowser");
+      dojo.require("wcli.layout.Frame");
+	  /(!AttachPoint:name=JSInit)
+	  
+	  /(!If:/(!Req:_child))
+	  	var _loadingPane = /(!Req:_child)[0];
+	  /(!If)
+	  dojo.addOnLoad(function() {
+	    /(!AttachPoint:name=JSOnLoad)
+	    
+	    /(!MDIActions.js)
+
+	    /(!If:/(!Req:_child))
+	    {
+		   	/(!Panel:!EnableAction:RegisterKeyEvent)
+		 
+			var /(!Panel:!NameID)_childkeymap = {};
+		   	/(!Panel:!Action:RegisterKeyEvent)
+		 		/(!Panel:!NameID)_childkeymap[/(!ActionArg)] = /(!ActionArg);
+		    /(!Panel:!Action)
+
+		    var p = dijit.byId(_loadingPane).domNode;
+		    dojo.connect(p, "onkeydown", function(evt) {
+			  	var code = getKeyString(evt);
+			  	if (code in keyStatus) {
+    			  	keyStatus[code] = true;
+			  	}
+			  	else if (evt.keyCode != dojo.keys.ENTER)
+		  			dokey(/(!Panel:!NameID)_childkeymap, _loadingPane + ":", evt);
+			});
+		  	dojo.connect(p, "onkeypress", function(evt) {
+		  		if (evt.keyCode == dojo.keys.ENTER)
+		  			dokey(/(!Panel:!NameID)_childkeymap, _loadingPane + ":", evt);
+			});
+			dojo.connect(p, "onkeyup", function(evt) {
+				var code = getKeyString(evt);
+				if (code in keyStatus) {
+    				keyStatus[code] = false; 
+				}
+			});
+	    }
+	    /(!If)
+	    
+	    /(!If:/(!Req:_child))
+		    /* don't set focus if this page is a hidden child panel */
+		    var cp = document.getElementById(/(!Req:_child));
+			if (cp && cp.style.display != "none")
+		/(!If)
+		{
+	    	/(!FOCUS)
+	      		if (dijit.byId("/(!NameID)"))
+	        		dijit.byId("/(!NameID)").focus();
+		  		else if (document.getElementById("/(!NameID)") && document.getElementById("/(!NameID)").focus && document.getElementById("/(!NameID)").isDisabled == false && document.getElementById("/(!NameID)").disabled == false)
+		    		document.getElementById("/(!NameID)").focus();
+			/(!FOCUS)
+		}
+	  });
+	/(Embed)
+  </script>
+
+    /(!AttachPoint:name=FormArea)
+    /(!AttachPoint:name=MainArea)
+
+/(!If:/(!Panel:!WindowType)=MDIParent)
+	<div id="childContainer">
+/(CHILDREN)
+		<div dojoType="wcli.layout.Frame" id="/(!ChildPanel:!Panel:!NameID)" title="/(!ChildPanel:!Panel:!Property:Title)">
+			<script type="dojo/connect" event="close">
+				/(!AJAXDoPanelEvent:phys=Query Close:pnlid=/(!ChildPanel:PNLID))
+			</script>
+			/(!ChildPanel:!Render:html:_type=html:_child=/(!ChildPanel:!Panel:!NameID))
+		</div>
+/(CHILDREN)
+	</div>
+/(!If)
+
+/(!If:/(!Req:_child))/(!Else)
+  </form>
+/(!If)
+</div>

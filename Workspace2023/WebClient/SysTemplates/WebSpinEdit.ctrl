@@ -1,0 +1,64 @@
+/(!JSInit:once)
+	dojo.require("dijit.form.NumberSpinner");
+/(!JSInit)
+
+/(!JSInit)
+	/(!ContextMenu)
+/(!JSInit)
+
+/(!JSOnLoad)
+	if(dijit.byId("/(!NameID)")){
+		dijit.byId("/(!NameID)").textbox.value = /(!If:/(!This)=)"0"/(!Else)/(!This)/(!If);
+		dijit.byId("/(!NameID)").valueNode.value = /(!If:/(!This)=)"0"/(!Else)/(!This)/(!If);
+		/(!If:/(!Mode)=Read Only)
+		dijit.byId("/(!NameID)").setDisabled(true);
+		/(!If)
+	}
+	
+	document.getElementById("/(!NameID)").addEventListener("blur", function(e) {		
+		/(!If:/(!Event:phys=Lost Focus))
+			/(!AJAXDoEventLF:phys=Lost Focus)
+		/(!If)
+	});
+/(!JSOnLoad)
+
+
+<input dojoType="dijit.form.NumberSpinner"
+			style="/(!DefaultCSS:nc:withPos=/(!Param:default))"
+			class="/(!CustomClass:nc:class=/(!Param:class))"
+			name="/(!NameID)"
+			id="/(!NameID)"
+			/(!If:/(!Event:phys=Updated))onchange="/(!AJAXDoEvent:phys=Updated)"/(!If)
+			/(!If:/(!Event:phys=Gained Focus))onfocus="/(!AJAXDoEvent:phys=Gained Focus)"/(!If)
+			/(!If:/(!Event:phys=Modified))onkeyup="/(!AJAXDoEvent:phys=Modified)"/(!If)>
+
+
+/(!EnableAction:SetValue,SetState,SetFocus)
+
+/(!JS)
+  /(!Action:SetValue)
+  	if(dijit.byId("/(!NameID)")){
+		dijit.byId("/(!NameID)").textbox.value = /(!If:/(!This)=)"0"/(!Else)/(!This)/(!If);
+		dijit.byId("/(!NameID)").valueNode.value = /(!If:/(!This)=)"0"/(!Else)/(!This)/(!If);
+	}
+  /(!Action)
+
+  /(!Action:SetState)
+  	/(!If:/(!Mode)=Edit)
+  		if(dijit.byId("/(!NameID)")){
+			dijit.byId("/(!NameID)").setDisabled(false);
+		}
+  	/(!If)
+  	/(!If:/(!Mode)=Read Only)
+  		if(dijit.byId("/(!NameID)")){
+			dijit.byId("/(!NameID)").setDisabled(true);
+		}
+  	/(!If)
+  /(!Action)
+  
+  /(!Action:SetFocus)
+  	if(dijit.byId("/(!NameID)")){
+  		dijit.byId("/(!NameID)").focus();
+  	}
+  /(!Action)
+/(!JS)

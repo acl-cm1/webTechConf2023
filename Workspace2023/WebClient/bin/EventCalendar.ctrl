@@ -1,0 +1,230 @@
+/(!LinkArea:once)
+  <link href="/(!WsRes)/js/dojox/calendar/themes//(WCTHEME)/Calendar.css" rel="stylesheet" type="text/css" />
+  <link id="columnViewCss"href="/(!WsRes)/js/dojox/calendar/themes//(WCTHEME)/ColumnView.css" rel="stylesheet" type="text/css" />
+  <link id="matrixViewCss" href="/(!WsRes)/js/dojox/calendar/themes//(WCTHEME)/MatrixView.css" rel="stylesheet" type="text/css" />
+  <link id="monthColumnViewCss" href="/(!WsRes)/js/dojox/calendar/themes//(WCTHEME)/MonthColumnView.css" rel="stylesheet" type="text/css" />
+/(!LinkArea)
+
+/(!JSInit:once)
+ 	dojo.require("dojox.grid.Grid");
+    dojo.require("dojox.grid._data.editors");    
+    dojo.require("dojox.grid._data.dijitEditors");
+    dojo.require("dojox.calendar.Calendar");
+	dojo.require("dojox.calendar.SimpleColumnView");
+	dojo.require("dojox.calendar.MatrixView");
+	dojo.require("dojox.calendar.MonthColumnView");
+	dojo.require("wcli.grid.PlexData");
+	dojo.require("dojo.date.locale");
+	dojo.require("dojo.domGeometry");
+	dojo.require("dojo.domStyle");
+    dojo.require("dojo.parser");  
+/(!JSInit)
+
+/(!JSInit:seq=1)
+	dojo.addOnLoad( function() {
+      var form = /(!Panel:!NameID)_form;
+      if (window./(!Panel:!NameID)_submitter['/(!NameID)']) {
+          return;
+      }
+      dojo.connect(window./(!Panel:!NameID)_submitter, "onsubmit",
+	    function () {
+	    	var selectedRow = "";
+	    	var w = dijit.byId("/(!NameID)");
+			if(w && w.dataSelectedId != undefined){
+	    		var m = dojo.getObject("model-/(!NameID)");
+	    		var selectedId = w.dataSelectedId;
+	    		var modeldata = w.model.data;
+	    		for(var p=0; p<modeldata.length; p++){
+	    			var dataId = modeldata[p][0].v;
+	    			if(selectedId == dataId){
+	    				selectedRow = p;
+	    			}	
+	    		}
+			}
+	    	if (form['/(!NameID)'] && w && m) {
+	    		form['/(!NameID)'].value = selectedRow.toString();
+	    	}
+	    });
+	  window./(!Panel:!NameID)_submitter['/(!NameID)'] = true;
+	});
+/(!JSInit)
+
+/(!JSOnLoad)		
+ 	dijit.byId("/(!NameID)").refreshRendering(); 	
+ 	var c = dijit.byId("/(!NameID)"); 	
+	if((new Date().getTimezoneOffset())>0){
+		if(document.getElementById("StartDateHF")){
+			document.getElementById("StartDateHF").value=c._timeInterval[0].toJSON().substring(0, 10);
+		}
+		if(document.getElementById("EndDateHF")){
+			var ed = parseInt(c._timeInterval[1].toJSON().substring(8));
+	  	 	if(ed<=1){	  	 		
+	  	 		document.getElementById("EndDateHF").value=c._timeInterval[0].toJSON().substring(0, 8) + dojo.date.getDaysInMonth(c._timeInterval[0]);	  	 		
+	  	 	}
+	  	 	else if(ed<=9){
+	  	 		document.getElementById("EndDateHF").value=c._timeInterval[1].toJSON().substring(0, 8) + "0" + (ed-1);
+	  	 	}
+	  	 	else{
+	  	 		document.getElementById("EndDateHF").value=c._timeInterval[1].toJSON().substring(0, 8) + (ed-1);
+	  	 	}  	 
+		}
+	}else{
+		if(document.getElementById("EndDateHF")){
+			document.getElementById("EndDateHF").value=c._timeInterval[1].toJSON().substring(0, 10);
+		}
+		if(document.getElementById("StartDateHF")){
+			var totalDays = dojo.date.getDaysInMonth(c._timeInterval[0]);
+			var sd = parseInt(c._timeInterval[0].toJSON().substring(8));
+			if(sd == totalDays){	  	 		
+	  	 		document.getElementById("StartDateHF").value=c._timeInterval[1].toJSON().substring(0, 8) + "01";	  	 		
+	  	 	}
+	  	 	else if(sd<9){
+	  	 		document.getElementById("StartDateHF").value=c._timeInterval[0].toJSON().substring(0, 8) + "0" + (sd+1);
+	  	 	}
+	  	 	else{
+	  	 		document.getElementById("StartDateHF").value=c._timeInterval[0].toJSON().substring(0, 8) + (sd+1);
+	  	 	}  	 
+		}
+	}		
+	/(!AJAXDoEvent:phys=Changed)
+	/(!If:/(!Param:DateInt))
+		dateInt="/(!Param:DateInt)";
+		if(dateInt == "day"){
+			c.dataOnLoad = {"DateInterval":"day","ViewType":"0","EndDate":"","StartDate":"","EndTime":"17:00:00","StartTime":"08:00:00","DateIntervalSteps":"1"};
+		} else if(dateInt == "4day"){
+			c.dataOnLoad = {"DateInterval":"day","ViewType":"0","EndDate":"","StartDate":"","EndTime":"17:00:00","StartTime":"08:00:00","DateIntervalSteps":"4"};
+		} else if(dateInt == "week"){
+			c.dataOnLoad = {"DateInterval":"week","ViewType":"0","EndDate":"","StartDate":"","EndTime":"17:00:00","StartTime":"08:00:00","DateIntervalSteps":"1"};
+		} else if(dateInt == "month"){
+			c.dataOnLoad = {"DateInterval":"month","ViewType":"1","EndDate":"","StartDate":"","EndTime":"17:00:00","StartTime":"08:00:00","DateIntervalSteps":"1"};
+		} else if(dateInt == "6month"){
+			c.dataOnLoad= {"DateInterval":"month","ViewType":"2","EndDate":"","StartDate":"","EndTime":"17:00:00","StartTime":"08:00:00","DateIntervalSteps":"6"};
+		} 
+		
+	/(!Else)
+		c.dataOnLoad={"DateInterval":"week","ViewType":"0","EndDate":"","StartDate":"","EndTime":"17:00:00","StartTime":"08:00:00","DateIntervalSteps":"1"};
+	/(!If)  
+/(!JSOnLoad)
+
+/(!DataArea)
+	<div dojoType="wcli.grid.PlexData" id="model-/(!NameID)" jsId="model-/(!NameID)"
+		jsondata="/(!This:!jsonRows)" jsoncols="/(!This:!jsonCols)"
+		rowsPerPage="20" clientSort=/(!If:/(!Property:Sortable)=Yes)"true"/(!Else)"false"/(!If)>
+	</div>
+/(!DataArea)
+ 
+/(!FormArea)
+	<input name="/(!NameID)" type="hidden" value="" />
+/(!FormArea)
+
+/(!EnableAction:SetCalendarValues,SetView,SetState,Grid.Clear,Grid.Insert,Grid.Remove,Grid.Update,Grid.AddRowSelection,Grid.RemoveRowSelection,Grid.Locate)
+/(!JS)
+ var calendarDijit = dijit.byId("/(!NameID)");
+ /(!Action:Grid.Clear)
+  	dijit.byId("/(!NameID)").model.clear();
+  /(!Action)
+  
+  /(!Action:Grid.Insert)
+  	dijit.byId("/(!NameID)").model.insert(/(!ActionArg));
+  /(!Action)
+  
+  /(!Action:Grid.Remove)
+    dijit.byId("/(!NameID)").model.remove(/(!ActionArg));
+  /(!Action)
+
+  /(!Action:Grid.Update)
+    dijit.byId("/(!NameID)").model.update(/(!ActionArg));
+  /(!Action) 
+
+ /(!Action:SetView)
+ var data =  /(!ActionArg);
+ if(data.DateInterval == ""){
+ 	calendarDijit.dataOnLoad.StartDate = data.StartDate;
+ 	data = calendarDijit.dataOnLoad;
+ }
+ var startDate = data.StartDate;
+ var startHour = data.StartTime;
+ var endDate = data.EndDate;
+ var endHour = data.EndTime;
+ 
+ var formatStartDate = dojo.date.locale.parse(startDate,{ selector: "date", formatLength: "short", datePattern: "yyyy-MM-dd" });
+ var getStartTime = dojo.date.locale.parse(startHour,{ selector: "date", formatLength: "short", datePattern: "HH:mm:ss" });
+ var getStartHour = getStartTime.getHours();
+ var getStartMin = getStartTime.getMinutes();
+ formatStartDate.setHours(getStartHour);
+ formatStartDate.setMinutes(getStartMin);
+ 
+ calendarDijit.date = formatStartDate;
+ calendarDijit.dateInterval = data.DateInterval;
+ calendarDijit.dateIntervalSteps = data.DateIntervalSteps;
+ calendarDijit.switchView(calendarDijit.views[data.ViewType]);
+ calendarDijit._timeRangeInvalidated = true;
+ calendarDijit.refreshRendering();
+ if(calendarDijit.dateInterval == "week" || calendarDijit.dateInterval == "day"){
+ 	calendarDijit.columnView.secondarySheet.refreshRendering();
+ }else{
+	calendarDijit.views[data.ViewType].startDate= formatStartDate;
+ }
+ calendarDijit.views[data.ViewType].refreshRendering();
+ /(!Action)
+
+ /(!Action:SetCalendarValues)   		   		  		
+  		if(calendarDijit.dateInterval=="month"){
+  			var tStartDate = calendarDijit.curView.startDate;
+  			var tEndDate = calendarDijit.curView.endDate;
+  		}else{
+  			var tStartDate = calendarDijit._timeInterval[0];
+  			var tEndDate = calendarDijit._timeInterval[1];
+  		}
+  		if((new Date().getTimezoneOffset())>0){
+		if(document.getElementById("StartDateHF")){
+			document.getElementById("StartDateHF").value=tStartDate.toJSON().substring(0, 10);
+		}
+		if(document.getElementById("EndDateHF")){
+			var ed = parseInt(tEndDate.toJSON().substring(8));
+	  	 	if(ed<=1){	  	 		
+	  	 		document.getElementById("EndDateHF").value=tStartDate.toJSON().substring(0, 8) + dojo.date.getDaysInMonth(tStartDate);	  	 		
+	  	 	}
+	  	 	else if(ed<=9){
+	  	 		document.getElementById("EndDateHF").value=tEndDate.toJSON().substring(0, 8) + "0" + (ed-1);
+	  	 	}
+	  	 	else{
+	  	 		document.getElementById("EndDateHF").value=tEndDate.toJSON().substring(0, 8) + (ed-1);
+	  	 	}  	 
+		}
+	}else{
+		if(document.getElementById("EndDateHF")){
+			document.getElementById("EndDateHF").value=tEndDate.toJSON().substring(0, 10);
+		}
+		if(document.getElementById("StartDateHF")){
+			var totalDays = dojo.date.getDaysInMonth(tStartDate);
+			var sd = parseInt(tStartDate.toJSON().substring(8));
+			if(sd == totalDays){	  	 		
+	  	 		document.getElementById("StartDateHF").value=tEndDate.toJSON().substring(0, 8) + "01";	  	 		
+	  	 	}
+	  	 	else if(sd<9){
+	  	 		document.getElementById("StartDateHF").value=tStartDate.toJSON().substring(0, 8) + "0" + (sd+1);
+	  	 	}
+	  	 	else{
+	  	 		document.getElementById("StartDateHF").value=tStartDate.toJSON().substring(0, 8) + (sd+1);
+	  	 	}  	 
+		}
+	}
+	/(!AJAXDoEvent:phys=Changed)			   	   	   	
+  /(!Action)
+/(!JS)
+<div id="/(!NameID)" dojoType="dojox.Calendar" model="model-/(!NameID)" eventIdCol="/(!Param:EventId)" startDateCol="/(!Param:StartDate)" startTimeCol="/(!Param:StartTime)"
+endDateCol="/(!Param:EndDate)" endTimeCol="/(!Param:EndTime)" eventDescCol="/(!Param:EventDesc)" /(!If:/(!Param:MinHours))minHours="/(!Param:MinHours)"/(!If) 
+/(!If:/(!Param:MaxHours))maxHours="/(!Param:MaxHours)"/(!If)  /(!If:/(!Param:default))style="/(!DefaultCSS:withPos=true)"/(!If) 
+/(!If:/(!Param:DateInt))dateInt="/(!Param:DateInt)"/(!If) /(!If:/(!Param:TimePattern))timePattern="/(!Param:TimePattern)"/(!If)>
+	/(!If:/(!Event:phys=Select))
+		<script type="dojo/method" event="onGridSelected">
+			/(!AJAXDoEvent:phys=Select)
+		</script>
+	/(!If)
+    /(!If:/(!Event:phys=Double Click))
+		<script type="dojo/method" event="onGridDoubleClickItem">
+			/(!AJAXDoEvent:phys=Double Click)
+		</script>
+	/(!If)
+</div>

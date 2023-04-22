@@ -1,0 +1,300 @@
+/(!JSInit)
+	dojo.require("dijit.layout.ContentPane");
+	dojo.require("dijit.layout.LayoutContainer");
+	dojo.require("dijit.Tooltip");
+	dojo.require("wcli.form.Dialog");
+	
+	var newLineRegex = new RegExp('\n','g');
+	bldMsgText = function(msgText) {
+		return msgText.replace(newLineRegex, '<br>');
+	}
+
+	dojo.addOnLoad(function() {
+		dijit._MasterTooltip.prototype.duration = 450;
+		dijit._masterTT = new dijit._MasterTooltip();
+		dojo.connect(document.body, "onmousedown", function(evt) {
+			if(dijit._masterTT && dijit._masterTT.aroundNode != null){
+				dijit._masterTT.hide(dijit._masterTT.aroundNode);
+			}
+ 			dijit.popup.closeAll(evt);
+		});
+		
+		dojo.connect(document.body, "onkeydown", function(evt) {
+			if (evt.keyCode == dojo.keys.ENTER){
+				var focusNode = dijit.getFocus().node;
+				if(dojo.isIE && focusNode.className == "dijitDialogTitleBar"){
+					var widget = dijit.getEnclosingWidget(focusNode.parentNode);
+				}
+				else{
+					var widget = dijit.getEnclosingWidget(focusNode);
+				}
+				if((widget && widget.containerNode) && widget.containerNode.childNodes[1].innerText.indexOf("OK") != -1){
+						dijit.byId(widget.containerNode.childNodes[1].id).onClick(evt);	
+				}	
+			}
+		});
+
+		if (!window.shownTooltips) {
+			var tooltipMsg = "";		
+			var tooltipType = null;
+			/(ALERTS)
+				tooltipMsg = tooltipMsg + bldMsgText(/(AlertMsg)) + "<br/>"; tooltipType = /(AlertType);
+			/(ALERTS)
+		
+			if (tooltipMsg) {
+				if (tooltipType == "status" && dijit.byId("Grid")) {
+					window.tooltipIsOpen = true;
+					dijit.byId("model-Grid").tooltipMsg(tooltipMsg, dijit.byId("Grid"));
+				} 
+			
+				else if(tooltipType == "dialog" || tooltipType == "status")  {
+					var dlg;
+					var div = wcli.buildDialog(tooltipMsg, function() { dlg.hide(); dojo.body().removeChild(dlg.domNode);} );
+					dlg = new dijit.Dialog({ title: /(!Panel:!Title) || "/(!Panel:!Property:Title)" }, div);
+					dlg.startup();
+					dlg.show();
+				}
+			
+				else {
+					var dlg;
+					var doclose = function(){
+						if (dijit.byId(dlgid)){
+							dijit.byId(dlgid).hide();
+							dojo.body().removeChild(dijit.byId(dlgid).domNode); 
+						}
+						else{ 
+							dlg.hide();
+							dojo.body().removeChild(dlg.domNode);
+						}
+					};
+					var enqresp = function(resp) {
+						dojo.xhrPost({
+							form: /(!Panel:!NameID)_form,
+							content: { _type: 'json', enqact: resp, pnlid: /(!Panel:!NameID)_pnlid, websessid: window.websessid },
+							load: function(data, ioArgs) {
+								data.main(data);
+							},
+							handleAs: 'json',
+							preventCache: true
+						});
+					};
+					var div = wcli.buildEnquiryDialog(enquiryMsg, function(val) { enqresp(val); doclose(); } );
+					dlg = new dijit.Dialog({ title: /(!Panel:!Title) || "/(!Panel:!Property:Title)" }, div);
+					dlgid = dlg.id;
+					dlg.startup();
+					dlg._lastFocusItem = dijit.byId("EnquiryYesBtn").domNode;
+					dlg.show();
+					dialogIsOpen=true;
+					dijit.byId("EnquiryYesBtn").focus();
+					dlg.closeButtonNode.onclick = function() { 
+						if (/(!Panel:!NameID)_form.onsubmit)
+							/(!Panel:!NameID)_form.onsubmit();
+							dojo.xhrPost({
+								form: /(!Panel:!NameID)_form,
+								content: { _type: 'json', enqact:3, pnlid: /(!Panel:!NameID)_pnlid, websessid: window.websessid },
+								load: function(data, ioArgs) {
+									data.main(data);
+								},
+							preventCache: true,
+							handleAs: 'json'	
+						});
+						dijit.byId(dlgid).hide();
+						dojo.body().removeChild(dijit.byId(dlgid).domNode);
+						dialogIsOpen=false;
+					};
+				}
+				window.shownTooltips = true;
+			}
+		}
+	});
+	
+	/(!Panel:!EnableAction:Alert,Enquiry)
+	if (dojo.byId("IOSpinner")) {
+	       var spin = dojo.byId("IOSpinner");
+	  		if (!spin.spinConnected) {
+		        dojo.connect(dojo, "_ioWatch", function(dfd) {
+		        	if (window.inLostFocus){
+		        		return;
+		        	}
+		        	// only display spinnner if delay longer than 100ms (prevents display on modified event)
+		        	var spinUp = false;
+		        	var ioDelayCleared = false;
+		        	var ioDelay = setTimeout(function() {
+		        		if (ioDelayCleared) {
+		        			return;
+		        		}
+		        		spin.style.display = "block";
+		        		spinUp = true;
+		        	}, 200);
+		        	
+		        	var callback = function() {
+		            	if (!spinUp) {
+			            	clearTimeout(ioDelay);
+			            	ioDelayCleared = true;
+			            } else {
+		                	dojo.byId("IOSpinner").style.display = "none";
+		                }
+		            };
+		            
+		            dojo.connect(dfd, "callback", callback);
+		            dojo.connect(dfd, "errback", callback);
+		    	});
+		    	spin.spinConnected = true;
+	    	}
+	}
+	 
+	 
+	 /(!If:/(!Panel:!Property:RightContextMenu))
+	   dojo.addOnLoad(function() {
+	   	   var menu = dijit.byId("menu-/(!FindControl:/(!Panel:!Property:RightContextMenu):!NameID)");
+	   	   if (menu) {
+	       		menu.bindDomNode(dojo.body());
+	       }
+	   });
+  	/(!If)
+	
+	/(!If:/(!Panel:!Property:LeftContextMenu))
+	   dojo.addOnLoad(function() {
+	   	   var menu = dijit.byId("menu-/(!FindControl:/(!Panel:!Property:LeftContextMenu):!NameID)");
+	   	   if (menu) {
+	       		menu.bindDomNode(dojo.body());
+	       }
+	   });
+  	/(!If)
+/(!JSInit)
+
+/(!JS)
+	var tooltipMsg = "";
+	var enquiryMsg = "";
+	
+	/(ALERTS)
+		var tooltipType = /(AlertType);
+		if (tooltipType == "enquiry") {
+			enquiryMsg = enquiryMsg + bldMsgText(/(AlertMsg)) + "<br>";
+		}
+		if (tooltipType != "log") {
+			tooltipMsg = tooltipMsg + bldMsgText(/(AlertMsg)) + "<br>";
+		}
+	/(ALERTS)
+	
+	/(!Panel:!Action:Alert)
+		var tooltipType = /(AlertType);
+		if(tooltipType != "log"){
+			tooltipMsg = tooltipMsg + bldMsgText(/(!ActionArg)) + "<br>";
+		}
+	/(!Panel:!Action)
+
+	/(!Panel:!Action:Enquiry)
+		enquiryMsg = enquiryMsg + bldMsgText(/(!ActionArg)) + "<br>";
+	/(!Panel:!Action)
+	
+	if (enquiryMsg) {
+		var enqresp = function(resp) {
+			dojo.xhrPost({
+				form: /(!Panel:!NameID)_form,
+				content: { _type: 'json', enqact: resp, pnlid: /(!Panel:!NameID)_pnlid, websessid: window.websessid },
+				load: function(data, ioArgs) {
+					data.main(data);
+				},
+				handleAs: 'json',
+				preventCache: true
+			});
+		};
+	}
+/(!JS)
+
+/(!JSPost:seq=999)
+    var showEnquiry = function() {
+	if (enquiryMsg) {
+		var dlg;
+		var doclose = function(){
+			if (dijit.byId(dlgid)){
+				dijit.byId(dlgid).hide(); 
+				dojo.body().removeChild(dijit.byId(dlgid).domNode);
+				dialogIsOpen=false;
+			}
+			else{ 
+				dlg.hide();
+				dojo.body().removeChild(dlg.domNode);
+				dialogIsOpen=false;
+			}
+		};
+		var div = wcli.buildEnquiryDialog(enquiryMsg, function(val) { enqresp(val); doclose(); } );
+		dlg = new dijit.Dialog({ title: /(!Panel:!Title) || "/(!Panel:!Property:Title)" }, div);
+		dlgid = dlg.id;
+		dlg.startup();
+		dlg._lastFocusItem = dijit.byId("EnquiryYesBtn").domNode;
+		dlg.show(600);
+		dialogIsOpen=true;
+		dijit.byId("EnquiryYesBtn").focus();
+		
+		setTimeout(function(){
+			if(dojo.isIE){
+				dlg.domNode.childNodes[1].childNodes[1].focus();
+			}
+			else{
+				dlg.domNode.childNodes[3].childNodes[1].focus();
+			}
+		}
+		,700);
+		
+		dlg.closeButtonNode.onclick = function() { 
+				if (/(!Panel:!NameID)_form.onsubmit)
+					/(!Panel:!NameID)_form.onsubmit();
+				dojo.xhrPost({
+					form: /(!Panel:!NameID)_form,
+					content: { _type: 'json', enqact:3, pnlid: /(!Panel:!NameID)_pnlid, websessid: window.websessid },
+					load: function(data, ioArgs) {
+					data.main(data);
+				},
+			preventCache: true,
+			handleAs: 'json'	
+			});
+			dijit.byId(dlgid).hide();
+			dojo.body().removeChild(dijit.byId(dlgid).domNode);
+			dialogIsOpen=false;
+		};
+	}
+   };
+   if (tooltipMsg) {
+		var dlg;
+		var div = wcli.buildDialog(tooltipMsg, function() { dlg.hide(); dojo.body().removeChild(dlg.domNode); dialogIsOpen=false; showEnquiry();} );
+		dlg = new dijit.Dialog({ title: /(!Panel:!Title) || "/(!Panel:!Property:Title)" }, div);
+		dlg.startup();
+		dlg.show(600);
+		dialogIsOpen=true;
+		setTimeout(function(){
+			if(dojo.isIE){
+				dlg.domNode.childNodes[1].childNodes[1].focus();
+			}
+			else{
+				dlg.domNode.childNodes[3].childNodes[1].focus();
+			}
+		}
+		,700);
+
+		dlg.closeButtonNode.onclick = function() { 
+			dlg.hide();
+			dojo.body().removeChild(dlg.domNode);
+			dialogIsOpen=false;
+			showEnquiry();
+		};
+   } else {
+       showEnquiry();
+   }	
+/(!JSPost)
+
+/(!LoadScreen)
+     <div id="IOSpinner" class="loadingSpinner" style="display: none;">
+     </div>
+/(!LoadScreen)
+
+/(!MainArea)
+	<div>
+	    /(!AttachPoint:name=MenuBarArea)
+		/(!AttachPoint:name=ToolbarArea)
+		<div style="position: relative;">
+			/(!AttachPoint:name=MainArea)
+		</div>
+	</div>
+/(!MainArea)

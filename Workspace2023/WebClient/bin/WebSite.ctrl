@@ -1,0 +1,190 @@
+/(!JSInit:once)
+    dojo.require("dijit.layout.ContentPane");
+
+    function setContentPaneWithJS(pane, div) {
+		// Block addOnLoad() until we are done
+		dojo._inFlightCount++;
+		var jslist = dojo.query("script",div);
+		dojo.forEach(jslist, function(node){
+    		var src = node.getAttribute('src');
+    		if (src) {
+    			dojo._loadUri(src);
+    		} 
+		});
+		var list = dojo.query("script[type^='text/javascript']",div);
+		dojo.forEach(list, function(node){
+	  		dojo.eval(node.innerHTML);
+	  	});
+		pane.domNode.style.display = "block";
+	  	pane.setContent(div);
+
+	  	dojo._inFlightCount--;
+	  	dojo._callLoaded();
+     }
+     window.setContentPaneWithJS = setContentPaneWithJS;
+     
+     /(!If:/(!IsDefined:FixedPositioning))
+	  	window.tabAbleToResize = true;
+	  	/(!If:/(!IsDefined:MinimumPanelRes))
+			window.tabAbleToResize = wcli.util.XBrowser.isAbleToResize(/(MinimumPanelRes));
+		/(!If)
+	/(!If)
+/(!JSInit)
+	
+ <div id="site-/(!NameID)"> </div>
+/(!This)
+ 
+  <div style="/(!DefaultCSS:nc:withPos=/(!Param:default))" class="dijitContentPane /(!CustomClass:nc:class=/(!Param:class))" dojoType="dijit.layout.ContentPane" label="/(!Site:!Panel:!Title)" id="/(!Site:!Panel:!NameID)"
+  		reqwidth="/(!Site:!Panel:!Size:x)" reqheight="/(!Site:!Panel:!Size:y)" onscroll="if(dojo.isIE){this.style.display='none';this.style.display='block';}">
+  	<div class="chromescrollbar" style="position: relative; height: /(!Site:!Panel:!Size:y)px; width: /(!Site:!Panel:!Size:x)px; overflow: auto">
+	    /(!Site:!Render:_type=html:_child=/(!Site:!Panel:!NameID))
+	</div>
+  </div>
+  
+	  <script type="text/javascript">	
+	   /(Embed:js:cdata)
+	   
+		dojo.addOnLoad(function() {
+			var w = dijit.byId("/(!Site:!Panel:!NameID)");
+  /(!If:/(!Site:!Panel:!Visible))
+		 	w.domNode.style.display = "block";
+  /(!Else)
+		 	w.domNode.style.display = "none";
+  /(!If)  
+		 	var par = dijit.getEnclosingWidget(w.domNode.parentNode);
+		});
+		
+	   /(Embed)
+	   
+	  </script>
+/(!This)
+
+/(!EnableAction:Load,Refresh,Hide,Show,Unload)
+
+/(!JS)
+   /(!This:!Action:Unload)
+   if(dijit.byId("/(!ActionArg:!NameID)")){
+  	 var w = dijit.byId("/(!ActionArg:!NameID)");
+  	 w.destroyRecursive();
+	 dijit.registry.forEach(function(djt) { // destroy orphaned menu items
+		if (djt.id.indexOf("/(!ActionArg:!NameID)") >= 0) {
+			djt.destroy();
+		} 
+  	 });
+  	}
+  /(!This:!Action)
+  
+  var siteLoaded = false;
+  
+  /(!This:!Action:Load)
+
+    		/(OutTo:json.panel./(!ActionArg:!NameID):js)
+	      		/(Embed:html)
+	  	       		/(!ActionArg:!Owner:!Render:_type=html:_child=/(!ActionArg:!NameID))
+	  	       	/(Embed)
+	      	/(OutTo)
+  	
+    		var dijitpane = document.getElementById("site-/(!NameID)");
+    		var div = document.createElement("div");
+    		var paneparent = dijitpane.parentNode;
+    		paneparent.appendChild(div);
+    	
+    	var html = json.panel./(!ActionArg:!NameID);
+    	var pane = new dijit.layout.ContentPane({
+    		style: "/(!DefaultCSS:nc:withPos=/(!Param:default))",
+    		id: "/(!ActionArg:!NameID)",
+    		reqwidth: /(!ActionArg:!Size:x),
+    		reqheight: /(!ActionArg:!Size:y)}, div);
+    		
+    		/(!If:/(!IsDefined:FixedPositioning))
+    		/(!AbleToResize)
+			if(ableToResize  === true){
+				pane.domNode.style.width = pane.domNode.parentNode.style.width;
+		    	pane.domNode.style.height = pane.domNode.parentNode.style.height;
+			}
+    		/(!If)
+    		
+    		var div2 = document.createElement("div");
+    		var div2style = "position: relative; height: /(!ActionArg:!Size:y)px; width: /(!ActionArg:!Size:x)px; overflow: auto";
+    		div2.style.cssText = div2style;
+	    	div2.innerHTML = "<html><body>" + html + "</body></html>";
+		setContentPaneWithJS(pane, div2);
+    	
+    		/(!If:/(!ActionArg:!Visible))
+		pane.domNode.style.display = "block";
+  		/(!Else)
+		pane.domNode.style.display = "none";
+  		/(!If)  
+  			
+  		siteLoaded = true;
+  /(!This:!Action)
+  
+  /(!This:!Action:Refresh)
+  	/(OutTo:json.refreshpanel./(!ActionArg:!NameID):js)
+	  	  /(Embed:html)
+	  	  	   /(!ActionArg:!Owner:!Render:_type=html:_child=/(!ActionArg:!NameID))
+	  	  /(Embed)
+	/(OutTo)
+	 
+	    	if(dijit.byId("/(!ActionArg:!NameID)") && !siteLoaded)
+	      	{
+	      		var dijitpane = dijit.byId("/(!ActionArg:!NameID)");
+	      		var html = json.refreshpanel./(!ActionArg:!NameID);
+	      		var div2 = document.createElement("div");
+	    		var div2style = "position: relative; height: /(!ActionArg:!Size:y)px; width: /(!ActionArg:!Size:x)px; overflow: auto";
+	    		div2.style.cssText = div2style;
+	  	    	div2.innerHTML = "<html><body>" + html + "</body></html>";
+			setContentPaneWithJS(dijitpane, div2);
+	      	}
+	      	
+	      	if(dijit.byId("/(!ActionArg:!NameID)")) {
+	      		var dijitpane = dijit.byId("/(!ActionArg:!NameID)");
+	      	/(!If:/(!ActionArg:!Visible))
+	  		dijitpane.domNode.style.display = "block";
+	    	/(!Else)
+	  		dijitpane.domNode.style.display = "none";
+	    	/(!If) 
+	    	}
+  /(!This:!Action)
+  
+  /(!This:!Action:Hide)
+  	 var w = dijit.byId("/(!ActionArg:!NameID)");
+  	 w.domNode.style.display = "none";
+  /(!This:!Action)
+
+  /(!This:!Action:Show)
+  	 var w = dijit.byId("/(!ActionArg:!NameID)");
+  	 w.domNode.style.display = "block";
+ 	 var par = dijit.getEnclosingWidget(w.domNode.parentNode);
+ 	 /(!If:/(!IsDefined:FixedPositioning))
+ 	 /(!AbleToResize)
+	if(ableToResize  === true){
+		//If a resize was made while the TAB control was hidden then we need to trigger the resize event again to be sure all the calculations are correct. 	 
+	  	 window.dispatchEvent(new Event('resize'));
+		 //Looks for grid controls and refresh its view to avoid errors when the TAB control was hidden	 
+		 var gridControls = document.getElementById("/(!ActionArg:!NameID)").querySelectorAll("[class=dojoxGrid]");
+		 if(gridControls.length > 0){
+		 	for(var i=0; i < gridControls.length; i++){	 
+		 		var grid = dijit.byId(gridControls[i].id);		
+		 		if(grid.selection.selectedIndex != -1){
+					var selectedIndex = grid.selection.selectedIndex;	
+				}
+				grid.refresh();
+				if(selectedIndex){
+					grid.selection.selectedIndex = grid.model.findSortedRowSeq(selectedIndex);
+				}
+		 	}
+		 }
+	}
+	 /(!If)
+  /(!This:!Action)
+  
+  /(!This)
+    /(OutTo:json.script./(!Site:!Panel:!NameID):js)
+      /(!Site:!Render:_type=json)
+    /(OutTo)
+    
+    json.script./(!Site:!Panel:!NameID).main(json.script./(!Site:!Panel:!NameID));
+  /(!This)
+  
+/(!JS)

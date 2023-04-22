@@ -1,0 +1,7 @@
+/(!JSInit:once)
+	dojo.require("dijit.Toolbar");
+/(!JSInit)
+
+<div dojoType="dijit.Toolbar" id="/(!NameID)">
+	/(!AttachPoint:name=ToolArea)
+</div>
