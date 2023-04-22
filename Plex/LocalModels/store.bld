@@ -1017,6 +1017,7 @@ Default Location=C:\ProgramData\CA\Plex\7.2.1\OBJAVA
 [Group Model Paths]
 C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\Plex\LocalModels\store.mdl=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\Plex\GroupModels\Store
 C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\store.mdl=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\GroupModels\Store
+C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\store.mdl=
 [WebSourceXML]
 sourcedir=
 sourcelib=
