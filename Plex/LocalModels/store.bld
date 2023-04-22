@@ -5,7 +5,7 @@ Create Java interface classes=0
 [Name configuration]
 Name allocator dll=ObAlcNme.dll
 Truncate long file names at generation=0
-Parameter file=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\store.bld
+Parameter file=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\store.bld
 
 [Name allocation]
 Enabled=1
