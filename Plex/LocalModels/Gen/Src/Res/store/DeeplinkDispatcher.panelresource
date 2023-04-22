@@ -1,4 +1,4 @@
-# GRP_MODEL=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\GroupModels\Store
+# GRP_MODEL=
 
 WindowId=150
 
@@ -14,30 +14,74 @@ Base.12288.150.SavePlacement=No
 Base.12288.150.WindowPlacement=Default
 Base.12288.150.BackgroundColor=
 
-Base.150.Contains=3151 
+Base.150.Contains=3153 3154 3155 
 
-Base.3151.Type=Pushbutton
-Base.12289.3151.Properties=Size Position NoFocus NoButton Transparent Font Text ControlName Visible Disabled BackgroundColor TextColor ButtonTextAlignment ButtonPictureAlignment RelativeAlignment FlyOverHint TabSequence TabStop FixLeft FixTop FixBottom FixRight 
-Base.12289.3151.Size=16 16
-Base.12289.3151.Position=368 0
-Base.12289.3151.NoFocus=No
-Base.12289.3151.NoButton=No
-Base.12289.3151.Transparent=No
-Base.12289.3151.Font=Bold 8  MS Sans Serif 
-Base.12289.3151.Text=X
-Base.12289.3151.ControlName=closeBtn:MainArea:class=closeBtn
-Base.12289.3151.Visible=Yes
-Base.12289.3151.Disabled=No
-Base.12289.3151.BackgroundColor=
-Base.12289.3151.TextColor=18
-Base.12289.3151.ButtonTextAlignment=Center
-Base.12289.3151.ButtonPictureAlignment=Center
-Base.12289.3151.RelativeAlignment=On Top
-Base.12289.3151.FlyOverHint=Close
-Base.12289.3151.TabSequence=0
-Base.12289.3151.TabStop=No
-Base.12289.3151.FixLeft=Yes
-Base.12289.3151.FixTop=Yes
-Base.12289.3151.FixBottom=No
-Base.12289.3151.FixRight=No
+Base.3153.Type=Label
+Base.12289.3153.Properties=Size Position Border StaticType TextAlignment Transparent Font Text Visible Disabled BackgroundColor TextColor FixLeft FixTop FixBottom FixRight 
+Base.12289.3153.Size=88 20
+Base.12289.3153.Position=12 8
+Base.12289.3153.Border=None
+Base.12289.3153.StaticType=Text
+Base.12289.3153.TextAlignment=Left
+Base.12289.3153.Transparent=Yes
+Base.12289.3153.Font=Regular 8  MS Sans Serif 
+Base.12289.3153.Text=ShortDescription
+Base.12289.3153.Visible=No
+Base.12289.3153.Disabled=No
+Base.12289.3153.BackgroundColor=
+Base.12289.3153.TextColor=8
+Base.12289.3153.FixLeft=Yes
+Base.12289.3153.FixTop=Yes
+Base.12289.3153.FixBottom=No
+Base.12289.3153.FixRight=No
+
+Base.3154.Type=Edit
+Base.3154.InputValidation=No
+Base.12290.3154.Properties=Size Position TextAlignment Case HiliteOnFocus Border Font Text ControlName Visible Disabled BackgroundColor TextColor EditMask ImeMode Mode TabSequence FixLeft FixTop FixBottom FixRight 
+Base.12290.3154.Size=192 20
+Base.12290.3154.Position=12 8
+Base.12290.3154.TextAlignment=Left
+Base.12290.3154.Case=Mixed
+Base.12290.3154.HiliteOnFocus=No
+Base.12290.3154.Border=Indented
+Base.12290.3154.Font=Regular 8  MS Sans Serif 
+Base.12290.3154.Text=
+Base.12290.3154.ControlName=deeplink:MainArea:template=WebNotified
+Base.12290.3154.Visible=Yes
+Base.12290.3154.Disabled=No
+Base.12290.3154.BackgroundColor=5                     
+Base.12290.3154.TextColor=8
+Base.12290.3154.EditMask=%ss20
+Base.12290.3154.ImeMode=-1
+Base.12290.3154.Mode=Edit
+Base.12290.3154.TabSequence=0
+Base.12290.3154.FixLeft=Yes
+Base.12290.3154.FixTop=Yes
+Base.12290.3154.FixBottom=No
+Base.12290.3154.FixRight=No
+
+Base.3155.Type=Pushbutton
+Base.12291.3155.Properties=Size Position NoFocus NoButton Transparent Font Text ControlName Visible Disabled BackgroundColor TextColor ButtonTextAlignment ButtonPictureAlignment RelativeAlignment FlyOverHint TabSequence TabStop FixLeft FixTop FixBottom FixRight 
+Base.12291.3155.Size=16 16
+Base.12291.3155.Position=368 0
+Base.12291.3155.NoFocus=No
+Base.12291.3155.NoButton=No
+Base.12291.3155.Transparent=No
+Base.12291.3155.Font=Bold 8  MS Sans Serif 
+Base.12291.3155.Text=X
+Base.12291.3155.ControlName=closeBtn:MainArea:class=closeBtn
+Base.12291.3155.Visible=No
+Base.12291.3155.Disabled=No
+Base.12291.3155.BackgroundColor=
+Base.12291.3155.TextColor=18
+Base.12291.3155.ButtonTextAlignment=Center
+Base.12291.3155.ButtonPictureAlignment=Center
+Base.12291.3155.RelativeAlignment=On Top
+Base.12291.3155.FlyOverHint=Close
+Base.12291.3155.TabSequence=0
+Base.12291.3155.TabStop=No
+Base.12291.3155.FixLeft=Yes
+Base.12291.3155.FixTop=Yes
+Base.12291.3155.FixBottom=No
+Base.12291.3155.FixRight=No
 

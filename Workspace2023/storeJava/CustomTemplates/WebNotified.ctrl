@@ -1,0 +1,9 @@
+/(!FormArea)
+	<input name="/(!NameID)" type="hidden" value="" />
+/(!FormArea)
+
+/(!JSOnLoad:first)
+	/(!If:/(!Event:phys=Modified))
+		/(!AJAXDoEvent:phys=Modified)
+	/(!If)
+/(!JSOnLoad)

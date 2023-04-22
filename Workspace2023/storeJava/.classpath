@@ -2,6 +2,7 @@
 <classpath>
 	<classpathentry excluding="Res/" kind="src" path="PlexSrc"/>
 	<classpathentry kind="src" path="PlexRes"/>
+	<classpathentry kind="src" path="CustomTemplates"/>
 	<classpathentry kind="con" path="com.cmfirstgroup.webcomponent/com.adcaustin.webclient"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
 		<attributes>

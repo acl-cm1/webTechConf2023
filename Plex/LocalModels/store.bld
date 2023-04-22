@@ -1562,13 +1562,14 @@ HPUX=%LOCAL%
 JAVA=%LOCAL%
 C#=%LOCAL%
 [RemoteHPUX]
-System Count=5
+System Count=6
 System 1=
 Active System=
 System 2=
 System 3=
 System 4=
 System 5=
+System 6=
 [Impact Analysis]
 Log list name=
 [Defaults]
