@@ -5,7 +5,6 @@
 *.class.web
 
 # eclipse specific git ignore
-.metadata
 bin/**
 tmp/**
 tmp/**/*

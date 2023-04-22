@@ -1,0 +1,7 @@
+INDEX VERSION 1.4+C:\Conference 2023\Web Technology Workshop\webTechConf2023\Workspace2023\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+2208429442.index
+3562482901.index
+3752705569.index
+312993030.index
+3338524622.index
+824512869.index

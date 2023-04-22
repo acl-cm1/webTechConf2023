@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workingSetManager>
+<workingSet editPageId="org.eclipse.jdt.internal.ui.DynamicSourcesWorkingSet" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1682194663586_0" label="Java Main Sources" name="Java Main Sources">
+<item elementID="=WebClient/SysTemplates" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+<item elementID="=WebClient/src" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+<item elementID="=storeJava/PlexSrc" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+<item elementID="=storeJava/PlexRes" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+<item elementID="=storeJava/WebGenTemplates" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+<item elementID="=storeweb/src\/main\/java" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+</workingSet>
+<workingSet editPageId="org.eclipse.jdt.internal.ui.DynamicSourcesWorkingSet" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1682194663603_1" label="Java Test Sources" name="Java Test Sources"/>
+<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1682194669675_2" label="Window Working Set" name="Aggregate for window 1682194669675"/>
+</workingSetManager>
