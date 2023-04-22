@@ -37,12 +37,12 @@
 		<link>
 			<name>PlexRes</name>
 			<type>2</type>
-			<location>C:/Development/Conferences/2023 Boca Raton/Web Tech Workshop/2023 Plex2E Conference Preparation/Plex/LocalModels/Gen/Src/Res</location>
+			<location>C:/Conference 2023/Web Technology Workshop/webTechConf2023/Plex/LocalModels/Gen/Src/Res</location>
 		</link>
 		<link>
 			<name>PlexSrc</name>
 			<type>2</type>
-			<location>C:/Development/Conferences/2023 Boca Raton/Web Tech Workshop/2023 Plex2E Conference Preparation/Plex/LocalModels/Gen/Src</location>
+			<location>C:/Conference 2023/Web Technology Workshop/webTechConf2023/Plex/LocalModels/Gen/Src</location>
 		</link>
 	</linkedResources>
 </projectDescription>

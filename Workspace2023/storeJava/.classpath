@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="PlexSrc"/>
+	<classpathentry excluding="Res/" kind="src" path="PlexSrc"/>
 	<classpathentry kind="src" path="PlexRes"/>
 	<classpathentry kind="con" path="com.cmfirstgroup.webcomponent/com.adcaustin.webclient"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
