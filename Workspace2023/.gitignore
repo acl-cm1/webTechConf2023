@@ -3,6 +3,7 @@
 *.ear
 *.class
 *.class.web
+*.log
 
 # eclipse specific git ignore
 bin/**
@@ -18,3 +19,4 @@ local.properties
 
 # Locally stored "Eclipse launch configurations"
 *.launch
+/.metadata/
