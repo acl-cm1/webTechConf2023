@@ -5,7 +5,7 @@ Create Java interface classes=0
 [Name configuration]
 Name allocator dll=ObAlcNme.dll
 Truncate long file names at generation=0
-Parameter file=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\store.bld
+Parameter file=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\store.bld
 
 [Name allocation]
 Enabled=1
@@ -72,9 +72,9 @@ TraceProgrammerNotes=on
 
 [C#Fnc]
 desc=Windows C# function
-sourcedir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
-16targetdir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\Plex\LocalModels\Gen
-32targetdir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+sourcedir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+16targetdir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+32targetdir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 sourceext=cs
 objectext=dll
 OS400obj=0
@@ -89,9 +89,9 @@ objectlib=
 
 [WinCFnc]
 desc=Windows C++ function
-sourcedir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
-16targetdir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\Plex\LocalModels\Gen
-32targetdir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+sourcedir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+16targetdir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+32targetdir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 sourceext=cpp
 objectext=obj
 OS400obj=0
@@ -106,7 +106,7 @@ Javaobj=
 
 [WinCPnl]
 desc=Windows panel
-sourcedir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+sourcedir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 sourceext=rc
 objectext=res
 OS400obj=0
@@ -118,12 +118,12 @@ sourcefile=
 sharename=
 objectlib=
 Javaobj=
-16targetdir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\Plex\LocalModels\Gen
-32targetdir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+16targetdir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+32targetdir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 
 [WinCRpt]
 desc=Windows report
-sourcedir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+sourcedir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 sourceext=rc
 objectext=res
 OS400obj=0
@@ -135,13 +135,13 @@ sourcefile=
 sharename=
 objectlib=
 Javaobj=
-16targetdir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\Plex\LocalModels\Gen
-32targetdir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+16targetdir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+32targetdir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 
 [WinNTCFnc]
 desc=Windows NT C++ function
-sourcedir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
-targetdir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+sourcedir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+targetdir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 sourceext=cpp
 objectext=obj
 OS400obj=0
@@ -156,7 +156,7 @@ Javaobj=
 
 [JavaFnc]
 desc=Java function
-sourcedir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+sourcedir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 sourceext=java
 objectext=class
 OS400obj=0
@@ -168,12 +168,12 @@ sourcelib=
 sourcefile=
 sharename=
 objectlib=
-16targetdir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\Plex\LocalModels\Gen
-32targetdir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+16targetdir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+32targetdir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 
 [ODBCTbl]
 desc=ODBC Table
-sourcedir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+sourcedir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 sourceext=tbl
 OS400obj=0
 HPUXobj=0
@@ -185,12 +185,12 @@ sharename=
 objectlib=
 objectext=
 Javaobj=
-16targetdir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\Plex\LocalModels\Gen
-32targetdir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+16targetdir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+32targetdir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 
 [ODBCVw]
 desc=ODBC View
-sourcedir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+sourcedir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 sourceext=viw
 OS400obj=0
 HPUXobj=0
@@ -202,12 +202,12 @@ sharename=
 objectlib=
 objectext=
 Javaobj=
-16targetdir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\Plex\LocalModels\Gen
-32targetdir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+16targetdir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+32targetdir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 
 [ODBCWinNTTbl]			
 desc=ODBCWinNT Table
-sourcedir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+sourcedir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 sourceext=tbl
 OS400obj=0
 HPUXobj=0
@@ -219,11 +219,11 @@ sourcefile=
 objectlib=
 objectext=
 Javaobj=
-targetdir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+targetdir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 
 [ODBCWinNTVw]			
 desc=ODBCWinNT View
-sourcedir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+sourcedir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 sourceext=viw
 OS400obj=0
 HPUXobj=0
@@ -235,11 +235,11 @@ sourcefile=
 objectlib=
 objectext=
 Javaobj=
-targetdir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+targetdir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 
 [OracleWinNTTbl]			
 desc=OracleWinNT Table
-sourcedir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+sourcedir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 sourceext=tbl
 OS400obj=0
 HPUXobj=0
@@ -251,11 +251,11 @@ sourcefile=
 objectlib=
 objectext=
 Javaobj=
-targetdir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+targetdir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 
 [OracleWinNTVw]			
 desc=OracleWinNT View
-sourcedir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+sourcedir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 sourceext=viw
 OS400obj=0
 HPUXobj=0
@@ -267,11 +267,11 @@ sourcefile=
 objectlib=
 objectext=
 Javaobj=
-targetdir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+targetdir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 
 [OracleTbl]
 desc=Oracle Table
-sourcedir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+sourcedir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 sourceext=tbl
 OS400obj=0
 HPUXobj=1
@@ -286,7 +286,7 @@ Javaobj=
 
 [OracleVw]
 desc=Oracle View
-sourcedir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+sourcedir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 sourceext=viw
 OS400obj=0
 HPUXobj=1
@@ -301,7 +301,7 @@ Javaobj=
 
 [JDBCTbl]
 desc=JDBC Table
-sourcedir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+sourcedir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 sourceext=tbl
 OS400obj=0
 HPUXobj=0
@@ -313,12 +313,12 @@ sourcefile=
 sharename=
 objectlib=
 objectext=
-16targetdir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\Plex\LocalModels\Gen
-32targetdir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+16targetdir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+32targetdir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 
 [JDBCVw]
 desc=JDBC View
-sourcedir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+sourcedir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 sourceext=viw
 OS400obj=0
 HPUXobj=0
@@ -330,12 +330,12 @@ sourcefile=
 sharename=
 objectlib=
 objectext=
-16targetdir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\Plex\LocalModels\Gen
-32targetdir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+16targetdir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+32targetdir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 
 [JDBCOracleTbl]
 desc=JDBCOracle Table
-sourcedir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+sourcedir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 sourceext=tbl
 OS400obj=0
 HPUXobj=0
@@ -347,12 +347,12 @@ sourcefile=
 sharename=
 objectlib=
 objectext=
-16targetdir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\Plex\LocalModels\Gen
-32targetdir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+16targetdir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+32targetdir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 
 [JDBCOracleVw]
 desc=JDBCOracle View
-sourcedir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+sourcedir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 sourceext=viw
 OS400obj=0
 HPUXobj=0
@@ -364,12 +364,12 @@ sourcefile=
 sharename=
 objectlib=
 objectext=
-16targetdir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\Plex\LocalModels\Gen
-32targetdir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+16targetdir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+32targetdir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 
 [RTFTpc]
 desc=Windows help
-sourcedir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+sourcedir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 sourceext=rtf
 objectext=hlp
 OS400obj=0
@@ -381,12 +381,12 @@ sourcefile=
 sharename=
 objectlib=
 Javaobj=
-16targetdir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\Plex\LocalModels\Gen
-32targetdir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+16targetdir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+32targetdir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 
 [UIMTpc]
 desc=System i UIM help
-sourcedir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+sourcedir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 sourceext=uim
 OS400obj=1
 sourcelib=SRCLIB
@@ -401,7 +401,7 @@ Javaobj=
 
 [RPG400Fnc]
 desc=System i RPG400 Function
-sourcedir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+sourcedir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 sourceext=rpg
 OS400obj=1
 sourcelib=SRCLIB
@@ -416,7 +416,7 @@ Javaobj=
 
 [RPG400Pnl]
 desc=System i RPG400 Display file
-sourcedir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+sourcedir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 sourceext=dsp
 OS400obj=1
 sourcelib=SRCLIB
@@ -431,7 +431,7 @@ Javaobj=
 
 [RPG400Rpt]
 desc=System i RPG400 Print file
-sourcedir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+sourcedir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 sourceext=prt
 OS400obj=1
 sourcelib=SRCLIB
@@ -446,7 +446,7 @@ Javaobj=
 
 [RPGIVFnc]
 desc=System i RPGIV Function
-sourcedir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+sourcedir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 sourceext=rp4
 OS400obj=1
 sourcelib=SRCLIB
@@ -461,7 +461,7 @@ Javaobj=
 
 [RPGIVPnl]
 desc=System i RPGIV Display file
-sourcedir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+sourcedir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 sourceext=dsp
 OS400obj=1
 sourcelib=SRCLIB
@@ -476,7 +476,7 @@ Javaobj=
 
 [RPGIVRpt]
 desc=System i RPGIV Print file
-sourcedir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+sourcedir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 sourceext=prt
 OS400obj=1
 sourcelib=SRCLIB
@@ -491,7 +491,7 @@ Javaobj=
 
 [SQLRPG400Fnc]
 desc=System i SQLRPG400 Function
-sourcedir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+sourcedir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 sourceext=srg
 OS400obj=1
 sourcelib=SRCLIB
@@ -506,7 +506,7 @@ Javaobj=
 
 [SQLRPG400Pnl]
 desc=System i SQLRPG400 Display file
-sourcedir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+sourcedir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 sourceext=dsp
 OS400obj=1
 sourcelib=SRCLIB
@@ -521,7 +521,7 @@ Javaobj=
 
 [SQLRPG400Rpt]
 desc=System i SQLRPG400 Print file
-sourcedir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+sourcedir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 sourceext=prt
 OS400obj=1
 sourcelib=SRCLIB
@@ -536,7 +536,7 @@ Javaobj=
 
 [SQLRPGIVFnc]
 desc=System i SQLRPGIV Function
-sourcedir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+sourcedir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 sourceext=sr4
 OS400obj=1
 sourcelib=SRCLIB
@@ -551,7 +551,7 @@ Javaobj=
 
 [SQLRPGIVPnl]
 desc=System i SQLRPGIV Display file
-sourcedir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+sourcedir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 sourceext=dsp
 OS400obj=1
 sourcelib=SRCLIB
@@ -566,7 +566,7 @@ Javaobj=
 
 [SQLRPGIVRpt]
 desc=System i SQLRPGIV Print file
-sourcedir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+sourcedir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 sourceext=prt
 OS400obj=1
 sourcelib=SRCLIB
@@ -581,7 +581,7 @@ Javaobj=
 
 [DDSTbl]
 desc=System i Table
-sourcedir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+sourcedir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 sourceext=tbl
 OS400obj=1
 sourcelib=SRCLIB
@@ -596,7 +596,7 @@ Javaobj=
 
 [DDSVw]
 desc=System i View
-sourcedir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+sourcedir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 sourceext=viw
 OS400obj=1
 sourcelib=SRCLIB
@@ -611,7 +611,7 @@ Javaobj=
 
 [RPG400Msg]
 desc=System i Message file
-sourcedir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+sourcedir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 sourceext=msg
 OS400obj=1
 sourcelib=SRCLIB
@@ -628,7 +628,7 @@ Javaobj=
 
 [RPG400Val]
 desc=System i Value file
-sourcedir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+sourcedir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 sourceext=val
 OS400obj=1
 sourcelib=SRCLIB
@@ -645,7 +645,7 @@ Javaobj=
 
 [ODBCFnc]
 desc=ODBC Database Object
-sourcedir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+sourcedir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 sourceext=dbo
 OS400obj=0
 HPUXobj=0
@@ -657,12 +657,12 @@ sharename=
 objectlib=
 objectext=
 Javaobj=
-16targetdir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\Plex\LocalModels\Gen
-32targetdir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+16targetdir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+32targetdir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 
 [ODBCWinNTFnc]
 desc=ODBCWinNT Database Object
-sourcedir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+sourcedir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 sourceext=dbo
 OS400obj=0
 HPUXobj=0
@@ -674,11 +674,11 @@ sourcefile=
 objectlib=
 objectext=
 Javaobj=
-targetdir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+targetdir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 
 [OracleWinNTFnc]
 desc=OracleWinNT Database Object
-sourcedir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+sourcedir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 sourceext=dbo
 OS400obj=0
 HPUXobj=0
@@ -690,11 +690,11 @@ sourcefile=
 objectlib=
 objectext=
 Javaobj=
-targetdir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+targetdir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 
 [OracleFnc]
 desc=Oracle Database Object
-sourcedir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+sourcedir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 sourceext=dbo
 OS400obj=0
 HPUXobj=1
@@ -709,7 +709,7 @@ Javaobj=
 
 [JDBCFnc]
 desc=JDBC Database Object
-sourcedir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+sourcedir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 sourceext=dbo
 OS400obj=0
 HPUXobj=0
@@ -721,8 +721,8 @@ sourcefile=
 sharename=
 objectlib=
 objectext=
-16targetdir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\Plex\LocalModels\Gen
-32targetdir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+16targetdir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+32targetdir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 
 [Environment]
 Resource Directory=C:\ProgramData\CA\Plex\7.2.1\BMP3
@@ -962,7 +962,7 @@ Usr Link Opt Debug=
 Usr Post Bld Cmd Debug=
 
 [WebSourceHTM]
-sourcedir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+sourcedir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 sourceext=htm
 desc=Web HTML source
 os400obj=0
@@ -975,11 +975,11 @@ objectlib=
 objectext=
 Javaobj=
 CSharpobj=
-16targetdir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\Plex\LocalModels\Gen
-32targetdir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+16targetdir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+32targetdir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 
 [WebSourceWML]
-sourcedir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+sourcedir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 sourceext=wml
 desc=Web WML source
 os400obj=0
@@ -992,8 +992,8 @@ objectlib=
 objectext=
 Javaobj=
 CSharpobj=
-16targetdir=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\Plex\LocalModels\Gen
-32targetdir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+16targetdir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+32targetdir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 
 [WebSourceXMLx]
 sourcedir=c:\GEN\XML
@@ -1015,9 +1015,9 @@ Header=
 [Java Client Properties File]
 Default Location=C:\ProgramData\CA\Plex\7.2.1\OBJAVA
 [Group Model Paths]
-C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\Plex\LocalModels\store.mdl=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\Plex\GroupModels\Store
+C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\store.mdl=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\Plex\GroupModels\Store
 C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\LocalModels\store.mdl=C:\Development\Conferences\2023 Boca Raton\Web Tech Workshop\2023 Plex2E Conference Preparation\Plex\GroupModels\Store
-C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\store.mdl=
+C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\store.mdl=
 [WebSourceXML]
 sourcedir=
 sourcelib=
@@ -1573,9 +1573,9 @@ System 6=
 [Impact Analysis]
 Log list name=
 [Defaults]
-Directory=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
-32targetdir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
-targetdir=C:\Conference 2023\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+Directory=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+32targetdir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
+targetdir=C:\Conference 2023 Workshops\Web Technology Workshop\webTechConf2023\Plex\LocalModels\Gen
 SourceLibrary=SRCLIB
 ObjectLibrary=OBJLIB
 NtdirSharename=NTGEN
